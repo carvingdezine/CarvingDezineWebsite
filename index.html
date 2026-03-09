@@ -1112,7 +1112,7 @@ h2 .whu{display:inline}
       </select>
     </div>
     <button class="fsub" id="fsub">Send Message <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-    <div class="fok" id="fok">✓ Message sent — we'll reply within 24 hours.</div>
+    <div class="fok" id="fok">✓ Message sent! We'll get back to you within 24 hours.</div>
     <div class="ftrust"><span class="ftrust-i">Reply within 24h</span><span class="ftrust-i">Free consultation</span><span class="ftrust-i">No spam</span></div>
   </div>
 </section>
@@ -1630,11 +1630,47 @@ renderGrid('all');
 document.getElementById('fsub').addEventListener('click',function(){
   var n=document.getElementById('fn').value.trim();
   var e=document.getElementById('fe').value.trim();
+  var s=document.getElementById('fs').value;
+  var m=document.getElementById('fm').value.trim();
+  var b=document.getElementById('fb').value;
   function shake(id){var el=document.getElementById(id);el.style.borderBottom='1px solid var(--red)';el.focus();setTimeout(function(){el.style.borderBottom=''},2500)}
   if(!n){shake('fn');return}
   if(!e||!e.includes('@')){shake('fe');return}
-  var btn=this;btn.textContent='Sending…';btn.disabled=true;
-  setTimeout(function(){btn.style.display='none';document.getElementById('fok').style.display='block'},1400);
+  if(!m){shake('fm');return}
+  var btn=this;
+  btn.textContent='Sending…';btn.disabled=true;
+  fetch('https://formspree.io/f/mpqyqjzp',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      name:n,
+      email:e,
+      service:s||'Not specified',
+      message:m,
+      budget:b||'Not specified',
+      _subject:'New enquiry from '+n+' — Carving Dezine'
+    })
+  })
+  .then(function(r){return r.json()})
+  .then(function(data){
+    if(data.ok){
+      btn.style.display='none';
+      document.getElementById('fok').style.display='block';
+      // Clear fields
+      ['fn','fe','fm'].forEach(function(id){document.getElementById(id).value=''});
+      document.getElementById('fs').value='';
+      document.getElementById('fb').value='';
+    } else {
+      btn.textContent='Send Message ↗';btn.disabled=false;
+      btn.style.background='rgba(255,42,42,.4)';
+      setTimeout(function(){btn.style.background=''},3000);
+    }
+  })
+  .catch(function(){
+    btn.textContent='Send Message ↗';btn.disabled=false;
+    btn.style.background='rgba(255,42,42,.4)';
+    setTimeout(function(){btn.style.background=''},3000);
+  });
 });
 
 // ─────────────────────────────────────────
