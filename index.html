@@ -392,7 +392,7 @@ input,textarea,select{font-family:var(--f)}
 .pnode.lit .pn-num{color:var(--red)}
 .pn-icon{font-size:18px;filter:grayscale(1);opacity:.4;transition:filter .5s,opacity .5s}
 .pnode.lit .pn-icon{filter:none;opacity:1}
-.pn-label{font-size:15px;font-weight:700;letter-spacing:.01em;text-align:center}
+.pn-label{text-transform:uppercase;font-size:15px;font-weight:700;letter-spacing:.01em;text-align:center}
 .pn-desc{font-size:13px;font-weight:300;line-height:1.75;color:rgba(255,255,255,.68);text-align:center;max-width:155px}
 
 /* ═══════════════════════════════════
@@ -412,7 +412,7 @@ input,textarea,select{font-family:var(--f)}
 .svc-icon{width:44px;height:44px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:border-color .3s,background .3s;font-size:20px}
 .svc:hover .svc-icon{border-color:var(--red);background:rgba(255,42,42,.08)}
 /* WORD HOVER UNDERLINE on service names */
-.svc-name{
+.svc-name{text-transform:uppercase;
   font-size:clamp(16px,1.8vw,22px);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px;
   display:inline-block;position:relative;
 }
@@ -777,6 +777,130 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 }
 .pgrid-arr:hover{border-color:var(--red);color:var(--white);background:rgba(255,42,42,.08)}
 .pgrid-arr svg{width:14px;height:14px}
+
+/* ── TESTIMONIALS ─────────────────────────────── */
+#testimonials{border-top:1px solid var(--line)}
+.tm-row{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  align-items:start;
+  gap:0;
+  border-bottom:1px solid var(--line);
+  padding:clamp(28px,4vw,52px) clamp(20px,4vw,52px);
+  transition:background .2s;
+  position:relative;
+}
+.tm-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:2px;background:var(--red);
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .4s var(--ease);
+}
+.tm-row:hover{background:var(--g1)}
+.tm-row:hover::before{transform:scaleY(1)}
+.tm-idx{
+  font-family:var(--m);font-size:11px;letter-spacing:.14em;
+  color:var(--muted2);padding-top:4px;
+}
+.tm-body{padding:0 clamp(20px,3vw,52px) 0 0}
+.tm-text{
+  font-size:clamp(16px,1.6vw,22px);font-weight:500;
+  line-height:1.6;color:rgba(255,255,255,.88);
+  margin-bottom:20px;
+}
+.tm-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tm-name{
+  font-family:var(--m);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--white);
+}
+.tm-sep{color:var(--line);font-size:12px}
+.tm-role{
+  font-family:var(--m);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+}
+.tm-platform{
+  font-family:var(--m);font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;
+  border:1px solid var(--line);padding:3px 8px;
+  color:var(--muted2);
+}
+.tm-stars{
+  display:flex;gap:2px;align-self:flex-start;padding-top:4px;flex-shrink:0;
+}
+.tm-star{color:var(--red);font-size:11px;line-height:1}
+@media(max-width:640px){
+  .tm-row{grid-template-columns:44px 1fr auto;gap:0}
+  .tm-text{font-size:15px}
+}
+
+/* ── TESTIMONIALS ─────────────────────────────── */
+#testimonials{border-top:1px solid var(--line)}
+.tm-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);
+}
+.tm-cell{
+  padding:clamp(28px,4vw,48px) clamp(22px,3vw,40px);
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:20px;
+  position:relative;
+}
+.tm-cell:last-child{border-right:none}
+.tm-open{
+  font-size:40px;line-height:1;
+  color:var(--red);opacity:.5;
+  font-family:Georgia,serif;
+  margin-bottom:-6px;
+  user-select:none;
+}
+.tm-quote{
+  font-size:15px;line-height:1.95;
+  color:rgba(255,255,255,.70);
+  flex:1;
+}
+.tm-byline{
+  border-top:1px solid var(--line);
+  padding-top:16px;
+  display:flex;flex-direction:column;gap:3px;
+}
+.tm-name{
+  font-size:14px;font-weight:600;
+  color:rgba(255,255,255,.88);letter-spacing:.01em;
+}
+.tm-role{
+  font-family:var(--m);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.38);
+}
+.tm-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(20px,4vw,52px);
+  border-top:1px solid var(--line);
+}
+.tm-pager{
+  font-family:var(--m);font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted2);
+}
+.tm-arrows{display:flex;gap:2px}
+.tm-arr{
+  width:36px;height:36px;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;background:transparent;
+  color:rgba(255,255,255,.45);
+  transition:border-color .2s,background .2s,color .2s;
+}
+.tm-arr:hover{border-color:var(--red);color:var(--white);background:rgba(255,42,42,.08)}
+.tm-arr:disabled{opacity:.2;cursor:default;pointer-events:none}
+.tm-arr svg{width:14px;height:14px}
+@media(max-width:900px){
+  .tm-grid{grid-template-columns:1fr 1fr}
+  .tm-cell:nth-child(2){border-right:none}
+  .tm-cell:nth-child(3){display:none}
+}
+@media(max-width:560px){
+  .tm-grid{grid-template-columns:1fr}
+  .tm-cell:nth-child(2),.tm-cell:nth-child(3){display:none}
+}
 </style>
 </head>
 <body>
@@ -891,6 +1015,48 @@ h2 .whu{display:inline-block;vertical-align:bottom}
         <div class="pj-list" id="pj-list"></div>
       </div>
 
+
+      <!-- TESTIMONIALS -->
+      <div class="adm-pnl" id="p-testimonials">
+        <div class="adm-st">Testimonials</div>
+        <div class="adm-hint">Add client quotes here — they appear in the <strong>Testimonials</strong> section on the site. Add as many as you like; they display as a horizontal scroll strip.</div>
+
+        <!-- ADD FORM -->
+        <div class="adm-g" id="tm-form-wrap">
+          <div class="adm-f full"><label class="adm-l">Quote *</label>
+            <textarea class="adm-ta" id="tm-q" style="height:100px" placeholder="What the client said…"></textarea>
+          </div>
+          <div class="adm-f"><label class="adm-l">Client Name *</label>
+            <input class="adm-in" id="tm-n" placeholder="e.g. Arjun Mehta"/>
+          </div>
+          <div class="adm-f"><label class="adm-l">Role / Title</label>
+            <input class="adm-in" id="tm-r" placeholder="e.g. Founder"/>
+          </div>
+          <div class="adm-f"><label class="adm-l">Company</label>
+            <input class="adm-in" id="tm-c" placeholder="e.g. Mobcast"/>
+          </div>
+          <div class="adm-f"><label class="adm-l">Rating (1–5 stars)</label>
+            <select class="adm-sl" id="tm-s">
+              <option value="5">★★★★★ 5 stars</option>
+              <option value="4">★★★★☆ 4 stars</option>
+              <option value="3">★★★☆☆ 3 stars</option>
+            </select>
+          </div>
+          <div class="adm-f"><label class="adm-l">Platform / Source</label>
+            <input class="adm-in" id="tm-p" placeholder="e.g. Google, LinkedIn, Upwork"/>
+          </div>
+        </div>
+        <button class="adm-btn" id="tm-save">Add Testimonial</button>
+        <div class="adm-ok" id="tm-ok">✓ TESTIMONIAL SAVED.</div>
+        <div class="adm-err" id="tm-err"></div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:32px 0"/>
+
+        <!-- LIST -->
+        <div class="adm-st" style="font-size:16px;margin-bottom:12px">All Testimonials</div>
+        <div id="tm-list"></div>
+      </div>
+
       <!-- SETTINGS -->
       <div class="adm-pnl" id="p-settings">
         <div class="adm-st">Settings</div>
@@ -959,8 +1125,9 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <span>Carving Dezine</span>
   </div>
   <ul class="nav-links">
-    <li><a href="#work">Work</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -1031,25 +1198,25 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     </div>
     <div class="svc rv" style="transition-delay:0.08s">
       <div class="svc-n">02</div><div class="svc-icon">◈</div>
-      <div class="svc-name">Brand Identity</div>
+      <div class="svc-name">BRAND IDENTITY</div>
       <div class="svc-body">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</div>
       <div class="svc-tags"><span class="svc-tag">Logo Design</span><span class="svc-tag">Brand System</span><span class="svc-tag">Style Guide</span></div>
     </div>
     <div class="svc rv" style="transition-delay:0.16s">
       <div class="svc-n">03</div><div class="svc-icon">▣</div>
-      <div class="svc-name">Presentation Design</div>
+      <div class="svc-name">PRESENTATION DESIGN</div>
       <div class="svc-body">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</div>
       <div class="svc-tags"><span class="svc-tag">Pitch Decks</span><span class="svc-tag">Keynote</span><span class="svc-tag">PowerPoint</span></div>
     </div>
     <div class="svc rv" style="transition-delay:0.24s">
       <div class="svc-n">04</div><div class="svc-icon">▦</div>
-      <div class="svc-name">Print &amp; Marketing</div>
+      <div class="svc-name">PRINT &amp; MARKETING</div>
       <div class="svc-body">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</div>
       <div class="svc-tags"><span class="svc-tag">Brochures</span><span class="svc-tag">Catalogues</span><span class="svc-tag">Annual Reports</span></div>
     </div>
     <div class="svc rv" style="transition-delay:0.32s">
       <div class="svc-n">05</div><div class="svc-icon" style="font-size:16px">⟡</div>
-      <div class="svc-name">Interactive Web</div>
+      <div class="svc-name">INTERACTIVE WEB</div>
       <div class="svc-body">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</div>
       <div class="svc-tags"><span class="svc-tag">WebGL</span><span class="svc-tag">Motion Design</span><span class="svc-tag">Front-end</span><span class="svc-tag">GSAP</span></div>
     </div>
@@ -1121,32 +1288,32 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <!-- TRACK: UX / UI & Web — 5 steps -->
     <div class="proc-track on" id="proc-track-ux">
       <div class="proc-nodes" id="proc-nodes-ux">
-        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">🔍</div></div><div class="pn-num">01</div><div class="pn-label">Discover</div><div class="pn-desc">Briefs, audits &amp; stakeholder alignment before touching a tool.</div></div>
-        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🧭</div></div><div class="pn-num">02</div><div class="pn-label">Strategy</div><div class="pn-desc">Personas, journey maps &amp; creative direction grounded in data.</div></div>
-        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">✏️</div></div><div class="pn-num">03</div><div class="pn-label">Design</div><div class="pn-desc">Wireframes to high-fidelity systems built to scale.</div></div>
-        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🔁</div></div><div class="pn-num">04</div><div class="pn-label">Refine</div><div class="pn-desc">Real testing, honest loops, courage to restart smarter.</div></div>
-        <div class="pnode" data-i="4"><div class="pc-circle"><div class="pn-icon">🚀</div></div><div class="pn-num">05</div><div class="pn-label">Deliver</div><div class="pn-desc">Developer-ready handoff, motion specs &amp; documentation.</div></div>
+        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">🔍</div></div><div class="pn-num">01</div><div class="pn-label">DISCOVER</div><div class="pn-desc">Briefs, audits &amp; stakeholder alignment before touching a tool.</div></div>
+        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🧭</div></div><div class="pn-num">02</div><div class="pn-label">STRATEGY</div><div class="pn-desc">Personas, journey maps &amp; creative direction grounded in data.</div></div>
+        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">✏️</div></div><div class="pn-num">03</div><div class="pn-label">DESIGN</div><div class="pn-desc">Wireframes to high-fidelity systems built to scale.</div></div>
+        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🔁</div></div><div class="pn-num">04</div><div class="pn-label">REFINE</div><div class="pn-desc">Real testing, honest loops, courage to restart smarter.</div></div>
+        <div class="pnode" data-i="4"><div class="pc-circle"><div class="pn-icon">🚀</div></div><div class="pn-num">05</div><div class="pn-label">DELIVER</div><div class="pn-desc">Developer-ready handoff, motion specs &amp; documentation.</div></div>
       </div>
     </div>
 
     <!-- TRACK: Brand Identity — 5 steps -->
     <div class="proc-track" id="proc-track-brand">
       <div class="proc-nodes" id="proc-nodes-brand">
-        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">💬</div></div><div class="pn-num">01</div><div class="pn-label">Listen</div><div class="pn-desc">Deep-dive into brand story, audience, competitors &amp; ambitions.</div></div>
-        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🎯</div></div><div class="pn-num">02</div><div class="pn-label">Position</div><div class="pn-desc">Define voice, values &amp; the single idea the brand must own.</div></div>
-        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">🎨</div></div><div class="pn-num">03</div><div class="pn-label">Concept</div><div class="pn-desc">3 distinct directions — moodboards, mark explorations, colour systems.</div></div>
-        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🔬</div></div><div class="pn-num">04</div><div class="pn-label">Develop</div><div class="pn-desc">Chosen direction refined across every touchpoint until it holds.</div></div>
-        <div class="pnode" data-i="4"><div class="pc-circle"><div class="pn-icon">📐</div></div><div class="pn-num">05</div><div class="pn-label">System</div><div class="pn-desc">Brand guidelines, asset library &amp; usage rules built to last.</div></div>
+        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">💬</div></div><div class="pn-num">01</div><div class="pn-label">LISTEN</div><div class="pn-desc">Deep-dive into brand story, audience, competitors &amp; ambitions.</div></div>
+        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🎯</div></div><div class="pn-num">02</div><div class="pn-label">POSITION</div><div class="pn-desc">Define voice, values &amp; the single idea the brand must own.</div></div>
+        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">🎨</div></div><div class="pn-num">03</div><div class="pn-label">CONCEPT</div><div class="pn-desc">3 distinct directions — moodboards, mark explorations, colour systems.</div></div>
+        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🔬</div></div><div class="pn-num">04</div><div class="pn-label">DEVELOP</div><div class="pn-desc">Chosen direction refined across every touchpoint until it holds.</div></div>
+        <div class="pnode" data-i="4"><div class="pc-circle"><div class="pn-icon">📐</div></div><div class="pn-num">05</div><div class="pn-label">SYSTEM</div><div class="pn-desc">Brand guidelines, asset library &amp; usage rules built to last.</div></div>
       </div>
     </div>
 
     <!-- TRACK: Print & Marketing — 4 steps -->
     <div class="proc-track" id="proc-track-print">
       <div class="proc-nodes" id="proc-nodes-print">
-        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">📋</div></div><div class="pn-num">01</div><div class="pn-label">Brief</div><div class="pn-desc">Objectives, formats, print specs &amp; distribution context locked down first.</div></div>
-        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🗂️</div></div><div class="pn-num">02</div><div class="pn-label">Layout</div><div class="pn-desc">Grid, hierarchy &amp; visual flow — crafted for the reader, not just the eye.</div></div>
-        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">✅</div></div><div class="pn-num">03</div><div class="pn-label">Review</div><div class="pn-desc">Proofing rounds with print-accurate colour &amp; bleed-ready previews.</div></div>
-        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🖨️</div></div><div class="pn-num">04</div><div class="pn-label">Output</div><div class="pn-desc">Press-ready files, digital formats &amp; vendor liaison if needed.</div></div>
+        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">📋</div></div><div class="pn-num">01</div><div class="pn-label">BRIEF</div><div class="pn-desc">Objectives, formats, print specs &amp; distribution context locked down first.</div></div>
+        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🗂️</div></div><div class="pn-num">02</div><div class="pn-label">LAYOUT</div><div class="pn-desc">Grid, hierarchy &amp; visual flow — crafted for the reader, not just the eye.</div></div>
+        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">✅</div></div><div class="pn-num">03</div><div class="pn-label">REVIEW</div><div class="pn-desc">Proofing rounds with print-accurate colour &amp; bleed-ready previews.</div></div>
+        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🖨️</div></div><div class="pn-num">04</div><div class="pn-label">OUTPUT</div><div class="pn-desc">Press-ready files, digital formats &amp; vendor liaison if needed.</div></div>
       </div>
     </div>
 
@@ -1211,6 +1378,27 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     </div>
   </div>
 </div>
+
+
+<!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
+<section id="testimonials">
+  <div class="s-hd rv"><span class="sec-tag">Kind Words</span><span class="sec-ct" id="tm-ct"></span></div>
+  <div class="tm-grid" id="tm-grid"><!-- populated by JS --></div>
+  <div class="tm-nav">
+    <span class="tm-pager" id="tm-pager"></span>
+    <div class="tm-arrows">
+      <button class="tm-arr" id="tm-prev" aria-label="Previous" disabled>
+        <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="tm-arr" id="tm-next" aria-label="Next">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="tm-empty" style="display:none;padding:40px clamp(20px,4vw,52px);font-family:var(--m);font-size:10px;letter-spacing:.1em;color:var(--muted2)">
+    No testimonials yet. <a href="/#admin" style="color:var(--red)">Add some →</a>
+  </div>
+</section>
 
 <!-- ═══════════════════ CONTACT ═══════════════════ -->
 <section id="contact">
@@ -1309,11 +1497,13 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 // ─────────────────────────────────────────
 // STORAGE & CONSTANTS
 // ─────────────────────────────────────────
-var DEFPWD='carving2024',PWKEY='cd_pw',PJKEY='cd_pj';
+var DEFPWD='carving2024',PWKEY='cd_pw',PJKEY='cd_pj',TMKEY='cd_tm';
 var BEH_KEY='cd_beh',DRB_KEY='cd_drb',TTL=3600000;
 function gPwd(){return localStorage.getItem(PWKEY)||DEFPWD}
 function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
 function sPj(a){localStorage.setItem(PJKEY,JSON.stringify(a))}
+function gTm(){try{return JSON.parse(localStorage.getItem(TMKEY))||[]}catch(e){return[]}}
+function sTm(a){localStorage.setItem(TMKEY,JSON.stringify(a))}
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
 
 // Seed projects — always visible, never duplicated
@@ -2228,6 +2418,116 @@ updateBackupStatus();
         .catch(function(){});
     });
 })();
+
+// ─────────────────────────────────────────
+// TESTIMONIALS
+// ─────────────────────────────────────────
+var TM_SEEDS=[];
+
+function getAllTestimonials(){
+  var user=gTm();
+  var userIds=user.map(function(t){return t.id});
+  var seeds=TM_SEEDS.filter(function(t){return userIds.indexOf(t.id)===-1});
+  return user.concat(seeds);
+}
+
+function mkTmCard(t){
+  var role=[t.role,t.company].filter(Boolean).join(' · ');
+  return '<div class="tm-cell">'
+    +'<div class="tm-open">&ldquo;</div>'
+    +'<div class="tm-quote">'+t.quote+'</div>'
+    +'<div class="tm-byline">'
+    +'<div class="tm-name">'+t.name+'</div>'
+    +(role?'<div class="tm-role">'+role+'</div>':'')
+    +'</div></div>';
+}
+
+var tmPage=0,TM_PER=3;
+function renderTestimonials(){
+  var all=getAllTestimonials();
+  var grid=document.getElementById('tm-grid');
+  var empty=document.getElementById('tm-empty');
+  var ct=document.getElementById('tm-ct');
+  var pager=document.getElementById('tm-pager');
+  var prevBtn=document.getElementById('tm-prev');
+  var nextBtn=document.getElementById('tm-next');
+  if(!grid)return;
+  if(!all.length){grid.innerHTML='';if(empty)empty.style.display='block';return}
+  if(empty)empty.style.display='none';
+  var pages=Math.ceil(all.length/TM_PER);
+  if(tmPage>=pages)tmPage=pages-1;
+  if(tmPage<0)tmPage=0;
+  var slice=all.slice(tmPage*TM_PER, tmPage*TM_PER+TM_PER);
+  // pad to 3 so grid stays full
+  while(slice.length<TM_PER)slice.push(null);
+  grid.innerHTML=slice.map(function(t){return t?mkTmCard(t):'<div class="tm-cell" style="opacity:0;pointer-events:none"></div>'}).join('');
+  if(ct)ct.textContent=all.length+(all.length===1?' review':' reviews');
+  if(pager)pager.textContent=(tmPage+1)+' / '+pages;
+  if(prevBtn)prevBtn.disabled=(tmPage===0);
+  if(nextBtn)nextBtn.disabled=(tmPage>=pages-1);
+  grid.querySelectorAll('.tm-cell').forEach(function(c){rvObs.observe(c)});
+}
+// Arrow listeners
+(function(){
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#tm-prev')){tmPage--;renderTestimonials()}
+    if(e.target.closest('#tm-next')){tmPage++;renderTestimonials()}
+  });
+})();
+renderTestimonials();
+
+// Admin — save testimonial
+var tmSaveBtn=document.getElementById('tm-save');
+if(tmSaveBtn)tmSaveBtn.addEventListener('click',function(){
+  var q=(document.getElementById('tm-q').value||'').trim();
+  var n=(document.getElementById('tm-n').value||'').trim();
+  var r=(document.getElementById('tm-r').value||'').trim();
+  var c=(document.getElementById('tm-c').value||'').trim();
+  var s=parseInt(document.getElementById('tm-s').value)||5;
+  var p=(document.getElementById('tm-p').value||'').trim();
+  var err=document.getElementById('tm-err');
+  var ok=document.getElementById('tm-ok');
+  if(!q||!n){err.textContent='Quote and name are required.';err.style.display='block';return}
+  err.style.display='none';
+  var t={id:'tm_'+Date.now(),quote:q,name:n,role:r,company:c,stars:s,platform:p};
+  var arr=gTm();arr.unshift(t);sTm(arr);
+  renderTestimonials();renderTmList();
+  document.getElementById('tm-q').value='';
+  document.getElementById('tm-n').value='';
+  document.getElementById('tm-r').value='';
+  document.getElementById('tm-c').value='';
+  document.getElementById('tm-p').value='';
+  ok.style.display='block';setTimeout(function(){ok.style.display='none'},2500);
+});
+
+function renderTmList(){
+  var list=document.getElementById('tm-list');
+  if(!list)return;
+  var arr=gTm();
+  if(!arr.length){list.innerHTML='<p style="font-family:var(--m);font-size:10px;color:var(--muted2);letter-spacing:.1em">No user-added testimonials yet. Seed testimonials (above) are always shown.</p>';return}
+  list.innerHTML=arr.map(function(t){
+    return '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)">'
+      +'<div><div style="font-size:13px;font-weight:600;margin-bottom:3px">'+t.name+(t.company?' · <span style="color:var(--muted2)">'+t.company+'</span>':'')+'</div>'
+      +'<div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.08em;margin-bottom:6px">'+(t.role||'')+'</div>'
+      +'<div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;max-width:480px">'+t.quote.substring(0,140)+(t.quote.length>140?'…':'')+'</div></div>'
+      +'<button class="adm-btn del" style="flex-shrink:0;padding:7px 14px;font-size:9px" data-dtm="'+t.id+'">Delete</button>'
+      +'</div>';
+  }).join('');
+  list.querySelectorAll('[data-dtm]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(!confirm('Delete this testimonial?'))return;
+      sTm(gTm().filter(function(t){return t.id!==btn.dataset.dtm}));
+      renderTestimonials();renderTmList();
+    });
+  });
+}
+
+// Render list when Testimonials tab opened
+document.querySelectorAll('.adm-ni').forEach(function(it){
+  it.addEventListener('click',function(){
+    if(it.dataset.p==='testimonials')renderTmList();
+  });
+});
 
 </script>
 </body>
