@@ -171,9 +171,9 @@ input,textarea,select{font-family:var(--f)}
 }
 .hwi.vis{transform:translateY(0);opacity:1}
 /* WORD HOVER UNDERLINE on hero headline words */
-.hwi{position:relative;display:inline-block}
+.hwi{position:relative;display:inline-block;isolation:isolate}
 .hwi::after{
-  content:'';position:absolute;bottom:4px;left:0;right:0;height:5px;
+  content:'';position:absolute;bottom:0;left:0;right:0;height:5px;
   background:var(--red);transform:scaleX(0);transform-origin:left;
   transition:transform .3s var(--ease);pointer-events:none;
 }
@@ -286,9 +286,10 @@ input,textarea,select{font-family:var(--f)}
 .filter-row{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
 .filter-row::-webkit-scrollbar{display:none}
 .fbtn{
-  flex-shrink:0;min-width:120px;padding:13px 0;
-  font-family:var(--m);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  flex-shrink:0;padding:16px 28px;
+  font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   border-right:1px solid var(--line);color:var(--muted);transition:background .2s,color .2s;
+  white-space:nowrap;
 }
 .fbtn:last-child{border-right:none}
 .fbtn:hover{color:var(--white)}
@@ -301,7 +302,6 @@ input,textarea,select{font-family:var(--f)}
   border-right:1px solid var(--line);border-bottom:1px solid var(--line);
   transition:background .3s;
 }
-.pc:nth-child(4n){border-right:none}
 .pc:hover{background:var(--g2)}
 .pc-img{overflow:hidden;aspect-ratio:3/2;background:var(--g2)}
 .pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .75s var(--ease);display:block}
@@ -335,12 +335,8 @@ input,textarea,select{font-family:var(--f)}
   padding:clamp(80px,12vw,160px) clamp(20px,4vw,52px);
   border-bottom:1px solid var(--line);overflow:hidden;position:relative;
 }
-#carve::before{
-  content:'';position:absolute;top:50%;left:-200%;right:200%;height:1px;background:var(--red);opacity:.7;
-  transition:left 1.4s var(--ease2),right 1.4s var(--ease2);
-}
-#carve.carved::before{left:-4%;right:-4%}
 .carve-h{
+  text-transform:uppercase;
   font-size:clamp(28px,5vw,76px);font-weight:700;letter-spacing:-.035em;line-height:1.08;
   clip-path:inset(0 100% 0 0);transition:clip-path 1.5s var(--ease2) .35s;
 }
@@ -348,10 +344,10 @@ input,textarea,select{font-family:var(--f)}
 .carve-h em{font-style:normal;color:var(--red)}
 /* WORD HOVER UNDERLINE on carve text */
 .carve-h .wh{
-  display:inline;position:relative;
+  display:inline-block;position:relative;vertical-align:bottom;
 }
 .carve-h .wh::after{
-  content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
   background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);
 }
 .carve-h .wh:hover::after{transform:scaleX(1)}
@@ -362,6 +358,20 @@ input,textarea,select{font-family:var(--f)}
    PROCESS — NODE DIAGRAM
 ═══════════════════════════════════ */
 #process{border-bottom:1px solid var(--line)}
+.proc-tabs{
+  display:flex;border-bottom:1px solid var(--line);
+}
+.proc-tab{
+  flex-shrink:0;padding:13px 28px;
+  font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  border-right:1px solid var(--line);color:var(--muted);
+  transition:background .2s,color .2s;white-space:nowrap;
+}
+.proc-tab:last-child{border-right:none}
+.proc-tab:hover{color:var(--white)}
+.proc-tab.on{background:var(--red);color:var(--white)}
+.proc-track{display:none}
+.proc-track.on{display:block}
 .proc-wrap{padding:clamp(60px,8vw,110px) clamp(20px,4vw,52px);position:relative;overflow:hidden}
 .proc-nodes{display:flex;align-items:flex-start;justify-content:space-between;max-width:1080px;margin:0 auto;position:relative}
 .proc-line{position:absolute;top:32px;height:1px;background:var(--line);z-index:0;overflow:hidden}
@@ -419,7 +429,7 @@ input,textarea,select{font-family:var(--f)}
 .abt-l{border-right:1px solid var(--line);background:var(--g1);padding:clamp(40px,6vw,72px) clamp(24px,4vw,52px);display:flex;flex-direction:column;justify-content:space-between}
 .abt-logo{width:48px;height:48px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,.1);padding:8px;filter:invert(1);opacity:.75}
 /* WORD HOVER on about philosophy */
-.abt-q{font-size:clamp(26px,3.8vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+.abt-q{font-size:clamp(26px,3.8vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.05;text-transform:uppercase}
 .abt-q em{font-style:normal;color:var(--red)}
 .abt-links{display:flex;flex-direction:column}
 .abt-lnk{
@@ -500,8 +510,8 @@ input,textarea,select{font-family:var(--f)}
 .clos-eye{font-family:var(--m);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
 /* WORD HOVER UNDERLINE on closing heading */
 .clos-h{font-size:clamp(38px,6.5vw,96px);font-weight:900;letter-spacing:-.045em;line-height:.92;text-transform:uppercase}
-.clos-h .wh{display:inline;position:relative}
-.clos-h .wh::after{content:'';position:absolute;bottom:2px;left:0;right:0;height:4px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.clos-h .wh{display:inline-block;position:relative;vertical-align:bottom}
+.clos-h .wh::after{content:'';position:absolute;bottom:0;left:0;right:0;height:5px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
 .clos-h .wh:hover::after{transform:scaleX(1)}
 .clos-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 
@@ -589,15 +599,15 @@ footer{border-top:1px solid var(--line)}
 /* ═══════════════════════════════════
    UNIVERSAL WORD HOVER UNDERLINE
 ═══════════════════════════════════ */
-.whu{display:inline;position:relative}
+.whu{display:inline-block;position:relative;vertical-align:bottom}
 .whu::after{
-  content:'';position:absolute;left:0;bottom:-1px;width:100%;height:2px;
+  content:'';position:absolute;left:0;bottom:0;width:100%;height:3px;
   background:var(--red);transform:scaleX(0);transform-origin:left;
   transition:transform .28s var(--ease);pointer-events:none;
 }
 .whu:hover::after{transform:scaleX(1)}
-h1 .whu::after,h2 .whu::after{height:3px;bottom:1px}
-h2 .whu{display:inline}
+h1 .whu::after,h2 .whu::after{height:5px;bottom:0}
+h2 .whu{display:inline-block;vertical-align:bottom}
 
 /* ═══════════════════════════════════
    PARALLAX & REVEAL SYSTEM
@@ -637,12 +647,14 @@ h2 .whu{display:inline}
   .svc-grid{grid-template-columns:repeat(3,1fr)}
   .svc:nth-child(3n){border-right:none}
   .svc:nth-child(n+4){border-top:1px solid var(--line)}
-  .pgrid{grid-template-columns:repeat(3,1fr)}
-  .pgrid .pc:nth-child(3n){border-right:none}
-  .pgrid .pc:nth-child(4n){border-right:1px solid var(--line)}
+  .pc{width:clamp(260px,40vw,380px)}
   #about{grid-template-columns:1fr}.abt-l{border-right:none;border-bottom:1px solid var(--line)}
   #contact{grid-template-columns:1fr}.ctc-l{border-right:none;border-bottom:1px solid var(--line)}
   .ft-main{grid-template-columns:1fr 1fr}.ft-col:nth-child(2){border-right:none}.ft-col:last-child{grid-column:span 2;border-top:1px solid var(--line);justify-content:flex-start}
+}
+@media(max-width:480px){
+  .pc{width:85vw}
+  .hero-stats{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
   #nav{padding:0 20px}
@@ -653,10 +665,7 @@ h2 .whu{display:inline}
   .hero-stats{grid-template-columns:1fr 1fr}
   .hs:nth-child(2){border-right:none}
   .hs:nth-child(3){border-top:1px solid var(--line)}
-  .pgrid{grid-template-columns:repeat(2,1fr)}
-  .pgrid .pc:nth-child(2n){border-right:none}
-  .pgrid .pc:nth-child(3n){border-right:1px solid var(--line)}
-  .pgrid .pc:nth-child(4n){border-right:1px solid var(--line)}
+  .pc{width:clamp(240px,55vw,340px)}
   .proc-nodes{flex-direction:column;gap:0;max-width:300px;margin:0 auto}
   .proc-line{display:none}
   .pnode{flex-direction:row;align-items:flex-start;text-align:left;gap:16px;max-width:none;padding:16px 0;border-bottom:1px solid var(--line)}
@@ -675,7 +684,99 @@ h2 .whu{display:inline}
   .ft-col:first-child{border-top:none}
   .ft-col:last-child{grid-column:span 1;justify-content:flex-start}
   .adm-g{grid-template-columns:1fr}.adm-f.full{grid-column:span 1}
+  .fbtn{padding:14px 18px;font-size:10px;}
+  #cursor-hint{display:none}
 }
+
+
+/* INVITE ROW */
+.invite-row{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;
+  margin-top:4px;
+}
+.invite-lbl{
+  font-family:var(--m);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted2);
+}
+.invite-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.1);
+  padding:8px 16px;
+  transition:color .2s,border-color .2s;
+}
+.invite-btn:hover{color:var(--white);border-color:rgba(255,255,255,.35)}
+
+/* CURSOR HINT */
+#cursor-hint{
+  position:absolute;z-index:3;
+  bottom:clamp(100px,14vw,160px);right:clamp(20px,4vw,52px);
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.28);
+  pointer-events:none;
+  opacity:0;transition:opacity 1s ease;
+}
+#cursor-hint.vis{opacity:1;animation:hint-float 3s ease-in-out infinite}
+#cursor-hint.hide{opacity:0!important;transition:opacity .6s ease}
+.hint-dot{
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid rgba(255,42,42,.35);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  animation:hint-ring 2.5s ease-in-out infinite;
+}
+.hint-dot::after{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--red);opacity:.7;
+}
+@keyframes hint-float{
+  0%,100%{transform:translateY(0);opacity:.28}
+  50%{transform:translateY(-5px);opacity:.55}
+}
+@keyframes hint-ring{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,42,42,.3)}
+  60%{box-shadow:0 0 0 8px rgba(255,42,42,0)}
+}
+
+/* WORK SCROLL FILMSTRIP */
+.pgrid-wrap{position:relative}
+.pgrid-scroll{
+  display:flex;overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;border-top:1px solid var(--line);
+  cursor:grab;
+}
+.pgrid-scroll:active{cursor:grabbing}
+.pgrid-scroll::-webkit-scrollbar{display:none}
+.pgrid{display:flex;flex-shrink:0;min-width:100%}
+.pc{
+  position:relative;overflow:hidden;cursor:pointer;flex-shrink:0;
+  width:clamp(280px,28vw,400px);
+  border-right:1px solid var(--line);
+  transition:background .2s;scroll-snap-align:start;
+}
+.pc:last-child{border-right:none}
+.pgrid-progress{height:1px;background:var(--line);position:relative;overflow:hidden}
+.pgrid-progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--red);width:0%;transition:width .15s ease}
+.pgrid-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(20px,4vw,52px);border-top:1px solid var(--line);
+}
+.pgrid-hint{
+  font-family:var(--m);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted2);display:flex;align-items:center;gap:8px;
+}
+.pgrid-hint::before{content:'';display:inline-block;width:32px;height:1px;background:currentColor;opacity:.4}
+.pgrid-arrows{display:flex;gap:2px}
+.pgrid-arr{
+  width:36px;height:36px;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:border-color .2s,background .2s;
+  background:transparent;color:rgba(255,255,255,.5);flex-shrink:0;
+}
+.pgrid-arr:hover{border-color:var(--red);color:var(--white);background:rgba(255,42,42,.08)}
+.pgrid-arr svg{width:14px;height:14px}
 </style>
 </head>
 <body>
@@ -739,8 +840,9 @@ h2 .whu{display:inline}
             <select class="adm-sl" id="ap-c">
               <option value="ux">UX / UI Design</option>
               <option value="brand">Brand Identity</option>
-              <option value="deck">Presentation</option>
+              <option value="deck">Presentation Design</option>
               <option value="print">Print & Marketing</option>
+              <option value="web">Interactive Web</option>
             </select>
           </div>
           <div class="adm-f"><label class="adm-l">Year</label><input class="adm-in" id="ap-y" value="2026"/></div>
@@ -883,17 +985,21 @@ h2 .whu{display:inline}
     </h1>
     <p class="hero-desc" id="hero-desc">
       A boutique studio led by <strong>Tanvi Shah</strong> — where strategy, craft and obsessive
-      attention converge. UX, Brand, Design Systems &amp; Presentations for brands that mean business.
+      attention converge. UX / UI, Brand Identity, Presentations, Print &amp; Interactive Web for brands that mean business.
     </p>
     <div class="hero-act" id="hero-act">
       <a href="#work" class="btn-p">View Work <svg viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></a>
       <a href="#contact" class="btn-g">Start a conversation</a>
     </div>
   </div>
+  <div id="cursor-hint">
+    <div class="hint-dot"></div>
+    move cursor to interact
+  </div>
   <div class="hero-chips" id="hero-chips">
-    <span class="chip">UX / UI</span>
+    <span class="chip">UX / UI Design</span>
     <span class="chip">Brand Identity</span>
-    <span class="chip">Presentations</span>
+    <span class="chip">Presentation Design</span>
     <span class="chip">Print &amp; Marketing</span>
     <span class="chip">Interactive Web</span>
   </div>
@@ -912,80 +1018,6 @@ h2 .whu{display:inline}
     <div class="ti"><span class="ts">■</span>UX &amp; UI Design</div><div class="ti"><span class="ts">■</span>Brand Identity</div><div class="ti"><span class="ts">■</span>Presentation Design</div><div class="ti"><span class="ts">■</span>Print &amp; Marketing</div><div class="ti"><span class="ts">■</span>carvingdezine.com</div><div class="ti"><span class="ts">■</span>Est. 2009</div><div class="ti"><span class="ts">■</span>Mumbai &amp; Surat</div><div class="ti"><span class="ts">■</span>Working Globally</div>
   </div>
 </div>
-
-<!-- ═══════════════════ WORK ═══════════════════ -->
-<section id="work">
-  <div class="s-hd rv">
-    <span class="sec-tag">Work</span>
-    <span class="sec-ct" id="wct">Loading…</span>
-  </div>
-
-  <!-- Single unified filter — 3 sources clearly separated -->
-  <div class="filter-row">
-    <button class="fbtn on" data-f="all">All Projects</button>
-    <button class="fbtn" data-f="ux">UX / UI</button>
-    <button class="fbtn" data-f="brand">Brand</button>
-    <button class="fbtn" data-f="deck">Decks</button>
-    <button class="fbtn" data-f="print">Print</button>
-    <button class="fbtn" data-f="web">Web</button>
-  </div>
-
-  <!-- ONE unified grid — no duplication -->
-  <div class="pgrid" id="pgrid">
-    <!-- populated by JS -->
-  </div>
-
-  <div id="pgrid-empty" style="display:none;padding:40px clamp(20px,4vw,52px);font-family:var(--m);font-size:10px;letter-spacing:.1em;color:var(--muted2)">
-    No projects in this category yet. <a href="/#admin" style="color:var(--red)">Add some →</a>
-  </div>
-</section>
-
-<!-- ═══════════════════ CARVE REVEAL ═══════════════════ -->
-<div id="carve" class="parallax-med">
-  <div class="carve-h">
-    "<span class="whu">Every</span> <span class="whu">brand</span> <span class="whu">has</span> <span class="whu">noise.</span><br><em><span class="whu">We</span> <span class="whu">carve</span> <span class="whu">clarity."</span></em>
-  </div>
-  <p class="carve-sub">15+ years of intentional design. From Mumbai and Surat — to the world.</p>
-</div>
-
-<!-- ═══════════════════ PROCESS ═══════════════════ -->
-<section id="process">
-  <div class="s-hd"><span class="sec-tag">How We Work</span><span class="sec-ct">5 steps</span></div>
-  <div class="proc-wrap">
-    <div class="proc-nodes" id="proc-nodes">
-      <div class="pnode" data-i="0">
-        <div class="pc-circle"><div class="pn-icon">🔍</div></div>
-        <div class="pn-num">01</div>
-        <div class="pn-label">Discover</div>
-        <div class="pn-desc">Briefs, audits & stakeholder alignment before touching a tool.</div>
-      </div>
-      <div class="pnode" data-i="1">
-        <div class="pc-circle"><div class="pn-icon">🧭</div></div>
-        <div class="pn-num">02</div>
-        <div class="pn-label">Strategy</div>
-        <div class="pn-desc">Personas, journey maps & creative direction grounded in data.</div>
-      </div>
-      <div class="pnode" data-i="2">
-        <div class="pc-circle"><div class="pn-icon">✏️</div></div>
-        <div class="pn-num">03</div>
-        <div class="pn-label">Design</div>
-        <div class="pn-desc">Wireframes to high-fidelity systems built to scale.</div>
-      </div>
-      <div class="pnode" data-i="3">
-        <div class="pc-circle"><div class="pn-icon">🔁</div></div>
-        <div class="pn-num">04</div>
-        <div class="pn-label">Refine</div>
-        <div class="pn-desc">Real testing, honest loops, courage to restart smarter.</div>
-      </div>
-      <div class="pnode" data-i="4">
-        <div class="pc-circle"><div class="pn-icon">🚀</div></div>
-        <div class="pn-num">05</div>
-        <div class="pn-label">Deliver</div>
-        <div class="pn-desc">Developer-ready handoff, motion specs, docs.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════════════ SERVICES ═══════════════════ -->
 <section id="services">
@@ -1023,15 +1055,115 @@ h2 .whu{display:inline}
     </div>
   </div>
 </section>
+<!-- ═══════════════════ WORK ═══════════════════ -->
+<section id="work">
+  <div class="s-hd rv">
+    <span class="sec-tag">Work</span>
+    <span class="sec-ct" id="wct">Loading…</span>
+  </div>
+
+  <!-- Single unified filter — 3 sources clearly separated -->
+  <div class="filter-row">
+    <button class="fbtn on" data-f="all">All Projects</button>
+    <button class="fbtn" data-f="ux">UX / UI Design</button>
+    <button class="fbtn" data-f="brand">Brand Identity</button>
+    <button class="fbtn" data-f="deck">Presentations</button>
+    <button class="fbtn" data-f="print">Print & Marketing</button>
+    <button class="fbtn" data-f="web">Interactive Web</button>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="pgrid-progress"><div class="pgrid-progress-fill" id="pgrid-prog"></div></div>
+
+  <!-- HORIZONTAL SCROLL FILMSTRIP -->
+  <div class="pgrid-wrap">
+    <div class="pgrid-scroll" id="pgrid-scroll">
+      <div class="pgrid" id="pgrid"><!-- populated by JS --></div>
+    </div>
+  </div>
+
+  <!-- NAV BAR -->
+  <div class="pgrid-nav">
+    <span class="pgrid-hint">Drag or use arrows to explore</span>
+    <div class="pgrid-arrows">
+      <button class="pgrid-arr" id="pgrid-prev" aria-label="Previous">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="pgrid-arr" id="pgrid-next" aria-label="Next">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="pgrid-empty" style="display:none;padding:40px clamp(20px,4vw,52px);font-family:var(--m);font-size:10px;letter-spacing:.1em;color:var(--muted2)">
+    No projects in this category yet. <a href="/#admin" style="color:var(--red)">Add some →</a>
+  </div>
+</section>
+
+<!-- ═══════════════════ CARVE REVEAL ═══════════════════ -->
+<div id="carve" class="parallax-med">
+  <div class="carve-h">
+    "<span class="whu">EVERY</span> <span class="whu">BRAND</span> <span class="whu">HAS</span> <span class="whu">NOISE.</span><br><em><span class="whu">WE</span> <span class="whu">CARVE</span> <span class="whu">CLARITY."</span></em>
+  </div>
+  <p class="carve-sub">15+ years of intentional design. From Mumbai and Surat — to the world.</p>
+</div>
+
+<!-- ═══════════════════ PROCESS ═══════════════════ -->
+<section id="process">
+  <div class="s-hd"><span class="sec-tag">How We Work</span><span class="sec-ct" id="proc-step-ct">5 steps</span></div>
+  <div class="proc-tabs">
+    <button class="proc-tab on" data-track="ux">UX / UI &amp; Web</button>
+    <button class="proc-tab" data-track="brand">Brand Identity</button>
+    <button class="proc-tab" data-track="print">Print &amp; Marketing</button>
+  </div>
+  <div class="proc-wrap">
+
+    <!-- TRACK: UX / UI & Web — 5 steps -->
+    <div class="proc-track on" id="proc-track-ux">
+      <div class="proc-nodes" id="proc-nodes-ux">
+        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">🔍</div></div><div class="pn-num">01</div><div class="pn-label">Discover</div><div class="pn-desc">Briefs, audits &amp; stakeholder alignment before touching a tool.</div></div>
+        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🧭</div></div><div class="pn-num">02</div><div class="pn-label">Strategy</div><div class="pn-desc">Personas, journey maps &amp; creative direction grounded in data.</div></div>
+        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">✏️</div></div><div class="pn-num">03</div><div class="pn-label">Design</div><div class="pn-desc">Wireframes to high-fidelity systems built to scale.</div></div>
+        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🔁</div></div><div class="pn-num">04</div><div class="pn-label">Refine</div><div class="pn-desc">Real testing, honest loops, courage to restart smarter.</div></div>
+        <div class="pnode" data-i="4"><div class="pc-circle"><div class="pn-icon">🚀</div></div><div class="pn-num">05</div><div class="pn-label">Deliver</div><div class="pn-desc">Developer-ready handoff, motion specs &amp; documentation.</div></div>
+      </div>
+    </div>
+
+    <!-- TRACK: Brand Identity — 5 steps -->
+    <div class="proc-track" id="proc-track-brand">
+      <div class="proc-nodes" id="proc-nodes-brand">
+        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">💬</div></div><div class="pn-num">01</div><div class="pn-label">Listen</div><div class="pn-desc">Deep-dive into brand story, audience, competitors &amp; ambitions.</div></div>
+        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🎯</div></div><div class="pn-num">02</div><div class="pn-label">Position</div><div class="pn-desc">Define voice, values &amp; the single idea the brand must own.</div></div>
+        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">🎨</div></div><div class="pn-num">03</div><div class="pn-label">Concept</div><div class="pn-desc">3 distinct directions — moodboards, mark explorations, colour systems.</div></div>
+        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🔬</div></div><div class="pn-num">04</div><div class="pn-label">Develop</div><div class="pn-desc">Chosen direction refined across every touchpoint until it holds.</div></div>
+        <div class="pnode" data-i="4"><div class="pc-circle"><div class="pn-icon">📐</div></div><div class="pn-num">05</div><div class="pn-label">System</div><div class="pn-desc">Brand guidelines, asset library &amp; usage rules built to last.</div></div>
+      </div>
+    </div>
+
+    <!-- TRACK: Print & Marketing — 4 steps -->
+    <div class="proc-track" id="proc-track-print">
+      <div class="proc-nodes" id="proc-nodes-print">
+        <div class="pnode" data-i="0"><div class="pc-circle"><div class="pn-icon">📋</div></div><div class="pn-num">01</div><div class="pn-label">Brief</div><div class="pn-desc">Objectives, formats, print specs &amp; distribution context locked down first.</div></div>
+        <div class="pnode" data-i="1"><div class="pc-circle"><div class="pn-icon">🗂️</div></div><div class="pn-num">02</div><div class="pn-label">Layout</div><div class="pn-desc">Grid, hierarchy &amp; visual flow — crafted for the reader, not just the eye.</div></div>
+        <div class="pnode" data-i="2"><div class="pc-circle"><div class="pn-icon">✅</div></div><div class="pn-num">03</div><div class="pn-label">Review</div><div class="pn-desc">Proofing rounds with print-accurate colour &amp; bleed-ready previews.</div></div>
+        <div class="pnode" data-i="3"><div class="pc-circle"><div class="pn-icon">🖨️</div></div><div class="pn-num">04</div><div class="pn-label">Output</div><div class="pn-desc">Press-ready files, digital formats &amp; vendor liaison if needed.</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
 <!-- ═══════════════════ ABOUT ═══════════════════ -->
 <section id="about">
   <div class="abt-l rv-left">
     <img src="data:image/jpeg;base64,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" class="abt-logo" alt="Carving Dezine"/>
-    <div class="abt-q"><span class="whu">Design</span> that<br>makes <span class="whu">people</span><br><em><span class="whu">stop.</span></em><br><span class="whu">Then</span> <span class="whu">act.</span></div>
+    <div class="abt-q"><span class="whu">DESIGN</span> <span class="whu">THAT</span><br><span class="whu">MAKES</span> <span class="whu">PEOPLE</span><br><em><span class="whu">STOP.</span></em><br><span class="whu">THEN</span> <span class="whu">ACT.</span></div>
     <div class="abt-links">
       <a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="abt-lnk">Behance</a>
       <a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="abt-lnk">Dribbble</a>
+      <a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="abt-lnk">X</a>
+      <a href="https://reddit.com/r/CarvingDezine" target="_blank" rel="noopener" class="abt-lnk">Reddit</a>
       <a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="abt-lnk">Instagram</a>
       <a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="abt-lnk">LinkedIn</a>
     </div>
@@ -1043,7 +1175,7 @@ h2 .whu{display:inline}
       <p class="abt-body">Built on one simple belief: great design should stop you in your tracks. Not because it looks good — but because it <strong>feels right.</strong></p>
       <p class="abt-body">Over the years Tanvi has partnered with startups, scale-ups and established organisations across India and globally. From Mobcast to ICICI Bank, UFO Movies to LifeLine Hospital — every project gets the same obsessive attention.</p>
       <p class="abt-body"><em>Intentionally small. So every project gets the attention it deserves.</em></p>
-      <div class="abt-sig">Mumbai &amp; Surat, India · Working globally<br>carvingdezine@gmail.com · +91 98201 42005</div>
+      <div class="abt-sig">Mumbai &amp; Surat, India · Working globally<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85e6e4f7f3ecebe2e1e0ffecebe0c5e2e8e4ece9abe6eae8">[email&#160;protected]</a> · +91 98201 42005</div>
     </div>
     
   </div>
@@ -1057,6 +1189,13 @@ h2 .whu{display:inline}
     <a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="s-ico" title="Dribbble"><svg viewBox="0 0 24 24"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308 2.3-1.555 3.936-4.02 4.392-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.017-8.04 6.37 1.73 1.35 3.915 2.166 6.29 2.166 1.42 0 2.77-.29 4.006-.786zm-9.982-2.57c.23-.39 3.06-5.057 8.42-6.73.136-.045.273-.084.41-.12-.26-.585-.54-1.167-.832-1.74C7.17 12.4 2.387 12.312 1.986 12.3v.42c0 2.407.91 4.61 2.407 6.28zM2.018 10.687c.408.005 4.495.091 7.73-1.027-1.387-2.46-2.878-4.532-3.09-4.82-2.067 1.278-3.655 3.277-4.24 5.847zm7.727-6.273c.218.296 1.74 2.37 3.11 4.87 2.96-1.11 4.21-2.793 4.36-3.004-1.56-1.39-3.6-2.23-5.83-2.23-.55 0-1.098.056-1.64.163zm8.522 3.166c-.188.248-1.57 2.04-4.64 3.315.194.398.38.804.558 1.21.067.155.13.31.196.463 3.385-.426 6.728.258 7.064.334-.035-1.9-.558-3.68-1.512-5.14z"/></svg></a>
     <a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="s-ico" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
     <a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="s-ico" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="s-ico" title="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a href="https://threads.net/@carvingdezine" target="_blank" rel="noopener" class="s-ico" title="Threads"><svg viewBox="0 0 24 24"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 9.258c.pumped.899-1.628 2.116-1.974 3.662-.369 1.628-.056 3.148.875 4.267.91 1.09 2.316 1.703 3.957 1.73 1.148-.019 2.073-.37 2.752-1.043.75-.74 1.132-1.815 1.136-3.192v-.045c0-.063-.001-.127-.004-.189a11.1 11.1 0 0 0-.063-.79c-.274.07-.566.123-.873.155-1.012.107-1.913-.059-2.6-.48-.768-.47-1.182-1.2-1.14-2.016.04-.799.506-1.49 1.3-1.951.704-.413 1.627-.59 2.646-.51.87.069 1.621.354 2.205.828.965.784 1.498 2.058 1.583 3.791.046.947.012 1.86-.1 2.737.424.318.784.693 1.068 1.12.879 1.317.96 3.133.214 4.889C19.705 22.405 17.32 23.977 12.186 24z"/></svg></a>
+    <a href="https://reddit.com/r/CarvingDezine" target="_blank" rel="noopener" class="s-ico" title="Reddit"><svg viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg></a>
+    <a href="https://facebook.com/carvingdezine" target="_blank" rel="noopener" class="s-ico" title="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a href="https://youtube.com/@carvingdezine" target="_blank" rel="noopener" class="s-ico" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+    <a href="https://www.freelancer.com/u/carvingdezine" target="_blank" rel="noopener" class="s-ico" title="Freelancer"><svg viewBox="0 0 24 24"><path d="M22.672 15.226l-2.432.811.841-2.432H22.672zm-9.967 3.02l.273-.065.139.135-.152.13zm-2.184-.974l.229-.086.113.11-.141.12zm12.143-7.498l-7.082 2.362-1.449-1.449 2.362-7.082 6.169 6.169zM3.8 20.2l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zm4.4-4.4l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zm-2.2 2.2l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zM1.6 22.4l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zM0 24l1.4-1.4 1.4 1.4-1.4 1.4L0 24zm6-6l1.4-1.4 1.4 1.4-1.4 1.4L6 18z"/></svg></a>
+    <a href="https://upwork.com/freelancers/tanvis3" target="_blank" rel="noopener" class="s-ico" title="Upwork"><svg viewBox="0 0 24 24"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></svg></a>
     <a href="https://wa.me/919820142005" target="_blank" rel="noopener" class="s-ico" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
   </div>
 </div>
@@ -1081,7 +1220,7 @@ h2 .whu{display:inline}
       <h2 class="ctc-h"><span class="whu">LET'S</span><br><span class="whu">CARVE</span><br><em><span class="whu">SOME&shy;THING.</span></em></h2>
     </div>
     <div class="ctc-meta">
-      <div class="ctc-row"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a></div>
+      <div class="ctc-row"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><a href="/cdn-cgi/l/email-protection#0162607377686f6665647b686f6441666c60686d2f626e6c"><span class="__cf_email__" data-cfemail="f99a988b8f90979e9d9c8390979cb99e94989095d79a9694">[email&#160;protected]</span></a></div>
       <a href="https://wa.me/919820142005" class="ctc-row" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span>+91 98201 42005</span></a>
       <div class="ctc-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>Mumbai &amp; Surat, India · Working globally</span></div>
       <div class="ctc-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#22c55e"/></svg><span style="color:#22c55e">Available for new projects</span></div>
@@ -1096,7 +1235,7 @@ h2 .whu{display:inline}
       <select class="fsl" id="fs">
         <option value="">Select a service…</option>
         <option>UX / UI Design</option><option>Brand Identity</option>
-        <option>Presentation Design</option><option>Print &amp; Marketing</option>
+        <option>Presentation Design</option><option>Print &amp; Marketing</option><option>Interactive Web</option>
         <option>Multiple Services</option>
       </select>
     </div>
@@ -1120,10 +1259,21 @@ h2 .whu{display:inline}
 <!-- CLOSING -->
 <div id="closing" class="rv">
   <div class="clos-eye">( From concept to craft )</div>
-  <h2 class="clos-h"><span class="whu">Every</span> <span class="whu">move</span><br>is <span class="whu">deliberate.</span></h2>
+  <h2 class="clos-h"><span class="whu">EVERY</span> <span class="whu">MOVE</span><br><span class="whu">IS</span> <span class="whu">DELIBERATE.</span></h2>
   <div class="clos-btns">
     <a href="#contact" class="btn-p">Start a conversation <svg viewBox="0 0 12 12" width="12" height="12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></a>
     <a href="https://wa.me/919820142005" target="_blank" rel="noopener" class="btn-g">WhatsApp Us</a>
+  </div>
+  <div class="invite-row">
+    <span class="invite-lbl">Hire via</span>
+    <a href="https://upwork.com/freelancers/tanvis3" target="_blank" rel="noopener" class="invite-btn">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></svg>
+      Invite on Upwork
+    </a>
+    <a href="https://www.freelancer.com/u/carvingdezine" target="_blank" rel="noopener" class="invite-btn">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M22.672 15.226l-2.432.811.841-2.432H22.672zm-9.967 3.02l.273-.065.139.135-.152.13zm-2.184-.974l.229-.086.113.11-.141.12zm12.143-7.498l-7.082 2.362-1.449-1.449 2.362-7.082 6.169 6.169zM3.8 20.2l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zm4.4-4.4l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zm-2.2 2.2l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zM1.6 22.4l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zM0 24l1.4-1.4 1.4 1.4-1.4 1.4L0 24zm6-6l1.4-1.4 1.4 1.4-1.4 1.4L6 18z"/></svg>
+      Invite on Freelancer
+    </a>
   </div>
 </div>
 
@@ -1137,7 +1287,13 @@ h2 .whu{display:inline}
         <a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Behance</a>
         <a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Dribbble</a>
         <a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Instagram</a>
-        <a href="mailto:carvingdezine@gmail.com" class="ft-lnk">Email</a>
+        <a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">X</a>
+        <a href="https://threads.net/@carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Threads</a>
+        <a href="https://reddit.com/r/CarvingDezine" target="_blank" rel="noopener" class="ft-lnk">Reddit</a>
+        <a href="https://facebook.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Facebook</a>
+        <a href="https://youtube.com/@carvingdezine" target="_blank" rel="noopener" class="ft-lnk">YouTube</a>
+        <a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">LinkedIn</a>
+        <a href="/cdn-cgi/l/email-protection#64070516120d0a0300011e0d0a01240309050d084a070b09" class="ft-lnk">Email</a>
         <a href="#" class="ft-lnk">↑ Top</a>
       </div>
     </div>
@@ -1158,7 +1314,7 @@ var BEH_KEY='cd_beh',DRB_KEY='cd_drb',TTL=3600000;
 function gPwd(){return localStorage.getItem(PWKEY)||DEFPWD}
 function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
 function sPj(a){localStorage.setItem(PJKEY,JSON.stringify(a))}
-var CMAP={ux:'UX / UI',brand:'Brand Identity',deck:'Presentation',print:'Print',web:'Web Experience'};
+var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
 
 // Seed projects — always visible, never duplicated
 var SEEDS=[
@@ -1177,17 +1333,19 @@ var SEEDS=[
 // ─────────────────────────────────────────
 (function(){
   var n=document.getElementById('ln'),b=document.getElementById('lb'),L=document.getElementById('ldr'),p=0;
+  var done=false;
+  function dismiss(){
+    if(done)return;done=true;
+    L.classList.add('out');
+    setTimeout(function(){L.classList.add('gone');if(typeof startHero==='function')startHero();},950);
+  }
   var iv=setInterval(function(){
     p=Math.min(p+Math.random()*14+5,100);
     n.textContent=Math.floor(p);b.style.width=p+'%';
-    if(p>=100){
-      clearInterval(iv);
-      setTimeout(function(){
-        L.classList.add('out');
-        setTimeout(function(){L.classList.add('gone');startHero()},950);
-      },250);
-    }
+    if(p>=100){clearInterval(iv);setTimeout(dismiss,250);}
   },55);
+  // Hard fallback — never stay stuck longer than 3s
+  setTimeout(dismiss,3000);
 })();
 
 // ─────────────────────────────────────────
@@ -1209,7 +1367,7 @@ var _heroCanvas=(function(){
   var c=document.getElementById('hero-canvas');
   if(!c)return{start:function(){}};
   var ctx=c.getContext('2d'),pts=[],running=false;
-  var LINK=140,REPEL=90,ATTRACT=200,FORCE=1.8;
+  var LINK=180,REPEL=100,ATTRACT=240,FORCE=2.6;
   // Smooth mouse position with lerp
   var mouse={x:-9999,y:-9999,tx:-9999,ty:-9999,inside:false};
 
@@ -1224,20 +1382,22 @@ var _heroCanvas=(function(){
 
   function init(){
     pts=[];
-    var n=Math.max(65,Math.floor(c.width*c.height/4800));
+    var n=Math.max(130,Math.floor(c.width*c.height/2000));
     for(var i=0;i<n;i++){
       pts.push({
         x:Math.random()*c.width,  y:Math.random()*c.height,
-        ox:0, oy:0,               // original velocity
-        vx:(Math.random()-.5)*.5, vy:(Math.random()-.5)*.5,
-        r:Math.random()*1.8+.5,
+        vx:(Math.random()-.5)*.8, vy:(Math.random()-.5)*.8,
+        r:Math.random()*2+.6,
         phase:Math.random()*Math.PI*2,
-        bright:Math.random()>.8
+        speed:Math.random()*.012+.01,
+        bright:Math.random()>.72
       });
     }
   }
 
+  var frame=0;
   function draw(){
+    frame++;
     // Smooth mouse lerp — feels fluid, not instant
     mouse.x+=(mouse.tx-mouse.x)*.1;
     mouse.y+=(mouse.ty-mouse.y)*.1;
@@ -1250,7 +1410,8 @@ var _heroCanvas=(function(){
         var dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
         var d=Math.sqrt(dx*dx+dy*dy);
         if(d<LINK){
-          var alpha=0.38*(1-d/LINK);
+          var linkBoost=mouse.inside?0:(Math.sin(frame*.012)*.07+.07);
+          var alpha=(0.38+linkBoost)*(1-d/LINK);
           ctx.strokeStyle='rgba(255,42,42,'+alpha+')';
           ctx.lineWidth=.7;
           ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();
@@ -1272,7 +1433,7 @@ var _heroCanvas=(function(){
     // Draw nodes + apply mouse force
     for(var i=0;i<pts.length;i++){
       var p=pts[i];
-      p.phase+=.016;
+      p.phase+=p.speed;
       var pv=Math.sin(p.phase)*.28+.72;
 
       // Mouse interaction
@@ -1286,17 +1447,20 @@ var _heroCanvas=(function(){
           p.vy+=(mdy/md)*repelStr;
         } else if(md<ATTRACT&&md>REPEL){
           // Soft attract between 90–200px — nodes drift toward cursor slowly
-          var attractStr=0.08*(1-(md-REPEL)/(ATTRACT-REPEL));
+          var attractStr=0.14*(1-(md-REPEL)/(ATTRACT-REPEL));
           p.vx-=(mdx/md)*attractStr;
           p.vy-=(mdy/md)*attractStr;
         }
       }
 
-      // Dampen velocity so nodes don't fly off, gentle drift restored
-      p.vx*=.94; p.vy*=.94;
-      // Minimum drift so nodes never fully stop
-      if(Math.abs(p.vx)<.12) p.vx+=(Math.random()-.5)*.18;
-      if(Math.abs(p.vy)<.12) p.vy+=(Math.random()-.5)*.18;
+      // Dampen — less damping in hibernation so motion is visible
+      var damp=mouse.inside?.92:.94;
+      p.vx*=damp; p.vy*=damp;
+      // Minimum drift — much more active in hibernation
+      var minD=mouse.inside?.18:.32;
+      var nudge=mouse.inside?.28:.44;
+      if(Math.abs(p.vx)<minD) p.vx+=(Math.random()-.5)*nudge;
+      if(Math.abs(p.vy)<minD) p.vy+=(Math.random()-.5)*nudge;
 
       p.x+=p.vx; p.y+=p.vy;
       // Bounce walls
@@ -1308,30 +1472,35 @@ var _heroCanvas=(function(){
       // Proximity to cursor = brighter node
       var distC=mouse.inside?Math.sqrt(Math.pow(p.x-mouse.x,2)+Math.pow(p.y-mouse.y,2)):9999;
       var glow=distC<ATTRACT?(1-distC/ATTRACT)*.9:0;
-      var alpha=(.38+glow)*pv;
+      var breath=mouse.inside?0:(Math.sin(frame*.018+p.x*.008)*.09+.09);
+      var alpha=(.38+glow+breath)*pv;
 
       // Glow halo for bright nodes or near-cursor nodes
       if(p.bright||glow>0.2){
         ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r*(p.bright?4:2.5),0,Math.PI*2);
+        ctx.arc(p.x,p.y,p.r*(p.bright?5:3),0,Math.PI*2);
         ctx.fillStyle='rgba(255,42,42,'+((alpha*(p.bright?.22:.3)))+')';
         ctx.fill();
       }
       ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r+(glow*1.5),0,Math.PI*2);
+      ctx.arc(p.x,p.y,p.r+(glow*2),0,Math.PI*2);
       ctx.fillStyle='rgba(255,42,42,'+Math.min(alpha,0.95)+')';
       ctx.fill();
     }
 
-    // Draw cursor node (glowing red dot at mouse position)
+    // Draw cursor node — bigger pulsing glow
     if(mouse.inside){
       ctx.beginPath();
-      ctx.arc(mouse.x,mouse.y,4,0,Math.PI*2);
+      ctx.arc(mouse.x,mouse.y,5,0,Math.PI*2);
       ctx.fillStyle='rgba(255,42,42,.9)';
       ctx.fill();
       ctx.beginPath();
       ctx.arc(mouse.x,mouse.y,14,0,Math.PI*2);
       ctx.fillStyle='rgba(255,42,42,.12)';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(mouse.x,mouse.y,32,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,42,42,.06)';
       ctx.fill();
     }
 
@@ -1339,11 +1508,17 @@ var _heroCanvas=(function(){
   }
 
   // Track mouse relative to canvas
+  var _hintHidden=false;
   document.addEventListener('mousemove',function(e){
     var r=c.getBoundingClientRect();
     mouse.tx=e.clientX-r.left;
     mouse.ty=e.clientY-r.top;
     mouse.inside=(mouse.tx>=0&&mouse.tx<=c.width&&mouse.ty>=0&&mouse.ty<=c.height);
+    if(mouse.inside&&!_hintHidden){
+      _hintHidden=true;
+      var h=document.getElementById('cursor-hint');
+      if(h)h.classList.add('hide');
+    }
   },{passive:true});
   document.addEventListener('mouseleave',function(){mouse.inside=false;},{passive:true});
 
@@ -1403,6 +1578,10 @@ function startHero(){
   setTimeout(function(){document.getElementById('hero-desc').classList.add('vis')},200);
   setTimeout(function(){document.getElementById('hero-act').classList.add('vis')},380);
   setTimeout(function(){document.getElementById('hero-chips').classList.add('vis')},580);
+  setTimeout(function(){
+    var h=document.getElementById('cursor-hint');
+    if(h)h.classList.add('vis');
+  },1800);
   // stats
   document.querySelectorAll('.hs').forEach(function(s,i){
     setTimeout(function(){s.classList.add('vis')},680+i*100);
@@ -1454,39 +1633,73 @@ var carveObs=new IntersectionObserver(function(entries){
 var ce=document.getElementById('carve');if(ce)carveObs.observe(ce);
 
 // ─────────────────────────────────────────
-// PROCESS ANIMATED NODES
+// PROCESS — TABBED TRACKS WITH ANIMATION
 // ─────────────────────────────────────────
 (function(){
-  var nodes=document.querySelectorAll('.pnode');
-  var wrap=document.getElementById('proc-nodes');
-  if(!wrap||!nodes.length)return;
-  // inject connector lines
-  for(var i=0;i<nodes.length-1;i++){
-    var line=document.createElement('div');line.className='proc-line';
-    wrap.insertBefore(line,nodes[i+1]);
+  var stepLabels={'ux':'5 steps','brand':'5 steps','print':'4 steps'};
+
+  function initTrack(wrapId){
+    var wrap=document.getElementById(wrapId);
+    if(!wrap)return;
+    // Remove old injected lines
+    wrap.querySelectorAll('.proc-line').forEach(function(l){l.remove()});
+    var nodes=wrap.querySelectorAll('.pnode');
+    // Reset state
+    nodes.forEach(function(n){n.classList.remove('vis','lit')});
+    // Inject connector lines
+    for(var i=0;i<nodes.length-1;i++){
+      var line=document.createElement('div');line.className='proc-line';
+      wrap.insertBefore(line,nodes[i+1]);
+    }
+    var lines=wrap.querySelectorAll('.proc-line');
+    function posLines(){
+      if(window.innerWidth<=768)return;
+      Array.from(nodes).forEach(function(nd,i){
+        if(i===nodes.length-1)return;
+        var ln=lines[i];if(!ln)return;
+        var r1=nd.getBoundingClientRect(),r2=nodes[i+1].getBoundingClientRect();
+        var pr=wrap.getBoundingClientRect();
+        ln.style.left=(r1.right-pr.left)+'px';ln.style.right=(pr.right-r2.left)+'px';
+      });
+    }
+    // Animate in
+    setTimeout(function(){
+      posLines();
+      Array.from(nodes).forEach(function(nd,i){setTimeout(function(){nd.classList.add('vis','lit')},i*220)});
+      Array.from(lines).forEach(function(ln,i){setTimeout(function(){ln.classList.add('lit')},(i+1)*220+160)});
+    },40);
+    window.addEventListener('resize',posLines,{passive:true});
   }
-  var lines=wrap.querySelectorAll('.proc-line');
-  function posLines(){
-    if(window.innerWidth<=768)return;
-    Array.from(nodes).forEach(function(nd,i){
-      if(i===nodes.length-1)return;
-      var ln=lines[i];if(!ln)return;
-      var r1=nd.getBoundingClientRect(),r2=nodes[i+1].getBoundingClientRect();
-      var pr=wrap.getBoundingClientRect();
-      ln.style.left=(r1.right-pr.left)+'px';ln.style.right=(pr.right-r2.left)+'px';
-    });
+
+  // Init first track on page load via IntersectionObserver
+  var firstWrap=document.getElementById('proc-nodes-ux');
+  var sectionDone=false;
+  if(firstWrap){
+    var pObs=new IntersectionObserver(function(entries){
+      if(sectionDone)return;
+      entries.forEach(function(e){
+        if(!e.isIntersecting)return;
+        sectionDone=true;
+        initTrack('proc-nodes-ux');
+      });
+    },{threshold:.2});
+    pObs.observe(firstWrap);
   }
-  var done=false;
-  var pObs=new IntersectionObserver(function(entries){
-    if(done)return;
-    entries.forEach(function(e){
-      if(!e.isIntersecting)return;done=true;
-      Array.from(nodes).forEach(function(nd,i){setTimeout(function(){nd.classList.add('vis','lit')},i*260)});
-      Array.from(lines).forEach(function(ln,i){setTimeout(function(){ln.classList.add('lit')},(i+1)*260+180)});
+
+  // Tab switching
+  document.querySelectorAll('.proc-tab').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var track=btn.dataset.track;
+      document.querySelectorAll('.proc-tab').forEach(function(b){b.classList.remove('on')});
+      document.querySelectorAll('.proc-track').forEach(function(t){t.classList.remove('on')});
+      btn.classList.add('on');
+      var trackEl=document.getElementById('proc-track-'+track);
+      if(trackEl)trackEl.classList.add('on');
+      var ct=document.getElementById('proc-step-ct');
+      if(ct)ct.textContent=stepLabels[track]||'';
+      initTrack('proc-nodes-'+track);
     });
-  },{threshold:.2});
-  pObs.observe(wrap);posLines();
-  window.addEventListener('resize',posLines,{passive:true});
+  });
 })();
 
 // ─────────────────────────────────────────
@@ -1547,8 +1760,57 @@ document.querySelectorAll('.fbtn').forEach(function(btn){
   });
 });
 
-// Initial render (after DOM ready + seeds)
+// Initial render
 renderGrid('all');
+
+// ─────────────────────────────────────────
+// HORIZONTAL SCROLL — drag, arrows, progress
+// ─────────────────────────────────────────
+(function(){
+  var scroll=document.getElementById('pgrid-scroll');
+  var prev=document.getElementById('pgrid-prev');
+  var next=document.getElementById('pgrid-next');
+  var prog=document.getElementById('pgrid-prog');
+  if(!scroll)return;
+
+  // Progress bar update
+  function updateProg(){
+    var max=scroll.scrollWidth-scroll.clientWidth;
+    var pct=max>0?Math.round((scroll.scrollLeft/max)*100):0;
+    if(prog)prog.style.width=pct+'%';
+  }
+  scroll.addEventListener('scroll',updateProg,{passive:true});
+
+  // Arrow scroll — one card width at a time
+  function cardW(){
+    var card=scroll.querySelector('.pc');
+    return card?card.offsetWidth+1:360;
+  }
+  if(prev)prev.addEventListener('click',function(){
+    scroll.scrollBy({left:-cardW()*2,behavior:'smooth'});
+  });
+  if(next)next.addEventListener('click',function(){
+    scroll.scrollBy({left:cardW()*2,behavior:'smooth'});
+  });
+
+  // Drag to scroll
+  var dragging=false,startX=0,startLeft=0;
+  scroll.addEventListener('mousedown',function(e){
+    dragging=true;startX=e.pageX;startLeft=scroll.scrollLeft;
+    scroll.style.userSelect='none';
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!dragging)return;
+    scroll.scrollLeft=startLeft-(e.pageX-startX);
+  });
+  document.addEventListener('mouseup',function(){
+    dragging=false;scroll.style.userSelect='';
+  });
+
+  // Re-init after renderGrid calls (MutationObserver)
+  var mo=new MutationObserver(function(){updateProg();});
+  mo.observe(scroll,{childList:true,subtree:true});
+})();
 
 // ─────────────────────────────────────────
 // BEHANCE FETCH — rss2json + fallback
@@ -1879,15 +2141,94 @@ document.getElementById('imp-file').addEventListener('change',function(){
     }
   };
   reader.readAsText(file);
-  this.value=''; // reset so same file can be re-imported
 });
 
-// Update backup status when panel opens
-document.querySelectorAll('.adm-ni').forEach(function(it){
-  it.addEventListener('click',function(){
-    if(it.dataset.p==='backup'){setTimeout(updateBackupStatus,50)}
-  });
-});
+// init backup status on load
+updateBackupStatus();
+
+// ─────────────────────────────────────────
+// BEHANCE AUTO-FETCH (RSS via rss2json)
+// ─────────────────────────────────────────
+(function(){
+  try{
+    var c=JSON.parse(localStorage.getItem(BEH_KEY));
+    if(c&&c.ts&&Date.now()-c.ts<TTL&&c.data&&c.data.length){
+      allPlatformProjects=allPlatformProjects.filter(function(p){return p.src!=='behance'}).concat(c.data);
+      var active=document.querySelector('.fbtn.on');renderGrid(active?active.dataset.f:'all');
+      return;
+    }
+  }catch(e){}
+
+  var behRSS=encodeURIComponent('https://www.behance.net/carvingdezine/projects.rss');
+  var url1='https://api.rss2json.com/v1/api.json?rss_url='+behRSS;
+  var url2='https://api.allorigins.win/get?url='+behRSS;
+
+  function stripHtml(h){return h.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim()}
+
+  function guessCat(t,d){
+    var s=(t+' '+d).toLowerCase();
+    if(/\b(ux|ui|app|dashboard|mobile|web app|interface|wireframe)\b/.test(s))return'ux';
+    if(/\b(brand|logo|identity|rebrand|visual identity)\b/.test(s))return'brand';
+    if(/\b(deck|pitch|presentation|slides|powerpoint)\b/.test(s))return'deck';
+    if(/\b(print|brochure|catalogue|annual report|poster|packaging)\b/.test(s))return'print';
+    if(/\b(web|website|landing|html|interactive)\b/.test(s))return'web';
+    return'brand';
+  }
+
+  function saveAndRender(items){
+    if(!items||!items.length)return;
+    localStorage.setItem(BEH_KEY,JSON.stringify({ts:Date.now(),data:items}));
+    allPlatformProjects=allPlatformProjects.filter(function(p){return p.src!=='behance'}).concat(items);
+    var active=document.querySelector('.fbtn.on');
+    renderGrid(active?active.dataset.f:'all');
+  }
+
+  function parseRss2json(data){
+    if(!data.items||!data.items.length)throw new Error('empty');
+    return data.items.slice(0,12).map(function(item,i){
+      var img=item.thumbnail||'';
+      if(!img&&item.description){var m=item.description.match(/<img[^>]+src="([^"]+)"/i);if(m)img=m[1]}
+      var cover=img;
+      var dm=item.description&&item.description.match(/https:\/\/mir-s3-cdn-cf\.behance\.net[^"'\s]+/);
+      if(dm)cover=dm[0];
+      return{
+        id:'beh'+i,title:item.title||'Untitled',src:'behance',
+        cat:guessCat(item.title||'',item.description||''),
+        year:item.pubDate?new Date(item.pubDate).getFullYear()+'':'2025',
+        client:'',desc:stripHtml(item.description||'').slice(0,120),
+        img:cover,link:item.link||''
+      };
+    });
+  }
+
+  fetch(url1)
+    .then(function(r){return r.json()})
+    .then(function(data){saveAndRender(parseRss2json(data));})
+    .catch(function(){
+      fetch(url2)
+        .then(function(r){return r.json()})
+        .then(function(data){
+          var xml=data.contents||'';
+          var items=[];
+          var tRx=/<title><![CDATA[(.*?)]]><\/title>/g;
+          var lRx=/<link>(https:\/\/www\.behance\.net\/gallery[^<]+)<\/link>/g;
+          var iRx=/<media:thumbnail[^>]+url="([^"]+)"/g;
+          var titles=[],links=[],imgs=[],m;
+          while((m=tRx.exec(xml))!==null)titles.push(m[1]);
+          while((m=lRx.exec(xml))!==null)links.push(m[1]);
+          while((m=iRx.exec(xml))!==null)imgs.push(m[1]);
+          titles=titles.slice(1);
+          for(var i=0;i<Math.min(titles.length,12);i++){
+            items.push({id:'beh'+i,title:titles[i]||'Untitled',src:'behance',
+              cat:guessCat(titles[i]||'',''),year:'2025',client:'',desc:'',
+              img:imgs[i]||'',link:links[i]||''});
+          }
+          saveAndRender(items);
+        })
+        .catch(function(){});
+    });
+})();
+
 </script>
 </body>
 </html>
