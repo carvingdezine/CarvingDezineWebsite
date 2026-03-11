@@ -1040,6 +1040,21 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 .mob-socials{
   margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:28px;
 }
+
+.fsep{flex:1;min-width:1px}
+.sort-btn{color:rgba(255,255,255,.35);font-size:9.5px;letter-spacing:.1em}
+.sort-btn.on{background:transparent;color:var(--white);border-bottom:2px solid var(--red)}
+
+/* SOUND TOGGLE */
+.snd-btn{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.35);transition:color .2s,border-color .2s,background .2s;
+  flex-shrink:0;
+}
+.snd-btn:hover{color:var(--white);border-color:rgba(255,255,255,.3)}
+.snd-btn.on{color:var(--white);border-color:var(--red);background:rgba(255,42,42,.08)}
+.snd-btn svg{width:16px;height:16px}
 </style>
 </head>
 <body>
@@ -1278,6 +1293,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   <div class="nav-r">
     <div class="avail-badge"><span class="avail-dot"></span>Available</div>
     <a href="#contact" class="nav-cta">Start a Project</a>
+    <button class="snd-btn" id="snd-btn" title="Toggle sound" aria-label="Toggle sound"><svg viewBox="0 0 20 20" fill="none"><path id="snd-icon-on" d="M3 7H1v6h2l4 4V3L3 7zm8.5 3a3.5 3.5 0 00-3-3.46V13.46A3.5 3.5 0 0011.5 10zm2.5 0a6 6 0 00-5-5.92v1.84A4 4 0 0114 10a4 4 0 01-2.5 3.7v1.84A6 6 0 0014 10z" fill="currentColor"/><path id="snd-icon-off" style="display:none" d="M3 7H1v6h2l4 4V3L3 7zm13.06 3l1.64-1.64-1.42-1.42L14.64 8.6l-1.64-1.64-1.42 1.42L13.22 10l-1.64 1.64 1.42 1.42 1.64-1.64 1.64 1.64 1.42-1.42L16.06 10z" fill="currentColor"/></svg></button>
     <button class="burger" id="burger"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -1379,8 +1395,11 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <button class="fbtn" data-f="ux">UX / UI Design</button>
     <button class="fbtn" data-f="brand">Brand Identity</button>
     <button class="fbtn" data-f="deck">Presentations</button>
-    <button class="fbtn" data-f="print">Print & Marketing</button>
+    <button class="fbtn" data-f="print">Print &amp; Marketing</button>
     <button class="fbtn" data-f="web">Interactive Web</button>
+    <div class="fsep"></div>
+    <button class="fbtn sort-btn on" data-s="new">New → Old</button>
+    <button class="fbtn sort-btn" data-s="old">Old → New</button>
   </div>
 
   <!-- PROGRESS BAR -->
@@ -1697,6 +1716,125 @@ window.addEventListener('scroll',function(){
 // HERO CANVAS — particle network
 // ─────────────────────────────────────────
 // Hero canvas — nodes repel/attract cursor, links to cursor node
+
+// ─────────────────────────────────────────
+// PARTICLE AUDIO — ambient pentatonic tones on cursor movement
+// ─────────────────────────────────────────
+var _particleAudio=(function(){
+  var actx=null,masterGain=null,reverb=null;
+  var lastTone=0,lastMouse={x:-1,y:-1};
+  var enabled=false,ready=false;
+
+  // Pentatonic scale — 3 octaves, ethereal feel
+  var NOTES=[
+    130.81,146.83,174.61,196.00,220.00, // C3 pentatonic
+    261.63,293.66,349.23,392.00,440.00, // C4 pentatonic
+    523.25,587.33,698.46,783.99,880.00  // C5 pentatonic
+  ];
+
+  function makeReverb(ctx){
+    // Simple convolution reverb via impulse
+    var len=ctx.sampleRate*1.8;
+    var buf=ctx.createBuffer(2,len,ctx.sampleRate);
+    for(var ch=0;ch<2;ch++){
+      var d=buf.getChannelData(ch);
+      for(var i=0;i<len;i++){
+        d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.4);
+      }
+    }
+    var conv=ctx.createConvolver();
+    conv.buffer=buf;
+    return conv;
+  }
+
+  function init(){
+    if(ready)return;
+    try{
+      actx=new(window.AudioContext||window.webkitAudioContext)();
+      masterGain=actx.createGain();
+      masterGain.gain.setValueAtTime(0.72,actx.currentTime);
+      reverb=makeReverb(actx);
+      var revGain=actx.createGain();
+      revGain.gain.setValueAtTime(0.28,actx.currentTime);
+      reverb.connect(revGain);
+      revGain.connect(masterGain);
+      masterGain.connect(actx.destination);
+      ready=true;
+    }catch(e){ready=false;}
+  }
+
+  function playTone(freq,vel){
+    if(!ready||!enabled||!actx)return;
+    if(actx.state==='suspended')actx.resume();
+    var now=actx.currentTime;
+    if(now-lastTone<0.055)return;
+    lastTone=now;
+
+    // Fundamental + soft harmonic
+    [1,2].forEach(function(harm,hi){
+      var osc=actx.createOscillator();
+      var gain=actx.createGain();
+      var lp=actx.createBiquadFilter();
+      lp.type='lowpass';
+      lp.frequency.setValueAtTime(harm===1?3200:1400,now);
+      lp.Q.setValueAtTime(0.7,now);
+
+      osc.type=harm===1?'sine':'sine';
+      osc.frequency.setValueAtTime(freq*harm,now);
+      // Slight pitch shimmer
+      osc.frequency.linearRampToValueAtTime(freq*harm*(1+0.003*Math.sin(now*7)),now+0.15);
+
+      var peak=harm===1?vel*0.048:vel*0.012;
+      var dur =harm===1?0.38:0.28;
+      gain.gain.setValueAtTime(0,now);
+      gain.gain.linearRampToValueAtTime(peak,now+0.012);
+      gain.gain.setTargetAtTime(0.0001,now+0.04,dur*0.4);
+
+      osc.connect(lp);
+      lp.connect(gain);
+      gain.connect(masterGain);
+      // Also send to reverb
+      var revSend=actx.createGain();
+      revSend.gain.setValueAtTime(0.35,now);
+      gain.connect(revSend);
+      revSend.connect(reverb);
+
+      osc.start(now);
+      osc.stop(now+dur+0.05);
+    });
+  }
+
+  function onMove(mx,my,canvasW,canvasH){
+    if(!enabled||!ready)return;
+    var dx=mx-lastMouse.x, dy=my-lastMouse.y;
+    var speed=Math.sqrt(dx*dx+dy*dy);
+    if(speed<2.5)return;
+    lastMouse.x=mx; lastMouse.y=my;
+
+    // Map X across full 15-note range, Y shifts register (upper=higher notes)
+    var xNorm=Math.max(0,Math.min(1,mx/canvasW));
+    var yNorm=Math.max(0,Math.min(1,my/canvasH));
+    // Y: top=high octave band, bottom=low octave band
+    var band=yNorm<0.33?2:yNorm<0.66?1:0; // 0=low,1=mid,2=high
+    var noteInBand=Math.floor(xNorm*5);
+    var noteIdx=band*5+noteInBand;
+    noteIdx=Math.max(0,Math.min(NOTES.length-1,noteIdx));
+    var vel=Math.min(speed/12,1)*0.9+0.1;
+    playTone(NOTES[noteIdx],vel);
+  }
+
+  function setEnabled(v){
+    enabled=v;
+    if(!ready&&v)init();
+    if(actx){
+      if(v)actx.resume();
+      else actx.suspend();
+    }
+  }
+
+  return{init:init,onMove:onMove,setEnabled:setEnabled,isEnabled:function(){return enabled;}};
+})();
+
 var _heroCanvas=(function(){
   var c=document.getElementById('hero-canvas');
   if(!c)return{start:function(){}};
@@ -1848,10 +1986,13 @@ var _heroCanvas=(function(){
     mouse.tx=e.clientX-r.left;
     mouse.ty=e.clientY-r.top;
     mouse.inside=(mouse.tx>=0&&mouse.tx<=c.width&&mouse.ty>=0&&mouse.ty<=c.height);
-    if(mouse.inside&&!_hintHidden){
-      _hintHidden=true;
-      var h=document.getElementById('cursor-hint');
-      if(h)h.classList.add('hide');
+    if(mouse.inside){
+      _particleAudio.onMove(mouse.tx,mouse.ty,c.width,c.height);
+      if(!_hintHidden){
+        _hintHidden=true;
+        var h=document.getElementById('cursor-hint');
+        if(h)h.classList.add('hide');
+      }
     }
   },{passive:true});
   document.addEventListener('mouseleave',function(){mouse.inside=false;},{passive:true});
@@ -2063,12 +2204,20 @@ function mkCard(p,idx){
     +'<div class="pc-line"></div></div>';
 }
 
+var _curSort='new'; // 'new' or 'old'
+
 function renderGrid(filter){
   var all=getAllProjects();
   var filtered;
-  if(!filter||filter==='all'){filtered=all}
+  if(!filter||filter==='all'){filtered=all.slice()}
   else{filtered=all.filter(function(p){return p.cat===filter})}
-  
+
+  // Sort by year
+  filtered.sort(function(a,b){
+    var ya=parseInt(a.year)||0, yb=parseInt(b.year)||0;
+    return _curSort==='old' ? ya-yb : yb-ya;
+  });
+
   var grid=document.getElementById('pgrid');
   var empty=document.getElementById('pgrid-empty');
   if(!filtered.length){grid.innerHTML='';empty.style.display='block';return}
@@ -2086,11 +2235,23 @@ function renderGrid(filter){
 }
 
 // Filter buttons
-document.querySelectorAll('.fbtn').forEach(function(btn){
+document.querySelectorAll('.fbtn:not(.sort-btn)').forEach(function(btn){
   btn.addEventListener('click',function(){
-    document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('on')});
+    document.querySelectorAll('.fbtn:not(.sort-btn)').forEach(function(b){b.classList.remove('on')});
     btn.classList.add('on');
+    var active=document.querySelector('.fbtn:not(.sort-btn).on');
     renderGrid(btn.dataset.f);
+  });
+});
+
+// Sort buttons
+document.querySelectorAll('.sort-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.sort-btn').forEach(function(b){b.classList.remove('on')});
+    btn.classList.add('on');
+    _curSort=btn.dataset.s;
+    var active=document.querySelector('.fbtn:not(.sort-btn).on');
+    renderGrid(active?active.dataset.f:'all');
   });
 });
 
@@ -2704,6 +2865,31 @@ function renderTmList(){
 }
 
 
+
+
+// Sound toggle button
+(function(){
+  var btn=document.getElementById('snd-btn');
+  var iconOn=document.getElementById('snd-icon-on');
+  var iconOff=document.getElementById('snd-icon-off');
+  if(!btn)return;
+
+  function updateUI(){
+    var on=_particleAudio.isEnabled();
+    btn.classList.toggle('on',on);
+    if(iconOn)iconOn.style.display=on?'':'none';
+    if(iconOff)iconOff.style.display=on?'none':'';
+    btn.title=on?'Sound on — click to mute':'Sound off — click to enable';
+  }
+
+  btn.addEventListener('click',function(){
+    var next=!_particleAudio.isEnabled();
+    _particleAudio.setEnabled(next);
+    updateUI();
+  });
+
+  updateUI();
+})();
 
 </script>
 </body>
