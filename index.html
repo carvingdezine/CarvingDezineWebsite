@@ -1053,15 +1053,17 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 }
 .cur-dot{
   position:absolute;width:6px;height:6px;border-radius:50%;
-  background:var(--white);transform:translate(-50%,-50%);
+  background:var(--white);transform:translate3d(-50%,-50%,0);
   transition:width .15s,height .15s,background .15s,opacity .2s;
+  will-change:transform;
 }
 .cur-ring{
   position:absolute;width:36px;height:36px;border-radius:50%;
   border:1px solid rgba(255,255,255,.45);
-  transform:translate(-50%,-50%);
+  transform:translate3d(-50%,-50%,0);
   transition:width .22s var(--ease),height .22s var(--ease),
-             border-color .22s,opacity .2s,transform .08s linear;
+             border-color .22s,opacity .2s;
+  will-change:transform;
 }
 /* States */
 body.cur-link .cur-dot{width:10px;height:10px;background:var(--red)}
@@ -2053,7 +2055,7 @@ var _heroCanvas=(function(){
 
   function init(){
     pts=[];
-    var n=Math.max(130,Math.floor(c.width*c.height/2000));
+    var n=200;
     for(var i=0;i<n;i++){
       pts.push({
         x:Math.random()*c.width,  y:Math.random()*c.height,
@@ -2066,113 +2068,114 @@ var _heroCanvas=(function(){
     }
   }
 
-  var frame=0;
+  var frame=0,_paused=false;
+
+  // Pause canvas when hero is off screen — saves GPU
+  var _heroVis=true;
+  var _pauseObs=new IntersectionObserver(function(e){
+    _heroVis=e[0].isIntersecting;
+  },{threshold:0});
+  _pauseObs.observe(c);
+
   function draw(){
+    if(!_heroVis){requestAnimationFrame(draw);return;}
     frame++;
-    // Smooth mouse lerp — feels fluid, not instant
-    mouse.x+=(mouse.tx-mouse.x)*.1;
-    mouse.y+=(mouse.ty-mouse.y)*.1;
+
+    // Fast mouse lerp — more responsive
+    mouse.x+=(mouse.tx-mouse.x)*.18;
+    mouse.y+=(mouse.ty-mouse.y)*.18;
 
     ctx.clearRect(0,0,c.width,c.height);
 
-    // Draw lines between close nodes
+    var linkBoost=mouse.inside?0:(Math.sin(frame*.012)*.07+.07);
+
+    // Single pass — collect node data first, then draw lines, then draw nodes
+    // This avoids calling beginPath/stroke per line pair (batch strokes by alpha bucket)
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i];
+      p.phase+=p.speed;
+      p._pv=Math.sin(p.phase)*.28+.72;
+
+      // Mouse force
+      if(mouse.inside){
+        var mdx=p.x-mouse.x, mdy=p.y-mouse.y;
+        var md2=mdx*mdx+mdy*mdy;
+        var md=Math.sqrt(md2);
+        p._distC=md;
+        if(md<REPEL&&md>0){
+          var rs=FORCE*(1-md/REPEL);
+          p.vx+=(mdx/md)*rs; p.vy+=(mdy/md)*rs;
+        } else if(md<ATTRACT){
+          var as=0.12*(1-(md-REPEL)/(ATTRACT-REPEL));
+          p.vx-=(mdx/md)*as; p.vy-=(mdy/md)*as;
+        }
+      } else { p._distC=9999; }
+
+      var damp=mouse.inside?.92:.94;
+      p.vx*=damp; p.vy*=damp;
+      var minD=mouse.inside?.18:.32;
+      if(Math.abs(p.vx)<minD) p.vx+=(Math.random()-.5)*.4;
+      if(Math.abs(p.vy)<minD) p.vy+=(Math.random()-.5)*.4;
+
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0){p.x=0;p.vx=Math.abs(p.vx);}
+      if(p.x>c.width){p.x=c.width;p.vx=-Math.abs(p.vx);}
+      if(p.y<0){p.y=0;p.vy=Math.abs(p.vy);}
+      if(p.y>c.height){p.y=c.height;p.vy=-Math.abs(p.vy);}
+    }
+
+    // Draw node-node links — batch into single path per alpha level
+    ctx.lineWidth=.7;
     for(var i=0;i<pts.length;i++){
       for(var j=i+1;j<pts.length;j++){
         var dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<LINK){
-          var linkBoost=mouse.inside?0:(Math.sin(frame*.012)*.07+.07);
-          var alpha=(0.38+linkBoost)*(1-d/LINK);
-          ctx.strokeStyle='rgba(255,42,42,'+alpha+')';
-          ctx.lineWidth=.7;
+        var d2=dx*dx+dy*dy;
+        if(d2<LINK*LINK){
+          var d=Math.sqrt(d2);
+          var alpha=(0.35+linkBoost)*(1-d/LINK);
+          ctx.strokeStyle='rgba(255,42,42,'+alpha.toFixed(2)+')';
           ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();
         }
       }
-      // Draw line from close nodes to cursor (constellation effect)
-      if(mouse.inside){
-        var cdx=pts[i].x-mouse.x, cdy=pts[i].y-mouse.y;
-        var cd=Math.sqrt(cdx*cdx+cdy*cdy);
+    }
+
+    // Cursor constellation lines — skip if not inside
+    if(mouse.inside){
+      ctx.lineWidth=.5;
+      for(var i=0;i<pts.length;i++){
+        var cd=pts[i]._distC;
         if(cd<ATTRACT){
-          var ca=0.55*(1-cd/ATTRACT);
+          var ca=(0.5*(1-cd/ATTRACT)).toFixed(2);
           ctx.strokeStyle='rgba(255,42,42,'+ca+')';
-          ctx.lineWidth=.5;
           ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();
         }
       }
     }
 
-    // Draw nodes + apply mouse force
+    // Draw nodes
     for(var i=0;i<pts.length;i++){
       var p=pts[i];
-      p.phase+=p.speed;
-      var pv=Math.sin(p.phase)*.28+.72;
-
-      // Mouse interaction
-      if(mouse.inside){
-        var mdx=p.x-mouse.x, mdy=p.y-mouse.y;
-        var md=Math.sqrt(mdx*mdx+mdy*mdy);
-        if(md<REPEL&&md>0){
-          // Hard repel within 90px — nodes flee cursor
-          var repelStr=FORCE*(1-md/REPEL);
-          p.vx+=(mdx/md)*repelStr;
-          p.vy+=(mdy/md)*repelStr;
-        } else if(md<ATTRACT&&md>REPEL){
-          // Soft attract between 90–200px — nodes drift toward cursor slowly
-          var attractStr=0.14*(1-(md-REPEL)/(ATTRACT-REPEL));
-          p.vx-=(mdx/md)*attractStr;
-          p.vy-=(mdy/md)*attractStr;
-        }
-      }
-
-      // Dampen — less damping in hibernation so motion is visible
-      var damp=mouse.inside?.92:.94;
-      p.vx*=damp; p.vy*=damp;
-      // Minimum drift — much more active in hibernation
-      var minD=mouse.inside?.18:.32;
-      var nudge=mouse.inside?.28:.44;
-      if(Math.abs(p.vx)<minD) p.vx+=(Math.random()-.5)*nudge;
-      if(Math.abs(p.vy)<minD) p.vy+=(Math.random()-.5)*nudge;
-
-      p.x+=p.vx; p.y+=p.vy;
-      // Bounce walls
-      if(p.x<0){p.x=0;p.vx=Math.abs(p.vx);}
-      if(p.x>c.width){p.x=c.width;p.vx=-Math.abs(p.vx);}
-      if(p.y<0){p.y=0;p.vy=Math.abs(p.vy);}
-      if(p.y>c.height){p.y=c.height;p.vy=-Math.abs(p.vy);}
-
-      // Proximity to cursor = brighter node
-      var distC=mouse.inside?Math.sqrt(Math.pow(p.x-mouse.x,2)+Math.pow(p.y-mouse.y,2)):9999;
-      var glow=distC<ATTRACT?(1-distC/ATTRACT)*.9:0;
+      var glow=p._distC<ATTRACT?(1-p._distC/ATTRACT)*.9:0;
       var breath=mouse.inside?0:(Math.sin(frame*.018+p.x*.008)*.09+.09);
-      var alpha=(.38+glow+breath)*pv;
-
-      // Glow halo for bright nodes or near-cursor nodes
+      var alpha=(.38+glow+breath)*p._pv;
       if(p.bright||glow>0.2){
         ctx.beginPath();
         ctx.arc(p.x,p.y,p.r*(p.bright?5:3),0,Math.PI*2);
-        ctx.fillStyle='rgba(255,42,42,'+((alpha*(p.bright?.22:.3)))+')';
+        ctx.fillStyle='rgba(255,42,42,'+(alpha*(p.bright?.22:.3)).toFixed(2)+')';
         ctx.fill();
       }
       ctx.beginPath();
       ctx.arc(p.x,p.y,p.r+(glow*2),0,Math.PI*2);
-      ctx.fillStyle='rgba(255,42,42,'+Math.min(alpha,0.95)+')';
+      ctx.fillStyle='rgba(255,42,42,'+Math.min(alpha,0.95).toFixed(2)+')';
       ctx.fill();
     }
 
-    // Draw cursor node — bigger pulsing glow
+    // Cursor glow node
     if(mouse.inside){
-      ctx.beginPath();
-      ctx.arc(mouse.x,mouse.y,5,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,42,42,.9)';
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(mouse.x,mouse.y,14,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,42,42,.12)';
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(mouse.x,mouse.y,32,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,42,42,.06)';
-      ctx.fill();
+      ctx.beginPath();ctx.arc(mouse.x,mouse.y,5,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,42,42,.9)';ctx.fill();
+      ctx.beginPath();ctx.arc(mouse.x,mouse.y,14,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,42,42,.12)';ctx.fill();
     }
 
     requestAnimationFrame(draw);
@@ -3104,13 +3107,13 @@ function renderTmList(){
 
   document.addEventListener('mousemove',function(e){
     mx=e.clientX;my=e.clientY;
-    dot.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';
+    dot.style.transform='translate3d('+mx+'px,'+my+'px,0) translate(-50%,-50%)';
   },{passive:true});
 
-  // Ring follows with lerp
+  // Ring follows with lerp — snappier
   function tick(){
-    rx+=(mx-rx)*.14;ry+=(my-ry)*.14;
-    ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';
+    rx+=(mx-rx)*.22;ry+=(my-ry)*.22;
+    ring.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%)';
     raf=requestAnimationFrame(tick);
   }
   tick();
