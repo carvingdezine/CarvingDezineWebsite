@@ -292,8 +292,8 @@ input,textarea,select{font-family:var(--f)}
   transition:background .3s;
 }
 .pc:hover{background:var(--g2)}
-.pc-img{overflow:hidden;aspect-ratio:3/2;background:var(--g2)}
-.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .75s var(--ease);display:block}
+.pc-img{overflow:hidden;aspect-ratio:3/2;background:var(--g2);display:flex;align-items:center;justify-content:center}
+.pc-img img{width:100%;height:100%;object-fit:contain;transition:transform .75s var(--ease);display:block;background:var(--g2)}
 .pc:hover .pc-img img{transform:scale(1.06)}
 .pc-ph{width:100%;height:100%;background:var(--g2);display:flex;align-items:center;justify-content:center}
 .pc-ph-n{font-size:38px;font-weight:900;letter-spacing:-.06em;color:rgba(255,255,255,.05)}
@@ -549,7 +549,7 @@ input,textarea,select{font-family:var(--f)}
 .dz-icon{font-size:28px;margin-bottom:8px}
 .dz-txt{font-family:var(--m);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:2}
 .dz-txt strong{color:rgba(255,255,255,.7);display:block}
-.img-prev{width:100%;aspect-ratio:3/2;object-fit:cover;margin-top:12px;border:1px solid var(--line);display:none}
+.img-prev{width:100%;aspect-ratio:3/2;object-fit:contain;margin-top:12px;border:1px solid var(--line);display:none;background:var(--g2)}
 .img-prev.show{display:block}
 .adm-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;font-family:var(--m);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;background:var(--white);color:var(--black);transition:background .2s,color .2s}
 .adm-btn:hover{background:var(--red);color:var(--white)}
@@ -1888,16 +1888,7 @@ function sTm(a){localStorage.setItem(TMKEY,JSON.stringify(a))}
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
 
 // Seed projects — always visible, never duplicated
-var SEEDS=[
-  {id:'s1',title:'FinTech Dashboard UX',cat:'ux',year:'2026',client:'Mobcast',img:'',link:'',src:'manual'},
-  {id:'s2',title:'Nourish Co. Brand System',cat:'brand',year:'2026',client:'',img:'',link:'',src:'manual'},
-  {id:'s3',title:'Series A Pitch Deck',cat:'deck',year:'2025',client:'',img:'',link:'',src:'manual'},
-  {id:'s4',title:'Wellness App Design System',cat:'ux',year:'2025',client:'AYIO Health',img:'',link:'',src:'manual'},
-  {id:'s5',title:'ICICI Brand Guidelines',cat:'brand',year:'2025',client:'ICICI Bank',img:'',link:'',src:'manual'},
-  {id:'s6',title:'UFO Movies Annual Report',cat:'print',year:'2025',client:'UFO Movies',img:'',link:'',src:'manual'},
-  {id:'s7',title:'LifeLine Hospital App',cat:'ux',year:'2024',client:'LifeLine Hospital',img:'',link:'',src:'manual'},
-  {id:'s8',title:'Rockers Technology Rebrand',cat:'brand',year:'2024',client:'Rockers Technology',img:'',link:'',src:'manual'},
-];
+var SEEDS=[];
 
 // ─────────────────────────────────────────
 // LOADER
