@@ -1095,6 +1095,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <nav class="adm-nav">
       <a class="adm-ni on" data-p="add">Add Project</a>
       <a class="adm-ni" data-p="manage">Manage Projects</a>
+      <a class="adm-ni" data-p="testimonials">Testimonials</a>
       <a class="adm-ni" data-p="backup">Backup & Restore</a>
       <a class="adm-ni" data-p="settings">Settings</a>
     </nav>
@@ -1169,7 +1170,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
       <!-- TESTIMONIALS -->
       <div class="adm-pnl" id="p-testimonials">
         <div class="adm-st">Testimonials</div>
-        <div class="adm-hint">Add client quotes here — they appear in the <strong>Testimonials</strong> section on the site. Add as many as you like; they display as a horizontal scroll strip.</div>
+        <div class="adm-hint">Add client quotes here — they appear in the <strong>Testimonials</strong> section. Quote and name are required. Add as many as you like.</div>
 
         <!-- ADD FORM -->
         <div class="adm-g" id="tm-form-wrap">
@@ -1184,13 +1185,6 @@ h2 .whu{display:inline-block;vertical-align:bottom}
           </div>
           <div class="adm-f"><label class="adm-l">Company</label>
             <input class="adm-in" id="tm-c" placeholder="e.g. Mobcast"/>
-          </div>
-          <div class="adm-f"><label class="adm-l">Rating (1–5 stars)</label>
-            <select class="adm-sl" id="tm-s">
-              <option value="5">★★★★★ 5 stars</option>
-              <option value="4">★★★★☆ 4 stars</option>
-              <option value="3">★★★☆☆ 3 stars</option>
-            </select>
           </div>
           <div class="adm-f"><label class="adm-l">Platform / Source</label>
             <input class="adm-in" id="tm-p" placeholder="e.g. Google, LinkedIn, Upwork"/>
@@ -2307,6 +2301,7 @@ document.querySelectorAll('.adm-ni').forEach(function(it){
     it.classList.add('on');
     var panel=document.getElementById('p-'+it.dataset.p);if(panel)panel.classList.add('on');
     if(it.dataset.p==='manage')renderList();
+    if(it.dataset.p==='testimonials')renderTmList();
   });
 });
 
@@ -2411,41 +2406,50 @@ document.getElementById('clrall').addEventListener('click',function(){
 // ─────────────────────────────────────────
 function updateBackupStatus(){
   var ps=gPj();
+  var tm=gTm();
   var el=document.getElementById('backup-status');
   if(!el)return;
-  if(!ps.length){
-    el.innerHTML='<span style="color:rgba(255,255,255,.4)">No user-added projects yet.</span>';
+  if(!ps.length&&!tm.length){
+    el.innerHTML='<span style="color:rgba(255,255,255,.4)">No user-added content yet.</span>';
     return;
   }
   var withImg=ps.filter(function(p){return p.img&&p.img.length>0}).length;
-  el.innerHTML='<strong style="color:var(--red)">'+ps.length+'</strong> project'+(ps.length!==1?'s':'')+' saved &nbsp;·&nbsp; '
+  var totalKB=Math.round((JSON.stringify(ps).length+JSON.stringify(tm).length)/1024);
+  el.innerHTML='<strong style="color:var(--red)">'+ps.length+'</strong> project'+(ps.length!==1?'s':'')+' &nbsp;·&nbsp; '
+    +'<strong style="color:var(--red)">'+tm.length+'</strong> testimonial'+(tm.length!==1?'s':'')+' &nbsp;·&nbsp; '
     +'<strong style="color:var(--red)">'+withImg+'</strong> with images &nbsp;·&nbsp; '
-    +'~<strong>'+Math.round(JSON.stringify(ps).length/1024)+'KB</strong> total size';
+    +'~<strong>'+totalKB+'KB</strong>';
 }
 
-// Export
+// Export — includes both projects AND testimonials
 document.getElementById('exp-btn').addEventListener('click',function(){
   var ps=gPj();
-  if(!ps.length){
-    var m=document.getElementById('exp-msg');
-    m.style.color='rgba(255,42,42,.8)';m.textContent='No projects to export yet.';m.style.display='block';
+  var tm=gTm();
+  var m=document.getElementById('exp-msg');
+  if(!ps.length&&!tm.length){
+    m.style.color='rgba(255,42,42,.8)';m.textContent='Nothing to export yet.';m.style.display='block';
     setTimeout(function(){m.style.display='none'},3000);return;
   }
-  var payload=JSON.stringify({version:1,exported:new Date().toISOString(),projects:ps},null,2);
+  var payload=JSON.stringify({
+    version:2,
+    exported:new Date().toISOString(),
+    projects:ps,
+    testimonials:tm
+  },null,2);
   var blob=new Blob([payload],{type:'application/json'});
   var url=URL.createObjectURL(blob);
   var a=document.createElement('a');
   a.href=url;
-  a.download='carvingdezine-projects-'+new Date().toISOString().slice(0,10)+'.json';
+  a.download='carvingdezine-backup-'+new Date().toISOString().slice(0,10)+'.json';
   document.body.appendChild(a);a.click();
   setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url)},100);
-  var m=document.getElementById('exp-msg');
-  m.style.color='#22c55e';m.textContent='✓ Exported '+ps.length+' project'+(ps.length!==1?'s':'')+' successfully.';
+  m.style.color='#22c55e';
+  m.textContent='✓ Exported '+ps.length+' project'+(ps.length!==1?'s':'')+' & '+tm.length+' testimonial'+(tm.length!==1?'s':'')+'.';
   m.style.display='block';
   setTimeout(function(){m.style.display='none'},4000);
 });
 
-// Import
+// Import — restores both projects AND testimonials
 document.getElementById('imp-file').addEventListener('change',function(){
   var file=this.files[0];if(!file)return;
   var msg=document.getElementById('imp-msg');
@@ -2453,24 +2457,39 @@ document.getElementById('imp-file').addEventListener('change',function(){
   reader.onload=function(e){
     try{
       var data=JSON.parse(e.target.result);
-      // Support both raw array and versioned {projects:[...]} format
-      var incoming=Array.isArray(data)?data:(data.projects||[]);
-      if(!incoming.length){throw new Error('No projects found in file.')}
-      // Merge: keep existing, add new ones (by id dedup)
-      var existing=gPj();
-      var existIds=existing.map(function(p){return p.id});
-      var added=0,skipped=0;
-      incoming.forEach(function(p){
-        if(!p.id||!p.title){skipped++;return;}
-        if(existIds.indexOf(p.id)!==-1){
-          // duplicate id — give it a new id and add
-          p.id='u'+Date.now()+Math.random().toString(36).slice(2,6);
-        }
-        existing.unshift(p);added++;
+
+      // ── Projects ──
+      var incomingPj=Array.isArray(data)?data:(data.projects||[]);
+      var existPj=gPj();
+      var existPjIds=existPj.map(function(p){return p.id});
+      var addedPj=0,skippedPj=0;
+      incomingPj.forEach(function(p){
+        if(!p.id||!p.title){skippedPj++;return;}
+        if(existPjIds.indexOf(p.id)!==-1){p.id='u'+Date.now()+Math.random().toString(36).slice(2,6);}
+        existPj.unshift(p);addedPj++;
       });
-      sPj(existing);renderList();renderGrid('all');updateBackupStatus();
+      sPj(existPj);
+
+      // ── Testimonials ──
+      var incomingTm=data.testimonials||[];
+      var existTm=gTm();
+      var existTmIds=existTm.map(function(t){return t.id});
+      var addedTm=0;
+      incomingTm.forEach(function(t){
+        if(!t.id||!t.quote||!t.name)return;
+        if(existTmIds.indexOf(t.id)!==-1){t.id='tm_'+Date.now()+Math.random().toString(36).slice(2,6);}
+        existTm.unshift(t);addedTm++;
+      });
+      sTm(existTm);
+
+      renderList();renderGrid('all');renderTestimonials();renderTmList();updateBackupStatus();
+
+      var parts=[];
+      if(addedPj)parts.push(addedPj+' project'+(addedPj!==1?'s':''));
+      if(addedTm)parts.push(addedTm+' testimonial'+(addedTm!==1?'s':''));
+      if(skippedPj)parts.push(skippedPj+' skipped');
       msg.style.color='#22c55e';
-      msg.textContent='✓ Imported '+added+' project'+(added!==1?'s':'')+(skipped?' ('+skipped+' skipped)':'')+'.';
+      msg.textContent='✓ Imported '+(parts.join(' & ')||'nothing new')+'.';
       msg.style.display='block';
       setTimeout(function(){msg.style.display='none'},5000);
     }catch(err){
@@ -2646,13 +2665,12 @@ if(tmSaveBtn)tmSaveBtn.addEventListener('click',function(){
   var n=(document.getElementById('tm-n').value||'').trim();
   var r=(document.getElementById('tm-r').value||'').trim();
   var c=(document.getElementById('tm-c').value||'').trim();
-  var s=parseInt(document.getElementById('tm-s').value)||5;
   var p=(document.getElementById('tm-p').value||'').trim();
   var err=document.getElementById('tm-err');
   var ok=document.getElementById('tm-ok');
   if(!q||!n){err.textContent='Quote and name are required.';err.style.display='block';return}
   err.style.display='none';
-  var t={id:'tm_'+Date.now(),quote:q,name:n,role:r,company:c,stars:s,platform:p};
+  var t={id:'tm_'+Date.now(),quote:q,name:n,role:r,company:c,platform:p};
   var arr=gTm();arr.unshift(t);sTm(arr);
   renderTestimonials();renderTmList();
   document.getElementById('tm-q').value='';
@@ -2685,12 +2703,7 @@ function renderTmList(){
   });
 }
 
-// Render list when Testimonials tab opened
-document.querySelectorAll('.adm-ni').forEach(function(it){
-  it.addEventListener('click',function(){
-    if(it.dataset.p==='testimonials')renderTmList();
-  });
-});
+
 
 </script>
 </body>
