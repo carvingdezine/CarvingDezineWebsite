@@ -1177,14 +1177,15 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   top:0;left:0;will-change:transform;
 }
 .cur-dot{
-  position:absolute;width:6px;height:6px;border-radius:50%;
-  background:var(--white);transform:translate3d(-50%,-50%,0);
+  position:absolute;width:9px;height:9px;border-radius:50%;
+  background:#fff;transform:translate3d(-50%,-50%,0);
   transition:width .15s,height .15s,background .15s,opacity .2s;
   will-change:transform;
+  box-shadow:0 0 6px rgba(255,255,255,.8);
 }
 .cur-ring{
   position:absolute;width:36px;height:36px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.45);
+  border:1.5px solid rgba(255,255,255,.75);
   transform:translate3d(-50%,-50%,0);
   transition:width .22s var(--ease),height .22s var(--ease),
              border-color .22s,opacity .2s;
@@ -3224,6 +3225,8 @@ function renderTmList(){
 (function(){
   var cur=document.getElementById('cd-cursor');
   if(!cur||window.matchMedia('(hover:none)').matches)return;
+  // Hide in admin
+  if(document.getElementById('adm')&&!document.getElementById('adm').classList.contains('adm-hidden')){cur.style.display='none';return;}
   var dot=cur.querySelector('.cur-dot');
   var ring=cur.querySelector('.cur-ring');
   var mx=window.innerWidth/2,my=window.innerHeight/2;
@@ -3237,7 +3240,7 @@ function renderTmList(){
 
   // Ring follows with lerp — snappier
   function tick(){
-    rx+=(mx-rx)*.22;ry+=(my-ry)*.22;
+    rx+=(mx-rx)*.28;ry+=(my-ry)*.28;
     ring.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%)';
     raf=requestAnimationFrame(tick);
   }
