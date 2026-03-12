@@ -2763,10 +2763,10 @@ document.getElementById('fsub').addEventListener('click',function(){
 // ─────────────────────────────────────────
 // ADMIN SYSTEM
 // ─────────────────────────────────────────
-function chkRoute(){if(location.hash==='#admin')document.getElementById('adm-login').classList.add('show')}
+function chkRoute(){if(location.hash==='#admin'){document.getElementById('adm-login').classList.add('show');if(window._cursorAdmin)window._cursorAdmin(true);}}
 chkRoute();window.addEventListener('hashchange',chkRoute);
 document.addEventListener('keydown',function(e){
-  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key==='A'){e.preventDefault();document.getElementById('adm-login').classList.add('show')}
+  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key==='A'){e.preventDefault();document.getElementById('adm-login').classList.add('show');if(window._cursorAdmin)window._cursorAdmin(true);}
 });
 document.getElementById('lbtn').addEventListener('click',doLogin);
 document.getElementById('lpwd').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
@@ -2774,6 +2774,7 @@ function doLogin(){
   if(document.getElementById('lpwd').value===gPwd()){
     document.getElementById('adm-login').classList.remove('show');
     document.getElementById('adm-ov').classList.add('show');
+    if(window._cursorAdmin)window._cursorAdmin(true);
     renderList();
   }else{
     var err=document.getElementById('lerr');err.style.display='block';
@@ -2784,6 +2785,7 @@ function doLogin(){
 document.getElementById('admx').addEventListener('click',function(){
   document.getElementById('adm-ov').classList.remove('show');
   location.hash='';renderGrid('all');
+  if(window._cursorAdmin)window._cursorAdmin(false);
 });
 document.querySelectorAll('.adm-ni').forEach(function(it){
   it.addEventListener('click',function(){
@@ -3268,6 +3270,12 @@ function renderTmList(){
   // Hide/show on leave
   document.addEventListener('mouseleave',function(){cur.style.opacity='0'});
   document.addEventListener('mouseenter',function(){cur.style.opacity='1'});
+
+  // Expose toggle for admin use
+  window._cursorAdmin=function(adminOpen){
+    cur.style.display=adminOpen?'none':'block';
+    document.documentElement.style.cursor=adminOpen?'auto':'none';
+  };
 })();
 
 // ═══════════════════════════════════════════════════════
