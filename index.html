@@ -140,9 +140,9 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSIjZmYyYTJhIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNikiIHg9IjMyNC4yMiIgeT0iMjAwLjk1IiB3aWR0aD0iMTcuMjQiIGhlaWdodD0iNjAuNDgiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDAwLjQ3LDExMy4zOWMtMzIuNTksMC01OS4wMSwyNi40Mi01OS4wMSw1OXYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg=="/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
+<!-- Google Analytics — add your GA4 ID here when ready -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOURCODE"></script> -->
 <style>
 /* ═══════════════════════════════════
    TOKENS
@@ -1547,12 +1547,12 @@ h2 .whu{display:inline-block;vertical-align:bottom}
                 <div class="dz-txt"><strong>Click to select or drag & drop</strong>JPG, PNG, WebP · Saves filename as path · Upload same file to your server's <strong>images/</strong> folder</div>
               </div>
               <input type="hidden" id="ap-up-path" value=""/>
-              <img id="prev-up" class="img-prev" alt="Preview"/>
+              <img id="prev-up" class="img-prev" alt="Preview"/ loading="lazy">
               <div id="ap-up-hint" style="display:none;font-family:var(--m);font-size:9px;letter-spacing:.12em;color:rgba(255,165,0,.8);margin-top:8px;line-height:1.7;"></div>
             </div>
             <div id="ipanel-url" style="display:none">
               <input class="adm-in" id="ap-url" placeholder="https://mir-s3-cdn-cf.behance.net/.../cover.jpg"/>
-              <img id="prev-url" class="img-prev" alt="Preview"/>
+              <img id="prev-url" class="img-prev" alt="Preview"/ loading="lazy">
             </div>
             <div id="ipanel-path" style="display:none">
               <div style="font-family:var(--m);font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.35);margin-bottom:8px;line-height:1.7">
@@ -1561,7 +1561,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
                 Upload the file to the same folder on your server first.
               </div>
               <input class="adm-in" id="ap-path" placeholder="images/my-project-cover.jpg"/>
-              <img id="prev-path" class="img-prev" alt="Preview"/>
+              <img id="prev-path" class="img-prev" alt="Preview"/ loading="lazy">
             </div>
           </div>
 
@@ -1902,7 +1902,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <!-- ═══════════════════ ABOUT ═══════════════════ -->
 <section id="about">
   <div class="abt-l scene-left">
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIiBhcmlhLWxhYmVsPSJDYXJ2aW5nIERlemluZSI+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIgZD0iTTI4My40Niw1NjYuOTNoMEMxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3aDBDMCwxMjYuOTEsMTI2LjkxLDAsMjgzLjQ2LDBzMjgzLjQ2LDEyNi45MSwyODMuNDYsMjgzLjQ2aDBjMCwxNTYuNTUtMTI2LjkxLDI4My40Ni0yODMuNDYsMjgzLjQ2Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTIyNS40NywzMjFjMC0zMi41NSwyNS43OS01OS4yNiw1Ny40Mi01OS41NGg2NS45MnYtNjAuNTFjLTQxLjQyLDAtNjYuMjMsMC02Ni4yOCwwLTY0LjM3LjUyLTExNi43NCw1NC4zNy0xMTYuNzQsMTIwLjA0LDAsMzIuMjksMTIuNTgsNjEuNjEsMzIuOTgsODMuMjFsLTI0LjUxLDQ5LjM0LDY0LjY1LTIxLjQ2YzEzLjc1LDUuNzYsMjguOCw4Ljk2LDQ0LjU2LDguOTYsMTQuMzIsMCwyOC4wNC0yLjYzLDQwLjc1LTcuNDN2LTcwLjMxYy0xMC40OCwxMC42NC0yNC44OCwxNy4yMy00MC43NSwxNy4yMy0zMS45OCwwLTU4LTI2LjcxLTU4LTU5LjU0Ii8+PHJlY3QgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTloMHYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg==" class="abt-logo" alt="Carving Dezine"/>
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIiBhcmlhLWxhYmVsPSJDYXJ2aW5nIERlemluZSI+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIgZD0iTTI4My40Niw1NjYuOTNoMEMxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3aDBDMCwxMjYuOTEsMTI2LjkxLDAsMjgzLjQ2LDBzMjgzLjQ2LDEyNi45MSwyODMuNDYsMjgzLjQ2aDBjMCwxNTYuNTUtMTI2LjkxLDI4My40Ni0yODMuNDYsMjgzLjQ2Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTIyNS40NywzMjFjMC0zMi41NSwyNS43OS01OS4yNiw1Ny40Mi01OS41NGg2NS45MnYtNjAuNTFjLTQxLjQyLDAtNjYuMjMsMC02Ni4yOCwwLTY0LjM3LjUyLTExNi43NCw1NC4zNy0xMTYuNzQsMTIwLjA0LDAsMzIuMjksMTIuNTgsNjEuNjEsMzIuOTgsODMuMjFsLTI0LjUxLDQ5LjM0LDY0LjY1LTIxLjQ2YzEzLjc1LDUuNzYsMjguOCw4Ljk2LDQ0LjU2LDguOTYsMTQuMzIsMCwyOC4wNC0yLjYzLDQwLjc1LTcuNDN2LTcwLjMxYy0xMC40OCwxMC42NC0yNC44OCwxNy4yMy00MC43NSwxNy4yMy0zMS45OCwwLTU4LTI2LjcxLTU4LTU5LjU0Ii8+PHJlY3QgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTloMHYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg==" class="abt-logo" alt="Carving Dezine"/ loading="lazy">
     <div class="abt-q"><span class="whu">DESIGN</span> <span class="whu">THAT</span><br><span class="whu">MAKES</span> <span class="whu">PEOPLE</span><br><em><span class="whu">STOP.</span></em><br><span class="whu">THEN</span> <span class="whu">ACT.</span></div>
     <div class="abt-links">
       <a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="abt-lnk">Behance</a>
@@ -2264,7 +2264,7 @@ var _heroCanvas=(function(){
 
   function init(){
     pts=[];
-    var n=225;
+    var n=Math.min(225,80); // starts lean, ramps after load
     for(var i=0;i<n;i++){
       pts.push({
         x:Math.random()*c.width,  y:Math.random()*c.height,
@@ -2453,6 +2453,22 @@ var _heroCanvas=(function(){
 function startHero(){
   // Start canvas AFTER loader exits — hero is now visible and has proper dimensions
   setTimeout(function(){ _heroCanvas.start(); }, 50);
+  // Ramp nodes to full count after page is interactive
+  setTimeout(function(){
+    if(typeof pts!=='undefined'&&pts.length<225){
+      var target=225;
+      var c=document.getElementById('hero-canvas');
+      while(pts.length<target){
+        pts.push({
+          x:Math.random()*c.width, y:Math.random()*c.height,
+          vx:(Math.random()-.5)*.8, vy:(Math.random()-.5)*.8,
+          r:Math.random()*2+.6, phase:Math.random()*Math.PI*2,
+          speed:Math.random()*.012+.01, bright:Math.random()>.72,
+          _distC:9999, _pv:1
+        });
+      }
+    }
+  }, 2500);
   setTimeout(function(){document.getElementById('wa').classList.add('vis')},1400);
   // eyebrow
   setTimeout(function(){document.getElementById('hero-eye').classList.add('vis')},100);
@@ -2682,7 +2698,7 @@ function renderGiList(){
   list.innerHTML=_giImages.map(function(img,i){
     return '<div class="gi-item" data-i="'+i+'" draggable="true">'
       +'<span class="gi-drag" title="Drag to reorder">☰</span>'
-      +'<img class="gi-thumb" src="'+img.url+'" alt="img '+(i+1)+'"/>'
+      +'<img class="gi-thumb" src="'+img.url+'" alt="img '+(i+1)+'"/ loading="lazy">'
       +'<div class="gi-info">'
         +'<div class="gi-name">Image '+(i+1)+'</div>'
         +'<div class="gi-layout">'
@@ -2879,8 +2895,9 @@ renderGrid('all');
 })();
 
 // ─────────────────────────────────────────
-// BEHANCE FETCH — rss2json + fallback
+// BEHANCE FETCH — deferred until idle
 // ─────────────────────────────────────────
+(window.requestIdleCallback||function(cb){setTimeout(cb,1000)})(function(){
 (function(){
   // Check cache first
   try{
@@ -2924,10 +2941,12 @@ renderGrid('all');
         }).catch(function(){});
     });
 })();
+}); // end requestIdleCallback Behance
 
 // ─────────────────────────────────────────
-// DRIBBBLE FETCH
+// DRIBBBLE FETCH — deferred until idle
 // ─────────────────────────────────────────
+(window.requestIdleCallback||function(cb){setTimeout(cb,1500)})(function(){
 (function(){
   try{
     var c=JSON.parse(localStorage.getItem(DRB_KEY));
@@ -2951,6 +2970,7 @@ renderGrid('all');
     })
     .catch(function(){});
 })();
+}); // end requestIdleCallback Dribbble
 
 // ─────────────────────────────────────────
 // CONTACT FORM
