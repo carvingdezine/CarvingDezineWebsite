@@ -162,6 +162,7 @@
 ═══════════════════════════════════ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{overflow-x:hidden;font-size:16px}
+a,button,[data-href],input,select,textarea,[onclick]{cursor:pointer}
 body{background:var(--black);color:var(--white);font-family:var(--f);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--f);cursor:pointer;border:none;background:none}
@@ -1170,36 +1171,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 .snd-btn.on{color:var(--white);border-color:var(--red);background:rgba(255,42,42,.08)}
 .snd-btn svg{width:16px;height:16px}
 
-/* ── CUSTOM CURSOR ─────────────────────────── */
-html,body,body *{cursor:none!important}
-#cd-cursor{
-  position:fixed;pointer-events:none;z-index:99999;
-  top:0;left:0;will-change:transform;
-}
-.cur-dot{
-  position:absolute;width:10px;height:10px;border-radius:50%;
-  background:#fff;transform:translate3d(-50%,-50%,0);
-  transition:width .15s,height .15s,background .15s,opacity .2s;
-  will-change:transform;
-  box-shadow:0 0 8px 2px rgba(255,255,255,.9);
-}
-.cur-ring{
-  position:absolute;width:36px;height:36px;border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.9);
-  transform:translate3d(-50%,-50%,0);
-  transition:width .22s var(--ease),height .22s var(--ease),
-             border-color .22s,opacity .2s;
-  will-change:transform;
-}
-/* States */
-body.cur-link .cur-dot{width:10px;height:10px;background:var(--red)}
-body.cur-link .cur-ring{width:52px;height:52px;border-color:var(--red);opacity:.6}
-body.cur-drag .cur-ring{width:64px;height:64px;border-color:var(--red);border-style:dashed}
-body.cur-drag .cur-dot{background:var(--red)}
-body.hov .cur-ring{opacity:.3}
-#adm-login.show,#adm-ov.show,#adm-login.show *,#adm-ov.show *{cursor:auto!important}
-#adm-login.show #cd-cursor,#adm-ov.show #cd-cursor{display:none!important}
-@media(hover:none){#cd-cursor{display:none}*{cursor:auto!important}}
+
 
 
 /* ── PROJECT CARD SHARE BUTTON ─────────────────────────── */
@@ -2677,8 +2649,8 @@ function renderGiList(){
       +'<div class="gi-info">'
         +'<div class="gi-name">Image '+(i+1)+'</div>'
         +'<div class="gi-layout">'
-          +'<button class="'+(img.layout==='full'?'on':'')+'" onclick="giSetLayout('+i+','full')">Full Width</button>'
-          +'<button class="'+(img.layout==='side'?'on':'')+'" onclick="giSetLayout('+i+','side')">Side by Side</button>'
+          +'<button class="'+(img.layout==='full'?'on':'')+'" data-i="'+i+'" data-layout="full" onclick="giSetLayout(this)">Full Width</button>'
+          +'<button class="'+(img.layout==='side'?'on':'')+'" data-i="'+i+'" data-layout="side" onclick="giSetLayout(this)">Side by Side</button>'
         +'</div>'
       +'</div>'
       +'<button class="gi-del" onclick="giDel('+i+')" title="Remove">&times;</button>'
@@ -2686,7 +2658,9 @@ function renderGiList(){
   }).join('');
 }
 
-function giSetLayout(i,layout){
+function giSetLayout(btn){
+  var i=parseInt(btn.dataset.i);
+  var layout=btn.dataset.layout;
   if(_giImages[i])_giImages[i].layout=layout;
   renderGiList();
 }
@@ -2948,10 +2922,10 @@ document.getElementById('fsub').addEventListener('click',function(){
 // ─────────────────────────────────────────
 // ADMIN SYSTEM
 // ─────────────────────────────────────────
-function chkRoute(){if(location.hash==='#admin'){document.getElementById('adm-login').classList.add('show');if(window._cursorAdmin)window._cursorAdmin(true);}}
+function chkRoute(){if(location.hash==='#admin')document.getElementById('adm-login').classList.add('show')}
 chkRoute();window.addEventListener('hashchange',chkRoute);
 document.addEventListener('keydown',function(e){
-  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key==='A'){e.preventDefault();document.getElementById('adm-login').classList.add('show');if(window._cursorAdmin)window._cursorAdmin(true);}
+  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key==='A'){e.preventDefault();document.getElementById('adm-login').classList.add('show');}
 });
 document.getElementById('lbtn').addEventListener('click',doLogin);
 document.getElementById('lpwd').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
@@ -2959,7 +2933,6 @@ function doLogin(){
   if(document.getElementById('lpwd').value===gPwd()){
     document.getElementById('adm-login').classList.remove('show');
     document.getElementById('adm-ov').classList.add('show');
-    if(window._cursorAdmin)window._cursorAdmin(true);
     renderList();
   }else{
     var err=document.getElementById('lerr');err.style.display='block';
@@ -2970,7 +2943,6 @@ function doLogin(){
 document.getElementById('admx').addEventListener('click',function(){
   document.getElementById('adm-ov').classList.remove('show');
   location.hash='';renderGrid('all');
-  if(window._cursorAdmin)window._cursorAdmin(false);
 });
 document.querySelectorAll('.adm-ni').forEach(function(it){
   it.addEventListener('click',function(){
@@ -3459,11 +3431,6 @@ function renderTmList(){
   document.addEventListener('mouseleave',function(){cur.style.opacity='0'});
   document.addEventListener('mouseenter',function(){cur.style.opacity='1'});
 
-  // Expose toggle for admin use
-  window._cursorAdmin=function(adminOpen){
-    cur.style.display=adminOpen?'none':'block';
-    document.documentElement.style.cursor=adminOpen?'auto':'none';
-  };
 })();
 
 // ═══════════════════════════════════════════════════════
