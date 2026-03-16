@@ -3507,54 +3507,7 @@ function renderTmList(){
   updateUI();
 })();
 
-// ═══════════════════════════════════════════════════════
-// CUSTOM CURSOR
-// ═══════════════════════════════════════════════════════
-(function(){
-  var cur=document.getElementById('cd-cursor');
-  if(!cur||window.matchMedia('(hover:none)').matches)return;
-  cur.style.opacity='1';
-  var dot=cur.querySelector('.cur-dot');
-  var ring=cur.querySelector('.cur-ring');
-  var mx=window.innerWidth/2,my=window.innerHeight/2;
-  var rx=mx,ry=my;
-  var raf;
 
-  document.addEventListener('mousemove',function(e){
-    mx=e.clientX;my=e.clientY;
-    dot.style.transform='translate3d('+mx+'px,'+my+'px,0) translate(-50%,-50%)';
-  },{passive:true});
-
-  // Ring follows with lerp — snappier
-  function tick(){
-    rx+=(mx-rx)*.28;ry+=(my-ry)*.28;
-    ring.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%)';
-    raf=requestAnimationFrame(tick);
-  }
-  tick();
-
-  // Link hover states
-  document.addEventListener('mouseover',function(e){
-    var t=e.target.closest('a,button,[data-href],.fbtn,.pgrid-arr,.tm-arr,.snd-btn,.burger,.chap-pip');
-    if(t)document.body.classList.add('cur-link');
-  });
-  document.addEventListener('mouseout',function(e){
-    var t=e.target.closest('a,button,[data-href],.fbtn,.pgrid-arr,.tm-arr,.snd-btn,.burger,.chap-pip');
-    if(t)document.body.classList.remove('cur-link');
-  });
-
-  // Drag state for scroll areas
-  var pgScroll=document.querySelector('.pgrid-scroll');
-  if(pgScroll){
-    pgScroll.addEventListener('mousedown',function(){document.body.classList.add('cur-drag')});
-    document.addEventListener('mouseup',function(){document.body.classList.remove('cur-drag')});
-  }
-
-  // Hide/show on leave
-  document.addEventListener('mouseleave',function(){cur.style.opacity='0'});
-  document.addEventListener('mouseenter',function(){cur.style.opacity='1'});
-
-})();
 
 // ═══════════════════════════════════════════════════════
 // CHAPTER PIPS — scroll spy
