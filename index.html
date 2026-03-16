@@ -1538,18 +1538,30 @@ h2 .whu{display:inline-block;vertical-align:bottom}
             <div class="itabs">
               <button class="itab on" id="itab-up">⬆ Upload File</button>
               <button class="itab" id="itab-url">🔗 Paste URL</button>
+              <button class="itab" id="itab-path">📁 Local Path</button>
             </div>
             <div id="ipanel-up">
               <div class="dropzone" id="dz">
                 <input type="file" id="ap-file" accept="image/jpeg,image/png,image/webp,image/gif"/>
                 <div class="dz-icon">📷</div>
-                <div class="dz-txt"><strong>Click to upload or drag & drop</strong>JPG, PNG, WebP · Max 5MB · Embedded in page</div>
+                <div class="dz-txt"><strong>Click to select or drag & drop</strong>JPG, PNG, WebP · Saves filename as path · Upload same file to your server's <strong>images/</strong> folder</div>
               </div>
+              <input type="hidden" id="ap-up-path" value=""/>
               <img id="prev-up" class="img-prev" alt="Preview"/>
+              <div id="ap-up-hint" style="display:none;font-family:var(--m);font-size:9px;letter-spacing:.12em;color:rgba(255,165,0,.8);margin-top:8px;line-height:1.7;"></div>
             </div>
             <div id="ipanel-url" style="display:none">
               <input class="adm-in" id="ap-url" placeholder="https://mir-s3-cdn-cf.behance.net/.../cover.jpg"/>
               <img id="prev-url" class="img-prev" alt="Preview"/>
+            </div>
+            <div id="ipanel-path" style="display:none">
+              <div style="font-family:var(--m);font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.35);margin-bottom:8px;line-height:1.7">
+                Type the filename or path relative to your website root.<br/>
+                e.g. <strong style="color:rgba(255,255,255,.55)">images/cover.jpg</strong> or <strong style="color:rgba(255,255,255,.55)">projects/brandpot/cover.jpg</strong><br/>
+                Upload the file to the same folder on your server first.
+              </div>
+              <input class="adm-in" id="ap-path" placeholder="images/my-project-cover.jpg"/>
+              <img id="prev-path" class="img-prev" alt="Preview"/>
             </div>
           </div>
 
@@ -1558,7 +1570,10 @@ h2 .whu{display:inline-block;vertical-align:bottom}
             <label class="adm-l">Gallery Images <span style="color:rgba(255,255,255,.28);font-size:9px">(up to 10 · shown on project page)</span></label>
             <div class="gi-list" id="gi-list"></div>
             <input type="file" class="gi-add-input" id="gi-file" accept="image/jpeg,image/png,image/webp" multiple/>
-            <button class="gi-add-btn" onclick="document.getElementById('gi-file').click()">+ Add Images</button>
+            <div style="display:flex;gap:8px;margin-top:4px;">
+              <button class="gi-add-btn" style="flex:1" onclick="document.getElementById('gi-file').click()">+ Upload Images</button>
+              <button class="gi-add-btn" style="flex:1" onclick="giAddPath()">+ Local Path</button>
+            </div>
           </div>
           <div class="adm-f"><label class="adm-l">Source Platform</label>
             <select class="adm-sl" id="ap-src">
@@ -1569,6 +1584,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
           </div>
         </div>
         <button class="adm-btn" id="ap-save">Save Project</button>
+        <div id="ap-storage-warn" style="display:none;font-family:var(--m);font-size:9px;letter-spacing:.12em;color:rgba(255,165,0,.8);margin-top:8px;"></div>
         <div class="adm-ok" id="ap-ok">✓ PROJECT SAVED.</div>
         <div class="adm-err" id="ap-err"></div>
       </div>
@@ -2063,7 +2079,19 @@ var DEFPWD='carving2024',PWKEY='cd_pw',PJKEY='cd_pj',TMKEY='cd_tm',HIKEY='cd_hi'
 var BEH_KEY='cd_beh',DRB_KEY='cd_drb',TTL=3600000;
 function gPwd(){return localStorage.getItem(PWKEY)||DEFPWD}
 function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
-function sPj(a){localStorage.setItem(PJKEY,JSON.stringify(a))}
+function sPj(a){
+  try{
+    localStorage.setItem(PJKEY,JSON.stringify(a));
+    return true;
+  }catch(e){
+    // localStorage full — likely too many base64 images
+    var msg='Storage full. Try using image URLs instead of uploading files, or delete old projects to free space.';
+    var errEl=document.getElementById('ap-err');
+    if(errEl){errEl.textContent=msg;errEl.style.display='block';}
+    else{alert(msg);}
+    return false;
+  }
+}
 function gTm(){try{return JSON.parse(localStorage.getItem(TMKEY))||[]}catch(e){return[]}}
 function gHi(){try{return JSON.parse(localStorage.getItem(HIKEY))||[]}catch(e){return[]}}
 function sHi(a){localStorage.setItem(HIKEY,JSON.stringify(a))}
@@ -2679,6 +2707,13 @@ function giDel(i){
   _giImages.splice(i,1);
   renderGiList();
 }
+function giAddPath(){
+  var path=prompt('Enter local file path (e.g. images/slide1.jpg):');
+  if(!path||!path.trim())return;
+  if(_giImages.length>=10){alert('Maximum 10 images.');return;}
+  _giImages.push({url:path.trim(),layout:'full',gap:false});
+  renderGiList();
+}
 function giToggleGap(btn){
   var i=parseInt(btn.dataset.i);
   if(_giImages[i])_giImages[i].gap=!_giImages[i].gap;
@@ -2717,13 +2752,14 @@ document.getElementById('gi-file').addEventListener('change',function(e){
   var files=Array.from(e.target.files);
   var remaining=10-_giImages.length;
   files.slice(0,remaining).forEach(function(file){
-    var reader=new FileReader();
-    reader.onload=function(ev){
-      _giImages.push({url:ev.target.result,layout:'full'});
-      renderGiList();
-    };
-    reader.readAsDataURL(file);
+    var fname='images/'+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
+    _giImages.push({url:fname,layout:'full',gap:false});
+    renderGiList();
   });
+  // Show all filenames user needs to upload
+  var names=files.slice(0,remaining).map(function(f){return f.name;}).join(', ');
+  var hint=document.getElementById('gi-upload-hint');
+  if(hint){hint.textContent='Upload these files to your images/ folder: '+names;hint.style.display='block';}
   e.target.value='';
 });
 
@@ -2980,6 +3016,7 @@ function doLogin(){
     document.getElementById('adm-login').classList.remove('show');
     document.getElementById('adm-ov').classList.add('show');
     renderList();
+    checkStorage();
   }else{
     var err=document.getElementById('lerr');err.style.display='block';
     document.getElementById('lpwd').value='';
@@ -3002,21 +3039,42 @@ document.querySelectorAll('.adm-ni').forEach(function(it){
 });
 
 // image tabs
-document.getElementById('itab-up').addEventListener('click',function(){
-  this.classList.add('on');document.getElementById('itab-url').classList.remove('on');
-  document.getElementById('ipanel-up').style.display='';document.getElementById('ipanel-url').style.display='none';
-});
-document.getElementById('itab-url').addEventListener('click',function(){
-  this.classList.add('on');document.getElementById('itab-up').classList.remove('on');
-  document.getElementById('ipanel-up').style.display='none';document.getElementById('ipanel-url').style.display='';
+function switchItab(active){
+  ['itab-up','itab-url','itab-path'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.classList.remove('on');
+  });
+  ['ipanel-up','ipanel-url','ipanel-path'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.style.display='none';
+  });
+  document.getElementById('itab-'+active).classList.add('on');
+  document.getElementById('ipanel-'+active).style.display='';
+}
+document.getElementById('itab-up').addEventListener('click',function(){switchItab('up');});
+document.getElementById('itab-url').addEventListener('click',function(){switchItab('url');});
+document.getElementById('itab-path').addEventListener('click',function(){switchItab('path');});
+
+// Local path preview
+document.getElementById('ap-path').addEventListener('input',function(){
+  var v=this.value.trim(),p=document.getElementById('prev-path');
+  if(v){p.src=v;p.classList.add('show');p.onerror=function(){p.classList.remove('show');};}
+  else{p.classList.remove('show');}
 });
 
 // file upload
 document.getElementById('ap-file').addEventListener('change',function(){
   var file=this.files[0];if(!file)return;
-  if(file.size>5*1024*1024){document.getElementById('ap-err').textContent='Max 5MB.';document.getElementById('ap-err').style.display='block';return}
   document.getElementById('ap-err').style.display='none';
-  var r=new FileReader();r.onload=function(ev){var p=document.getElementById('prev-up');p.src=ev.target.result;p.classList.add('show')};r.readAsDataURL(file);
+  // Save as local path — images/filename
+  var fname='images/'+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
+  document.getElementById('ap-up-path').value=fname;
+  // Show preview using object URL (local only, not saved)
+  var p=document.getElementById('prev-up');
+  p.src=URL.createObjectURL(file);
+  p.classList.add('show');
+  p.onload=function(){URL.revokeObjectURL(p.src);};
+  // Show the path so user knows what to name the file
+  document.getElementById('ap-up-hint').textContent='Save path: '+fname+' — upload this file as "'+file.name+'" to your images/ folder on the server.';
+  document.getElementById('ap-up-hint').style.display='block';
 });
 
 // drag & drop
@@ -3026,7 +3084,13 @@ if(dz){
   ['dragleave','drop'].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.remove('drag')})});
   dz.addEventListener('drop',function(e){
     var file=e.dataTransfer.files[0];if(!file||!file.type.startsWith('image/'))return;
-    var r=new FileReader();r.onload=function(ev){var p=document.getElementById('prev-up');p.src=ev.target.result;p.classList.add('show')};r.readAsDataURL(file);
+    var fname='images/'+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
+    document.getElementById('ap-up-path').value=fname;
+    var p=document.getElementById('prev-up');
+    p.src=URL.createObjectURL(file);p.classList.add('show');
+    p.onload=function(){URL.revokeObjectURL(p.src);};
+    document.getElementById('ap-up-hint').textContent='Save path: '+fname+' — upload this file as "'+file.name+'" to your images/ folder on the server.';
+    document.getElementById('ap-up-hint').style.display='block';
   });
 }
 
@@ -3060,13 +3124,17 @@ function loadEdit(id){
   document.getElementById('ap-src').value=p.src||'manual';
   // Cover image
   if(p.img){
-    var pu=document.getElementById('prev-up');
-    pu.src=p.img;pu.classList.add('show');
-    // Switch to upload tab to show preview
-    document.getElementById('itab-up').classList.add('on');
-    document.getElementById('itab-url').classList.remove('on');
-    document.getElementById('ipanel-up').style.display='';
-    document.getElementById('ipanel-url').style.display='none';
+    var isBase64=p.img.startsWith('data:');
+    var isLocal=p.img&&!p.img.startsWith('http')&&!p.img.startsWith('data:');
+    if(isLocal){
+      switchItab('path');
+      document.getElementById('ap-path').value=p.img;
+      var pp=document.getElementById('prev-path');pp.src=p.img;pp.classList.add('show');
+    } else {
+      var pu=document.getElementById('prev-up');
+      pu.src=p.img;pu.classList.add('show');
+      switchItab('up');
+    }
   }
   // Gallery images
   _giImages=(p.images||[]).slice();
@@ -3078,6 +3146,22 @@ function loadEdit(id){
   document.getElementById('p-add').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
+function checkStorage(){
+  try{
+    var used=JSON.stringify(localStorage).length;
+    var pct=Math.round(used/52428800*100); // rough 5MB estimate
+    var warn=document.getElementById('ap-storage-warn');
+    if(warn){
+      if(used>3500000){
+        warn.textContent='Warning: Storage '+Math.round(used/1024)+'KB used. Use image URLs instead of uploads to avoid hitting the limit.';
+        warn.style.display='block';
+      } else {
+        warn.textContent='Storage used: ~'+Math.round(used/1024)+'KB';
+        warn.style.display='block';
+      }
+    }
+  }catch(e){}
+}
 function clearEditState(){
   _editId=null;
   document.getElementById('ap-save').textContent='Save Project';
@@ -3091,9 +3175,16 @@ document.getElementById('ap-save').addEventListener('click',function(){
   if(!title){errEl.textContent='Project title is required.';errEl.style.display='block';return}
   errEl.style.display='none';
   var imgSrc='';
-  if(document.getElementById('itab-up').classList.contains('on')){
-    var up=document.getElementById('prev-up');imgSrc=up.classList.contains('show')?up.src:'';
-  }else{imgSrc=document.getElementById('ap-url').value.trim()}
+  var activeTab=document.querySelector('.itab.on');
+  var tabId=activeTab?activeTab.id:'';
+  if(tabId==='itab-up'){
+    // Use saved path, not the blob/base64
+    imgSrc=document.getElementById('ap-up-path').value||'';
+  }else if(tabId==='itab-path'){
+    imgSrc=document.getElementById('ap-path').value.trim();
+  }else{
+    imgSrc=document.getElementById('ap-url').value.trim();
+  }
   var pj={
     id:_editId||('u'+Date.now()),title:title,cat:document.getElementById('ap-c').value,
     year:document.getElementById('ap-y').value||'2026',client:document.getElementById('ap-cl').value.trim(),
@@ -3110,7 +3201,8 @@ document.getElementById('ap-save').addEventListener('click',function(){
   } else {
     ps.unshift(pj);
   }
-  sPj(ps);
+  var saved=sPj(ps);
+  if(!saved)return;
   ['ap-t','ap-cl','ap-d','ap-body','ap-l'].forEach(function(id){document.getElementById(id).value=''});
   _giImages=[];renderGiList();
   document.getElementById('ap-y').value='2026';
