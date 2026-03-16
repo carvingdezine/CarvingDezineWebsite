@@ -68,11 +68,10 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 
 /* ── RIGHT PANEL — fixed ── */
 .pj-right{
-  position:fixed;
-  top:var(--nav-h);right:0;
-  width:var(--right-w);
+  grid-column:2;
+  position:sticky;
+  top:var(--nav-h);
   height:calc(100vh - var(--nav-h));
-  z-index:100;
   background:var(--black);
   border-left:1px solid var(--line);
   display:flex;flex-direction:column;justify-content:center;
@@ -111,16 +110,16 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .pj-ext-btn:hover{color:#fff;border-color:rgba(255,255,255,.3);}
 .pj-ext-btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 
-/* ── SPLIT WRAPPER — right panel fixed, left scrolls ── */
-/* The trick: left gallery is normal flow, right panel is fixed.
-   We use padding-right on the page so content never goes under fixed panel */
-body{padding-right:var(--right-w);}
-
-/* ── LEFT GALLERY — scrolls normally ── */
-.pj-gallery-wrap{
+/* ── SPLIT LAYOUT — CSS Grid, sticky right panel ── */
+.pj-split{
+  display:grid;
+  grid-template-columns:var(--left-w) var(--right-w);
   margin-top:var(--nav-h);
-  width:100%; /* full width of the padded body = left 60% */
+  align-items:start;
 }
+
+/* ── LEFT GALLERY — scrolls with page ── */
+.pj-gallery-wrap{grid-column:1;}
 .pj-gallery{display:flex;flex-direction:column;}
 .pj-img-block{position:relative;overflow:hidden;background:var(--g2);}
 .pj-img-block img{width:100%;height:auto;display:block;transform:scale(1.05);transition:transform 1.2s var(--ease);}
@@ -129,13 +128,8 @@ body{padding-right:var(--right-w);}
 .pj-img-pair .pj-img-block img{height:100%;object-fit:cover;}
 .pj-gap-top{margin-top:3px;}
 
-/* ── BOTTOM — full width, flows after gallery ── */
-.pj-bottom-wrap{
-  /* Break out of body's padding-right to go full viewport width */
-  width:100vw;
-  margin-left:calc(-0px);
-  position:relative;
-}
+/* ── BOTTOM — full width, naturally outside the grid ── */
+.pj-bottom-wrap{}
 
 /* Prev/Next */
 .pj-prevnext{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
@@ -201,8 +195,9 @@ footer{border-top:1px solid var(--line)}
 /* ── MOBILE ── */
 @media(max-width:768px){
   .pj-nav{padding:0 20px;}
-  body{padding-right:0;}
-  .pj-right{position:relative;top:auto;right:auto;width:100%;height:auto;border-left:none;border-bottom:1px solid var(--line);padding:36px 24px;}
+  .pj-split{display:flex;flex-direction:column;}
+  .pj-gallery-wrap{order:2;}
+  .pj-right{position:relative;top:auto;width:100%;height:auto;border-left:none;border-bottom:1px solid var(--line);padding:36px 24px;order:1;}
   .pj-gallery-wrap{width:100%;margin-top:0;}
   .pj-prevnext{grid-template-columns:1fr;}
   .pj-prev{border-right:none;border-bottom:1px solid var(--line);}
@@ -377,7 +372,9 @@ function render(){
   // Bottom sections are full width and flow naturally after gallery
   root.innerHTML=
     // Fixed right panel
-    '<div class="pj-right">'
+    '<div class="pj-split">'
+    +'<div class="pj-gallery-wrap">'+galleryH+'</div>'
+    +'<div class="pj-right">'
       +'<div class="pj-progress"><div class="pj-progress-bar" id="pj-prog"></div></div>'
       +'<div class="pj-cat">'+catLabel+'</div>'
       +'<div class="pj-title">'+esc(pj.title)+'</div>'
@@ -385,9 +382,7 @@ function render(){
       +descH
       +'<div class="pj-actions">'+shareH+extH+'</div>'
     +'</div>'
-    // Gallery — 60% wide, scrolls with page
-    +'<div class="pj-gallery-wrap">'+galleryH+'</div>'
-    // Full width bottom
+    +'</div>'
     +'<div class="pj-bottom-wrap">'
       +'<div class="pj-prevnext">'+prevH+nextH+'</div>'
       +relatedH
