@@ -417,7 +417,7 @@ input,textarea,select{font-family:var(--f)}
   transition:background .3s;
 }
 .pc:hover{background:var(--g2)}
-.pc-img{overflow:hidden;aspect-ratio:3/2;background:var(--g2);display:flex;align-items:center;justify-content:center}
+.pc-img{overflow:hidden;aspect-ratio:808/632;background:var(--g2);display:flex;align-items:center;justify-content:center}
 .pc-img img{width:100%;height:100%;object-fit:contain;transition:transform .75s var(--ease);display:block;background:var(--g2)}
 .pc:hover .pc-img img{transform:scale(1.06)}
 .pc-ph{width:100%;height:100%;background:var(--g2);display:flex;align-items:center;justify-content:center}
@@ -1171,21 +1171,21 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 .snd-btn svg{width:16px;height:16px}
 
 /* ── CUSTOM CURSOR ─────────────────────────── */
-*{cursor:none!important}
+html,body,body *{cursor:none!important}
 #cd-cursor{
   position:fixed;pointer-events:none;z-index:99999;
   top:0;left:0;will-change:transform;
 }
 .cur-dot{
-  position:absolute;width:9px;height:9px;border-radius:50%;
+  position:absolute;width:10px;height:10px;border-radius:50%;
   background:#fff;transform:translate3d(-50%,-50%,0);
   transition:width .15s,height .15s,background .15s,opacity .2s;
   will-change:transform;
-  box-shadow:0 0 6px rgba(255,255,255,.8);
+  box-shadow:0 0 8px 2px rgba(255,255,255,.9);
 }
 .cur-ring{
   position:absolute;width:36px;height:36px;border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.9);
   transform:translate3d(-50%,-50%,0);
   transition:width .22s var(--ease),height .22s var(--ease),
              border-color .22s,opacity .2s;
@@ -1200,6 +1200,73 @@ body.hov .cur-ring{opacity:.3}
 #adm-login.show,#adm-ov.show,#adm-login.show *,#adm-ov.show *{cursor:auto!important}
 #adm-login.show #cd-cursor,#adm-ov.show #cd-cursor{display:none!important}
 @media(hover:none){#cd-cursor{display:none}*{cursor:auto!important}}
+
+
+/* ── PROJECT CARD SHARE BUTTON ─────────────────────────── */
+.pc-share{
+  position:absolute;top:10px;right:10px;z-index:4;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  opacity:0;transform:translateY(-4px);
+  transition:opacity .2s,transform .2s,background .2s,border-color .2s;
+}
+.pc:hover .pc-share{opacity:1;transform:translateY(0)}
+.pc-share:hover{background:var(--red);border-color:var(--red)}
+.pc-share svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc-share-tip{
+  position:absolute;top:46px;right:0;z-index:5;
+  background:rgba(0,0,0,.92);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.1);
+  padding:6px 0;min-width:140px;
+  opacity:0;pointer-events:none;transform:translateY(-4px);
+  transition:opacity .15s,transform .15s;
+}
+.pc-share-tip.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.pc-share-opt{
+  padding:8px 14px;font-family:var(--m);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  transition:background .15s,color .15s;
+}
+.pc-share-opt:hover{background:rgba(255,42,42,.12);color:#fff}
+.pc-share-opt svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.pc-copied{color:var(--red)!important}
+
+
+/* ── ADMIN GALLERY IMAGES ──────────────────────────────── */
+.gi-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.gi-item{
+  display:flex;align-items:center;gap:10px;
+  background:var(--g3);border:1px solid var(--line);padding:8px 10px;
+}
+.gi-thumb{width:56px;height:44px;object-fit:cover;flex-shrink:0;background:var(--g4);}
+.gi-info{flex:1;min-width:0;}
+.gi-name{font-family:var(--m);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.gi-layout{display:flex;gap:4px;margin-top:5px;}
+.gi-layout button{
+  font-family:var(--m);font-size:8px;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid var(--line2);background:transparent;color:rgba(255,255,255,.35);
+  cursor:pointer;transition:all .15s;
+}
+.gi-layout button.on{background:var(--red);border-color:var(--red);color:#fff;}
+.gi-del{
+  width:24px;height:24px;border-radius:50%;border:1px solid var(--line);
+  background:transparent;color:rgba(255,255,255,.3);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.gi-del:hover{background:rgba(255,42,42,.15);color:var(--red);border-color:var(--red);}
+.gi-add-btn{
+  width:100%;padding:10px;border:1px dashed var(--line2);background:transparent;
+  font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);cursor:pointer;transition:border-color .2s,color .2s;
+  margin-top:4px;
+}
+.gi-add-btn:hover{border-color:var(--red);color:var(--red);}
+.gi-add-input{display:none;}
 
 /* ── SCROLL STORYTELLING ────────────────────── */
 
@@ -1485,7 +1552,8 @@ body.hov .cur-ring{opacity:.3}
           </div>
           <div class="adm-f"><label class="adm-l">Year</label><input class="adm-in" id="ap-y" value="2026"/></div>
           <div class="adm-f"><label class="adm-l">Client Name</label><input class="adm-in" id="ap-cl" placeholder="e.g. ICICI Bank"/></div>
-          <div class="adm-f full"><label class="adm-l">Short Description</label><textarea class="adm-ta" id="ap-d" placeholder="One or two sentences about the project…"></textarea></div>
+          <div class="adm-f full"><label class="adm-l">Short Description <span style="color:rgba(255,255,255,.28);font-size:9px">(shown on card)</span></label><textarea class="adm-ta" id="ap-d" placeholder="One or two sentences about the project…"></textarea></div>
+          <div class="adm-f full"><label class="adm-l">Project Body <span style="color:rgba(255,255,255,.28);font-size:9px">(full page — write as much as you like, optional)</span></label><textarea class="adm-ta" id="ap-body" rows="6" placeholder="Describe your process, thinking, outcomes… no restrictions."></textarea></div>
 
           <!-- Image tabs -->
           <div class="adm-f full">
@@ -1509,6 +1577,12 @@ body.hov .cur-ring{opacity:.3}
           </div>
 
           <div class="adm-f"><label class="adm-l">Project Link</label><input class="adm-in" id="ap-l" placeholder="https://www.behance.net/gallery/…"/></div>
+          <div class="adm-f full">
+            <label class="adm-l">Gallery Images <span style="color:rgba(255,255,255,.28);font-size:9px">(up to 10 · shown on project page)</span></label>
+            <div class="gi-list" id="gi-list"></div>
+            <input type="file" class="gi-add-input" id="gi-file" accept="image/jpeg,image/png,image/webp" multiple/>
+            <button class="gi-add-btn" onclick="document.getElementById('gi-file').click()">+ Add Images</button>
+          </div>
           <div class="adm-f"><label class="adm-l">Source Platform</label>
             <select class="adm-sl" id="ap-src">
               <option value="manual">Manual / Other</option>
@@ -2526,13 +2600,116 @@ function mkCard(p,idx){
     ?'<div class="pc-img"><img src="'+p.img+'" alt="'+p.title+'" loading="lazy"/></div>'
     :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(idx+1).padStart(2,'0')+'</div></div></div>';
   var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
+  var shareUrl=(p.src==='manual'||!p.link)?('https://www.carvingdezine.com/project.html?id='+p.id):(p.link||'https://www.carvingdezine.com');
+  var shareSvg='<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
+  var copyIcon='<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+  var openIcon='<svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+  var shareBtn='<button class="pc-share" onclick="toggleShare(event,this)" data-url="'+shareUrl+'" data-title="'+p.title+'" data-link="'+(p.link||'')+'" aria-label="Share">'+shareSvg
+    +'<div class="pc-share-tip">'
+    +'<div class="pc-share-opt" onclick="copyShareLink(event,this)">'+copyIcon+' Copy link</div>'
+    +(p.link?'<div class="pc-share-opt" onclick="openShareLink(event,this)">'+openIcon+' Open project</div>':'')
+    +'<div class="pc-share-opt" onclick="nativeShare(event,this)">'+shareSvg+' Share\u2026</div>'
+    +'</div></button>';
   return '<div class="pc rv" data-src="'+(p.src||'manual')+'" data-cat="'+(p.cat||'')+'" style="transition-delay:'+(idx%4*.07)+'s">'
-    +badge+imgH
+    +badge+imgH+shareBtn
     +'<div class="pc-body"><div class="pc-cat">'+(CMAP[p.cat]||p.src||'Project')+'</div>'
     +'<div class="pc-title">'+p.title+'</div>'
     +'<div class="pc-yr">'+p.year+(p.client?' · '+p.client:'')+'</div></div>'
     +'<div class="pc-line"></div></div>';
 }
+
+
+// ── SHARE FUNCTIONS ─────────────────────────────────────
+function toggleShare(e,btn){
+  e.stopPropagation();
+  var tip=btn.querySelector('.pc-share-tip');
+  var isOpen=tip.classList.contains('open');
+  // Close all other open tips
+  document.querySelectorAll('.pc-share-tip.open').forEach(function(t){t.classList.remove('open')});
+  if(!isOpen)tip.classList.add('open');
+}
+function copyShareLink(e,el){
+  e.stopPropagation();
+  var url=el.closest('.pc-share').dataset.url;
+  navigator.clipboard.writeText(url).then(function(){
+    el.classList.add('pc-copied');
+    el.textContent='✓ Copied!';
+    setTimeout(function(){
+      el.classList.remove('pc-copied');
+      el.innerHTML=el.innerHTML.replace('✓ Copied!','Copy link');
+    },2000);
+  });
+}
+function openShareLink(e,el){
+  e.stopPropagation();
+  var url=el.closest('.pc-share').dataset.link;
+  if(url)window.open(url,'_blank');
+  document.querySelectorAll('.pc-share-tip.open').forEach(function(t){t.classList.remove('open')});
+}
+function nativeShare(e,el){
+  e.stopPropagation();
+  var btn=el.closest('.pc-share');
+  var url=btn.dataset.url;
+  var title=btn.dataset.title;
+  if(navigator.share){
+    navigator.share({title:title+' — Carving Dezine',url:url});
+  } else {
+    navigator.clipboard.writeText(url);
+  }
+  document.querySelectorAll('.pc-share-tip.open').forEach(function(t){t.classList.remove('open')});
+}
+// Close share tips on outside click
+document.addEventListener('click',function(){
+  document.querySelectorAll('.pc-share-tip.open').forEach(function(t){t.classList.remove('open')});
+});
+
+
+// ── GALLERY IMAGE MANAGER ───────────────────────────────
+var _giImages=[];// [{url,layout}]
+
+function renderGiList(){
+  var list=document.getElementById('gi-list');
+  if(!list)return;
+  if(!_giImages.length){list.innerHTML='<div style="font-family:var(--m);font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.2);padding:8px 0;">No gallery images added yet.</div>';return;}
+  list.innerHTML=_giImages.map(function(img,i){
+    return '<div class="gi-item" data-i="'+i+'">'
+      +'<img class="gi-thumb" src="'+img.url+'" alt="img '+(i+1)+'"/>'
+      +'<div class="gi-info">'
+        +'<div class="gi-name">Image '+(i+1)+'</div>'
+        +'<div class="gi-layout">'
+          +'<button class="'+(img.layout==='full'?'on':'')+'" onclick="giSetLayout('+i+','full')">Full Width</button>'
+          +'<button class="'+(img.layout==='side'?'on':'')+'" onclick="giSetLayout('+i+','side')">Side by Side</button>'
+        +'</div>'
+      +'</div>'
+      +'<button class="gi-del" onclick="giDel('+i+')" title="Remove">&times;</button>'
+    +'</div>';
+  }).join('');
+}
+
+function giSetLayout(i,layout){
+  if(_giImages[i])_giImages[i].layout=layout;
+  renderGiList();
+}
+function giDel(i){
+  _giImages.splice(i,1);
+  renderGiList();
+}
+
+document.getElementById('gi-file').addEventListener('change',function(e){
+  var files=Array.from(e.target.files);
+  var remaining=10-_giImages.length;
+  files.slice(0,remaining).forEach(function(file){
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      _giImages.push({url:ev.target.result,layout:'full'});
+      renderGiList();
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value='';
+});
+
+renderGiList();
 
 var _curSort='new'; // 'new' or 'old'
 
@@ -2555,7 +2732,15 @@ function renderGrid(filter){
   grid.innerHTML=filtered.map(mkCard).join('');
   grid.querySelectorAll('.pc').forEach(function(card,i){
     var p=filtered[i];
-    if(p&&p.link)card.addEventListener('click',function(){window.open(p.link,'_blank')});
+    (function(proj,c){
+      c.addEventListener('click',function(){
+        if(proj.src==='manual'||!proj.link){
+          window.location.href='project.html?id='+proj.id;
+        } else {
+          window.open(proj.link,'_blank');
+        }
+      });
+    })(p,card);
     card.addEventListener('mouseenter',function(){document.body.classList.add('hov')});
     card.addEventListener('mouseleave',function(){document.body.classList.remove('hov')});
     rvObs.observe(card);
@@ -2847,11 +3032,15 @@ document.getElementById('ap-save').addEventListener('click',function(){
   var pj={
     id:'u'+Date.now(),title:title,cat:document.getElementById('ap-c').value,
     year:document.getElementById('ap-y').value||'2026',client:document.getElementById('ap-cl').value.trim(),
-    desc:document.getElementById('ap-d').value.trim(),img:imgSrc,
+    desc:document.getElementById('ap-d').value.trim(),
+    body:document.getElementById('ap-body').value.trim(),
+    img:imgSrc,
+    images:_giImages.slice(),
     link:document.getElementById('ap-l').value.trim(),src:document.getElementById('ap-src').value
   };
   var ps=gPj();ps.unshift(pj);sPj(ps);
-  ['ap-t','ap-cl','ap-d','ap-l'].forEach(function(id){document.getElementById(id).value=''});
+  ['ap-t','ap-cl','ap-d','ap-body','ap-l'].forEach(function(id){document.getElementById(id).value=''});
+  _giImages=[];renderGiList();
   document.getElementById('ap-y').value='2026';
   document.getElementById('ap-src').value='manual';
   document.getElementById('prev-up').classList.remove('show');
@@ -3229,8 +3418,7 @@ function renderTmList(){
 (function(){
   var cur=document.getElementById('cd-cursor');
   if(!cur||window.matchMedia('(hover:none)').matches)return;
-  // Hide in admin
-  if(document.getElementById('adm')&&!document.getElementById('adm').classList.contains('adm-hidden')){cur.style.display='none';return;}
+  cur.style.opacity='1';
   var dot=cur.querySelector('.cur-dot');
   var ring=cur.querySelector('.cur-ring');
   var mx=window.innerWidth/2,my=window.innerHeight/2;

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Project — Carving Dezine</title>
+<meta name="robots" content="index,follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSIjZmYyYTJhIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsMjgzLjQ3LDAsNDQwLjAyLDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNikiIHg9IjMyNC4yMiIgeT0iMjAwLjk1IiB3aWR0aD0iMTcuMjQiIGhlaWdodD0iNjAuNDgiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDAwLjQ3LDExMy4zOWMtMzIuNTksMC01OS4wMSwyNi40Mi01OS4wMSw1OXYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg=="/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#000;--white:#fff;--red:#ff2a2a;
+  --g1:#0a0a0a;--g2:#111;--g3:#1a1a1a;--g4:#222;
+  --muted:rgba(255,255,255,.62);--muted2:rgba(255,255,255,.45);
+  --line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.13);
+  --ease:cubic-bezier(.19,1,.22,1);
+  --f:'Outfit',sans-serif;--m:'DM Mono',monospace;
+  --container:780px;
+}
+html{overflow-x:hidden;font-size:16px;scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--f);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* GRAIN */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size:200px 200px;opacity:.5;}
+
+/* ── NAV ── */
+.pj-nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+.pj-nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none;}
+.pj-nav-logo img{width:28px;height:28px;object-fit:contain;}
+.pj-nav-logo span{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--white);}
+.pj-back{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);text-decoration:none;
+  transition:color .2s;
+}
+.pj-back:hover{color:var(--white);}
+.pj-back svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── MAIN WRAP ── */
+.pj-main{padding-top:56px;min-height:100vh;}
+
+/* ── HERO ── */
+.pj-hero{
+  width:100%;max-height:70vh;overflow:hidden;
+  background:var(--g2);
+  display:flex;align-items:center;justify-content:center;
+}
+.pj-hero img{width:100%;max-height:70vh;object-fit:cover;display:block;}
+.pj-hero-ph{
+  width:100%;height:420px;display:flex;align-items:center;justify-content:center;
+  background:var(--g2);
+}
+.pj-hero-ph-n{font-size:80px;font-weight:900;color:rgba(255,255,255,.04);letter-spacing:-.06em;}
+
+/* ── CONTAINER ── */
+.pj-container{max-width:var(--container);margin:0 auto;padding:0 24px;}
+
+/* ── INFO BAR ── */
+.pj-info{
+  padding:48px 0 40px;
+  border-bottom:1px solid var(--line);
+  display:flex;flex-direction:column;gap:16px;
+}
+.pj-cat{
+  font-family:var(--m);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--red);
+}
+.pj-title{
+  font-size:clamp(28px,5vw,42px);font-weight:800;
+  letter-spacing:-.025em;line-height:1.1;
+  color:var(--white);
+}
+.pj-meta{
+  display:flex;align-items:center;flex-wrap:wrap;gap:6px 20px;
+  font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+}
+.pj-meta-sep{color:rgba(255,255,255,.15);}
+.pj-actions{display:flex;align-items:center;gap:12px;margin-top:4px;}
+.pj-share-btn{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  background:transparent;border:1px solid var(--line2);
+  padding:8px 14px;cursor:pointer;
+  transition:color .2s,border-color .2s,background .2s;
+  position:relative;
+}
+.pj-share-btn:hover{color:var(--white);border-color:rgba(255,255,255,.3);}
+.pj-share-btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.pj-share-drop{
+  position:absolute;top:calc(100% + 6px);left:0;z-index:10;
+  background:rgba(10,10,10,.97);backdrop-filter:blur(16px);
+  border:1px solid var(--line2);
+  padding:6px 0;min-width:160px;
+  opacity:0;pointer-events:none;transform:translateY(-4px);
+  transition:opacity .15s,transform .15s;
+}
+.pj-share-drop.open{opacity:1;pointer-events:auto;transform:translateY(0);}
+.pj-share-opt{
+  padding:9px 16px;font-family:var(--m);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);cursor:pointer;
+  display:flex;align-items:center;gap:10px;
+  transition:background .15s,color .15s;
+}
+.pj-share-opt:hover{background:rgba(255,42,42,.1);color:#fff;}
+.pj-share-opt svg{width:11px;height:11px;flex-shrink:0;}
+.pj-ext-btn{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  background:transparent;border:1px solid var(--line2);
+  padding:8px 14px;cursor:pointer;text-decoration:none;
+  transition:color .2s,border-color .2s;
+}
+.pj-ext-btn:hover{color:var(--white);border-color:rgba(255,255,255,.3);}
+.pj-ext-btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── DESCRIPTION ── */
+.pj-desc{
+  padding:40px 0;
+  font-size:16px;font-weight:300;line-height:1.95;
+  color:rgba(255,255,255,.65);
+  border-bottom:1px solid var(--line);
+  white-space:pre-wrap;
+}
+.pj-desc strong{color:rgba(255,255,255,.9);font-weight:600;}
+
+/* ── GALLERY ── */
+.pj-gallery{padding:48px 0;display:flex;flex-direction:column;gap:12px;}
+.pj-img-full{width:100%;overflow:hidden;background:var(--g2);}
+.pj-img-full img{width:100%;height:auto;display:block;}
+.pj-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pj-img-pair .pj-img-half{overflow:hidden;background:var(--g2);}
+.pj-img-pair .pj-img-half img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* ── DIVIDER ── */
+.pj-rule{height:1px;background:linear-gradient(90deg,var(--red) 40px,var(--line) 40px);margin:0;}
+
+/* ── RELATED ── */
+.pj-related{padding:64px 0 48px;}
+.pj-section-label{
+  font-family:var(--m);font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.28);margin-bottom:32px;
+  display:flex;align-items:center;gap:14px;
+}
+.pj-section-label::after{content:'';flex:1;height:1px;background:var(--line);}
+.pj-related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.pj-rel-card{text-decoration:none;display:flex;flex-direction:column;gap:0;cursor:pointer;}
+.pj-rel-img{aspect-ratio:808/632;overflow:hidden;background:var(--g2);}
+.pj-rel-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease);}
+.pj-rel-card:hover .pj-rel-img img{transform:scale(1.05);}
+.pj-rel-body{padding:12px 0 0;}
+.pj-rel-cat{font-family:var(--m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;}
+.pj-rel-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.3;}
+.pj-rel-yr{font-family:var(--m);font-size:10px;color:rgba(255,255,255,.3);margin-top:3px;}
+
+/* ── BOTTOM NAV ── */
+.pj-bottom{
+  border-top:1px solid var(--line);
+  padding:48px 0;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:24px;
+}
+.pj-prev,.pj-next{
+  display:flex;flex-direction:column;gap:6px;
+  text-decoration:none;
+  transition:opacity .2s;
+}
+.pj-prev:hover,.pj-next:hover{opacity:.7;}
+.pj-prev{align-items:flex-start;}
+.pj-next{align-items:flex-end;}
+.pj-nav-dir{
+  font-family:var(--m);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.28);display:flex;align-items:center;gap:6px;
+}
+.pj-nav-dir svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.pj-nav-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.3;max-width:200px;}
+.pj-back-all{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  text-decoration:none;
+}
+.pj-back-dot{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,background .2s;
+}
+.pj-back-all:hover .pj-back-dot{border-color:var(--red);background:rgba(255,42,42,.08);}
+.pj-back-dot svg{width:14px;height:14px;fill:none;stroke:var(--white);stroke-width:2;stroke-linecap:round;}
+.pj-back-lbl{font-family:var(--m);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);}
+
+/* ── CTA ── */
+.pj-cta{
+  background:var(--g1);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:72px 24px;
+  text-align:center;
+}
+.pj-cta-eyebrow{font-family:var(--m);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
+.pj-cta-title{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.025em;margin-bottom:12px;}
+.pj-cta-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.45);margin-bottom:32px;}
+.pj-cta-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--red);color:var(--white);
+  font-family:var(--m);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  padding:14px 32px;text-decoration:none;
+  transition:opacity .2s;
+}
+.pj-cta-btn:hover{opacity:.85;}
+
+/* ── FOOTER ── */
+.pj-footer{
+  padding:32px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--line);
+}
+.pj-footer-copy{font-family:var(--m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+.pj-footer-back{
+  font-family:var(--m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.28);text-decoration:none;
+  transition:color .2s;
+}
+.pj-footer-back:hover{color:var(--white);}
+
+/* ── NOT FOUND ── */
+.pj-404{
+  min-height:80vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px;text-align:center;
+}
+.pj-404-n{font-size:80px;font-weight:900;color:rgba(255,255,255,.04);letter-spacing:-.06em;}
+.pj-404-t{font-size:22px;font-weight:700;}
+.pj-404-s{font-size:14px;color:rgba(255,255,255,.4);}
+.pj-404 a{color:var(--red);text-decoration:none;}
+
+/* ── REVEAL ANIM ── */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.rv.in{opacity:1;transform:none;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .pj-nav{padding:0 20px;}
+  .pj-container{padding:0 16px;}
+  .pj-related-grid{grid-template-columns:1fr;}
+  .pj-img-pair{grid-template-columns:1fr;}
+  .pj-bottom{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;}
+  .pj-back-all{grid-column:span 2;order:-1;}
+  .pj-title{font-size:26px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="pj-nav">
+  <a class="pj-nav-logo" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 566.93 566.93" width="28" height="28">
+      <circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/>
+      <path fill="#fff" d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54"/>
+      <rect fill="rgba(255,255,255,0.5)" x="324.22" y="200.95" width="17.24" height="60.48"/>
+      <path fill="#fff" d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02"/>
+    </svg>
+    <span>Carving Dezine</span>
+  </a>
+  <a class="pj-back" href="index.html#work">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    All Work
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="pj-main" id="pj-main">
+  <!-- Populated by JS -->
+</main>
+
+<script>
+// ── SHARED DATA KEYS (same as index.html) ──────────────────
+var PJKEY='cd_pj';
+var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
+
+function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
+
+// ── GET PROJECT ID FROM URL ────────────────────────────────
+function getPjId(){
+  var params=new URLSearchParams(window.location.search);
+  return params.get('id');
+}
+
+// ── SHARE ─────────────────────────────────────────────────
+function togglePjShare(btn){
+  var drop=btn.querySelector('.pj-share-drop');
+  drop.classList.toggle('open');
+}
+function copyPjLink(){
+  navigator.clipboard.writeText(window.location.href).then(function(){
+    var el=document.getElementById('pj-copy-opt');
+    if(el){el.textContent='\u2713 Copied!';setTimeout(function(){el.textContent='Copy link'},2000);}
+  });
+  document.querySelectorAll('.pj-share-drop').forEach(function(d){d.classList.remove('open');});
+}
+function nativePjShare(title){
+  if(navigator.share){navigator.share({title:title+' \u2014 Carving Dezine',url:window.location.href});}
+  else{navigator.clipboard.writeText(window.location.href);}
+  document.querySelectorAll('.pj-share-drop').forEach(function(d){d.classList.remove('open');});
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.pj-share-btn'))
+    document.querySelectorAll('.pj-share-drop').forEach(function(d){d.classList.remove('open');});
+});
+
+// ── RENDER PROJECT ─────────────────────────────────────────
+function render(){
+  var id=getPjId();
+  var main=document.getElementById('pj-main');
+  var projects=gPj();
+  var pj=projects.find(function(p){return p.id===id});
+
+  if(!pj){
+    main.innerHTML='<div class="pj-container"><div class="pj-404">'
+      +'<div class="pj-404-n">404</div>'
+      +'<div class="pj-404-t">Project not found</div>'
+      +'<div class="pj-404-s">This project may have been removed or the link is incorrect.</div>'
+      +'<a href="index.html#work">← Back to all work</a>'
+      +'</div></div>';
+    return;
+  }
+
+  // Update page title & meta
+  document.title=pj.title+' — Carving Dezine';
+  var metaDesc=document.querySelector('meta[name="description"]');
+  if(!metaDesc){metaDesc=document.createElement('meta');metaDesc.name='description';document.head.appendChild(metaDesc);}
+  metaDesc.content=pj.desc||pj.title+' — A project by Carving Dezine';
+
+  // OG tags
+  setMeta('og:title',pj.title+' — Carving Dezine');
+  setMeta('og:description',pj.desc?pj.desc.slice(0,160):pj.title+' by Carving Dezine');
+  setMeta('og:url',window.location.href);
+  if(pj.img)setMeta('og:image',pj.img);
+
+  var catLabel=CMAP[pj.cat]||pj.cat||'Project';
+  var pageUrl=window.location.href;
+
+  // ── HERO ──
+  var heroH=pj.img
+    ?'<div class="pj-hero"><img src="'+pj.img+'" alt="'+esc(pj.title)+'" loading="eager"/></div>'
+    :'<div class="pj-hero"><div class="pj-hero-ph"><div class="pj-hero-ph-n">'+esc(pj.title).slice(0,2).toUpperCase()+'</div></div></div>';
+
+  // ── META ──
+  var metaParts=[catLabel];
+  if(pj.year)metaParts.push(pj.year);
+  if(pj.client)metaParts.push(pj.client);
+  var metaH=metaParts.map(function(m,i){
+    return (i>0?'<span class="pj-meta-sep">/</span>':'')+m;
+  }).join('');
+
+  // ── ACTIONS ──
+  var extBtn=pj.link
+    ?'<a class="pj-ext-btn" href="'+esc(pj.link)+'" target="_blank" rel="noopener">'
+      +'<svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
+      +(pj.src==='behance'?'View on Behance':pj.src==='dribbble'?'View on Dribbble':'View Project')
+      +'</a>':'' ;
+
+  var shareH='<button class="pj-share-btn" onclick="togglePjShare(this)">'
+    +'<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>'
+    +'Share'
+    +'<div class="pj-share-drop">'
+    +'<div class="pj-share-opt" id="pj-copy-opt" onclick="copyPjLink()">'
+    +'<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy link</div>'
+    +'<div class="pj-share-opt" onclick="nativePjShare(\''+esc(pj.title)+'\')">'
+    +'<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share\u2026</div>'
+    +'</div></button>';
+
+  // ── DESCRIPTION ──
+  var descH=pj.body
+    ?'<div class="pj-desc rv">'+esc(pj.body)+'</div>':'' ;
+
+  // ── GALLERY ──
+  var galleryH='';
+  if(pj.images&&pj.images.length){
+    galleryH='<div class="pj-gallery">';
+    var imgs=pj.images;
+    var i=0;
+    while(i<imgs.length){
+      var img=imgs[i];
+      if(img.layout==='side'&&i+1<imgs.length&&imgs[i+1].layout==='side'){
+        // Pair
+        galleryH+='<div class="pj-img-pair rv">'
+          +'<div class="pj-img-half"><img src="'+esc(img.url)+'" alt="Project image '+(i+1)+'" loading="lazy"/></div>'
+          +'<div class="pj-img-half"><img src="'+esc(imgs[i+1].url)+'" alt="Project image '+(i+2)+'" loading="lazy"/></div>'
+          +'</div>';
+        i+=2;
+      } else {
+        galleryH+='<div class="pj-img-full rv"><img src="'+esc(img.url)+'" alt="Project image '+(i+1)+'" loading="lazy"/></div>';
+        i++;
+      }
+    }
+    galleryH+='</div>';
+  }
+
+  // ── RELATED (same category, max 3, exclude self) ──
+  var related=projects.filter(function(p){return p.id!==id&&p.cat===pj.cat&&p.img}).slice(0,3);
+  var relatedH='';
+  if(related.length){
+    relatedH='<div class="pj-related"><div class="pj-container">'
+      +'<div class="pj-section-label">Related Projects</div>'
+      +'<div class="pj-related-grid">'
+      +related.map(function(r){
+        return '<a class="pj-rel-card rv" href="project.html?id='+r.id+'">'
+          +'<div class="pj-rel-img"><img src="'+esc(r.img)+'" alt="'+esc(r.title)+'" loading="lazy"/></div>'
+          +'<div class="pj-rel-body">'
+          +'<div class="pj-rel-cat">'+(CMAP[r.cat]||r.cat)+'</div>'
+          +'<div class="pj-rel-title">'+esc(r.title)+'</div>'
+          +'<div class="pj-rel-yr">'+r.year+(r.client?' \u00b7 '+r.client:'')+'</div>'
+          +'</div></a>';
+      }).join('')
+      +'</div></div></div>';
+  }
+
+  // ── PREV / NEXT ──
+  var idx=projects.findIndex(function(p){return p.id===id});
+  var prev=idx<projects.length-1?projects[idx+1]:null;
+  var next=idx>0?projects[idx-1]:null;
+  var prevH=prev
+    ?'<a class="pj-prev" href="project.html?id='+prev.id+'">'
+      +'<span class="pj-nav-dir"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Previous</span>'
+      +'<span class="pj-nav-title">'+esc(prev.title)+'</span></a>'
+    :'<div></div>';
+  var nextH=next
+    ?'<a class="pj-next" href="project.html?id='+next.id+'">'
+      +'<span class="pj-nav-dir">Next<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>'
+      +'<span class="pj-nav-title">'+esc(next.title)+'</span></a>'
+    :'<div></div>';
+
+  // ── ASSEMBLE ──
+  main.innerHTML=
+    heroH
+    +'<div class="pj-container">'
+      +'<div class="pj-info rv">'
+        +'<div class="pj-cat">'+catLabel+'</div>'
+        +'<div class="pj-title">'+esc(pj.title)+'</div>'
+        +'<div class="pj-meta">'+metaH+'</div>'
+        +'<div class="pj-actions">'+shareH+extBtn+'</div>'
+      +'</div>'
+      +descH
+    +'</div>'
+    +'<div class="pj-container">'+galleryH+'</div>'
+    +'<div class="pj-rule"></div>'
+    +relatedH
+    +'<div class="pj-container">'
+      +'<div class="pj-bottom">'
+        +prevH
+        +'<a class="pj-back-all" href="index.html#work">'
+          +'<div class="pj-back-dot"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>'
+          +'<span class="pj-back-lbl">All Work</span>'
+        +'</a>'
+        +nextH
+      +'</div>'
+    +'</div>'
+    +'<div class="pj-cta">'
+      +'<div class="pj-cta-eyebrow">Like what you see?</div>'
+      +'<div class="pj-cta-title">Let\'s work together</div>'
+      +'<div class="pj-cta-sub">Tell me about your project and let\'s create something remarkable.</div>'
+      +'<a class="pj-cta-btn" href="index.html#contact">Get in touch</a>'
+    +'</div>'
+    +'<footer class="pj-footer">'
+      +'<span class="pj-footer-copy">\u00a9 2026 Carving Dezine</span>'
+      +'<a class="pj-footer-back" href="index.html#work">\u2190 Back to work</a>'
+    +'</footer>';
+
+  // Reveal animations
+  requestAnimationFrame(function(){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+    },{threshold:0.1});
+    document.querySelectorAll('.rv').forEach(function(el){obs.observe(el);});
+  });
+}
+
+function esc(str){
+  if(!str)return'';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function setMeta(prop,content){
+  var el=document.querySelector('meta[property="'+prop+'"]');
+  if(!el){el=document.createElement('meta');el.setAttribute('property',prop);document.head.appendChild(el);}
+  el.setAttribute('content',content);
+}
+
+render();
+</script>
+</body>
+</html>
