@@ -101,7 +101,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .pj-gap-top{margin-top:3px;}
 
 /* ── BOTTOM — full width, flows after gallery ── */
-.pj-bottom-wrap{clear:both;}
+.pj-bottom-wrap{margin-right:var(--right-w);}
 
 /* Prev/Next */
 .pj-prevnext{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
@@ -135,11 +135,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .pj-cta-btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-family:var(--m);font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:14px 32px;text-decoration:none;transition:opacity .2s;}
 .pj-cta-btn:hover{opacity:.85;}
 
-/* Footer */
-.pj-footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);}
-.pj-footer-copy{font-family:var(--m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.2);}
-.pj-footer-back{font-family:var(--m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s;}
-.pj-footer-back:hover{color:#fff;}
+
 
 /* 404 */
 .pj-404{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:40px;}
@@ -148,10 +144,31 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .pj-404-s{font-size:14px;color:rgba(255,255,255,.4);}
 .pj-404 a{color:var(--red);text-decoration:none;}
 
+
+/* ── FOOTER (same as index) ── */
+footer{border-top:1px solid var(--line)}
+.ft-main{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--line)}
+.ft-col{padding:22px clamp(20px,4vw,52px);border-right:1px solid var(--line);display:flex;align-items:center}
+.ft-col:last-child{border-right:none;justify-content:flex-end}
+.ft-brand{display:flex;align-items:center;gap:10px}
+.ft-logo{width:30px;height:30px;object-fit:contain;opacity:.85}
+.ft-name{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.ft-copy{font-family:var(--m);font-size:12px;letter-spacing:.06em;color:rgba(255,255,255,.55)}
+.ft-links{display:flex;gap:clamp(14px,2vw,24px);flex-wrap:wrap}
+.ft-lnk{font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:color .2s;position:relative;padding-bottom:2px}
+.ft-lnk::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.ft-lnk:hover{color:var(--white)}
+.ft-lnk:hover::after{transform:scaleX(1)}
+.ft-btm{padding:14px clamp(20px,4vw,52px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--m);font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.45)}
+.ft-btm a{color:rgba(255,255,255,.3);transition:color .2s}
+.ft-btm a:hover{color:var(--red)}
+@media(max-width:768px){.ft-main{grid-template-columns:1fr}.ft-col{border-right:none;border-bottom:1px solid var(--line)}.ft-col:last-child{justify-content:flex-start}}
+
 /* ── MOBILE ── */
 @media(max-width:768px){
   .pj-nav{padding:0 20px;}
   .pj-right{position:relative;top:auto;right:auto;width:100%;height:auto;border-left:none;border-bottom:1px solid var(--line);padding:36px 24px;}
+  .pj-bottom-wrap{margin-right:0;}
   .pj-gallery-wrap{width:100%;margin-top:0;}
   .pj-prevnext{grid-template-columns:1fr;}
   .pj-prev{border-right:none;border-bottom:1px solid var(--line);}
@@ -313,7 +330,26 @@ function render(){
       +'<div class="pj-prevnext">'+prevH+nextH+'</div>'
       +relatedH
       +'<div class="pj-cta"><div class="pj-cta-eyebrow">Like what you see?</div><div class="pj-cta-title">Let\'s work together</div><div class="pj-cta-sub">Tell me about your project and let\'s create something remarkable.</div><a class="pj-cta-btn" href="index.html#contact">Get in touch</a></div>'
-      +'<footer class="pj-footer"><span class="pj-footer-copy">\u00a9 2026 Carving Dezine</span><a class="pj-footer-back" href="index.html#work">\u2190 Back to work</a></footer>'
+      +'<footer>'
+      +'<div class="ft-main">'
+        +'<div class="ft-col"><div class="ft-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIiBhcmlhLWxhYmVsPSJDYXJ2aW5nIERlemluZSI+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIgZD0iTTI4My40Niw1NjYuOTNoMEMxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3aDBDMCwxMjYuOTEsMTI2LjkxLDAsMjgzLjQ2LDBzMjgzLjQ2LDEyNi45MSwyODMuNDYsMjgzLjQ2aDBjMCwxNTYuNTUtMTI2LjkxLDI4My40Ni0yODMuNDYsMjgzLjQ2Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTIyNS40NywzMjFjMC0zMi41NSwyNS43OS01OS4yNiw1Ny40Mi01OS41NGg2NS45MnYtNjAuNTFjLTQxLjQyLDAtNjYuMjMsMC02Ni4yOCwwLTY0LjM3LjUyLTExNi43NCw1NC4zNy0xMTYuNzQsMTIwLjA0LDAsMzIuMjksMTIuNTgsNjEuNjEsMzIuOTgsODMuMjFsLTI0LjUxLDQ5LjM0LDY0LjY1LTIxLjQ2YzEzLjc1LDUuNzYsMjguOCw4Ljk2LDQ0LjU2LDguOTYsMTQuMzIsMCwyOC4wNC0yLjYzLDQwLjc1LTcuNDN2LTcwLjMxYy0xMC40OCwxMC42NC0yNC44OCwxNy4yMy00MC43NSwxNy4yMy0zMS45OCwwLTU4LTI2LjcxLTU4LTU5LjU0Ii8+PHJlY3QgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTloMHYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg==" class="ft-logo" alt="Carving Dezine"/><span class="ft-name">Carving Dezine</span></div></div>'
+        +'<div class="ft-col"><span class="ft-copy">&copy; 2026 Carving Dezine &middot; Mumbai &amp; Surat, India</span></div>'
+        +'<div class="ft-col"><div class="ft-links">'
+          +'<a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Behance</a>'
+          +'<a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Dribbble</a>'
+          +'<a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Instagram</a>'
+          +'<a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">X</a>'
+          +'<a href="https://threads.net/@carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Threads</a>'
+          +'<a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">LinkedIn</a>'
+          +'<a href="mailto:carvingdezine@gmail.com" class="ft-lnk">Email</a>'
+          +'<a href="#" onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false;" class="ft-lnk">\u2191 Top</a>'
+        +'</div></div>'
+      +'</div>'
+      +'<div class="ft-btm">'
+        +'<span>A part of <a href="https://www.microngroup.in" target="_blank" rel="noopener">Micron Group</a> &nbsp;&middot;&nbsp; www.carvingdezine.com</span>'
+        +'<span>Designed with intention &nbsp;&middot;&nbsp; <a href="index.html#admin">Studio Admin</a></span>'
+      +'</div>'
+    +'</footer>'
     +'</div>';
 
   // ── SCROLL PROGRESS ──
