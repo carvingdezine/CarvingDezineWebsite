@@ -1231,6 +1231,10 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   transition:background .15s,color .15s,border-color .15s;
 }
 .gi-del:hover{background:rgba(255,42,42,.15);color:var(--red);border-color:var(--red);}
+.gi-drag{width:20px;height:20px;display:flex;align-items:center;justify-content:center;cursor:grab;color:rgba(255,255,255,.2);flex-shrink:0;font-size:14px;user-select:none;}
+.gi-drag:active{cursor:grabbing;}
+.gi-item.dragging{opacity:.4;border-style:dashed;}
+.gi-item.drag-over{border-color:var(--red);background:rgba(255,42,42,.06);}
 .gi-add-btn{
   width:100%;padding:10px;border:1px dashed var(--line2);background:transparent;
   font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
@@ -1491,6 +1495,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <div id="adm-ov">
   <div class="adm-bar">
     <div class="adm-bar-t">Studio Admin — Carving Dezine</div>
+    <a href="index.html" style="font-family:var(--m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;border:1px solid rgba(255,255,255,.12);padding:6px 14px;transition:color .2s,border-color .2s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,.35)'" onmouseout="this.style.color='rgba(255,255,255,.45)';this.style.borderColor='rgba(255,255,255,.12)'">↗ View Portfolio</a>
     <button class="adm-x" id="admx">✕</button>
   </div>
   <div class="adm-body">
@@ -2054,12 +2059,14 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 // ─────────────────────────────────────────
 // STORAGE & CONSTANTS
 // ─────────────────────────────────────────
-var DEFPWD='carving2024',PWKEY='cd_pw',PJKEY='cd_pj',TMKEY='cd_tm';
+var DEFPWD='carving2024',PWKEY='cd_pw',PJKEY='cd_pj',TMKEY='cd_tm',HIKEY='cd_hi';
 var BEH_KEY='cd_beh',DRB_KEY='cd_drb',TTL=3600000;
 function gPwd(){return localStorage.getItem(PWKEY)||DEFPWD}
 function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
 function sPj(a){localStorage.setItem(PJKEY,JSON.stringify(a))}
 function gTm(){try{return JSON.parse(localStorage.getItem(TMKEY))||[]}catch(e){return[]}}
+function gHi(){try{return JSON.parse(localStorage.getItem(HIKEY))||[]}catch(e){return[]}}
+function sHi(a){localStorage.setItem(HIKEY,JSON.stringify(a))}
 function sTm(a){localStorage.setItem(TMKEY,JSON.stringify(a))}
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
 
@@ -2562,7 +2569,8 @@ var allPlatformProjects=[]; // populated by Behance/Dribbble fetch
 function getAllProjects(){
   var user=gPj();
   var userIds=user.map(function(p){return p.id});
-  var seeds=SEEDS.filter(function(s){return userIds.indexOf(s.id)===-1});
+  var hidden=gHi();
+  var seeds=SEEDS.filter(function(s){return userIds.indexOf(s.id)===-1&&hidden.indexOf(s.id)===-1});
   return user.concat(seeds).concat(allPlatformProjects);
 }
 
@@ -2642,20 +2650,23 @@ var _giImages=[];// [{url,layout}]
 function renderGiList(){
   var list=document.getElementById('gi-list');
   if(!list)return;
-  if(!_giImages.length){list.innerHTML='<div style="font-family:var(--m);font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.2);padding:8px 0;">No gallery images added yet.</div>';return;}
+  if(!_giImages.length){list.innerHTML='<div style="font-family:var(--m);font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.2);padding:8px 0;">No gallery images added yet. Drag to reorder once added.</div>';return;}
   list.innerHTML=_giImages.map(function(img,i){
-    return '<div class="gi-item" data-i="'+i+'">'
+    return '<div class="gi-item" data-i="'+i+'" draggable="true">'
+      +'<span class="gi-drag" title="Drag to reorder">☰</span>'
       +'<img class="gi-thumb" src="'+img.url+'" alt="img '+(i+1)+'"/>'
       +'<div class="gi-info">'
         +'<div class="gi-name">Image '+(i+1)+'</div>'
         +'<div class="gi-layout">'
           +'<button class="'+(img.layout==='full'?'on':'')+'" data-i="'+i+'" data-layout="full" onclick="giSetLayout(this)">Full Width</button>'
           +'<button class="'+(img.layout==='side'?'on':'')+'" data-i="'+i+'" data-layout="side" onclick="giSetLayout(this)">Side by Side</button>'
+          +'<button class="'+(img.gap?'on':'')+'" data-i="'+i+'" data-layout="gap" onclick="giToggleGap(this)" title="Add space above this image">Gap</button>'
         +'</div>'
       +'</div>'
       +'<button class="gi-del" onclick="giDel('+i+')" title="Remove">&times;</button>'
     +'</div>';
   }).join('');
+  initGiDrag();
 }
 
 function giSetLayout(btn){
@@ -2667,6 +2678,39 @@ function giSetLayout(btn){
 function giDel(i){
   _giImages.splice(i,1);
   renderGiList();
+}
+function giToggleGap(btn){
+  var i=parseInt(btn.dataset.i);
+  if(_giImages[i])_giImages[i].gap=!_giImages[i].gap;
+  renderGiList();
+}
+var _giDragIdx=null;
+function initGiDrag(){
+  var items=document.querySelectorAll('.gi-item');
+  items.forEach(function(item){
+    item.addEventListener('dragstart',function(){
+      _giDragIdx=parseInt(item.dataset.i);
+      setTimeout(function(){item.classList.add('dragging');},0);
+    });
+    item.addEventListener('dragend',function(){
+      item.classList.remove('dragging');
+      document.querySelectorAll('.gi-item').forEach(function(el){el.classList.remove('drag-over');});
+    });
+    item.addEventListener('dragover',function(e){
+      e.preventDefault();
+      document.querySelectorAll('.gi-item').forEach(function(el){el.classList.remove('drag-over');});
+      item.classList.add('drag-over');
+    });
+    item.addEventListener('drop',function(e){
+      e.preventDefault();
+      var toIdx=parseInt(item.dataset.i);
+      if(_giDragIdx===null||_giDragIdx===toIdx)return;
+      var moved=_giImages.splice(_giDragIdx,1)[0];
+      _giImages.splice(toIdx,0,moved);
+      _giDragIdx=null;
+      renderGiList();
+    });
+  });
 }
 
 document.getElementById('gi-file').addEventListener('change',function(e){
@@ -3025,17 +3069,37 @@ document.getElementById('ap-save').addEventListener('click',function(){
 });
 
 function renderList(){
-  var list=document.getElementById('pj-list'),ps=gPj();
-  if(!ps.length){list.innerHTML='<div class="pj-empty">No user-added projects yet.</div>';return}
-  list.innerHTML=ps.map(function(p,i){
-    return '<div class="pj-item"><div><div class="pj-t">'+String(i+1).padStart(3,'0')+' — '+p.title+'</div>'
-      +'<div class="pj-s">'+(CMAP[p.cat]||p.src||'Manual')+' · '+p.year+(p.client?' · '+p.client:'')+'</div></div>'
-      +'<button class="adm-btn del" data-del="'+p.id+'">Delete</button></div>';
+  var list=document.getElementById('pj-list');
+  var ps=gPj();
+  var hidden=gHi();
+  var seeds=SEEDS;
+  var all=ps.map(function(p){return{p:p,isSeed:false}})
+    .concat(seeds.map(function(p){return{p:p,isSeed:true}}));
+  if(!all.length){list.innerHTML='<div class="pj-empty">No projects yet.</div>';return}
+  list.innerHTML=all.map(function(item,i){
+    var p=item.p,isSeed=item.isSeed;
+    var isHidden=hidden.indexOf(p.id)!==-1;
+    var badge=isSeed?'<span style="font-family:var(--m);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.1);padding:2px 6px;margin-left:6px;">SEED</span>':'<span style="font-family:var(--m);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid rgba(255,42,42,.2);padding:2px 6px;margin-left:6px;">MANUAL</span>';
+    var delBtn=isSeed
+      ?'<button class="adm-btn del" data-hide="'+p.id+'">'+( isHidden?'Show':'Hide')+'</button>'
+      :'<button class="adm-btn del" data-del="'+p.id+'">Delete</button>';
+    return '<div class="pj-item"><div><div class="pj-t">'+String(i+1).padStart(3,'0')+' — '+p.title+badge+'</div>'
+      +'<div class="pj-s">'+( CMAP[p.cat]||p.src||'Manual')+' · '+p.year+(p.client?' · '+p.client:'')+'</div></div>'
+      +delBtn+'</div>';
   }).join('');
   list.querySelectorAll('[data-del]').forEach(function(btn){
     btn.addEventListener('click',function(){
       sPj(gPj().filter(function(p){return p.id!==btn.dataset.del}));
       renderList();renderGrid('all');
+    });
+  });
+  list.querySelectorAll('[data-hide]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var id=btn.dataset.hide;
+      var hi=gHi();
+      var idx=hi.indexOf(id);
+      if(idx===-1){hi.push(id);}else{hi.splice(idx,1);}
+      sHi(hi);renderList();renderGrid('all');
     });
   });
 }
