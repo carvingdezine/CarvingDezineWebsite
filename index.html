@@ -3035,6 +3035,53 @@ document.getElementById('ap-url').addEventListener('input',function(){
   else{p.classList.remove('show')};
 });
 
+// ── EDIT STATE ──────────────────────────────────────────
+var _editId=null;
+
+function loadEdit(id){
+  var p=gPj().find(function(x){return x.id===id});
+  if(!p)return;
+  _editId=id;
+  // Switch to Add tab
+  document.querySelectorAll('.adm-ni').forEach(function(n){n.classList.remove('on')});
+  document.querySelectorAll('.adm-pnl').forEach(function(n){n.classList.remove('on')});
+  document.querySelector('.adm-ni[data-p="add"]').classList.add('on');
+  document.getElementById('p-add').classList.add('on');
+  // Populate fields
+  document.getElementById('ap-t').value=p.title||'';
+  document.getElementById('ap-c').value=p.cat||'ux';
+  document.getElementById('ap-y').value=p.year||'2026';
+  document.getElementById('ap-cl').value=p.client||'';
+  document.getElementById('ap-d').value=p.desc||'';
+  document.getElementById('ap-body').value=p.body||'';
+  document.getElementById('ap-l').value=p.link||'';
+  document.getElementById('ap-src').value=p.src||'manual';
+  // Cover image
+  if(p.img){
+    var pu=document.getElementById('prev-up');
+    pu.src=p.img;pu.classList.add('show');
+    // Switch to upload tab to show preview
+    document.getElementById('itab-up').classList.add('on');
+    document.getElementById('itab-url').classList.remove('on');
+    document.getElementById('ipanel-up').style.display='';
+    document.getElementById('ipanel-url').style.display='none';
+  }
+  // Gallery images
+  _giImages=(p.images||[]).slice();
+  renderGiList();
+  // Update button label
+  document.getElementById('ap-save').textContent='Update Project';
+  document.getElementById('ap-ok').textContent='✓ PROJECT UPDATED.';
+  // Scroll to top of admin
+  document.getElementById('p-add').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function clearEditState(){
+  _editId=null;
+  document.getElementById('ap-save').textContent='Save Project';
+  document.getElementById('ap-ok').textContent='✓ PROJECT SAVED.';
+}
+
 // save project
 document.getElementById('ap-save').addEventListener('click',function(){
   var title=document.getElementById('ap-t').value.trim();
@@ -3046,7 +3093,7 @@ document.getElementById('ap-save').addEventListener('click',function(){
     var up=document.getElementById('prev-up');imgSrc=up.classList.contains('show')?up.src:'';
   }else{imgSrc=document.getElementById('ap-url').value.trim()}
   var pj={
-    id:'u'+Date.now(),title:title,cat:document.getElementById('ap-c').value,
+    id:_editId||('u'+Date.now()),title:title,cat:document.getElementById('ap-c').value,
     year:document.getElementById('ap-y').value||'2026',client:document.getElementById('ap-cl').value.trim(),
     desc:document.getElementById('ap-d').value.trim(),
     body:document.getElementById('ap-body').value.trim(),
@@ -3054,7 +3101,14 @@ document.getElementById('ap-save').addEventListener('click',function(){
     images:_giImages.slice(),
     link:document.getElementById('ap-l').value.trim(),src:document.getElementById('ap-src').value
   };
-  var ps=gPj();ps.unshift(pj);sPj(ps);
+  var ps=gPj();
+  if(_editId){
+    var ei=ps.findIndex(function(p){return p.id===_editId});
+    if(ei!==-1)ps[ei]=pj; else ps.unshift(pj);
+  } else {
+    ps.unshift(pj);
+  }
+  sPj(ps);
   ['ap-t','ap-cl','ap-d','ap-body','ap-l'].forEach(function(id){document.getElementById(id).value=''});
   _giImages=[];renderGiList();
   document.getElementById('ap-y').value='2026';
@@ -3063,6 +3117,7 @@ document.getElementById('ap-save').addEventListener('click',function(){
   document.getElementById('prev-url').classList.remove('show');
   document.getElementById('ap-url').value='';
   try{document.getElementById('ap-file').value=''}catch(e){}
+  clearEditState();
   var ok=document.getElementById('ap-ok');ok.style.display='block';
   setTimeout(function(){ok.style.display='none'},2500);
   renderList();renderGrid('all');
@@ -3082,16 +3137,20 @@ function renderList(){
     var badge=isSeed?'<span style="font-family:var(--m);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.1);padding:2px 6px;margin-left:6px;">SEED</span>':'<span style="font-family:var(--m);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid rgba(255,42,42,.2);padding:2px 6px;margin-left:6px;">MANUAL</span>';
     var delBtn=isSeed
       ?'<button class="adm-btn del" data-hide="'+p.id+'">'+( isHidden?'Show':'Hide')+'</button>'
-      :'<button class="adm-btn del" data-del="'+p.id+'">Delete</button>';
+      :'<div style="display:flex;gap:6px"><button class="adm-btn" data-edit="'+p.id+'">Edit</button><button class="adm-btn del" data-del="'+p.id+'">Delete</button></div>';
     return '<div class="pj-item"><div><div class="pj-t">'+String(i+1).padStart(3,'0')+' — '+p.title+badge+'</div>'
       +'<div class="pj-s">'+( CMAP[p.cat]||p.src||'Manual')+' · '+p.year+(p.client?' · '+p.client:'')+'</div></div>'
       +delBtn+'</div>';
   }).join('');
   list.querySelectorAll('[data-del]').forEach(function(btn){
     btn.addEventListener('click',function(){
+      if(!confirm('Delete "'+gPj().find(function(p){return p.id===btn.dataset.del;}).title+'"? Cannot be undone.'))return;
       sPj(gPj().filter(function(p){return p.id!==btn.dataset.del}));
       renderList();renderGrid('all');
     });
+  });
+  list.querySelectorAll('[data-edit]').forEach(function(btn){
+    btn.addEventListener('click',function(){loadEdit(btn.dataset.edit);});
   });
   list.querySelectorAll('[data-hide]').forEach(function(btn){
     btn.addEventListener('click',function(){
