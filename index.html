@@ -1588,7 +1588,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 
           <div class="adm-f"><label class="adm-l">Project Link</label><input class="adm-in" id="ap-l" placeholder="https://www.behance.net/gallery/…"/></div>
           <div class="adm-f full">
-            <label class="adm-l">Gallery Images <span style="color:rgba(255,255,255,.28);font-size:9px">(up to 10 · shown on project page)</span></label>
+            <label class="adm-l">Gallery Images <span style="color:rgba(255,255,255,.28);font-size:9px">(up to 20 · shown on project page)</span></label>
             <div class="gi-list" id="gi-list"></div>
             <input type="file" class="gi-add-input" id="gi-file" accept="image/jpeg,image/png,image/webp" multiple/>
             <div style="display:flex;gap:8px;margin-top:4px;">
@@ -2751,7 +2751,7 @@ function giDel(i){
 function giAddPath(){
   var path=prompt('Enter local file path (e.g. images/slide1.jpg):');
   if(!path||!path.trim())return;
-  if(_giImages.length>=10){alert('Maximum 10 images.');return;}
+  if(_giImages.length>=20){alert('Maximum 20 images.');return;}
   _giImages.push({url:path.trim(),layout:'full',gap:false});
   renderGiList();
 }
@@ -2791,7 +2791,7 @@ function initGiDrag(){
 
 document.getElementById('gi-file').addEventListener('change',function(e){
   var files=Array.from(e.target.files);
-  var remaining=10-_giImages.length;
+  var remaining=20-_giImages.length;
   files.slice(0,remaining).forEach(function(file){
     var fname='images/'+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
     _giImages.push({url:fname,layout:'full',gap:false});
