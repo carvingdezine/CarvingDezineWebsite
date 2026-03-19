@@ -1590,7 +1590,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
           <div class="adm-f full">
             <label class="adm-l">Gallery Images <span style="color:rgba(255,255,255,.28);font-size:9px">(up to 20 · shown on project page)</span></label>
             <div class="gi-list" id="gi-list"></div>
-            <input type="file" class="gi-add-input" id="gi-file" accept="image/jpeg,image/png,image/webp" multiple/>
+            <input type="file" class="gi-add-input" id="gi-file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm" multiple/>
             <div style="display:flex;gap:8px;margin-top:4px;">
               <button class="gi-add-btn" style="flex:1" onclick="document.getElementById('gi-file').click()">+ Upload Images</button>
               <button class="gi-add-btn" style="flex:1" onclick="giAddPath()">+ Local Path</button>
@@ -2723,7 +2723,7 @@ function renderGiList(){
   list.innerHTML=_giImages.map(function(img,i){
     return '<div class="gi-item" data-i="'+i+'" draggable="true">'
       +'<span class="gi-drag" title="Drag to reorder">☰</span>'
-      +'<img class="gi-thumb" src="'+img.url+'" alt="img '+(i+1)+'"/ loading="lazy">'
+      +(img.type==='video'?'<div class="gi-thumb" style="background:var(--g3);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:18px;">▶</div>':'<img class="gi-thumb" src="'+img.url+'" alt="img '+(i+1)+'" loading="lazy" onerror="this.style.opacity=0.2"/>')
       +'<div class="gi-info">'
         +'<div class="gi-name">Image '+(i+1)+'</div>'
         +'<div class="gi-layout">'
@@ -2749,10 +2749,11 @@ function giDel(i){
   renderGiList();
 }
 function giAddPath(){
-  var path=prompt('Enter local file path (e.g. images/slide1.jpg):');
+  var path=prompt('Enter local file path (e.g. images/slide1.jpg or videos/demo.mp4):');
   if(!path||!path.trim())return;
-  if(_giImages.length>=20){alert('Maximum 20 images.');return;}
-  _giImages.push({url:path.trim(),layout:'full',gap:false});
+  if(_giImages.length>=20){alert('Maximum 20 items.');return;}
+  var isVideo=/\.(mp4|webm|mov)$/i.test(path.trim());
+  _giImages.push({url:path.trim(),layout:'full',gap:false,type:isVideo?'video':'image'});
   renderGiList();
 }
 function giToggleGap(btn){
@@ -2793,14 +2794,15 @@ document.getElementById('gi-file').addEventListener('change',function(e){
   var files=Array.from(e.target.files);
   var remaining=20-_giImages.length;
   files.slice(0,remaining).forEach(function(file){
-    var fname='images/'+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
-    _giImages.push({url:fname,layout:'full',gap:false});
+    var isVideo=file.type.startsWith('video/');
+    var folder=isVideo?'videos/':'images/';
+    var fname=folder+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
+    _giImages.push({url:fname,layout:'full',gap:false,type:isVideo?'video':'image'});
     renderGiList();
   });
-  // Show all filenames user needs to upload
   var names=files.slice(0,remaining).map(function(f){return f.name;}).join(', ');
   var hint=document.getElementById('gi-upload-hint');
-  if(hint){hint.textContent='Upload these files to your images/ folder: '+names;hint.style.display='block';}
+  if(hint){hint.textContent='Upload these files to your images/ or videos/ folder: '+names;hint.style.display='block';}
   e.target.value='';
 });
 
