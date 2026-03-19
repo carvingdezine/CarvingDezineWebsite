@@ -125,6 +125,8 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 /* ── VIDEO IN GALLERY ── */
 .pj-vid-block{position:relative;overflow:hidden;background:#000;line-height:0;}
 .pj-vid-block video{width:100%;height:auto;display:block;}
+.pj-vid-block video::-webkit-media-controls{opacity:.6;}
+.pj-vid-block video:hover::-webkit-media-controls{opacity:1;}
 
 .pj-img-block img.img-error{opacity:0;}
 .pj-img-ph{
@@ -334,7 +336,7 @@ function render(){
       var isVid=img.type==='video'||/\.(mp4|webm|mov)$/i.test(img.url||'');
     if(isVid){
       galleryH+='<div class="pj-vid-block'+gapClass+'">'
-        +'<video src="'+esc(img.url)+'" autoplay muted loop playsinline preload="metadata"></video>'
+        +'<video src="'+esc(img.url)+'" muted loop playsinline preload="auto" controls style="cursor:pointer"></video>'
         +'</div>';
     } else {
       galleryH+='<div class="pj-img-block'+gapClass+'"><img src="'+esc(img.url)+'" loading="'+(i===0?'eager':'lazy')+'" alt="" onerror="this.classList.add(\'img-error\')"/><div class="pj-img-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Image not uploaded yet</span></div></div>';
@@ -441,6 +443,17 @@ function render(){
     var scrolled=Math.max(0,-rect.top);
     progBar.style.width=total>0?Math.min(100,(scrolled/total)*100)+'%':'100%';
   },{passive:true});
+
+  // ── VIDEO AUTOPLAY FIX ──
+  // Browsers require muted as a DOM property (not just attribute) for autoplay
+  requestAnimationFrame(function(){
+    document.querySelectorAll('.pj-vid-block video').forEach(function(v){
+      v.muted=true;
+      v.play().catch(function(){
+        // Autoplay blocked — video has controls so user can play manually
+      });
+    });
+  });
 
   // ── IMAGE REVEAL ──
   var obs=new IntersectionObserver(function(entries){
