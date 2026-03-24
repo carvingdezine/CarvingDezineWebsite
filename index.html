@@ -431,6 +431,10 @@ input,textarea,select{font-family:var(--f)}
   display:inline;position:relative;
 }
 .pc-yr{font-family:var(--m);font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.50);margin-top:4px}
+/* ── PROJECT TAGS ──────────────────────────────────────── */
+.pc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.pc-tag{font-family:var(--m);font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border:1px solid;line-height:1.6;}
+
 .pc-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
 .pc:hover .pc-line{transform:scaleX(1)}
 .pc.hidden{display:none}
@@ -1265,6 +1269,59 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   text-align:center;line-height:1.6;
 }
 
+
+/* ── BENTO GRID ──────────────────────────────────────────── */
+.bento{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:3px;
+  padding:0 clamp(16px,3vw,40px);
+}
+/* Bento card sizes */
+.pc-b1{grid-column:span 8;}  /* wide */
+.pc-b2{grid-column:span 4;grid-row:span 2;} /* tall */
+.pc-b3{grid-column:span 4;}  /* normal */
+.pc-b4{grid-column:span 4;}  /* normal */
+.pc-b5{grid-column:span 4;}  /* normal */
+.pc-b6{grid-column:span 6;}  /* half wide */
+.pc-b7{grid-column:span 6;}  /* half wide */
+.pc-b8{grid-column:span 4;}  /* normal */
+
+/* Bento card image fills */
+.pc.pc-b1 .pc-img{aspect-ratio:21/9;}
+.pc.pc-b2 .pc-img{height:calc(100% - 80px);min-height:200px;aspect-ratio:unset;}
+.pc.pc-b2{display:flex;flex-direction:column;}
+.pc.pc-b2 .pc-img{flex:1;}
+
+/* View all button */
+.bento-footer{
+  padding:32px clamp(16px,3vw,40px) 0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.bento-count{font-family:var(--m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.bento-all{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;
+  border:1px solid rgba(255,255,255,.15);padding:10px 20px;
+  transition:border-color .2s,background .2s;
+}
+.bento-all:hover{border-color:var(--red);background:rgba(255,42,42,.06);}
+.bento-all svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+@media(max-width:900px){
+  .pc-b1,.pc-b6,.pc-b7{grid-column:span 12;}
+  .pc-b2,.pc-b3,.pc-b4,.pc-b5,.pc-b8{grid-column:span 6;}
+  .pc.pc-b2 .pc-img{aspect-ratio:808/632;height:auto;}
+  .pc.pc-b2{display:block;}
+}
+@media(max-width:560px){
+  .bento{gap:2px;}
+  .pc-b1,.pc-b2,.pc-b3,.pc-b4,.pc-b5,.pc-b6,.pc-b7,.pc-b8{grid-column:span 12;}
+  .pc.pc-b2 .pc-img{aspect-ratio:808/632;height:auto;}
+  .pc.pc-b2{display:block;}
+}
+
 /* ── SCROLL STORYTELLING ────────────────────── */
 
 /* Vertical chapter indicator — right edge */
@@ -1492,7 +1549,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <div id="mob-nav">
   <button class="mob-close" id="mob-close">✕</button>
   <a href="#services" class="mob-ni">Services</a>
-  <a href="#work" class="mob-ni">Work</a>
+  <a href="work.html" class="mob-ni">Work</a>
   <a href="#testimonials" class="mob-ni">Testimonials</a>
   <a href="#about" class="mob-ni">About</a>
   <a href="#contact" class="mob-ni red">Start a Project ↗</a>
@@ -1524,6 +1581,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
       <a class="adm-ni on" data-p="add">Add Project</a>
       <a class="adm-ni" data-p="manage">Manage Projects</a>
       <a class="adm-ni" data-p="testimonials">Testimonials</a>
+      <a class="adm-ni" data-p="tags">Tags</a>
       <a class="adm-ni" data-p="backup">Backup & Restore</a>
       <a class="adm-ni" data-p="settings">Settings</a>
     </nav>
@@ -1602,6 +1660,10 @@ h2 .whu{display:inline-block;vertical-align:bottom}
               <option value="behance">Behance Case Study</option>
               <option value="dribbble">Dribbble Shot</option>
             </select>
+          </div>
+          <div class="adm-f full">
+            <label class="adm-l">Tags <span style="color:rgba(255,255,255,.28);font-size:9px">(select all that apply)</span></label>
+            <div id="ap-tags-wrap" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;"></div>
           </div>
         </div>
         <button class="adm-btn" id="ap-save">Save Project</button>
@@ -1706,7 +1768,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 
 <!-- MOBILE MENU -->
 <div id="mob">
-  <a href="#work">Work</a>
+  <a href="work.html">Work</a>
   <a href="#process">Process</a>
   <a href="#services">Services</a>
   <a href="#about">About</a>
@@ -1721,7 +1783,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   </div>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
-    <li><a href="#work">Work</a></li>
+    <li><a href="work.html">Work</a></li>
     <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1751,7 +1813,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
       attention converge. UX / UI, Brand Identity, Presentations, Print &amp; Interactive Web for brands that mean business.
     </p>
     <div class="hero-act" id="hero-act">
-      <a href="#work" class="btn-p">View Work <svg viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+      <a href="work.html" class="btn-p">View Work <svg viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></a>
       <a href="#contact" class="btn-g">Start a conversation</a>
     </div>
   </div>
@@ -1822,47 +1884,18 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <section id="work">
   <div class="s-hd rv">
     <span class="sec-tag">Work</span>
-    <span class="sec-ct" id="wct">Loading…</span>
+    <span class="sec-ct" id="wct">—</span>
   </div>
-
-  <!-- Single unified filter — 3 sources clearly separated -->
-  <div class="filter-row">
-    <button class="fbtn on" data-f="all">All Projects</button>
-    <button class="fbtn" data-f="ux">UX / UI Design</button>
-    <button class="fbtn" data-f="brand">Brand Identity</button>
-    <button class="fbtn" data-f="deck">Presentations</button>
-    <button class="fbtn" data-f="print">Print &amp; Marketing</button>
-    <button class="fbtn" data-f="web">Interactive Web</button>
-    <div class="fsep"></div>
-    <button class="fbtn sort-btn on" data-s="new">New → Old</button>
-    <button class="fbtn sort-btn" data-s="old">Old → New</button>
-  </div>
-
-  <!-- PROGRESS BAR -->
-  <div class="pgrid-progress"><div class="pgrid-progress-fill" id="pgrid-prog"></div></div>
-
-  <!-- HORIZONTAL SCROLL FILMSTRIP -->
-  <div class="pgrid-wrap">
-    <div class="pgrid-scroll" id="pgrid-scroll">
-      <div class="pgrid" id="pgrid"><!-- populated by JS --></div>
-    </div>
-  </div>
-
-  <!-- NAV BAR -->
-  <div class="pgrid-nav">
-    <span class="pgrid-hint">Drag or use arrows to explore</span>
-    <div class="pgrid-arrows">
-      <button class="pgrid-arr" id="pgrid-prev" aria-label="Previous">
-        <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="pgrid-arr" id="pgrid-next" aria-label="Next">
-        <svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
-  </div>
-
+  <div class="bento" id="bento-grid"><!-- populated by JS --></div>
   <div id="pgrid-empty" style="display:none;padding:40px clamp(20px,4vw,52px);font-family:var(--m);font-size:10px;letter-spacing:.1em;color:var(--muted2)">
-    No projects in this category yet. <a href="/#admin" style="color:var(--red)">Add some →</a>
+    No projects yet. <a href="/#admin" target="_blank" style="color:var(--red)">Add some →</a>
+  </div>
+  <div class="bento-footer">
+    <span class="bento-count" id="bento-count"></span>
+    <a href="work.html" class="bento-all">
+      View All Work
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
   </div>
 </section>
 
@@ -2118,6 +2151,43 @@ function gHi(){try{return JSON.parse(localStorage.getItem(HIKEY))||[]}catch(e){r
 function sHi(a){localStorage.setItem(HIKEY,JSON.stringify(a))}
 function sTm(a){localStorage.setItem(TMKEY,JSON.stringify(a))}
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
+
+// ── TAG SYSTEM ──────────────────────────────────────────────
+var TAGSKEY='cd_tags';
+var PRESET_TAGS=[
+  {id:'completed',label:'Completed',color:'green'},
+  {id:'wip',label:'Work in Progress',color:'amber'},
+  {id:'coming-soon',label:'Coming Soon',color:'blue'},
+  {id:'concept',label:'Concept',color:'purple'},
+  {id:'on-hold',label:'On Hold',color:'gray'},
+  {id:'featured',label:'Featured',color:'red'},
+  {id:'case-study',label:'Case Study',color:'teal'},
+  {id:'award-winning',label:'Award Winning',color:'red'},
+  {id:'confidential',label:'Confidential',color:'gray'},
+  {id:'personal',label:'Personal Project',color:'purple'}
+];
+// Tag color map — matches your brand palette
+var TAG_COLORS={
+  green:{border:'rgba(97,196,89,.4)',text:'#97C459'},
+  amber:{border:'rgba(239,159,39,.4)',text:'#EF9F27'},
+  blue:{border:'rgba(55,138,221,.4)',text:'#85B7EB'},
+  purple:{border:'rgba(175,169,236,.4)',text:'#AFA9EC'},
+  gray:{border:'rgba(136,135,128,.4)',text:'#888780'},
+  red:{border:'rgba(255,42,42,.4)',text:'#ff2a2a'},
+  teal:{border:'rgba(93,202,165,.4)',text:'#5DCAA5'}
+};
+function gTags(){try{return JSON.parse(localStorage.getItem(TAGSKEY))||[]}catch(e){return[]}}
+function sTags(a){localStorage.setItem(TAGSKEY,JSON.stringify(a))}
+function getAllTags(){return PRESET_TAGS.concat(gTags())}
+function getTagById(id){return getAllTags().find(function(t){return t.id===id})||null}
+function renderTagBadges(tagIds){
+  if(!tagIds||!tagIds.length)return'';
+  return tagIds.map(function(id){
+    var t=getTagById(id);if(!t)return'';
+    var c=TAG_COLORS[t.color]||TAG_COLORS.gray;
+    return'<span class="pc-tag" style="border-color:'+c.border+';color:'+c.text+'">'+t.label+'</span>';
+  }).join('');
+}
 
 // Seed projects — always visible, never duplicated
 var SEEDS=[];
@@ -2659,11 +2729,13 @@ function mkCard(p,idx){
     +(p.link?'<div class="pc-share-opt" onclick="openShareLink(event,this)">'+openIcon+' Open project</div>':'')
     +'<div class="pc-share-opt" onclick="nativeShare(event,this)">'+shareSvg+' Share\u2026</div>'
     +'</div></button>';
+  var tagsH=p.tags&&p.tags.length?'<div class="pc-tags">'+renderTagBadges(p.tags)+'</div>':'';
   return '<div class="pc rv" data-src="'+(p.src||'manual')+'" data-cat="'+(p.cat||'')+'" style="transition-delay:'+(idx%4*.07)+'s">'
     +badge+imgH+shareBtn
     +'<div class="pc-body"><div class="pc-cat">'+(CMAP[p.cat]||p.src||'Project')+'</div>'
     +'<div class="pc-title">'+p.title+'</div>'
-    +'<div class="pc-yr">'+p.year+(p.client?' · '+p.client:'')+'</div></div>'
+    +'<div class="pc-yr">'+p.year+(p.client?' · '+p.client:'')+'</div>'
+    +tagsH+'</div>'
     +'<div class="pc-line"></div></div>';
 }
 
@@ -2749,11 +2821,14 @@ function giDel(i){
   renderGiList();
 }
 function giAddPath(){
-  var path=prompt('Enter local file path (e.g. images/slide1.jpg or videos/demo.mp4):');
+  var path=prompt('File path or YouTube URL (e.g. images/slide.jpg, videos/demo.mp4, https://youtu.be/abc123):');
   if(!path||!path.trim())return;
   if(_giImages.length>=20){alert('Maximum 20 items.');return;}
-  var isVideo=/\.(mp4|webm|mov)$/i.test(path.trim());
-  _giImages.push({url:path.trim(),layout:'full',gap:false,type:isVideo?'video':'image'});
+  var p=path.trim();
+  var isYT=p.indexOf('youtube.com/watch')!==-1||p.indexOf('youtu.be/')!==-1;
+  var isVideo=!isYT&&/.(mp4|webm|mov)$/i.test(p);
+  var type=isYT?'youtube':isVideo?'video':'image';
+  _giImages.push({url:p,layout:'full',gap:false,type:type});
   renderGiList();
 }
 function giToggleGap(btn){
@@ -2810,116 +2885,63 @@ renderGiList();
 
 var _curSort='new'; // 'new' or 'old'
 
+var BENTO_SIZES=['pc-b1','pc-b2','pc-b3','pc-b4','pc-b5','pc-b6','pc-b7','pc-b8'];
+
 function renderGrid(filter){
   var all=getAllProjects();
-  var filtered;
-  if(!filter||filter==='all'){filtered=all.slice()}
-  else{filtered=all.filter(function(p){return p.cat===filter})}
-  // Hide platform projects (Behance/Dribbble) with no image — nothing to show
-  filtered=filtered.filter(function(p){return p.src==='manual'||p.img});
+  var filtered=all.filter(function(p){return p.src==='manual'||p.img});
+  // Sort newest first
+  filtered.sort(function(a,b){var ya=parseInt(a.year)||0,yb=parseInt(b.year)||0;return yb-ya;});
+  // Take 8 most recent
+  var display=filtered.slice(0,8);
 
-  // Sort by year
-  filtered.sort(function(a,b){
-    var ya=parseInt(a.year)||0, yb=parseInt(b.year)||0;
-    return _curSort==='old' ? ya-yb : yb-ya;
-  });
-
-  var grid=document.getElementById('pgrid');
+  var grid=document.getElementById('bento-grid');
   var empty=document.getElementById('pgrid-empty');
-  if(!filtered.length){grid.innerHTML='';empty.style.display='block';return}
-  empty.style.display='none';
-  grid.innerHTML=filtered.map(mkCard).join('');
-  grid.querySelectorAll('.pc').forEach(function(card,i){
-    var p=filtered[i];
-    (function(proj,c){
-      c.addEventListener('click',function(){
-        if(proj.src==='manual'||!proj.link){
-          window.location.href='project.html?id='+proj.id;
-        } else {
-          window.open(proj.link,'_blank');
-        }
-      });
-    })(p,card);
+  var ct=document.getElementById('wct');
+  var countEl=document.getElementById('bento-count');
+
+  if(!display.length){if(grid)grid.innerHTML='';if(empty)empty.style.display='block';return;}
+  if(empty)empty.style.display='none';
+
+  if(ct)ct.textContent=filtered.length+' projects';
+  if(countEl)countEl.textContent='Showing 8 of '+filtered.length;
+
+  if(!grid)return;
+  grid.innerHTML=display.map(function(p,idx){
+    var sz=BENTO_SIZES[idx]||'pc-b3';
+    var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
+    var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
+    var imgH=p.img
+      ?'<div class="pc-img" style="position:relative"><img src="'+p.img+'" alt="'+p.title+'" loading="'+( idx<2?'eager':'lazy')+'" onerror="this.classList.add(\'img-error\')"/>'+
+        '<div class="img-ph"><svg class="img-ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'+
+        '<div class="img-ph-txt">Not uploaded yet</div></div></div>'
+      :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(idx+1).padStart(2,'0')+'</div></div></div>';
+    var tagsH=p.tags&&p.tags.length?'<div class="pc-tags">'+renderTagBadges(p.tags)+'</div>':'';
+    var shareUrl=(p.src==='manual'||!p.link)?('https://www.carvingdezine.com/project.html?id='+p.id):(p.link||'https://www.carvingdezine.com');
+    return '<div class="pc rv '+sz+'" data-id="'+p.id+'" data-src="'+( p.src||'manual')+'" data-link="'+( p.link||'')+'">'+
+      badge+imgH+
+      '<div class="pc-body"><div class="pc-cat">'+( CMAP[p.cat]||p.src||'Project')+'</div>'+
+      '<div class="pc-title">'+p.title+'</div>'+
+      '<div class="pc-yr">'+p.year+(p.client?' · '+p.client:'')+'</div>'+
+      tagsH+'</div><div class="pc-line"></div></div>';
+  }).join('');
+
+  grid.querySelectorAll('.pc').forEach(function(card){
+    var id=card.dataset.id;
+    var link=card.dataset.link;
+    var src=card.dataset.src;
+    card.addEventListener('click',function(){
+      if(src==='manual'||!link){window.location.href='project.html?id='+id;}
+      else{window.open(link,'_blank');}
+    });
     card.addEventListener('mouseenter',function(){document.body.classList.add('hov')});
     card.addEventListener('mouseleave',function(){document.body.classList.remove('hov')});
     rvObs.observe(card);
   });
-  var ct=document.getElementById('wct');
-  if(ct)ct.textContent=getAllProjects().length+' projects';
 }
 
-// Filter buttons
-document.querySelectorAll('.fbtn:not(.sort-btn)').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.fbtn:not(.sort-btn)').forEach(function(b){b.classList.remove('on')});
-    btn.classList.add('on');
-    var active=document.querySelector('.fbtn:not(.sort-btn).on');
-    renderGrid(btn.dataset.f);
-  });
-});
-
-// Sort buttons
-document.querySelectorAll('.sort-btn').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.sort-btn').forEach(function(b){b.classList.remove('on')});
-    btn.classList.add('on');
-    _curSort=btn.dataset.s;
-    var active=document.querySelector('.fbtn:not(.sort-btn).on');
-    renderGrid(active?active.dataset.f:'all');
-  });
-});
-
-// Initial render
+// Initial bento render
 renderGrid('all');
-
-// ─────────────────────────────────────────
-// HORIZONTAL SCROLL — drag, arrows, progress
-// ─────────────────────────────────────────
-(function(){
-  var scroll=document.getElementById('pgrid-scroll');
-  var prev=document.getElementById('pgrid-prev');
-  var next=document.getElementById('pgrid-next');
-  var prog=document.getElementById('pgrid-prog');
-  if(!scroll)return;
-
-  // Progress bar update
-  function updateProg(){
-    var max=scroll.scrollWidth-scroll.clientWidth;
-    var pct=max>0?Math.round((scroll.scrollLeft/max)*100):0;
-    if(prog)prog.style.width=pct+'%';
-  }
-  scroll.addEventListener('scroll',updateProg,{passive:true});
-
-  // Arrow scroll — one card width at a time
-  function cardW(){
-    var card=scroll.querySelector('.pc');
-    return card?card.offsetWidth+1:360;
-  }
-  if(prev)prev.addEventListener('click',function(){
-    scroll.scrollBy({left:-cardW()*2,behavior:'smooth'});
-  });
-  if(next)next.addEventListener('click',function(){
-    scroll.scrollBy({left:cardW()*2,behavior:'smooth'});
-  });
-
-  // Drag to scroll
-  var dragging=false,startX=0,startLeft=0;
-  scroll.addEventListener('mousedown',function(e){
-    dragging=true;startX=e.pageX;startLeft=scroll.scrollLeft;
-    scroll.style.userSelect='none';
-  });
-  document.addEventListener('mousemove',function(e){
-    if(!dragging)return;
-    scroll.scrollLeft=startLeft-(e.pageX-startX);
-  });
-  document.addEventListener('mouseup',function(){
-    dragging=false;scroll.style.userSelect='';
-  });
-
-  // Re-init after renderGrid calls (MutationObserver)
-  var mo=new MutationObserver(function(){updateProg();});
-  mo.observe(scroll,{childList:true,subtree:true});
-})();
 
 // ─────────────────────────────────────────
 // BEHANCE FETCH — deferred until idle
@@ -3063,6 +3085,7 @@ function doLogin(){
     document.getElementById('adm-login').classList.remove('show');
     document.getElementById('adm-ov').classList.add('show');
     renderList();
+    renderTagPicker();
     checkStorage();
   }else{
     var err=document.getElementById('lerr');err.style.display='block';
@@ -3183,6 +3206,8 @@ function loadEdit(id){
       switchItab('up');
     }
   }
+  // Tags
+  setSelectedTags(p.tags||[]);
   // Gallery images
   _giImages=(p.images||[]).slice();
   renderGiList();
@@ -3192,6 +3217,92 @@ function loadEdit(id){
   // Scroll to top of admin
   document.getElementById('p-add').scrollIntoView({behavior:'smooth',block:'start'});
 }
+
+// ── TAGS ADMIN ──────────────────────────────────────────
+var PRESET_TAGS_ADMIN=[
+  {id:'completed',label:'Completed',color:'green'},
+  {id:'wip',label:'Work in Progress',color:'amber'},
+  {id:'coming-soon',label:'Coming Soon',color:'blue'},
+  {id:'concept',label:'Concept',color:'purple'},
+  {id:'on-hold',label:'On Hold',color:'gray'},
+  {id:'featured',label:'Featured',color:'red'},
+  {id:'case-study',label:'Case Study',color:'teal'},
+  {id:'award-winning',label:'Award Winning',color:'red'},
+  {id:'confidential',label:'Confidential',color:'gray'},
+  {id:'personal',label:'Personal Project',color:'purple'}
+];
+var TAG_COLORS_ADMIN={
+  green:{border:'rgba(97,196,89,.4)',text:'#97C459'},
+  amber:{border:'rgba(239,159,39,.4)',text:'#EF9F27'},
+  blue:{border:'rgba(55,138,221,.4)',text:'#85B7EB'},
+  purple:{border:'rgba(175,169,236,.4)',text:'#AFA9EC'},
+  gray:{border:'rgba(136,135,128,.4)',text:'#888780'},
+  red:{border:'rgba(255,42,42,.4)',text:'#ff2a2a'},
+  teal:{border:'rgba(93,202,165,.4)',text:'#5DCAA5'}
+};
+
+function renderTagPicker(){
+  var wrap=document.getElementById('ap-tags-wrap');
+  if(!wrap)return;
+  var allTags=PRESET_TAGS_ADMIN.concat(gTags());
+  wrap.innerHTML=allTags.map(function(t){
+    var c=TAG_COLORS_ADMIN[t.color]||TAG_COLORS_ADMIN.gray;
+    return'<label style="display:flex;align-items:center;gap:5px;cursor:pointer;">'
+      +'<input type="checkbox" class="ap-tag-cb" value="'+t.id+'" style="accent-color:var(--red);width:12px;height:12px;"/>'
+      +'<span style="font-family:var(--m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:'+c.text+'">'+t.label+'</span>'
+      +'</label>';
+  }).join('');
+}
+function getSelectedTags(){
+  return Array.from(document.querySelectorAll('.ap-tag-cb:checked')).map(function(cb){return cb.value;});
+}
+function setSelectedTags(tagIds){
+  document.querySelectorAll('.ap-tag-cb').forEach(function(cb){
+    cb.checked=tagIds&&tagIds.indexOf(cb.value)!==-1;
+  });
+}
+
+function renderTagsPanel(){
+  // Preset tags
+  var preset=document.getElementById('tags-preset');
+  if(preset){
+    preset.innerHTML=PRESET_TAGS_ADMIN.map(function(t){
+      var c=TAG_COLORS_ADMIN[t.color]||TAG_COLORS_ADMIN.gray;
+      return'<span style="font-family:var(--m);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border:1px solid '+c.border+';color:'+c.text+';">'+t.label+'</span>';
+    }).join('');
+  }
+  // Custom tags
+  var list=document.getElementById('tags-custom-list');
+  if(!list)return;
+  var custom=gTags();
+  if(!custom.length){list.innerHTML='<div style="font-family:var(--m);font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.12em;">No custom tags yet.</div>';return;}
+  list.innerHTML=custom.map(function(t,i){
+    var c=TAG_COLORS_ADMIN[t.color]||TAG_COLORS_ADMIN.gray;
+    return'<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">'
+      +'<span style="font-family:var(--m);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border:1px solid '+c.border+';color:'+c.text+';">'+t.label+'</span>'
+      +'<button class="adm-btn del" data-ti="'+i+'" style="padding:3px 8px;font-size:9px;">Remove</button>'
+      +'</div>';
+  }).join('');
+  list.querySelectorAll('[data-ti]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var tags=gTags();tags.splice(parseInt(btn.dataset.ti),1);sTags(tags);renderTagsPanel();
+    });
+  });
+}
+document.getElementById('add-tag-btn').addEventListener('click',function(){
+  var label=document.getElementById('new-tag-label').value.trim();
+  if(!label)return;
+  var color=document.getElementById('new-tag-color').value;
+  var id=label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  var tags=gTags();
+  if(tags.find(function(t){return t.id===id;})){alert('A tag with this name already exists.');return;}
+  tags.push({id:id,label:label,color:color});
+  sTags(tags);
+  document.getElementById('new-tag-label').value='';
+  renderTagsPanel();
+  var ok=document.getElementById('tag-ok');ok.style.display='block';
+  setTimeout(function(){ok.style.display='none';},2000);
+});
 
 function checkStorage(){
   try{
@@ -3208,6 +3319,11 @@ function checkStorage(){
       }
     }
   }catch(e){}
+}
+function getYTId(url){
+  if(!url)return null;
+  var m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/);
+  return m?m[1]:null;
 }
 function clearEditState(){
   _editId=null;
@@ -3239,7 +3355,8 @@ document.getElementById('ap-save').addEventListener('click',function(){
     body:document.getElementById('ap-body').value.trim(),
     img:imgSrc,
     images:_giImages.slice(),
-    link:document.getElementById('ap-l').value.trim(),src:document.getElementById('ap-src').value
+    link:document.getElementById('ap-l').value.trim(),src:document.getElementById('ap-src').value,
+    tags:getSelectedTags()
   };
   var ps=gPj();
   if(_editId){
