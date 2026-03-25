@@ -1270,30 +1270,13 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 }
 
 
-/* ── BENTO GRID ──────────────────────────────────────────── */
+/* ── WORK GRID — 3 column ────────────────────────────────── */
 .bento{
   display:grid;
-  grid-template-columns:repeat(12,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:3px;
   padding:0 clamp(16px,3vw,40px);
 }
-/* Bento card sizes */
-.pc-b1{grid-column:span 8;}  /* wide */
-.pc-b2{grid-column:span 4;grid-row:span 2;} /* tall */
-.pc-b3{grid-column:span 4;}  /* normal */
-.pc-b4{grid-column:span 4;}  /* normal */
-.pc-b5{grid-column:span 4;}  /* normal */
-.pc-b6{grid-column:span 6;}  /* half wide */
-.pc-b7{grid-column:span 6;}  /* half wide */
-.pc-b8{grid-column:span 4;}  /* normal */
-
-/* Bento card image fills */
-.pc.pc-b1 .pc-img{aspect-ratio:21/9;}
-.pc.pc-b2 .pc-img{height:calc(100% - 80px);min-height:200px;aspect-ratio:unset;}
-.pc.pc-b2{display:flex;flex-direction:column;}
-.pc.pc-b2 .pc-img{flex:1;}
-
-/* View all button */
 .bento-footer{
   padding:32px clamp(16px,3vw,40px) 0;
   display:flex;align-items:center;justify-content:space-between;
@@ -1308,19 +1291,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 }
 .bento-all:hover{border-color:var(--red);background:rgba(255,42,42,.06);}
 .bento-all svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-
-@media(max-width:900px){
-  .pc-b1,.pc-b6,.pc-b7{grid-column:span 12;}
-  .pc-b2,.pc-b3,.pc-b4,.pc-b5,.pc-b8{grid-column:span 6;}
-  .pc.pc-b2 .pc-img{aspect-ratio:808/632;height:auto;}
-  .pc.pc-b2{display:block;}
-}
-@media(max-width:560px){
-  .bento{gap:2px;}
-  .pc-b1,.pc-b2,.pc-b3,.pc-b4,.pc-b5,.pc-b6,.pc-b7,.pc-b8{grid-column:span 12;}
-  .pc.pc-b2 .pc-img{aspect-ratio:808/632;height:auto;}
-  .pc.pc-b2{display:block;}
-}
+@media(max-width:768px){.bento{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.bento{grid-template-columns:1fr;}}
 
 /* ── SCROLL STORYTELLING ────────────────────── */
 
@@ -1564,7 +1536,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
       <div class="fl">Password</div>
       <input type="password" class="fi" id="lpwd" placeholder="Enter password" autocomplete="current-password"/>
     </div>
-    <button class="adm-btn" id="lbtn" style="width:100%;margin-top:18px;justify-content:center">Enter Studio</button>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:12px;"><input type="checkbox" id="l-remember" style="accent-color:var(--red);width:13px;height:13px;"/><label for="l-remember" style="font-family:var(--m);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);cursor:pointer;">Remember me</label></div><button class="adm-btn" id="lbtn" style="width:100%;margin-top:12px;justify-content:center">Enter Studio</button>
     <div class="lbox-err" id="lerr">Incorrect password.</div>
   </div>
 </div>
@@ -1591,10 +1563,17 @@ h2 .whu{display:inline-block;vertical-align:bottom}
       <div class="adm-pnl on" id="p-add">
         <div class="adm-st">Add New Project</div>
         <div class="adm-hint">
-          Add any project here — it will appear in the <strong>Work</strong> section alongside Behance case studies and Dribbble shots.<br/><br/>
-          <strong>Cover image tip:</strong> On Behance — open project → right-click cover → "Copy image address".<br/>
-          On Dribbble — right-click shot → "Copy image address". Or upload directly from your device (max 5MB, embedded in page).
+          Fill in the details below. Choose <strong>Manual</strong> for your own projects, or <strong>Behance / Dribbble</strong> to link to an existing post — only relevant fields will show.
         </div>
+        <div class="adm-f" style="margin-bottom:4px;">
+          <label class="adm-l">Project Type</label>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="itab on" id="src-manual" onclick="switchSrc('manual')">✏ Manual</button>
+            <button class="itab" id="src-behance" onclick="switchSrc('behance')">Bē Behance</button>
+            <button class="itab" id="src-dribbble" onclick="switchSrc('dribbble')">⚽ Dribbble</button>
+          </div>
+        </div>
+        <input type="hidden" id="ap-src" value="manual"/>
         <div class="adm-g">
           <div class="adm-f"><label class="adm-l">Project Title *</label><input class="adm-in" id="ap-t" placeholder="e.g. ICICI Annual Report 2025"/></div>
           <div class="adm-f"><label class="adm-l">Category</label>
@@ -1609,11 +1588,11 @@ h2 .whu{display:inline-block;vertical-align:bottom}
           <div class="adm-f"><label class="adm-l">Year</label><input class="adm-in" id="ap-y" value="2026"/></div>
           <div class="adm-f"><label class="adm-l">Client Name</label><input class="adm-in" id="ap-cl" placeholder="e.g. ICICI Bank"/></div>
           <div class="adm-f full"><label class="adm-l">Short Description <span style="color:rgba(255,255,255,.28);font-size:9px">(shown on card)</span></label><textarea class="adm-ta" id="ap-d" placeholder="One or two sentences about the project…"></textarea></div>
-          <div class="adm-f full"><label class="adm-l">Project Body <span style="color:rgba(255,255,255,.28);font-size:9px">(full page — write as much as you like, optional)</span></label><textarea class="adm-ta" id="ap-body" rows="6" placeholder="Describe your process, thinking, outcomes… no restrictions."></textarea></div>
+          <div id="ap-body-wrap"><div class="adm-f full"><label class="adm-l">Project Body <span style="color:rgba(255,255,255,.28);font-size:9px">(full page — write as much as you like, optional)</span></label><textarea class="adm-ta" id="ap-body" rows="6" placeholder="Describe your process, thinking, outcomes… no restrictions."></textarea></div>
 
           <!-- Image tabs -->
           <div class="adm-f full">
-            <label class="adm-l">Cover Image</label>
+            <label class="adm-l">Cover Image</label><div id="ap-cover-hint" style="font-family:var(--m);font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:6px;">Upload a file, paste a URL, or type a local path</div>
             <div class="itabs">
               <button class="itab on" id="itab-up">⬆ Upload File</button>
               <button class="itab" id="itab-url">🔗 Paste URL</button>
@@ -1644,8 +1623,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
             </div>
           </div>
 
-          <div class="adm-f"><label class="adm-l">Project Link</label><input class="adm-in" id="ap-l" placeholder="https://www.behance.net/gallery/…"/></div>
-          <div class="adm-f full">
+          <div class="adm-f"><label class="adm-l" id="ap-link-label">Project Link (optional)</label><input class="adm-in" id="ap-l" placeholder="https://www.behance.net/gallery/…"/></div>
+          </div><div id="ap-gallery-wrap"><div class="adm-f full">
             <label class="adm-l">Gallery Images <span style="color:rgba(255,255,255,.28);font-size:9px">(up to 20 · shown on project page)</span></label>
             <div class="gi-list" id="gi-list"></div>
             <input type="file" class="gi-add-input" id="gi-file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm" multiple/>
@@ -1654,19 +1633,13 @@ h2 .whu{display:inline-block;vertical-align:bottom}
               <button class="gi-add-btn" style="flex:1" onclick="giAddPath()">+ Local Path</button>
             </div>
           </div>
-          <div class="adm-f"><label class="adm-l">Source Platform</label>
-            <select class="adm-sl" id="ap-src">
-              <option value="manual">Manual / Other</option>
-              <option value="behance">Behance Case Study</option>
-              <option value="dribbble">Dribbble Shot</option>
-            </select>
-          </div>
+
           <div class="adm-f full">
             <label class="adm-l">Tags <span style="color:rgba(255,255,255,.28);font-size:9px">(select all that apply)</span></label>
             <div id="ap-tags-wrap" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;"></div>
           </div>
         </div>
-        <button class="adm-btn" id="ap-save">Save Project</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="adm-btn" id="ap-save">Save Project</button><button class="adm-btn" id="ap-draft" style="border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5);">Save as Draft</button></div>
         <div id="ap-storage-warn" style="display:none;font-family:var(--m);font-size:9px;letter-spacing:.12em;color:rgba(255,165,0,.8);margin-top:8px;"></div>
         <div class="adm-ok" id="ap-ok">✓ PROJECT SAVED.</div>
         <div class="adm-err" id="ap-err"></div>
@@ -1725,6 +1698,30 @@ h2 .whu{display:inline-block;vertical-align:bottom}
         <div id="pwd-msg" style="display:none;margin-top:12px;font-family:var(--m);font-size:11px;letter-spacing:.08em;"></div>
         <hr style="border:none;border-top:1px solid var(--line);margin:28px 0"/>
         <button class="adm-btn del" id="clrall">Delete All User Projects</button>
+      </div>
+
+      <!-- TAGS -->
+      <div class="adm-pnl" id="p-tags">
+        <div class="adm-st">Tag Manager</div>
+        <div class="adm-hint">Preset tags are always available. Add custom tags below — they appear in every project's tag picker.</div>
+        <div style="margin:16px 0 6px;font-family:var(--m);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);">Preset Tags</div>
+        <div id="tags-preset" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--line);"></div>
+        <div style="margin-bottom:6px;font-family:var(--m);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);">Custom Tags</div>
+        <div id="tags-custom-list" style="margin-bottom:12px;"></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <input class="adm-in" id="new-tag-label" placeholder="Tag name (e.g. Packaging)" style="flex:1;min-width:140px;"/>
+          <select class="adm-sl" id="new-tag-color" style="width:130px;">
+            <option value="green">Green</option>
+            <option value="amber">Amber</option>
+            <option value="blue">Blue</option>
+            <option value="purple">Purple</option>
+            <option value="teal">Teal</option>
+            <option value="red">Red</option>
+            <option value="gray">Gray</option>
+          </select>
+          <button class="adm-btn" id="add-tag-btn">Add Tag</button>
+        </div>
+        <div class="adm-ok" id="tag-ok" style="display:none;">✓ TAG ADDED.</div>
       </div>
 
       <!-- BACKUP & RESTORE -->
@@ -2885,8 +2882,6 @@ renderGiList();
 
 var _curSort='new'; // 'new' or 'old'
 
-var BENTO_SIZES=['pc-b1','pc-b2','pc-b3','pc-b4','pc-b5','pc-b6','pc-b7','pc-b8'];
-
 function renderGrid(filter){
   var all=getAllProjects();
   var filtered=all.filter(function(p){return p.src==='manual'||p.img});
@@ -2908,7 +2903,6 @@ function renderGrid(filter){
 
   if(!grid)return;
   grid.innerHTML=display.map(function(p,idx){
-    var sz=BENTO_SIZES[idx]||'pc-b3';
     var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
     var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
     var imgH=p.img
@@ -2918,7 +2912,7 @@ function renderGrid(filter){
       :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(idx+1).padStart(2,'0')+'</div></div></div>';
     var tagsH=p.tags&&p.tags.length?'<div class="pc-tags">'+renderTagBadges(p.tags)+'</div>':'';
     var shareUrl=(p.src==='manual'||!p.link)?('https://www.carvingdezine.com/project.html?id='+p.id):(p.link||'https://www.carvingdezine.com');
-    return '<div class="pc rv '+sz+'" data-id="'+p.id+'" data-src="'+( p.src||'manual')+'" data-link="'+( p.link||'')+'">'+
+    return '<div class="pc rv" data-id="'+p.id+'" data-src="'+( p.src||'manual')+'" data-link="'+( p.link||'')+'">'+
       badge+imgH+
       '<div class="pc-body"><div class="pc-cat">'+( CMAP[p.cat]||p.src||'Project')+'</div>'+
       '<div class="pc-title">'+p.title+'</div>'+
@@ -3082,10 +3076,14 @@ document.getElementById('lbtn').addEventListener('click',doLogin);
 document.getElementById('lpwd').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
 function doLogin(){
   if(document.getElementById('lpwd').value===gPwd()){
+    var cb=document.getElementById('l-remember');
+    if(cb&&cb.checked){localStorage.setItem('cd_rem',document.getElementById('lpwd').value);}
+    else{localStorage.removeItem('cd_rem');}
     document.getElementById('adm-login').classList.remove('show');
     document.getElementById('adm-ov').classList.add('show');
     renderList();
     renderTagPicker();
+    loadDraft();
     checkStorage();
   }else{
     var err=document.getElementById('lerr');err.style.display='block';
@@ -3241,6 +3239,93 @@ var TAG_COLORS_ADMIN={
   teal:{border:'rgba(93,202,165,.4)',text:'#5DCAA5'}
 };
 
+
+// ── SOURCE SWITCHER ──────────────────────────────────────
+function switchSrc(src){
+  document.getElementById('ap-src').value=src;
+  ['manual','behance','dribbble'].forEach(function(s){
+    var btn=document.getElementById('src-'+s);
+    if(btn)btn.classList.toggle('on',s===src);
+  });
+  // Manual: show everything
+  // Behance/Dribbble: hide gallery images, body text, show link prominently
+  var isExternal=src==='behance'||src==='dribbble';
+  var manualOnly=['ap-body-wrap','ap-gallery-wrap'];
+  manualOnly.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.style.display=isExternal?'none':'';
+  });
+  // Update link label
+  var linkLabel=document.getElementById('ap-link-label');
+  if(linkLabel){
+    if(src==='behance')linkLabel.textContent='Behance Project URL *';
+    else if(src==='dribbble')linkLabel.textContent='Dribbble Shot URL *';
+    else linkLabel.textContent='Project Link (optional)';
+  }
+  // Update cover hint
+  var coverHint=document.getElementById('ap-cover-hint');
+  if(coverHint){
+    if(src==='behance')coverHint.textContent='Open project on Behance → right-click cover → Copy image address → paste in URL tab';
+    else if(src==='dribbble')coverHint.textContent='Right-click shot on Dribbble → Copy image address → paste in URL tab';
+    else coverHint.textContent='Upload a file, paste a URL, or type a local path';
+  }
+}
+
+// ── DRAFT SAVE ───────────────────────────────────────────
+var DRAFT_KEY='cd_draft';
+function saveDraft(){
+  var draft={
+    title:document.getElementById('ap-t').value,
+    cat:document.getElementById('ap-c').value,
+    year:document.getElementById('ap-y').value,
+    client:document.getElementById('ap-cl').value,
+    desc:document.getElementById('ap-d').value,
+    body:document.getElementById('ap-body').value,
+    link:document.getElementById('ap-l').value,
+    src:document.getElementById('ap-src').value,
+    img:document.getElementById('ap-up-path').value||document.getElementById('ap-url').value||document.getElementById('ap-path').value,
+    images:_giImages.slice(),
+    tags:getSelectedTags(),
+    editId:_editId
+  };
+  localStorage.setItem(DRAFT_KEY,JSON.stringify(draft));
+  var ok=document.getElementById('ap-ok');
+  var orig=ok.textContent;
+  ok.textContent='✓ DRAFT SAVED.';ok.style.display='block';
+  setTimeout(function(){ok.style.display='none';ok.textContent=orig;},2500);
+}
+function loadDraft(){
+  try{
+    var d=JSON.parse(localStorage.getItem(DRAFT_KEY));
+    if(!d)return;
+    if(d.title)document.getElementById('ap-t').value=d.title;
+    if(d.cat)document.getElementById('ap-c').value=d.cat;
+    if(d.year)document.getElementById('ap-y').value=d.year;
+    if(d.client)document.getElementById('ap-cl').value=d.client;
+    if(d.desc)document.getElementById('ap-d').value=d.desc;
+    if(d.body)document.getElementById('ap-body').value=d.body;
+    if(d.link)document.getElementById('ap-l').value=d.link;
+    if(d.src){document.getElementById('ap-src').value=d.src;switchSrc(d.src);}
+    if(d.images&&d.images.length){_giImages=d.images;renderGiList();}
+    if(d.tags)setSelectedTags(d.tags);
+    if(d.editId)_editId=d.editId;
+  }catch(e){}
+}
+function clearDraft(){localStorage.removeItem(DRAFT_KEY);}
+var _draftBtn=document.getElementById('ap-draft');
+if(_draftBtn)_draftBtn.addEventListener('click',saveDraft);
+
+// ── REMEMBER PASSWORD ────────────────────────────────────
+(function(){
+  var saved=localStorage.getItem('cd_rem');
+  if(saved){
+    var pwd=document.getElementById('lpwd');
+    var cb=document.getElementById('l-remember');
+    if(pwd)pwd.value=saved;
+    if(cb)cb.checked=true;
+  }
+})();
+
 function renderTagPicker(){
   var wrap=document.getElementById('ap-tags-wrap');
   if(!wrap)return;
@@ -3289,7 +3374,8 @@ function renderTagsPanel(){
     });
   });
 }
-document.getElementById('add-tag-btn').addEventListener('click',function(){
+var _addTagBtn=document.getElementById('add-tag-btn');
+if(_addTagBtn)_addTagBtn.addEventListener('click',function(){
   var label=document.getElementById('new-tag-label').value.trim();
   if(!label)return;
   var color=document.getElementById('new-tag-color').value;
@@ -3300,8 +3386,7 @@ document.getElementById('add-tag-btn').addEventListener('click',function(){
   sTags(tags);
   document.getElementById('new-tag-label').value='';
   renderTagsPanel();
-  var ok=document.getElementById('tag-ok');ok.style.display='block';
-  setTimeout(function(){ok.style.display='none';},2000);
+  var ok=document.getElementById('tag-ok');if(ok){ok.style.display='block';setTimeout(function(){ok.style.display='none';},2000);}
 });
 
 function checkStorage(){
@@ -3376,6 +3461,7 @@ document.getElementById('ap-save').addEventListener('click',function(){
   document.getElementById('ap-url').value='';
   try{document.getElementById('ap-file').value=''}catch(e){}
   clearEditState();
+  clearDraft();
   var ok=document.getElementById('ap-ok');ok.style.display='block';
   setTimeout(function(){ok.style.display='none'},2500);
   renderList();renderGrid('all');
