@@ -1588,7 +1588,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
           <div class="adm-f"><label class="adm-l">Year</label><input class="adm-in" id="ap-y" value="2026"/></div>
           <div class="adm-f"><label class="adm-l">Client Name</label><input class="adm-in" id="ap-cl" placeholder="e.g. ICICI Bank"/></div>
           <div class="adm-f full"><label class="adm-l">Short Description <span style="color:rgba(255,255,255,.28);font-size:9px">(shown on card)</span></label><textarea class="adm-ta" id="ap-d" placeholder="One or two sentences about the project…"></textarea></div>
-          <div id="ap-body-wrap"><div class="adm-f full"><label class="adm-l">Project Body <span style="color:rgba(255,255,255,.28);font-size:9px">(full page — write as much as you like, optional)</span></label><textarea class="adm-ta" id="ap-body" rows="6" placeholder="Describe your process, thinking, outcomes… no restrictions."></textarea></div>
+          <div id="ap-body-wrap"><div class="adm-f full"><label class="adm-l">Project Body <span style="color:rgba(255,255,255,.28);font-size:9px">(full page — write as much as you like, optional)</span></label><textarea class="adm-ta" id="ap-body" rows="6" placeholder="Describe your process, thinking, outcomes… no restrictions."></textarea></div></div>
 
           <!-- Image tabs -->
           <div class="adm-f full">
@@ -1624,7 +1624,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
           </div>
 
           <div class="adm-f"><label class="adm-l" id="ap-link-label">Project Link (optional)</label><input class="adm-in" id="ap-l" placeholder="https://www.behance.net/gallery/…"/></div>
-          </div><div id="ap-gallery-wrap"><div class="adm-f full">
+
+          <div id="ap-gallery-wrap"><div class="adm-f full">
             <label class="adm-l">Gallery Images <span style="color:rgba(255,255,255,.28);font-size:9px">(up to 20 · shown on project page)</span></label>
             <div class="gi-list" id="gi-list"></div>
             <input type="file" class="gi-add-input" id="gi-file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm" multiple/>
@@ -1632,7 +1633,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
               <button class="gi-add-btn" style="flex:1" onclick="document.getElementById('gi-file').click()">+ Upload Images</button>
               <button class="gi-add-btn" style="flex:1" onclick="giAddPath()">+ Local Path</button>
             </div>
-          </div>
+            <div id="gi-upload-hint" style="display:none;font-family:var(--m);font-size:9px;letter-spacing:.12em;color:rgba(255,165,0,.8);margin-top:8px;line-height:1.7;"></div>
+          </div></div>
 
           <div class="adm-f full">
             <label class="adm-l">Tags <span style="color:rgba(255,255,255,.28);font-size:9px">(select all that apply)</span></label>
