@@ -418,26 +418,19 @@ input,textarea,select{font-family:var(--f)}
   transition:background .3s;
 }
 .pc:hover{background:var(--g2)}
-.pc-img{overflow:hidden;aspect-ratio:808/632;background:var(--g2);display:flex;align-items:center;justify-content:center;position:relative;}
-.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);display:block;}
+.pc-img{overflow:hidden;aspect-ratio:808/632;background:var(--g2);display:flex;align-items:center;justify-content:center}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .75s var(--ease);display:block;background:var(--g2)}
 .pc:hover .pc-img img{transform:scale(1.06)}
 .pc-ph{width:100%;height:100%;background:var(--g2);display:flex;align-items:center;justify-content:center}
 .pc-ph-n{font-size:38px;font-weight:900;letter-spacing:-.06em;color:rgba(255,255,255,.05)}
-/* Overlay on image */
-.pc-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 55%,transparent 100%);
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:18px 18px 16px;
-  transition:opacity .3s;
-}
-.pc-body{display:none}
-.pc-cat{font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.pc-body{padding:14px 16px 20px}
+.pc-cat{font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
 /* WORD HOVER UNDERLINE on project titles */
-
-
-.pc-yr{font-family:var(--m);font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.45);margin-top:3px}
-.pc-tags-ov{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
+.pc-title{
+  font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:1.2;
+  display:inline;position:relative;
+}
+.pc-yr{font-family:var(--m);font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.50);margin-top:4px}
 /* ── PROJECT TAGS ──────────────────────────────────────── */
 .pc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
 .pc-tag{font-family:var(--m);font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border:1px solid;line-height:1.6;}
@@ -1301,181 +1294,6 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 @media(max-width:768px){.bento{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:480px){.bento{grid-template-columns:1fr;}}
 
-
-/* ── NEW SERVICES ACCORDION ────────────────────────────── */
-.svc2-wrap{
-  display:grid;grid-template-columns:1fr 1fr;
-  min-height:600px;
-}
-.svc2-list{border-right:1px solid var(--line);}
-.svc2-item{
-  border-bottom:1px solid var(--line);
-  padding:0;cursor:pointer;
-  position:relative;overflow:hidden;
-  transition:background .2s;
-}
-.svc2-item::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;
-  width:3px;background:var(--red);
-  transform:scaleY(0);transform-origin:top;
-  transition:transform .35s var(--ease);
-}
-.svc2-item.on::before{transform:scaleY(1);}
-.svc2-item.on{background:var(--g1);}
-.svc2-hd{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:28px clamp(20px,3vw,48px);
-  gap:16px;
-}
-.svc2-num{font-family:var(--m);font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.25);flex-shrink:0;}
-.svc2-name{
-  font-size:clamp(15px,1.8vw,20px);font-weight:700;
-  letter-spacing:-.01em;text-transform:uppercase;
-  color:rgba(255,255,255,.7);flex:1;
-  transition:color .2s;
-}
-.svc2-item.on .svc2-name,.svc2-item:hover .svc2-name{color:#fff;}
-.svc2-arr{
-  width:28px;height:28px;border:1px solid rgba(255,255,255,.12);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  transition:border-color .2s,transform .35s var(--ease),background .2s;
-}
-.svc2-item.on .svc2-arr{border-color:var(--red);background:rgba(255,42,42,.1);transform:rotate(45deg);}
-.svc2-arr svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;}
-.svc2-body{
-  max-height:0;overflow:hidden;
-  transition:max-height .4s var(--ease);
-}
-.svc2-item.on .svc2-body{max-height:280px;}
-.svc2-inner{
-  padding:0 clamp(20px,3vw,48px) 28px;
-  padding-left:calc(clamp(20px,3vw,48px) + 42px);
-}
-.svc2-desc{font-size:14px;font-weight:300;line-height:1.9;color:rgba(255,255,255,.55);margin-bottom:16px;}
-.svc2-tags{display:flex;flex-wrap:wrap;gap:5px;}
-.svc2-tag{font-family:var(--m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.38);}
-
-/* Right image panel */
-.svc2-img-wrap{
-  position:sticky;top:var(--nav-h,56px);
-  height:calc(100vh - 56px);
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--g1);
-}
-.svc2-img{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;transition:opacity .5s var(--ease);
-  font-size:80px;
-}
-.svc2-img.on{opacity:1;}
-.svc2-img-bg{
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(255,42,42,.06) 0%,transparent 70%);
-}
-.svc2-img-icon{
-  position:relative;z-index:2;
-  font-size:clamp(60px,8vw,100px);
-  filter:drop-shadow(0 0 40px rgba(255,42,42,.3));
-}
-.svc2-img-label{
-  position:absolute;bottom:40px;left:0;right:0;text-align:center;
-  font-family:var(--m);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
-  color:rgba(255,255,255,.25);
-}
-
-@media(max-width:900px){
-  .svc2-wrap{grid-template-columns:1fr;}
-  .svc2-img-wrap{display:none;}
-}
-
-
-/* ── FAQ ───────────────────────────────────────────────── */
-#faq{border-top:1px solid var(--line);}
-.faq-wrap{
-  display:grid;grid-template-columns:1fr 2fr;
-  gap:0;
-}
-.faq-left{
-  padding:clamp(40px,6vw,80px) clamp(20px,4vw,52px);
-  border-right:1px solid var(--line);
-  position:sticky;top:56px;height:fit-content;
-}
-.faq-eyebrow{font-family:var(--m);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:20px;}
-.faq-title{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-.04em;line-height:.95;margin-bottom:20px;}
-.faq-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.8;margin-bottom:28px;}
-.faq-cta{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--white);border:1px solid rgba(255,255,255,.15);
-  padding:10px 20px;text-decoration:none;
-  transition:border-color .2s,background .2s;
-}
-.faq-cta:hover{border-color:var(--red);background:rgba(255,42,42,.06);}
-.faq-right{padding:0;}
-.faq-item{
-  border-bottom:1px solid var(--line);
-  overflow:hidden;
-}
-.faq-q{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:clamp(20px,2.5vw,32px) clamp(20px,4vw,52px);
-  cursor:pointer;
-  transition:background .2s;
-}
-.faq-q:hover{background:var(--g1);}
-.faq-q-text{font-size:clamp(14px,1.6vw,17px);font-weight:600;color:var(--white);line-height:1.3;}
-.faq-icon{
-  width:28px;height:28px;border:1px solid rgba(255,255,255,.12);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .35s var(--ease),border-color .2s,background .2s;
-}
-.faq-item.on .faq-icon{transform:rotate(45deg);border-color:var(--red);background:rgba(255,42,42,.1);}
-.faq-icon svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;}
-.faq-a{
-  max-height:0;overflow:hidden;
-  transition:max-height .45s var(--ease);
-}
-.faq-item.on .faq-a{max-height:300px;}
-.faq-a-inner{
-  padding:0 clamp(20px,4vw,52px) clamp(20px,2.5vw,32px);
-  font-size:14px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.9;
-}
-@media(max-width:768px){
-  .faq-wrap{grid-template-columns:1fr;}
-  .faq-left{position:relative;top:auto;border-right:none;border-bottom:1px solid var(--line);}
-}
-
-
-/* ── ENHANCED REVEAL ANIMATIONS ────────────────────────── */
-.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
-.rv.in{opacity:1;transform:none;}
-.rv-up{opacity:0;transform:translateY(48px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
-.rv-up.in{opacity:1;transform:none;}
-.rv-left{opacity:0;transform:translateX(-32px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
-.rv-left.in{opacity:1;transform:none;}
-.rv-right{opacity:0;transform:translateX(32px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
-.rv-right.in{opacity:1;transform:none;}
-/* Clip reveal — text slides up from behind mask */
-.rv-clip{overflow:hidden;display:block;}
-.rv-clip .rv-clip-inner{
-  display:block;
-  transform:translateY(100%);
-  transition:transform .9s var(--ease);
-}
-.rv-clip.in .rv-clip-inner{transform:translateY(0);}
-/* Stagger children */
-.rv-stagger>*{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
-.rv-stagger.in>*:nth-child(1){opacity:1;transform:none;transition-delay:.0s}
-.rv-stagger.in>*:nth-child(2){opacity:1;transform:none;transition-delay:.1s}
-.rv-stagger.in>*:nth-child(3){opacity:1;transform:none;transition-delay:.2s}
-.rv-stagger.in>*:nth-child(4){opacity:1;transform:none;transition-delay:.3s}
-.rv-stagger.in>*:nth-child(5){opacity:1;transform:none;transition-delay:.4s}
-.rv-stagger.in>*:nth-child(6){opacity:1;transform:none;transition-delay:.5s}
-.rv-stagger.in>*:nth-child(7){opacity:1;transform:none;transition-delay:.6s}
-.rv-stagger.in>*:nth-child(8){opacity:1;transform:none;transition-delay:.7s}
-
 /* ── SCROLL STORYTELLING ────────────────────── */
 
 /* Vertical chapter indicator — right edge */
@@ -1967,7 +1785,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <li><a href="work.html">Work</a></li>
     <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-r">
     <div class="avail-badge"><span class="avail-dot"></span>Available</div>
@@ -2028,108 +1846,36 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <!-- ═══════════════════ SERVICES ═══════════════════ -->
 <section id="services">
   <div class="s-hd rv"><span class="sec-tag">Specialisms</span><span class="sec-ct">5 services</span></div>
-  <div class="svc2-wrap">
-    <div class="svc2-list rv-stagger">
-
-      <div class="svc2-item on" data-svc="0">
-        <div class="svc2-hd">
-          <span class="svc2-num">01</span>
-          <span class="svc2-name">UX &amp; UI Design</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Human-centred interfaces balancing beauty with function. Full product design from wireframe to developer handoff.</div>
-            <div class="svc2-tags"><span class="svc2-tag">Product Design</span><span class="svc2-tag">Figma</span><span class="svc2-tag">Design Systems</span><span class="svc2-tag">Prototyping</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="svc2-item" data-svc="1">
-        <div class="svc2-hd">
-          <span class="svc2-num">02</span>
-          <span class="svc2-name">Brand Identity</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</div>
-            <div class="svc2-tags"><span class="svc2-tag">Logo Design</span><span class="svc2-tag">Brand System</span><span class="svc2-tag">Style Guide</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="svc2-item" data-svc="2">
-        <div class="svc2-hd">
-          <span class="svc2-num">03</span>
-          <span class="svc2-name">Presentation Design</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</div>
-            <div class="svc2-tags"><span class="svc2-tag">Pitch Decks</span><span class="svc2-tag">Keynote</span><span class="svc2-tag">PowerPoint</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="svc2-item" data-svc="3">
-        <div class="svc2-hd">
-          <span class="svc2-num">04</span>
-          <span class="svc2-name">Print &amp; Marketing</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</div>
-            <div class="svc2-tags"><span class="svc2-tag">Brochures</span><span class="svc2-tag">Catalogues</span><span class="svc2-tag">Annual Reports</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="svc2-item" data-svc="4">
-        <div class="svc2-hd">
-          <span class="svc2-num">05</span>
-          <span class="svc2-name">Interactive Web</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</div>
-            <div class="svc2-tags"><span class="svc2-tag">WebGL</span><span class="svc2-tag">Motion Design</span><span class="svc2-tag">Front-end</span></div>
-          </div>
-        </div>
-      </div>
-
+  <div class="svc-grid svc-scene">
+    <div class="svc rv" style="transition-delay:0s">
+      <div class="svc-n">01</div><div class="svc-icon">⬡</div>
+      <div class="svc-name">UX &amp; UI Design</div>
+      <div class="svc-body">Human-centred interfaces balancing beauty with function. Full product design from wireframe to developer handoff.</div>
+      <div class="svc-tags"><span class="svc-tag">Product Design</span><span class="svc-tag">Figma</span><span class="svc-tag">Design Systems</span><span class="svc-tag">Prototyping</span></div>
     </div>
-
-    <!-- Right: rotating visual -->
-    <div class="svc2-img-wrap">
-      <div class="svc2-img on" data-svc-img="0">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">⬡</div>
-        <div class="svc2-img-label">UX / UI Design</div>
-      </div>
-      <div class="svc2-img" data-svc-img="1">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">◈</div>
-        <div class="svc2-img-label">Brand Identity</div>
-      </div>
-      <div class="svc2-img" data-svc-img="2">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">▣</div>
-        <div class="svc2-img-label">Presentation Design</div>
-      </div>
-      <div class="svc2-img" data-svc-img="3">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">▦</div>
-        <div class="svc2-img-label">Print &amp; Marketing</div>
-      </div>
-      <div class="svc2-img" data-svc-img="4">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">⟡</div>
-        <div class="svc2-img-label">Interactive Web</div>
-      </div>
+    <div class="svc rv" style="transition-delay:0.08s">
+      <div class="svc-n">02</div><div class="svc-icon">◈</div>
+      <div class="svc-name">BRAND IDENTITY</div>
+      <div class="svc-body">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</div>
+      <div class="svc-tags"><span class="svc-tag">Logo Design</span><span class="svc-tag">Brand System</span><span class="svc-tag">Style Guide</span></div>
+    </div>
+    <div class="svc rv" style="transition-delay:0.16s">
+      <div class="svc-n">03</div><div class="svc-icon">▣</div>
+      <div class="svc-name">PRESENTATION DESIGN</div>
+      <div class="svc-body">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</div>
+      <div class="svc-tags"><span class="svc-tag">Pitch Decks</span><span class="svc-tag">Keynote</span><span class="svc-tag">PowerPoint</span></div>
+    </div>
+    <div class="svc rv" style="transition-delay:0.24s">
+      <div class="svc-n">04</div><div class="svc-icon">▦</div>
+      <div class="svc-name">PRINT &amp; MARKETING</div>
+      <div class="svc-body">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</div>
+      <div class="svc-tags"><span class="svc-tag">Brochures</span><span class="svc-tag">Catalogues</span><span class="svc-tag">Annual Reports</span></div>
+    </div>
+    <div class="svc rv" style="transition-delay:0.32s">
+      <div class="svc-n">05</div><div class="svc-icon" style="font-size:16px">⟡</div>
+      <div class="svc-name">INTERACTIVE WEB</div>
+      <div class="svc-body">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</div>
+      <div class="svc-tags"><span class="svc-tag">WebGL</span><span class="svc-tag">Motion Design</span><span class="svc-tag">Front-end</span><span class="svc-tag">GSAP</span></div>
     </div>
   </div>
 </section>
@@ -2282,77 +2028,6 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   </div>
   <div id="tm-empty" style="display:none;padding:40px clamp(20px,4vw,52px);font-family:var(--m);font-size:10px;letter-spacing:.1em;color:var(--muted2)">
     No testimonials yet. <a href="/#admin" style="color:var(--red)">Add some →</a>
-  </div>
-</section>
-
-<!-- ═══════════════════ FAQ ═══════════════════ -->
-<section id="faq">
-  <div class="faq-wrap">
-    <div class="faq-left rv">
-      <div class="faq-eyebrow">FAQ</div>
-      <div class="faq-title">Questions<br>Answered</div>
-      <div class="faq-sub">Everything you need to know before we start. Can't find what you're looking for? Just ask.</div>
-      <a href="#contact" class="faq-cta">Ask a question →</a>
-    </div>
-    <div class="faq-right rv-stagger">
-
-      <div class="faq-item on">
-        <div class="faq-q">
-          <span class="faq-q-text">Do you work with clients remotely?</span>
-          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Yes — 100% of my work is remote. I work with clients across India and internationally through email, calls, and shared tools like Figma, Notion, and Google Drive. Time zone differences are never a problem.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="faq-q-text">What do you need from me to get started?</span>
-          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">A brief explaining your project — what you need, who it's for, your timeline, and any references you like. The more context you give me, the better the outcome. I'll ask the right questions from there.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="faq-q-text">How many revisions are included?</span>
-          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Every project includes structured revision rounds — typically 2–3 rounds depending on scope. I prefer clear, consolidated feedback over scattered small changes. My goal is to get it right, not just done quickly.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="faq-q-text">What's your typical turnaround time?</span>
-          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">It depends on the scope. A single presentation deck takes 3–5 days. A brand identity system takes 2–4 weeks. A full UX project can take 4–8 weeks. I'll give you a clear timeline before we start, and I stick to it.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="faq-q-text">Do you work with small businesses or startups?</span>
-          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Absolutely — some of my best work has been for early-stage startups and growing SMEs. Good design isn't just for big brands. If you have a real problem to solve, I want to hear about it.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="faq-q-text">What file formats will I receive?</span>
-          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">All production-ready formats relevant to your project — AI, EPS, PDF, SVG, PNG, JPG, PPTX, PPTM, Figma files. You'll own everything. No locked files, no ongoing dependencies.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="faq-q-text">Can I hire you on a retainer basis?</span>
-          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Yes — I work with a few select clients on a monthly retainer for ongoing design needs. This works well for brands that regularly need decks, marketing materials, or UI updates. Get in touch to discuss.</div></div>
-      </div>
-
-    </div>
   </div>
 </section>
 
@@ -3209,7 +2884,6 @@ renderGiList();
 
 var _curSort='new'; // 'new' or 'old'
 
-function esc2(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderGrid(filter){
   var all=getAllProjects();
   var filtered=all.filter(function(p){return p.src==='manual'||p.img});
@@ -3233,21 +2907,19 @@ function renderGrid(filter){
   grid.innerHTML=display.map(function(p,idx){
     var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
     var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
-    var tagsH=p.tags&&p.tags.length?'<div class="pc-tags-ov">'+renderTagBadges(p.tags)+'</div>':'';
-    var overlay='<div class="pc-overlay">'
-      +'<div class="pc-cat">'+(CMAP[p.cat]||p.src||'Project')+'</div>'
-      +'<div class="pc-title">'+p.title+'</div>'
-      +'<div class="pc-yr">'+p.year+(p.client?' \u00b7 '+p.client:'')+'</div>'
-      +tagsH+'</div>';
     var imgH=p.img
-      ?'<div class="pc-img"><img src="'+p.img+'" alt="'+p.title+'" loading="'+(idx<2?'eager':'lazy')+'" onerror="this.classList.add(\'img-error\')"/>'
-        +'<div class="img-ph"><svg class="img-ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
-        +'<div class="img-ph-txt">Not uploaded yet</div></div>'
-        +overlay+'</div>'
-      :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(idx+1).padStart(2,'0')+'</div></div>'
-        +overlay+'</div>';
-    return '<div class="pc rv" data-id="'+p.id+'" data-src="'+(p.src||'manual')+'" data-link="'+(p.link||'')+'">'
-      +badge+imgH+'<div class="pc-line"></div></div>';
+      ?'<div class="pc-img" style="position:relative"><img src="'+p.img+'" alt="'+p.title+'" loading="'+( idx<2?'eager':'lazy')+'" onerror="this.classList.add(\'img-error\')"/>'+
+        '<div class="img-ph"><svg class="img-ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'+
+        '<div class="img-ph-txt">Not uploaded yet</div></div></div>'
+      :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(idx+1).padStart(2,'0')+'</div></div></div>';
+    var tagsH=p.tags&&p.tags.length?'<div class="pc-tags">'+renderTagBadges(p.tags)+'</div>':'';
+    var shareUrl=(p.src==='manual'||!p.link)?('https://www.carvingdezine.com/project.html?id='+p.id):(p.link||'https://www.carvingdezine.com');
+    return '<div class="pc rv" data-id="'+p.id+'" data-src="'+( p.src||'manual')+'" data-link="'+( p.link||'')+'">'+
+      badge+imgH+
+      '<div class="pc-body"><div class="pc-cat">'+( CMAP[p.cat]||p.src||'Project')+'</div>'+
+      '<div class="pc-title">'+p.title+'</div>'+
+      '<div class="pc-yr">'+p.year+(p.client?' · '+p.client:'')+'</div>'+
+      tagsH+'</div><div class="pc-line"></div></div>';
   }).join('');
 
   grid.querySelectorAll('.pc').forEach(function(card){
@@ -3397,41 +3069,6 @@ document.getElementById('fsub').addEventListener('click',function(){
 // ─────────────────────────────────────────
 // ADMIN SYSTEM
 // ─────────────────────────────────────────
-
-// ── SERVICES ACCORDION ──────────────────────────────────
-(function(){
-  var items=document.querySelectorAll('.svc2-item');
-  var imgs=document.querySelectorAll('[data-svc-img]');
-  function activate(idx){
-    items.forEach(function(it){it.classList.remove('on');});
-    imgs.forEach(function(im){im.classList.remove('on');});
-    if(items[idx])items[idx].classList.add('on');
-    if(imgs[idx])imgs[idx].classList.add('on');
-  }
-  items.forEach(function(item){
-    item.addEventListener('click',function(){
-      var idx=parseInt(item.dataset.svc);
-      if(item.classList.contains('on')){
-        item.classList.remove('on');
-        imgs.forEach(function(im){im.classList.remove('on');});
-      } else {
-        activate(idx);
-      }
-    });
-  });
-})();
-
-// ── FAQ ACCORDION ────────────────────────────────────────
-(function(){
-  document.querySelectorAll('.faq-item').forEach(function(item){
-    item.querySelector('.faq-q').addEventListener('click',function(){
-      var isOn=item.classList.contains('on');
-      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('on');});
-      if(!isOn)item.classList.add('on');
-    });
-  });
-})();
-
 function chkRoute(){if(location.hash==='#admin')document.getElementById('adm-login').classList.add('show')}
 chkRoute();window.addEventListener('hashchange',chkRoute);
 document.addEventListener('keydown',function(e){
