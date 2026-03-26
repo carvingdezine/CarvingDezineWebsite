@@ -54,17 +54,12 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-size:200px 200px;opacity:.5;}
 
 /* ── NAV ── */
-.pj-nav{
-  position:fixed;top:0;left:0;right:0;z-index:999;height:var(--nav-h);
-  display:flex;align-items:center;justify-content:space-between;padding:0 40px;
-  background:rgba(0,0,0,.9);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
-}
-.pj-nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none;}
-.pj-nav-logo span{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;}
-.pj-back{display:flex;align-items:center;gap:8px;font-family:var(--m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;}
-.pj-back:hover{color:#fff;}
-.pj-back svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+
+
+
+
+
 
 /* ── RIGHT PANEL — fixed ── */
 .pj-right{
@@ -112,7 +107,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 
 /* ── SPLIT LAYOUT — CSS Grid, sticky right panel ── */
 .pj-split{
-  display:grid;
+  padding-top:56px;display:grid;
   grid-template-columns:var(--left-w) var(--right-w);
   margin-top:var(--nav-h);
   align-items:start;
@@ -214,7 +209,7 @@ footer{border-top:1px solid var(--line)}
 
 /* ── MOBILE ── */
 @media(max-width:768px){
-  .pj-nav{padding:0 20px;}
+  
   .pj-split{display:flex;flex-direction:column;}
   .pj-gallery-wrap{order:2;}
   .pj-right{position:relative;top:auto;width:100%;height:auto;border-left:none;border-bottom:1px solid var(--line);padding:36px 24px;order:1;}
@@ -225,30 +220,83 @@ footer{border-top:1px solid var(--line)}
   .pj-related-grid{grid-template-columns:1fr 1fr;}
   .pj-related{padding:48px 20px;}
   .pj-cta{padding:60px 20px;}
-  .pj-footer{padding:24px 20px;}
+  
 }
 @media(max-width:480px){
   .pj-related-grid{grid-template-columns:1fr;}
 }
+<style id="sh-styles">
+:root{--black:#000;--white:#fff;--red:#ff2a2a;--g1:#0a0a0a;--g2:#111;--g3:#1a1a1a;--line:rgba(255,255,255,.07);--ease:cubic-bezier(.19,1,.22,1);--f:'Outfit',sans-serif;--m:'DM Mono',monospace;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:hidden;font-size:16px;scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--f);-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:200px 200px;opacity:.5;}
+a{color:inherit;text-decoration:none;}
+#sh-nav{position:fixed;top:0;left:0;right:0;z-index:900;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,44px);background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
+.sh-logo{display:flex;align-items:center;gap:11px;}
+.sh-logo img{width:28px;height:28px;object-fit:contain;}
+.sh-logo span{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;}
+.sh-links{display:flex;gap:clamp(16px,2.5vw,36px);list-style:none;}
+.sh-links a{font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:color .2s;}
+.sh-links a:hover,.sh-links a.active{color:#fff;}
+.sh-cta{font-family:var(--m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.2);padding:7px 16px;transition:border-color .2s,background .2s;}
+.sh-cta:hover{border-color:var(--red);background:rgba(255,42,42,.08);}
+.sh-footer{border-top:1px solid var(--line);}
+.sh-ft-main{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--line);}
+.sh-ft-col{padding:20px clamp(20px,4vw,44px);border-right:1px solid var(--line);display:flex;align-items:center;}
+.sh-ft-col:last-child{border-right:none;justify-content:flex-end;}
+.sh-ft-brand{display:flex;align-items:center;gap:10px;}
+.sh-ft-logo{width:28px;height:28px;object-fit:contain;opacity:.7;}
+.sh-ft-name{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.65);}
+.sh-ft-copy{font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.sh-ft-links{display:flex;flex-wrap:wrap;gap:4px 14px;}
+.sh-ft-link{font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .2s;}
+.sh-ft-link:hover{color:#fff;}
+.sh-ft-btm{padding:14px clamp(20px,4vw,44px);display:flex;align-items:center;justify-content:space-between;font-family:var(--m);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+.sh-ft-btm a{color:rgba(255,255,255,.25);transition:color .2s;}
+.sh-ft-btm a:hover{color:#fff;}
+@media(max-width:768px){
+  .sh-links,.sh-cta{display:none;}
+  .sh-ft-main{grid-template-columns:1fr;}
+  .sh-ft-col{border-right:none;border-top:1px solid var(--line);}
+  .sh-ft-col:first-child{border-top:none;}
+  .sh-ft-col:last-child{justify-content:flex-start;}
+}
+
+/* ── IMMERSIVE SCROLL REVEALS ────────────────────────── */
+.pj-img-block,.pj-vid-block,.pj-yt-block,.pj-img-pair{
+  opacity:0;transform:translateY(32px) scale(0.99);
+  transition:opacity .8s cubic-bezier(.19,1,.22,1),transform .8s cubic-bezier(.19,1,.22,1);
+}
+.pj-img-block.vis,.pj-vid-block.vis,.pj-yt-block.vis,.pj-img-pair.vis{
+  opacity:1;transform:none;
+}
+.pj-img-pair .pj-img-block{opacity:1;transform:none;}
+.pj-cat,.pj-title,.pj-meta-row,.pj-desc-text,.pj-actions{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .7s cubic-bezier(.19,1,.22,1),transform .7s cubic-bezier(.19,1,.22,1);
+}
+.pj-rp-ready .pj-cat{opacity:1;transform:none;transition-delay:.05s}
+.pj-rp-ready .pj-title{opacity:1;transform:none;transition-delay:.12s}
+.pj-rp-ready .pj-meta-row{opacity:1;transform:none;transition-delay:.18s}
+.pj-rp-ready .pj-desc-text{opacity:1;transform:none;transition-delay:.25s}
+.pj-rp-ready .pj-actions{opacity:1;transform:none;transition-delay:.32s}
+/* Bottom section reveals */
+.pj-nav-row,.pj-rel-card,.pj-cta-inner{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s cubic-bezier(.19,1,.22,1),transform .7s cubic-bezier(.19,1,.22,1);
+}
+.pj-nav-row.vis,.pj-cta-inner.vis{opacity:1;transform:none;}
+.pj-rel-card.vis{opacity:1;transform:none;}
+.pj-rel-card:nth-child(2).vis{transition-delay:.08s}
+.pj-rel-card:nth-child(3).vis{transition-delay:.16s}
+
+</style>
 </style>
 </head>
 <body>
 
-<nav class="pj-nav">
-  <a class="pj-nav-logo" href="index.html">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 566.93 566.93" width="28" height="28">
-      <circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/>
-      <path fill="#fff" d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54"/>
-      <rect fill="rgba(255,255,255,0.5)" x="324.22" y="200.95" width="17.24" height="60.48"/>
-      <path fill="#fff" d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02"/>
-    </svg>
-    <span>Carving Dezine</span>
-  </a>
-  <a class="pj-back" href="index.html#work">
-    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-    All Work
-  </a>
-</nav>
+<nav id="sh-nav"><a class="sh-logo" href="index.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDcpIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTl2MTQ4LjYxYzAsMS4wOS0uMSwyLjE2LS4xNiwzLjI0aC4xNnYxMDEuMTVjMzUuNjEtMjAuNjYsNTkuNjktNTkuNyw1OS42OS0xMDQuMzlWMTEzLjQxYy0uMjMsMC0uNDYtLjAyLS42OC0uMDIiLz48L3N2Zz4=" alt="Carving Dezine"/><span>Carving Dezine</span></a><ul class="sh-links"><li><a href="index.html#services">Services</a></li><li><a href="work.html">Work</a></li><li><a href="index.html#testimonials" class="active">Testimonials</a></li><li><a href="index.html#about" class="active">About</a></li><li><a href="index.html#faq" class="active">FAQ</a></li><li><a href="index.html#contact" class="active">Contact</a></li></ul><a href="index.html#contact" class="sh-cta">Start a Project</a></nav>
 
 <div id="pj-root"></div>
 
@@ -262,7 +310,7 @@ function setMeta(p,c){var el=document.querySelector('meta[property="'+p+'"]');if
 
 function getYTId(url){
   if(!url)return null;
-  var m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/);
+  var m=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/);
   return m?m[1]:null;
 }
 function togglePjShare(btn){btn.querySelector('.pj-share-drop').classList.toggle('open');}
@@ -274,8 +322,8 @@ function copyPjLink(){
   document.querySelectorAll('.pj-share-drop').forEach(function(d){d.classList.remove('open');});
 }
 function nativePjShare(title){
-  if(navigator.share)navigator.share({title:title+' \u2014 Carving Dezine',url:window.location.href});
-  else navigator.clipboard.writeText(window.location.href);
+  if(navigator.share){navigator.share({title:title+' \u2014 Carving Dezine',url:window.location.href});}
+  else{navigator.clipboard.writeText(window.location.href);}
   document.querySelectorAll('.pj-share-drop').forEach(function(d){d.classList.remove('open');});
 }
 document.addEventListener('click',function(e){if(!e.target.closest('.pj-share-btn'))document.querySelectorAll('.pj-share-drop').forEach(function(d){d.classList.remove('open');});});
@@ -426,26 +474,7 @@ function render(){
       +'<div class="pj-prevnext">'+prevH+nextH+'</div>'
       +relatedH
       +'<div class="pj-cta"><div class="pj-cta-eyebrow">Like what you see?</div><div class="pj-cta-title">Let\'s work together</div><div class="pj-cta-sub">Tell me about your project and let\'s create something remarkable.</div><a class="pj-cta-btn" href="index.html#contact">Get in touch</a></div>'
-      +'<footer>'
-      +'<div class="ft-main">'
-        +'<div class="ft-col"><div class="ft-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIiBhcmlhLWxhYmVsPSJDYXJ2aW5nIERlemluZSI+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIgZD0iTTI4My40Niw1NjYuOTNoMEMxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3aDBDMCwxMjYuOTEsMTI2LjkxLDAsMjgzLjQ2LDBzMjgzLjQ2LDEyNi45MSwyODMuNDYsMjgzLjQ2aDBjMCwxNTYuNTUtMTI2LjkxLDI4My40Ni0yODMuNDYsMjgzLjQ2Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTIyNS40NywzMjFjMC0zMi41NSwyNS43OS01OS4yNiw1Ny40Mi01OS41NGg2NS45MnYtNjAuNTFjLTQxLjQyLDAtNjYuMjMsMC02Ni4yOCwwLTY0LjM3LjUyLTExNi43NCw1NC4zNy0xMTYuNzQsMTIwLjA0LDAsMzIuMjksMTIuNTgsNjEuNjEsMzIuOTgsODMuMjFsLTI0LjUxLDQ5LjM0LDY0LjY1LTIxLjQ2YzEzLjc1LDUuNzYsMjguOCw4Ljk2LDQ0LjU2LDguOTYsMTQuMzIsMCwyOC4wNC0yLjYzLDQwLjc1LTcuNDN2LTcwLjMxYy0xMC40OCwxMC42NC0yNC44OCwxNy4yMy00MC43NSwxNy4yMy0zMS45OCwwLTU4LTI2LjcxLTU4LTU5LjU0Ii8+PHJlY3QgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTloMHYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg==" class="ft-logo" alt="Carving Dezine"/><span class="ft-name">Carving Dezine</span></div></div>'
-        +'<div class="ft-col"><span class="ft-copy">&copy; 2026 Carving Dezine &middot; Mumbai &amp; Surat, India</span></div>'
-        +'<div class="ft-col"><div class="ft-links">'
-          +'<a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Behance</a>'
-          +'<a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Dribbble</a>'
-          +'<a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Instagram</a>'
-          +'<a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">X</a>'
-          +'<a href="https://threads.net/@carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Threads</a>'
-          +'<a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">LinkedIn</a>'
-          +'<a href="mailto:carvingdezine@gmail.com" class="ft-lnk">Email</a>'
-          +'<a href="#" onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false;" class="ft-lnk">\u2191 Top</a>'
-        +'</div></div>'
-      +'</div>'
-      +'<div class="ft-btm">'
-        +'<span>A part of <a href="https://www.microngroup.in" target="_blank" rel="noopener">Micron Group</a> &nbsp;&middot;&nbsp; www.carvingdezine.com</span>'
-        +'<span>Designed with intention &nbsp;&middot;&nbsp; <a href="index.html#admin">Studio Admin</a></span>'
-      +'</div>'
-    +'</footer>'
+      +'<footer class="sh-footer"><div class="sh-ft-main"><div class="sh-ft-col"><div class="sh-ft-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIiBhcmlhLWxhYmVsPSJDYXJ2aW5nIERlemluZSI+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIgZD0iTTI4My40Niw1NjYuOTNoMEMxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3aDBDMCwxMjYuOTEsMTI2LjkxLDAsMjgzLjQ2LDBzMjgzLjQ2LDEyNi45MSwyODMuNDYsMjgzLjQ2aDBjMCwxNTYuNTUtMTI2LjkxLDI4My40Ni0yODMuNDYsMjgzLjQ2Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTIyNS40NywzMjFjMC0zMi41NSwyNS43OS01OS4yNiw1Ny40Mi01OS41NGg2NS45MnYtNjAuNTFjLTQxLjQyLDAtNjYuMjMsMC02Ni4yOCwwLTY0LjM3LjUyLTExNi43NCw1NC4zNy0xMTYuNzQsMTIwLjA0LDAsMzIuMjksMTIuNTgsNjEuNjEsMzIuOTgsODMuMjFsLTI0LjUxLDQ5LjM0LDY0LjY1LTIxLjQ2YzEzLjc1LDUuNzYsMjguOCw4Ljk2LDQ0LjU2LDguOTYsMTQuMzIsMCwyOC4wNC0yLjYzLDQwLjc1LTcuNDN2LTcwLjMxYy0xMC40OCwxMC42NC0yNC44OCwxNy4yMy00MC43NSwxNy4yMy0zMS45OCwwLTU4LTI2LjcxLTU4LTU5LjU0Ii8+PHJlY3QgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTloMHYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg==" class="sh-ft-logo" alt="Carving Dezine"/><span class="sh-ft-name">Carving Dezine</span></div></div><div class="sh-ft-col"><span class="sh-ft-copy">&copy; 2026 Carving Dezine &middot; Mumbai &amp; Surat, India</span></div><div class="sh-ft-col"><div class="sh-ft-links"><a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">Behance</a><a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">Dribbble</a><a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">Instagram</a><a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">LinkedIn</a><a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">X</a><a href="mailto:carvingdezine@gmail.com" class="sh-ft-link">Email</a><a href="#" onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false;" class="sh-ft-link">&#8593; Top</a></div></div></div><div class="sh-ft-btm"><span>Freelance UX/UI &amp; Brand Designer &nbsp;&middot;&nbsp; www.carvingdezine.com</span><a href="index.html#admin" target="_blank">Admin</a></div></footer>'
     +'</div>';
 
   // ── SCROLL PROGRESS ──
@@ -478,6 +507,35 @@ function render(){
 }
 
 render();
+
+// ── IMMERSIVE SCROLL REVEALS ────────────────────────────
+(function(){
+  // Gallery images
+  var imgObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('vis');imgObs.unobserve(e.target);}
+    });
+  },{threshold:0.06,rootMargin:'0px 0px -4% 0px'});
+  document.querySelectorAll('.pj-img-block,.pj-vid-block,.pj-yt-block,.pj-img-pair').forEach(function(el){
+    imgObs.observe(el);
+  });
+
+  // Right panel stagger
+  var rp=document.querySelector('.pj-rp');
+  if(rp){
+    var rpObs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){rp.classList.add('pj-rp-ready');rpObs.disconnect();}});
+    },{threshold:0.1});
+    rpObs.observe(rp);
+  }
+
+  // Bottom sections
+  var btmObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');btmObs.unobserve(e.target);}});
+  },{threshold:0.1});
+  document.querySelectorAll('.pj-nav-row,.pj-rel-card,.pj-cta-inner').forEach(function(el){btmObs.observe(el);});
+})();
+
 </script>
 </body>
 </html>
