@@ -182,7 +182,7 @@ a{color:inherit;text-decoration:none;}
       <a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">Instagram</a>
       <a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">LinkedIn</a>
       <a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">X</a>
-      <a href="mailto:carvingdezine@gmail.com" class="wk-ft-link">Email</a>
+      <a href="/cdn-cgi/l/email-protection#a2c1c3d0d4cbccc5c6c7d8cbccc7e2c5cfc3cbce8cc1cdcf" class="wk-ft-link">Email</a>
       <a href="index.html" class="wk-ft-link">&#8593; Home</a>
     </div></div>
   </div>
@@ -192,7 +192,7 @@ a{color:inherit;text-decoration:none;}
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var PJKEY='cd_pj', TAGSKEY='cd_tags';
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
 var PRESET_TAGS=[
@@ -222,8 +222,13 @@ function gTags(){try{return JSON.parse(localStorage.getItem(TAGSKEY))||[]}catch(
 function getAllTags(){return PRESET_TAGS.concat(gTags());}
 function getAllProjects(){
   var all=gPj();
-  // Include projects with img set (even local path) and those without
-  return all;
+  // Deduplicate by id
+  var seen={};
+  return all.filter(function(p){
+    if(!p.id||seen[p.id])return false;
+    seen[p.id]=true;
+    return true;
+  });
 }
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function renderTagBadges(tagIds){
@@ -321,12 +326,4 @@ document.querySelectorAll('.wk-fb[data-f]').forEach(function(btn){
 
 // Header reveals
 var hObs=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');hObs.unobserve(e.target);}});
-},{threshold:0.1});
-document.querySelectorAll('.rv').forEach(function(el){hObs.observe(el);});
-
-buildTagFilters();
-render();
-</script>
-</body>
-</html>
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');hObs.unobserve(e.target);}

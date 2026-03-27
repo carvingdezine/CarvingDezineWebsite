@@ -418,7 +418,7 @@ input,textarea,select{font-family:var(--f)}
   transition:background .3s;
 }
 .pc:hover{background:var(--g2)}
-.pc-img{overflow:hidden;background:var(--g2);position:relative;}
+.pc-img{overflow:hidden;background:var(--g2);position:relative;min-height:180px;}
 .pc-img img{width:100%;height:auto;display:block;transition:transform .8s var(--ease);}
 .pc:hover .pc-img img{transform:scale(1.06)}
 .pc-ph{width:100%;height:100%;background:var(--g2);display:flex;align-items:center;justify-content:center}
@@ -525,7 +525,7 @@ input,textarea,select{font-family:var(--f)}
    SERVICES
 ═══════════════════════════════════ */
 #services{border-bottom:1px solid var(--line)}
-.svc-grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.svc-grid{display:grid;grid-template-columns:repeat(5,1fr);overflow:hidden;}
 .svc{
   padding:clamp(30px,4vw,52px) clamp(22px,3vw,40px);border-right:1px solid var(--line);
   position:relative;overflow:hidden;transition:background .3s;
@@ -773,13 +773,11 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   .svc-grid{grid-template-columns:repeat(3,1fr)}
   .svc:nth-child(3n){border-right:none}
   .svc:nth-child(n+4){border-top:1px solid var(--line)}
-  .pc{width:clamp(260px,40vw,380px)}
   #about{grid-template-columns:1fr}.abt-l{border-right:none;border-bottom:1px solid var(--line)}
   #contact{grid-template-columns:1fr}.ctc-l{border-right:none;border-bottom:1px solid var(--line)}
   .ft-main{grid-template-columns:1fr 1fr}.ft-col:nth-child(2){border-right:none}.ft-col:last-child{grid-column:span 2;border-top:1px solid var(--line);justify-content:flex-start}
 }
 @media(max-width:480px){
-  .pc{width:85vw}
   .hero-stats{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
@@ -791,7 +789,6 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   .hero-stats{grid-template-columns:1fr 1fr}
   .hs:nth-child(2){border-right:none}
   .hs:nth-child(3){border-top:1px solid var(--line)}
-  .pc{width:clamp(240px,55vw,340px)}
   .proc-nodes{flex-direction:column;gap:0;max-width:300px;margin:0 auto}
   .proc-line{display:none}
   .pnode{flex-direction:row;align-items:flex-start;text-align:left;gap:16px;max-width:none;padding:16px 0;border-bottom:1px solid var(--line)}
@@ -876,7 +873,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 .pgrid-scroll:active{cursor:grabbing}
 .pgrid-scroll::-webkit-scrollbar{display:none}
 .pgrid{display:flex;flex-shrink:0;min-width:100%}
-/* old scroll pc removed */
+
 .pgrid-progress{height:1px;background:var(--line);position:relative;overflow:hidden}
 .pgrid-progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--red);width:0%;transition:width .15s ease}
 .pgrid-nav{
@@ -1272,7 +1269,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 
 
 /* ── WORK GRID — 3 column ────────────────────────────────── */
-.bento{column-count:3;column-gap:3px;}
+.bento{column-count:3;column-gap:3px;padding:0 clamp(16px,3vw,40px);}
 .bento-footer{
   padding:32px clamp(16px,3vw,40px) 0;
   display:flex;align-items:center;justify-content:space-between;
@@ -2067,13 +2064,13 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <button class="fbtn sort-btn on" data-s="new">New → Old</button>
     <button class="fbtn sort-btn" data-s="old">Old → New</button>
   </div>
-  <div class="bento" id="bento-grid" style="padding:0 clamp(16px,3vw,40px)"><!-- populated by JS --></div>
+  <div class="bento" id="bento-grid"><!-- populated by JS --></div>
   <div id="pgrid-empty" style="display:none;padding:40px clamp(20px,4vw,52px);font-family:var(--m);font-size:10px;letter-spacing:.1em;color:var(--muted2)">
-    No projects yet. <a href="/#admin" target="_blank" style="color:var(--red)">Add some →</a>
+    Add your first project via <a href="/#admin" target="_blank" style="color:var(--red)">Studio Admin →</a>
   </div>
   <div class="bento-footer">
     <span class="bento-count" id="bento-count"></span>
-    <a href="work.html" class="bento-all">
+    <a href="work.html" class="bento-all" style="padding:14px 28px;font-size:11px;">
       View All Work
       <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
@@ -3135,12 +3132,13 @@ document.getElementById('gi-file').addEventListener('change',function(e){
 
 renderGiList();
 
+var _curFilter='all';
 var _curSort='new'; // 'new' or 'old'
 
 function esc2(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderGrid(filter){
   var all=getAllProjects();
-  var filtered=all.filter(function(p){return p.src==='manual'||p.img;});
+  var filtered=all.filter(function(p){return p.src==='manual'||(p.src&&p.img);});
   // Apply category filter
   if(filter&&filter!=='all'){filtered=filtered.filter(function(p){return p.cat===filter;});}
   // Sort by year

@@ -415,7 +415,9 @@ function render(){
   if(pj.client)metaH+='<div class="pj-meta-row"><span class="pj-meta-label">Client</span><span class="pj-meta-val">'+esc(pj.client)+'</span></div>';
   metaH+='<div class="pj-meta-row"><span class="pj-meta-label">Category</span><span class="pj-meta-val">'+catLabel+'</span></div>';
 
-  var descH=pj.body?'<div class="pj-desc-text">'+esc(pj.body)+'</div>':'';
+  var descH='';
+  if(pj.desc)descH+='<div class="pj-desc-text pj-desc-short">'+esc(pj.desc)+'</div>';
+  if(pj.body)descH+='<div class="pj-desc-text">'+esc(pj.body)+'</div>';
 
   var shareH='<button class="pj-share-btn" onclick="togglePjShare(this)">'
     +'<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share'
