@@ -74,7 +74,7 @@ a{color:inherit;text-decoration:none;}
 .wk-masonry{column-count:3;column-gap:3px;padding:0 clamp(16px,3vw,40px) 60px;}
 .wk-masonry .pc{break-inside:avoid;margin-bottom:3px;display:block;cursor:pointer;}
 
-.wk-masonry .pc .pc-img img{width:100%;height:auto;}
+.wk-masonry .pc .pc-img img{width:100%;height:auto;display:block;transition:transform .8s cubic-bezier(.19,1,.22,1);}
 
 /* PROJECT CARD (shared styles) */
 .pc{position:relative;background:var(--g2);overflow:hidden;cursor:pointer;}
@@ -154,8 +154,8 @@ a{color:inherit;text-decoration:none;}
 }
 
 .pc-img{overflow:hidden;background:var(--g2);aspect-ratio:808/632;position:relative;}
-.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.19,1,.22,1);display:block;}
-.pc:hover .pc-img img{transform:scale(1.05);}
+.pc-img img{width:100%;height:auto;display:block;transition:transform .8s cubic-bezier(.19,1,.22,1);}
+.pc:hover .pc-img img{width:100%;height:auto;display:block;transition:transform .8s cubic-bezier(.19,1,.22,1);}
 .pc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.15) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:16px;}
 .pc-body{display:none;}
 .pc-cat{font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#ff2a2a;margin-bottom:4px;}
@@ -193,6 +193,8 @@ a{color:inherit;text-decoration:none;}
   <button class="wk-fb" data-f="print">Print</button>
   <button class="wk-fb" data-f="web">Interactive Web</button>
   <div class="wk-fsep"></div>
+  <button class="wk-fb wk-sort on" data-s="new">New → Old</button>
+  <button class="wk-fb wk-sort" data-s="old">Old → New</button>
   <div id="wk-tag-filters"></div>
 </div>
 
@@ -239,7 +241,7 @@ function renderTagBadges(tagIds){
 }
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
-var _catFilter='all', _tagFilter='all';
+var _catFilter='all', _tagFilter='all', _wkSort='new';
 
 function getAllProjects(){
   return gPj().filter(function(p){return p.img;});
@@ -248,26 +250,22 @@ function getAllProjects(){
 function mkCard(p){
   var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
   var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
-  var imgH=p.img
-    ?'<div class="pc-img" style="position:relative"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy" onerror="this.classList.add(\'img-error\')"/>'
-      +'<div class="img-ph"><svg class="img-ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
-      +'<div class="img-ph-txt">Not uploaded</div></div></div>'
-    :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">CD</div></div></div>';
-  var tagsH=p.tags&&p.tags.length?'<div class="pc-tags">'+renderTagBadges(p.tags)+'</div>':'';
-  return '<div class="pc rv" data-id="'+p.id+'" data-src="'+(p.src||'manual')+'" data-link="'+(p.link||'')+'">'
-    +badge+imgH
-    +'<div class="pc-body">'
+  var tagsH=p.tags&&p.tags.length?'<div class="pc-tags-ov">'+renderTagBadges(p.tags)+'</div>':'';
+  var overlay='<div class="pc-overlay">'
     +'<div class="pc-cat">'+(CMAP[p.cat]||p.cat||'Project')+'</div>'
     +'<div class="pc-title">'+esc(p.title)+'</div>'
-    +'<div class="pc-yr">'+p.year+(p.client?' \u00b7 '+p.client:'')+'</div>'
-    +tagsH
-    +'</div><div class="pc-line"></div></div>';
+    +'<div class="pc-yr">'+p.year+(p.client?' · '+p.client:'')+'</div>'
+    +tagsH+'</div>';
+  var imgH=p.img
+    ?'<div class="pc-img"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy" onerror="this.classList.add('img-error')"/>'+overlay+'</div>'
+    :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">CD</div></div>'+overlay+'</div>';
+  return '<div class="pc rv" data-id="'+p.id+'" data-src="'+(p.src||'manual')+'" data-link="'+(p.link||'')+'">'
+    +badge+imgH+'<div class="pc-line"></div></div>';
 }
 
 function render(){
   var all=getAllProjects();
-  // Sort newest first
-  all.sort(function(a,b){return (parseInt(b.year)||0)-(parseInt(a.year)||0);});
+  all.sort(function(a,b){var ya=parseInt(a.year)||0,yb=parseInt(b.year)||0;return _wkSort==='old'?ya-yb:yb-ya;});
 
   var filtered=all;
   if(_catFilter!=='all') filtered=filtered.filter(function(p){return p.cat===_catFilter;});
@@ -326,6 +324,24 @@ function buildTagFilters(){
   });
 }
 
+// Sort listeners
+document.querySelectorAll('.wk-sort').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.wk-sort').forEach(function(b){b.classList.remove('on');});
+    btn.classList.add('on');
+    _wkSort=btn.dataset.s;
+    render();
+  });
+});
+// Sort listeners
+document.querySelectorAll('.wk-sort').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.wk-sort').forEach(function(b){b.classList.remove('on');});
+    btn.classList.add('on');
+    _wkSort=btn.dataset.s;
+    render();
+  });
+});
 // Cat filter listeners
 document.querySelectorAll('.wk-fb[data-f]').forEach(function(btn){
   btn.addEventListener('click',function(){
