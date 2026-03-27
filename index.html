@@ -1278,7 +1278,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 
 
 /* ── WORK GRID — 3 column ────────────────────────────────── */
-.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:0 clamp(16px,3vw,40px);}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
 .bento-footer{
   padding:32px clamp(16px,3vw,40px) 0;
   display:flex;align-items:center;justify-content:space-between;
@@ -2023,108 +2023,36 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <!-- ═══════════════════ SERVICES ═══════════════════ -->
 <section id="services">
   <div class="s-hd rv"><span class="sec-tag">Specialisms</span><span class="sec-ct">5 services</span></div>
-  <div class="svc2-wrap">
-    <div class="svc2-list">
-
-      <div class="svc2-item on" data-svc="0">
-        <div class="svc2-hd">
-          <span class="svc2-num">01</span>
-          <span class="svc2-name">UX &amp; UI Design</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Human-centred interfaces balancing beauty with function. Full product design from wireframe to developer handoff.</div>
-            <div class="svc2-tags"><span class="svc2-tag">Product Design</span><span class="svc2-tag">Figma</span><span class="svc2-tag">Design Systems</span><span class="svc2-tag">Prototyping</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="svc2-item" data-svc="1">
-        <div class="svc2-hd">
-          <span class="svc2-num">02</span>
-          <span class="svc2-name">Brand Identity</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</div>
-            <div class="svc2-tags"><span class="svc2-tag">Logo Design</span><span class="svc2-tag">Brand System</span><span class="svc2-tag">Style Guide</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="svc2-item" data-svc="2">
-        <div class="svc2-hd">
-          <span class="svc2-num">03</span>
-          <span class="svc2-name">Presentation Design</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</div>
-            <div class="svc2-tags"><span class="svc2-tag">Pitch Decks</span><span class="svc2-tag">Keynote</span><span class="svc2-tag">PowerPoint</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="svc2-item" data-svc="3">
-        <div class="svc2-hd">
-          <span class="svc2-num">04</span>
-          <span class="svc2-name">Print &amp; Marketing</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</div>
-            <div class="svc2-tags"><span class="svc2-tag">Brochures</span><span class="svc2-tag">Catalogues</span><span class="svc2-tag">Annual Reports</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="svc2-item" data-svc="4">
-        <div class="svc2-hd">
-          <span class="svc2-num">05</span>
-          <span class="svc2-name">Interactive Web</span>
-          <div class="svc2-arr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="svc2-body">
-          <div class="svc2-inner">
-            <div class="svc2-desc">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</div>
-            <div class="svc2-tags"><span class="svc2-tag">WebGL</span><span class="svc2-tag">Motion Design</span><span class="svc2-tag">Front-end</span></div>
-          </div>
-        </div>
-      </div>
-
+  <div class="svc-grid svc-scene">
+    <div class="svc rv" style="transition-delay:0s">
+      <div class="svc-n">01</div><div class="svc-icon">⬡</div>
+      <div class="svc-name">UX &amp; UI Design</div>
+      <div class="svc-body">Human-centred interfaces balancing beauty with function. Full product design from wireframe to developer handoff.</div>
+      <div class="svc-tags"><span class="svc-tag">Product Design</span><span class="svc-tag">Figma</span><span class="svc-tag">Design Systems</span><span class="svc-tag">Prototyping</span></div>
     </div>
-
-    <!-- Right: rotating visual -->
-    <div class="svc2-img-wrap">
-      <div class="svc2-img on" data-svc-img="0">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">⬡</div>
-        <div class="svc2-img-label">UX / UI Design</div>
-      </div>
-      <div class="svc2-img" data-svc-img="1">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">◈</div>
-        <div class="svc2-img-label">Brand Identity</div>
-      </div>
-      <div class="svc2-img" data-svc-img="2">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">▣</div>
-        <div class="svc2-img-label">Presentation Design</div>
-      </div>
-      <div class="svc2-img" data-svc-img="3">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">▦</div>
-        <div class="svc2-img-label">Print &amp; Marketing</div>
-      </div>
-      <div class="svc2-img" data-svc-img="4">
-        <div class="svc2-img-bg"></div>
-        <div class="svc2-img-icon">⟡</div>
-        <div class="svc2-img-label">Interactive Web</div>
-      </div>
+    <div class="svc rv" style="transition-delay:0.08s">
+      <div class="svc-n">02</div><div class="svc-icon">◈</div>
+      <div class="svc-name">Brand Identity</div>
+      <div class="svc-body">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</div>
+      <div class="svc-tags"><span class="svc-tag">Logo Design</span><span class="svc-tag">Brand System</span><span class="svc-tag">Style Guide</span></div>
+    </div>
+    <div class="svc rv" style="transition-delay:0.16s">
+      <div class="svc-n">03</div><div class="svc-icon">▣</div>
+      <div class="svc-name">Presentation Design</div>
+      <div class="svc-body">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</div>
+      <div class="svc-tags"><span class="svc-tag">Pitch Decks</span><span class="svc-tag">Keynote</span><span class="svc-tag">PowerPoint</span></div>
+    </div>
+    <div class="svc rv" style="transition-delay:0.24s">
+      <div class="svc-n">04</div><div class="svc-icon">▦</div>
+      <div class="svc-name">Print &amp; Marketing</div>
+      <div class="svc-body">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</div>
+      <div class="svc-tags"><span class="svc-tag">Brochures</span><span class="svc-tag">Catalogues</span><span class="svc-tag">Annual Reports</span></div>
+    </div>
+    <div class="svc rv" style="transition-delay:0.32s">
+      <div class="svc-n">05</div><div class="svc-icon" style="font-size:16px">⟡</div>
+      <div class="svc-name">Interactive Web</div>
+      <div class="svc-body">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</div>
+      <div class="svc-tags"><span class="svc-tag">WebGL</span><span class="svc-tag">Motion Design</span><span class="svc-tag">Front-end</span><span class="svc-tag">GSAP</span></div>
     </div>
   </div>
 </section>
@@ -2133,6 +2061,14 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   <div class="s-hd rv">
     <span class="sec-tag">Work</span>
     <span class="sec-ct" id="wct">—</span>
+  </div>
+  <div class="filter-row">
+    <button class="fbtn on" data-f="all">All</button>
+    <button class="fbtn" data-f="ux">UX / UI</button>
+    <button class="fbtn" data-f="brand">Brand</button>
+    <button class="fbtn" data-f="deck">Decks</button>
+    <button class="fbtn" data-f="print">Print</button>
+    <button class="fbtn" data-f="web">Web</button>
   </div>
   <div class="bento" id="bento-grid"><!-- populated by JS --></div>
   <div id="pgrid-empty" style="display:none;padding:40px clamp(20px,4vw,52px);font-family:var(--m);font-size:10px;letter-spacing:.1em;color:var(--muted2)">
@@ -3207,7 +3143,9 @@ var _curSort='new'; // 'new' or 'old'
 function esc2(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderGrid(filter){
   var all=getAllProjects();
-  var filtered=all.filter(function(p){return p.src==='manual'||p.img});
+  var filtered=all.filter(function(p){return p.src==='manual'||p.img;});
+  // Apply category filter
+  if(filter&&filter!=='all'){filtered=filtered.filter(function(p){return p.cat===filter;});}
   // Sort newest first
   filtered.sort(function(a,b){var ya=parseInt(a.year)||0,yb=parseInt(b.year)||0;return yb-ya;});
   // Take 8 most recent
@@ -3222,7 +3160,7 @@ function renderGrid(filter){
   if(empty)empty.style.display='none';
 
   if(ct)ct.textContent=filtered.length+' projects';
-  if(countEl)countEl.textContent='Showing 8 of '+filtered.length;
+  if(countEl)countEl.textContent=filtered.length>8?'Showing 8 of '+filtered.length:(filtered.length+' projects');
 
   if(!grid)return;
   grid.innerHTML=display.map(function(p,idx){
@@ -3259,6 +3197,14 @@ function renderGrid(filter){
   });
 }
 
+// Filter buttons
+document.querySelectorAll('#work .fbtn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('#work .fbtn').forEach(function(b){b.classList.remove('on');});
+    btn.classList.add('on');
+    renderGrid(btn.dataset.f);
+  });
+});
 // Initial bento render
 renderGrid('all');
 
