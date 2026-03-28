@@ -1860,13 +1860,38 @@ h2 .whu{display:inline-block;vertical-align:bottom}
       <!-- SETTINGS -->
       <div class="adm-pnl" id="p-settings">
         <div class="adm-st">Settings</div>
+
+        <!-- GitHub Config -->
+        <div class="adm-hint" style="margin-bottom:16px">
+          <strong>GitHub Sync</strong> — store your projects in a <code style="color:var(--red)">projects.json</code> file on GitHub so every browser and device sees the same data.<br/><br/>
+          <strong>Setup:</strong><br/>
+          1. Go to <strong>github.com → Settings → Developer Settings → Personal Access Tokens → Tokens (classic)</strong><br/>
+          2. Click <strong>Generate new token</strong> → tick <strong>repo</strong> scope → Generate<br/>
+          3. Copy the token and paste below. It never leaves your browser.<br/>
+          4. Make sure your GitHub repo has a <code style="color:var(--red)">projects.json</code> file (even an empty <code style="color:var(--red)">[]</code> to start).
+        </div>
+        <div class="adm-g" style="max-width:520px;margin-bottom:8px">
+          <div class="adm-f"><label class="adm-l">GitHub Username</label><input class="adm-in" id="gh-user" placeholder="e.g. carvingdezine"/></div>
+          <div class="adm-f"><label class="adm-l">Repository Name</label><input class="adm-in" id="gh-repo" placeholder="e.g. carvingdezine.github.io"/></div>
+          <div class="adm-f full"><label class="adm-l">Personal Access Token <span style="color:rgba(255,255,255,.3);font-size:9px">(stored only in this browser)</span></label><input class="adm-in" type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/></div>
+        </div>
+        <button class="adm-btn" id="gh-save-btn">Connect GitHub</button>
+        <button class="adm-btn" id="gh-test-btn" style="margin-left:8px;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5)">Test Connection</button>
+        <div id="gh-msg" style="display:none;margin-top:12px;font-family:var(--m);font-size:11px;letter-spacing:.08em;line-height:1.7;"></div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:28px 0"/>
+
+        <!-- Password -->
+        <div class="adm-st" style="font-size:13px;margin-bottom:16px">Change Password</div>
         <div class="adm-g" style="max-width:460px">
           <div class="adm-f full"><label class="adm-l">New Password</label><input class="adm-in" type="password" id="np1" placeholder="New password"/></div>
           <div class="adm-f full"><label class="adm-l">Confirm Password</label><input class="adm-in" type="password" id="np2" placeholder="Confirm"/></div>
         </div>
         <button class="adm-btn" id="chpwd">Update Password</button>
         <div id="pwd-msg" style="display:none;margin-top:12px;font-family:var(--m);font-size:11px;letter-spacing:.08em;"></div>
+
         <hr style="border:none;border-top:1px solid var(--line);margin:28px 0"/>
+        <div class="adm-st" style="font-size:13px;margin-bottom:16px">Danger Zone</div>
         <button class="adm-btn del" id="clrall">Delete All User Projects</button>
       </div>
 
@@ -2375,33 +2400,115 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 
 
 <script>
-// ─────────────────────────────────────────
 // STORAGE & CONSTANTS
-// ─────────────────────────────────────────
 var DEFPWD='carving2024',PWKEY='cd_pw',PJKEY='cd_pj',TMKEY='cd_tm',HIKEY='cd_hi';
 var BEH_KEY='cd_beh',DRB_KEY='cd_drb',TTL=3600000;
 function gPwd(){return localStorage.getItem(PWKEY)||DEFPWD}
-function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
-function sPj(a){
-  try{
-    localStorage.setItem(PJKEY,JSON.stringify(a));
-    return true;
-  }catch(e){
-    // localStorage full — likely too many base64 images
-    var msg='Storage full. Try using image URLs instead of uploading files, or delete old projects to free space.';
-    var errEl=document.getElementById('ap-err');
-    if(errEl){errEl.textContent=msg;errEl.style.display='block';}
-    else{alert(msg);}
-    return false;
-  }
+function gTm(){try{return JSON.parse(localStorage.getItem(TMKEY))||[];}catch(e){return[];}}
+function sTm(a){localStorage.setItem(TMKEY,JSON.stringify(a));}
+function gHi(){try{return JSON.parse(localStorage.getItem(HIKEY))||[];}catch(e){return[];}}
+function sHi(a){localStorage.setItem(HIKEY,JSON.stringify(a));}
+
+// GITHUB STORAGE - projects.json on GitHub
+var GH_KEY='cd_gh_config';
+var GH_CACHE_KEY='cd_pj';
+var GH_CACHE_TS='cd_pj_ts';
+
+function ghCfg(){try{return JSON.parse(localStorage.getItem(GH_KEY))||{};}catch(e){return{};}}
+function ghSave(cfg){localStorage.setItem(GH_KEY,JSON.stringify(cfg));}
+function gPjLocal(){try{return JSON.parse(localStorage.getItem(GH_CACHE_KEY))||[];}catch(e){return[];}}
+function gPjLocalSet(a){try{localStorage.setItem(GH_CACHE_KEY,JSON.stringify(a));}catch(e){}}
+
+function ghRawUrl(){
+  var c=ghCfg();
+  if(!c.user||!c.repo)return null;
+  return 'https://raw.githubusercontent.com/'+c.user+'/'+c.repo+'/main/projects.json?t='+Date.now();
 }
-function gTm(){try{return JSON.parse(localStorage.getItem(TMKEY))||[]}catch(e){return[]}}
-function gHi(){try{return JSON.parse(localStorage.getItem(HIKEY))||[]}catch(e){return[]}}
-function sHi(a){localStorage.setItem(HIKEY,JSON.stringify(a))}
-function sTm(a){localStorage.setItem(TMKEY,JSON.stringify(a))}
+
+function ghApiUrl(){
+  var c=ghCfg();
+  if(!c.user||!c.repo)return null;
+  return 'https://api.github.com/repos/'+c.user+'/'+c.repo+'/contents/projects.json';
+}
+
+// Sync read from GitHub then call cb()
+function ghSync(cb){
+  var url=ghRawUrl();
+  if(!url){if(cb)cb();return;}
+  fetch(url,{cache:'no-store'})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var p=Array.isArray(data)?data:(data.projects||[]);
+    gPjLocalSet(p);
+    localStorage.setItem(GH_CACHE_TS,Date.now()+'');
+    if(cb)cb();
+  })
+  .catch(function(){if(cb)cb();});
+}
+
+// Override gPj - always reads from local cache (which is synced from GitHub on load)
+function gPj(){return gPjLocal();}
+
+// Override sPj - saves to GitHub then updates cache
+function sPj(projects){
+  var c=ghCfg();
+  var saveBtn=document.getElementById('ap-save');
+  var okEl=document.getElementById('ap-ok');
+
+  // Always save to localStorage cache first (instant)
+  gPjLocalSet(projects);
+  renderList();
+  renderGrid('all');
+
+  // If no GitHub config, show local save message
+  if(!c.user||!c.repo||!c.token){
+    if(okEl){okEl.textContent='Saved locally. Add GitHub config in Settings to sync everywhere.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},3500);}
+    return true;
+  }
+
+  // Save to GitHub
+  if(saveBtn){saveBtn.textContent='Saving to GitHub...';saveBtn.disabled=true;}
+  var apiUrl=ghApiUrl();
+  var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(projects,null,2))));
+
+  fetch(apiUrl,{headers:{'Authorization':'token '+c.token,'Accept':'application/vnd.github.v3+json'}})
+  .then(function(r){return r.json();})
+  .then(function(existing){
+    var body={message:'Update portfolio via admin',content:encoded,branch:'main'};
+    if(existing.sha)body.sha=existing.sha;
+    return fetch(apiUrl,{
+      method:'PUT',
+      headers:{'Authorization':'token '+c.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+  })
+  .then(function(r){
+    if(saveBtn){saveBtn.textContent='Save Project';saveBtn.disabled=false;}
+    if(r.ok){
+      if(okEl){okEl.textContent='Saved to GitHub - visible on all devices!';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},3500);}
+    } else {
+      if(okEl){okEl.textContent='Saved locally. GitHub sync failed - check token in Settings.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4000);}
+    }
+  })
+  .catch(function(){
+    if(saveBtn){saveBtn.textContent='Save Project';saveBtn.disabled=false;}
+    if(okEl){okEl.textContent='Saved locally. No internet or GitHub error.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},3500);}
+  });
+  return true;
+}
+
+// On page load - sync from GitHub if config exists and cache is stale
+(function(){
+  var c=ghCfg();
+  if(!c.user||!c.repo)return;
+  var ts=parseInt(localStorage.getItem(GH_CACHE_TS)||'0');
+  if(Date.now()-ts<120000)return;
+  ghSync(function(){renderGrid('all');});
+}());
+
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
 
-// ── TAG SYSTEM ──────────────────────────────────────────────
+// -- TAG SYSTEM ----------------------------------------------
 var TAGSKEY='cd_tags';
 var PRESET_TAGS=[
   {id:'completed',label:'Completed',color:'green'},
@@ -2441,9 +2548,7 @@ function renderTagBadges(tagIds){
 // Seed projects — always visible, never duplicated
 var SEEDS=[];
 
-// ─────────────────────────────────────────
 // LOADER
-// ─────────────────────────────────────────
 (function(){
   var n=document.getElementById('ln'),b=document.getElementById('lb'),L=document.getElementById('ldr'),p=0;
   var done=false;
@@ -2461,9 +2566,7 @@ var SEEDS=[];
   setTimeout(dismiss,3000);
 })();
 
-// ─────────────────────────────────────────
 // SCROLL PROGRESS
-// ─────────────────────────────────────────
 window.addEventListener('scroll',function(){
   var sp=document.getElementById('scroll-progress');
   var pct=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight);
@@ -2472,15 +2575,11 @@ window.addEventListener('scroll',function(){
 
 // System cursor used
 
-// ─────────────────────────────────────────
 // HERO CANVAS — particle network
-// ─────────────────────────────────────────
 // Hero canvas — nodes repel/attract cursor, links to cursor node
 
-// ─────────────────────────────────────────
-// ─────────────────────────────────────────
+// -----------------------------------------
 // HOVER SOUND — plays on every underline hover
-// ─────────────────────────────────────────
 var _hoverSound=(function(){
   var actx=null,enabled=false,ready=false;
   // Pentatonic C — each hover element gets the next note in sequence
@@ -2758,9 +2857,7 @@ var _heroCanvas=(function(){
   };
 })();
 
-// ─────────────────────────────────────────
 // PARALLAX SCROLL
-// ─────────────────────────────────────────
 (function(){
   var heroInner=document.getElementById('hero-inner');
   var carveEl=document.getElementById('carve');
@@ -2787,9 +2884,7 @@ var _heroCanvas=(function(){
   },{passive:true});
 })();
 
-// ─────────────────────────────────────────
 // HERO ENTRANCE
-// ─────────────────────────────────────────
 function startHero(){
   // Start canvas AFTER loader exits — hero is now visible and has proper dimensions
   setTimeout(function(){ _heroCanvas.start(); }, 50);
@@ -2830,9 +2925,7 @@ function startHero(){
   });
 }
 
-// ─────────────────────────────────────────
 // NAV
-// ─────────────────────────────────────────
 window.addEventListener('scroll',function(){
   document.getElementById('nav').classList.toggle('solid',scrollY>60);
 },{passive:true});
@@ -2844,9 +2937,7 @@ document.querySelectorAll('#mob a').forEach(function(a){
   a.addEventListener('click',function(){mopen=false;document.getElementById('burger').classList.remove('open');document.getElementById('mob').classList.remove('open')});
 });
 
-// ─────────────────────────────────────────
 // INTERSECTION OBSERVER — all reveal types
-// ─────────────────────────────────────────
 var ioOpts={threshold:.07,rootMargin:'0px 0px -28px 0px'};
 var rvObs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){
@@ -2874,9 +2965,7 @@ var carveObs=new IntersectionObserver(function(entries){
 },{threshold:.3});
 var ce=document.getElementById('carve');if(ce)carveObs.observe(ce);
 
-// ─────────────────────────────────────────
 // PROCESS — TABBED TRACKS WITH ANIMATION
-// ─────────────────────────────────────────
 (function(){
   var stepLabels={'ux':'5 steps','brand':'5 steps','print':'4 steps'};
 
@@ -2944,9 +3033,7 @@ var ce=document.getElementById('carve');if(ce)carveObs.observe(ce);
   });
 })();
 
-// ─────────────────────────────────────────
 // WORK GRID — unified, no duplication
-// ─────────────────────────────────────────
 // All projects: user-added + seeds (deduped by id) + platform-fetched
 var allPlatformProjects=[]; // populated by Behance/Dribbble fetch
 
@@ -2989,7 +3076,7 @@ function mkCard(p,idx){
 }
 
 
-// ── SHARE FUNCTIONS ─────────────────────────────────────
+// -- SHARE FUNCTIONS -------------------------------------
 function toggleShare(e,btn){
   e.stopPropagation();
   var tip=btn.querySelector('.pc-share-tip');
@@ -3034,7 +3121,7 @@ document.addEventListener('click',function(){
 });
 
 
-// ── GALLERY IMAGE MANAGER ───────────────────────────────
+// -- GALLERY IMAGE MANAGER -------------------------------
 var _giImages=[];// [{url,layout}]
 
 function renderGiList(){
@@ -3044,7 +3131,7 @@ function renderGiList(){
   list.innerHTML=_giImages.map(function(img,i){
     return '<div class="gi-item" data-i="'+i+'" draggable="true">'
       +'<span class="gi-drag" title="Drag to reorder">☰</span>'
-      +(img.type==='video'?'<div class="gi-thumb" style="background:var(--g3);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:18px;">▶</div>':'<img class="gi-thumb" src="'+img.url+'" alt="img '+(i+1)+'" loading="lazy" onerror="this.style.opacity=0.2"/>')
+      +(img.type==='video'?'<div class="gi-thumb" style="background:var(--g3);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:18px;">-</div>':'<img class="gi-thumb" src="'+img.url+'" alt="img '+(i+1)+'" loading="lazy" onerror="this.style.opacity=0.2"/>')
       +'<div class="gi-info">'
         +'<div class="gi-name">Image '+(i+1)+'</div>'
         +'<div class="gi-layout">'
@@ -3213,9 +3300,7 @@ document.querySelectorAll('#work .fbtn:not(.sort-btn)').forEach(function(btn){
 // Initial bento render
 renderGrid('all');
 
-// ─────────────────────────────────────────
 // BEHANCE FETCH — deferred until idle
-// ─────────────────────────────────────────
 (window.requestIdleCallback||function(cb){setTimeout(cb,1000)})(function(){
 (function(){
   // Check cache first
@@ -3262,9 +3347,7 @@ renderGrid('all');
 })();
 }); // end requestIdleCallback Behance
 
-// ─────────────────────────────────────────
 // DRIBBBLE FETCH — deferred until idle
-// ─────────────────────────────────────────
 (window.requestIdleCallback||function(cb){setTimeout(cb,1500)})(function(){
 (function(){
   try{
@@ -3291,9 +3374,7 @@ renderGrid('all');
 })();
 }); // end requestIdleCallback Dribbble
 
-// ─────────────────────────────────────────
 // CONTACT FORM
-// ─────────────────────────────────────────
 document.getElementById('fsub').addEventListener('click',function(){
   var n=document.getElementById('fn').value.trim();
   var e=document.getElementById('fe').value.trim();
@@ -3340,11 +3421,9 @@ document.getElementById('fsub').addEventListener('click',function(){
   });
 });
 
-// ─────────────────────────────────────────
 // ADMIN SYSTEM
-// ─────────────────────────────────────────
 
-// ── SERVICES ACCORDION ──────────────────────────────────
+// -- SERVICES ACCORDION ----------------------------------
 (function(){
   var items=document.querySelectorAll('.svc2-item');
   var imgs=document.querySelectorAll('[data-svc-img]');
@@ -3367,7 +3446,7 @@ document.getElementById('fsub').addEventListener('click',function(){
   });
 })();
 
-// ── FAQ ACCORDION ────────────────────────────────────────
+// -- FAQ ACCORDION ----------------------------------------
 (function(){
   document.querySelectorAll('.faq-item').forEach(function(item){
     item.querySelector('.faq-q').addEventListener('click',function(){
@@ -3480,7 +3559,7 @@ document.getElementById('ap-url').addEventListener('input',function(){
   else{p.classList.remove('show')};
 });
 
-// ── EDIT STATE ──────────────────────────────────────────
+// -- EDIT STATE ------------------------------------------
 var _editId=null;
 
 function loadEdit(id){
@@ -3527,7 +3606,7 @@ function loadEdit(id){
   document.getElementById('p-add').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ── TAGS ADMIN ──────────────────────────────────────────
+// -- TAGS ADMIN ------------------------------------------
 var PRESET_TAGS_ADMIN=[
   {id:'completed',label:'Completed',color:'green'},
   {id:'wip',label:'Work in Progress',color:'amber'},
@@ -3551,7 +3630,7 @@ var TAG_COLORS_ADMIN={
 };
 
 
-// ── SOURCE SWITCHER ──────────────────────────────────────
+// -- SOURCE SWITCHER --------------------------------------
 function switchSrc(src){
   document.getElementById('ap-src').value=src;
   ['manual','behance','dribbble'].forEach(function(s){
@@ -3582,7 +3661,7 @@ function switchSrc(src){
   }
 }
 
-// ── DRAFT SAVE ───────────────────────────────────────────
+// -- DRAFT SAVE -------------------------------------------
 var DRAFT_KEY='cd_draft';
 function saveDraft(){
   var draft={
@@ -3626,7 +3705,7 @@ function clearDraft(){localStorage.removeItem(DRAFT_KEY);}
 var _draftBtn=document.getElementById('ap-draft');
 if(_draftBtn)_draftBtn.addEventListener('click',saveDraft);
 
-// ── REMEMBER PASSWORD ────────────────────────────────────
+// -- REMEMBER PASSWORD ------------------------------------
 (function(){
   var saved=localStorage.getItem('cd_rem');
   if(saved){
@@ -3761,8 +3840,6 @@ document.getElementById('ap-save').addEventListener('click',function(){
   } else {
     ps.unshift(pj);
   }
-  var saved=sPj(ps);
-  if(!saved)return;
   ['ap-t','ap-cl','ap-d','ap-body','ap-l'].forEach(function(id){document.getElementById(id).value=''});
   _giImages=[];renderGiList();
   document.getElementById('ap-y').value='2026';
@@ -3773,9 +3850,8 @@ document.getElementById('ap-save').addEventListener('click',function(){
   try{document.getElementById('ap-file').value=''}catch(e){}
   clearEditState();
   clearDraft();
-  var ok=document.getElementById('ap-ok');ok.style.display='block';
-  setTimeout(function(){ok.style.display='none'},2500);
-  renderList();renderGrid('all');
+  setSelectedTags([]);
+  sPj(ps); // async — handles ok message, renderList, renderGrid
 });
 
 function renderList(){
@@ -3800,7 +3876,10 @@ function renderList(){
   list.querySelectorAll('[data-del]').forEach(function(btn){
     btn.addEventListener('click',function(){
       if(!confirm('Delete "'+gPj().find(function(p){return p.id===btn.dataset.del;}).title+'"? Cannot be undone.'))return;
-      sPj(gPj().filter(function(p){return p.id!==btn.dataset.del}));
+      var remaining=gPj().filter(function(p){return p.id!==btn.dataset.del});
+    btn.textContent='Deleting…';btn.disabled=true;
+    sPj(remaining);
+    setTimeout(function(){renderList();},1000);
       renderList();renderGrid('all');
     });
   });
@@ -3819,6 +3898,60 @@ function renderList(){
 }
 
 // settings
+
+// -- GITHUB SETTINGS --------------------------------------
+(function(){
+  // Pre-fill saved config
+  var c=ghCfg();
+  var u=document.getElementById('gh-user');
+  var r=document.getElementById('gh-repo');
+  var t=document.getElementById('gh-token');
+  if(u&&c.user)u.value=c.user;
+  if(r&&c.repo)r.value=c.repo;
+  if(t&&c.token)t.value=c.token;
+  var msg=document.getElementById('gh-msg');
+
+  function showMsg(text,color){
+    if(!msg)return;
+    msg.textContent=text;
+    msg.style.color=color||'rgba(255,255,255,.6)';
+    msg.style.display='block';
+    setTimeout(function(){msg.style.display='none';},6000);
+  }
+
+  var saveBtn=document.getElementById('gh-save-btn');
+  if(saveBtn)saveBtn.addEventListener('click',function(){
+    var user=(u?u.value.trim():'');
+    var repo=(r?r.value.trim():'');
+    var token=(t?t.value.trim():'');
+    if(!user||!repo||!token){showMsg('Please fill in all three fields.','#ff2a2a');return;}
+    ghSave({user:user,repo:repo,token:token});
+    showMsg('✓ GitHub config saved. Now try saving a project — it will sync to GitHub.','#97C459');
+  });
+
+  var testBtn=document.getElementById('gh-test-btn');
+  if(testBtn)testBtn.addEventListener('click',function(){
+    var user=(u?u.value.trim():'');
+    var repo=(r?r.value.trim():'');
+    var token=(t?t.value.trim():'');
+    if(!user||!repo){showMsg('Enter username and repo first.','#ff2a2a');return;}
+    showMsg('Testing connection…','rgba(255,255,255,.5)');
+    var apiUrl='https://api.github.com/repos/'+user+'/'+repo+'/contents/projects.json';
+    fetch(apiUrl,{
+      headers:token?{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}:{'Accept':'application/vnd.github.v3+json'}
+    })
+    .then(function(r){return r.json();})
+    .then(function(data){
+      if(data.message){showMsg('Error: '+data.message,'#ff2a2a');}
+      else{showMsg('Connected! projects.json found ('+Math.round((data.size||0)/1024*10)/10+' KB). All set.','#97C459');}
+    })
+    .catch(function(e){showMsg('Connection failed: '+e.message,'#ff2a2a');});
+  });
+})();
+
+// -- PUSH TO GITHUB ON DELETE -----------------------------
+// Wrap delete to also sync
+
 document.getElementById('chpwd').addEventListener('click',function(){
   var p1=document.getElementById('np1').value,p2=document.getElementById('np2').value;
   var msg=document.getElementById('pwd-msg');
@@ -3833,9 +3966,7 @@ document.getElementById('clrall').addEventListener('click',function(){
   if(confirm('Delete ALL user-added projects? Cannot be undone.')){sPj([]);renderList();renderGrid('all')}
 });
 
-// ─────────────────────────────────────────
 // BACKUP & RESTORE
-// ─────────────────────────────────────────
 function updateBackupStatus(){
   var ps=gPj();
   var tm=gTm();
@@ -3890,7 +4021,7 @@ document.getElementById('imp-file').addEventListener('change',function(){
     try{
       var data=JSON.parse(e.target.result);
 
-      // ── Projects ──
+      // -- Projects --
       var incomingPj=Array.isArray(data)?data:(data.projects||[]);
       var existPj=gPj();
       var existPjIds=existPj.map(function(p){return p.id});
@@ -3902,7 +4033,7 @@ document.getElementById('imp-file').addEventListener('change',function(){
       });
       sPj(existPj);
 
-      // ── Testimonials ──
+      // -- Testimonials --
       var incomingTm=data.testimonials||[];
       var existTm=gTm();
       var existTmIds=existTm.map(function(t){return t.id});
@@ -3937,9 +4068,7 @@ document.getElementById('imp-file').addEventListener('change',function(){
 // init backup status on load
 updateBackupStatus();
 
-// ─────────────────────────────────────────
 // BEHANCE AUTO-FETCH (RSS via rss2json)
-// ─────────────────────────────────────────
 (function(){
   try{
     var c=JSON.parse(localStorage.getItem(BEH_KEY));
@@ -4033,9 +4162,7 @@ updateBackupStatus();
   mobNav.querySelectorAll('.mob-ni').forEach(function(a){a.addEventListener('click',close)});
 })();
 
-// ─────────────────────────────────────────
 // TESTIMONIALS
-// ─────────────────────────────────────────
 var TM_SEEDS=[];
 
 function getAllTestimonials(){
@@ -4164,9 +4291,7 @@ function renderTmList(){
 
 
 
-// ═══════════════════════════════════════════════════════
 // CHAPTER PIPS — scroll spy
-// ═══════════════════════════════════════════════════════
 (function(){
   var track=document.getElementById('chap-track');
   if(!track)return;
@@ -4203,9 +4328,7 @@ function renderTmList(){
   });
 })();
 
-// ═══════════════════════════════════════════════════════
 // SCROLL STORYTELLING — scene entrances
-// ═══════════════════════════════════════════════════════
 (function(){
   var sceneObs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
@@ -4273,9 +4396,7 @@ function renderTmList(){
   }
 })();
 
-// ═══════════════════════════════════════════════════════
 // PAGE TRANSITION FLASH (internal links)
-// ═══════════════════════════════════════════════════════
 (function(){
   var flash=document.getElementById('pg-flash');
   if(!flash)return;
@@ -4289,9 +4410,7 @@ function renderTmList(){
   flashOut();
 })();
 
-// ─────────────────────────────────────────
 // HOVER SOUND — bind to all underline elements
-// ─────────────────────────────────────────
 (function(){
   function bindHoverSound(){
     // Big headings — h1/h2 .whu, .carve-h .wh, .clos-h .wh

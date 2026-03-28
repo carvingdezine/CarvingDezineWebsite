@@ -328,7 +328,7 @@ function nativePjShare(title){
 }
 document.addEventListener('click',function(e){if(!e.target.closest('.pj-share-btn'))document.querySelectorAll('.pj-share-drop').forEach(function(d){d.classList.remove('open');});});
 
-function render(){
+function renderPage(){
   var id=getPjId();
   var root=document.getElementById('pj-root');
   var projects=gPj();
@@ -508,7 +508,25 @@ function render(){
   document.querySelectorAll('.pj-img-block').forEach(function(el){obs.observe(el);});
 }
 
-render();
+
+// GitHub read
+var GH_KEY='cd_gh_config';
+function ghCfg(){try{return JSON.parse(localStorage.getItem(GH_KEY))||{};}catch(e){return{};}}
+function ghLoadAndRender(cb){
+  var c=ghCfg();
+  if(!c.user||!c.repo){if(cb)cb();return;}
+  var url='https://raw.githubusercontent.com/'+c.user+'/'+c.repo+'/main/projects.json?t='+Date.now();
+  fetch(url,{cache:'no-store'})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var p=Array.isArray(data)?data:(data.projects||[]);
+    try{localStorage.setItem('cd_pj',JSON.stringify(p));}catch(e){}
+    if(cb)cb();
+  })
+  .catch(function(){if(cb)cb();});
+}
+
+ghLoadAndRender(function(){renderPage();});
 
 // ── IMMERSIVE SCROLL REVEALS ────────────────────────────
 (function(){
