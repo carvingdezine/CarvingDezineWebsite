@@ -222,10 +222,10 @@ function gTags(){try{return JSON.parse(localStorage.getItem(TAGSKEY))||[]}catch(
 function getAllTags(){return PRESET_TAGS.concat(gTags());}
 function getAllProjects(){
   var all=gPj();
-  // Deduplicate by id
+  // Deduplicate by id, filter out blank/corrupt entries
   var seen={};
   return all.filter(function(p){
-    if(!p.id||seen[p.id])return false;
+    if(!p.id||!p.title||seen[p.id])return false;
     seen[p.id]=true;
     return true;
   });

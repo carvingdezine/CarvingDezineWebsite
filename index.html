@@ -418,10 +418,10 @@ input,textarea,select{font-family:var(--f)}
   transition:background .3s;
 }
 .pc:hover{background:var(--g2)}
-.pc-img{overflow:hidden;background:var(--g2);position:relative;min-height:180px;}
+.pc-img{overflow:hidden;background:var(--g2);position:relative;min-height:220px;}
 .pc-img img{width:100%;height:auto;display:block;transition:transform .8s var(--ease);}
 .pc:hover .pc-img img{transform:scale(1.06)}
-.pc-ph{width:100%;height:100%;background:var(--g2);display:flex;align-items:center;justify-content:center}
+.pc-ph{width:100%;min-height:220px;background:var(--g2);display:flex;align-items:center;justify-content:center}
 .pc-ph-n{font-size:38px;font-weight:900;letter-spacing:-.06em;color:rgba(255,255,255,.05)}
 /* Overlay on image */
 .pc-overlay{
@@ -1872,7 +1872,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
         </div>
         <div class="adm-g" style="max-width:520px;margin-bottom:8px">
           <div class="adm-f"><label class="adm-l">GitHub Username</label><input class="adm-in" id="gh-user" placeholder="e.g. carvingdezine"/></div>
-          <div class="adm-f"><label class="adm-l">Repository Name</label><input class="adm-in" id="gh-repo" placeholder="e.g. carvingdezine.github.io"/></div>
+          <div class="adm-f"><label class="adm-l">Repository Name</label><input class="adm-in" id="gh-repo" placeholder="e.g. carvingdezinewebsite"/></div>
           <div class="adm-f full"><label class="adm-l">Personal Access Token <span style="color:rgba(255,255,255,.3);font-size:9px">(stored only in this browser)</span></label><input class="adm-in" type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/></div>
         </div>
         <button class="adm-btn" id="gh-save-btn">Connect GitHub</button>
@@ -3225,7 +3225,7 @@ var _curSort='new'; // 'new' or 'old'
 function esc2(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderGrid(filter){
   var all=getAllProjects();
-  var filtered=all.filter(function(p){return p.src==='manual'||(p.src&&p.img);});
+  var filtered=all.filter(function(p){return p.title&&(p.src==='manual'||(p.src&&p.img));});
   // Apply category filter
   if(filter&&filter!=='all'){filtered=filtered.filter(function(p){return p.cat===filter;});}
   // Sort by year

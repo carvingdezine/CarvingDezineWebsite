@@ -526,6 +526,9 @@ function ghLoadAndRender(cb){
   .catch(function(){if(cb)cb();});
 }
 
+// Show loading state
+var pjRoot=document.getElementById('pj-root');
+if(pjRoot)pjRoot.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:60vh;font-family:var(--m,monospace);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3)">Loading project...</div>';
 ghLoadAndRender(function(){renderPage();});
 
 // ── IMMERSIVE SCROLL REVEALS ────────────────────────────
