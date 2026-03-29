@@ -353,7 +353,24 @@ function ghLoad(cb){
 }
 
 // Initial load — fetch from GitHub then render
-ghLoad(function(){buildTagFilters();render();});
+// Render immediately from localStorage
+buildTagFilters();
+render();
+// Then silently sync from GitHub in background  
+(function(){
+  var c=ghCfg();
+  if(!c.user||!c.repo)return;
+  var url='https://raw.githubusercontent.com/'+c.user+'/'+c.repo+'/main/projects.json?t='+Date.now();
+  fetch(url,{cache:'no-store'})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var p=Array.isArray(data)?data:(data.projects||[]);
+    try{localStorage.setItem('cd_pj',JSON.stringify(p));}catch(e){}
+    buildTagFilters();
+    render();
+  })
+  .catch(function(){});
+})();
 </script>
 </body>
 </html>
