@@ -362,8 +362,6 @@ function ghLoad(cb){
 
 // Initial load — fetch from GitHub then render
 // Render immediately from localStorage
-buildTagFilters();
-render();
 ghLoad(function(){
   buildTagFilters();
   render();

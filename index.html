@@ -2422,6 +2422,12 @@ function ghCfg(){try{return JSON.parse(localStorage.getItem(GH_KEY))||{};}catch(
 function ghSave(cfg){localStorage.setItem(GH_KEY,JSON.stringify(cfg));}
 function gPjLocal(){try{return JSON.parse(localStorage.getItem(GH_CACHE_KEY))||[];}catch(e){return[];}}
 function gPjLocalSet(a){try{localStorage.setItem(GH_CACHE_KEY,JSON.stringify(a));}catch(e){}}
+var PROJECTS_STATE=[];
+function setProjectsState(projects){
+  PROJECTS_STATE=Array.isArray(projects)?projects.slice():[];
+  gPjLocalSet(PROJECTS_STATE);
+  try{localStorage.setItem(GH_CACHE_TS,Date.now()+'');}catch(e){}
+}
 
 function siteProjectsUrl(){return SITE_PROJECTS_URL+'?t='+Date.now();}
 
@@ -2504,15 +2510,14 @@ function ghSync(cb){
   .then(function(r){return r.json();})
   .then(function(data){
     var p=Array.isArray(data)?data:(data.projects||[]);
-    gPjLocalSet(p);
-    localStorage.setItem(GH_CACHE_TS,Date.now()+'');
+    setProjectsState(p);
     if(cb)cb();
   })
   .catch(function(){if(cb)cb();});
 }
 
-// Override gPj - always reads from local cache (which is synced from GitHub on load)
-function gPj(){return gPjLocal();}
+// Single source of truth in the page runtime; synced from projects.json / GitHub saves.
+function gPj(){return PROJECTS_STATE.slice();}
 
 // Override sPj - saves to GitHub then updates cache
 function sPj(projects){
@@ -2520,16 +2525,15 @@ function sPj(projects){
   var saveBtn=document.getElementById('ap-save');
   var okEl=document.getElementById('ap-ok');
 
-  // Always save to localStorage cache first (instant)
-  gPjLocalSet(projects);
+  // Project content should have one source of truth: GitHub/projects.json.
+  if(!c.user||!c.repo||!c.token){
+    if(okEl){okEl.textContent='GitHub connection is required to save live project content.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4000);}
+    return false;
+  }
+
+  setProjectsState(projects);
   renderList();
   renderGrid('all');
-
-  // If no GitHub config, show local save message
-  if(!c.user||!c.repo||!c.token){
-    if(okEl){okEl.textContent='Saved locally. Add GitHub config in Settings to sync everywhere.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},3500);}
-    return true;
-  }
 
   // Save to GitHub
   if(saveBtn){saveBtn.textContent='Saving to GitHub...';saveBtn.disabled=true;}
@@ -2552,20 +2556,20 @@ function sPj(projects){
     if(r.ok){
       if(okEl){okEl.textContent='Saved to GitHub - visible on all devices!';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},3500);}
     } else {
-      if(okEl){okEl.textContent='Saved locally. GitHub sync failed - check token in Settings.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4000);}
+      ghSync(function(){renderList();renderGrid('all');});
+      if(okEl){okEl.textContent='GitHub sync failed - reloaded live data from projects.json.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4500);}
     }
   })
   .catch(function(){
     if(saveBtn){saveBtn.textContent='Save Project';saveBtn.disabled=false;}
-    if(okEl){okEl.textContent='Saved locally. No internet or GitHub error.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},3500);}
+    ghSync(function(){renderList();renderGrid('all');});
+    if(okEl){okEl.textContent='Save failed - restored live data from projects.json.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4500);}
   });
   return true;
 }
 
-// On page load - sync from GitHub if config exists and cache is stale
+// On page load, fetch the deployed projects.json so every browser sees the same data.
 (function(){
-  var ts=parseInt(localStorage.getItem(GH_CACHE_TS)||'0');
-  if(gPjLocal().length&&Date.now()-ts<120000)return;
   ghSync(function(){renderGrid('all');renderList();});
 }());
 

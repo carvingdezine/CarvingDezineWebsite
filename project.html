@@ -355,6 +355,7 @@ function renderPage(){
   }
 
   document.title=pj.title+' \u2014 Carving Dezine';
+  var catLabel=CMAP[pj.cat]||pj.cat||'Project';
   var pjDesc=pj.body?pj.body.slice(0,160).replace(/\n/g,' '):(pj.desc||('A '+(CMAP[pj.cat]||pj.cat||'design')+' project by Carving Dezine.'));
   // Update canonical
   var canon=document.getElementById('pj-canonical');
@@ -386,8 +387,6 @@ function renderPage(){
   var schemaEl=document.getElementById('pj-schema');
   if(!schemaEl){schemaEl=document.createElement('script');schemaEl.type='application/ld+json';schemaEl.id='pj-schema';document.head.appendChild(schemaEl);}
   schemaEl.textContent=JSON.stringify(schema);
-
-  var catLabel=CMAP[pj.cat]||pj.cat||'Project';
 
   // ── GALLERY ──
   var imgs=pj.images&&pj.images.length?pj.images.slice():[];
@@ -539,8 +538,7 @@ function ghLoadAndRender(cb){
   .catch(function(){if(cb)cb();});
 }
 
-// Render immediately from localStorage
-renderPage();
+// Render from deployed projects.json, not browser-only cache.
 ghLoadAndRender(function(){renderPage();});
 
 // ── IMMERSIVE SCROLL REVEALS ────────────────────────────
