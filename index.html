@@ -3980,7 +3980,9 @@ document.getElementById('ap-save').addEventListener('click',function(){
     desc:document.getElementById('ap-d').value.trim(),
     body:document.getElementById('ap-body').value.trim(),
     img:imgSrc,
-    images:_giImages.slice(),
+    images:_giImages.map(function(item){
+      return {url:item.url,layout:item.layout||'full',gap:!!item.gap,type:item.type||'image'};
+    }),
     link:document.getElementById('ap-l').value.trim(),src:document.getElementById('ap-src').value,
     tags:getSelectedTags()
   };
