@@ -3158,11 +3158,12 @@ function getAllProjects(){
 
 function mkCard(p,idx){
   var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
-  var imgH=p.img
-    ?'<div class="pc-img" style="position:relative"><img src="'+p.img+'" alt="'+p.title+'" loading="lazy" onerror="this.classList.add(\'img-error\')"/>'
+  var cover=getProjectCover(p);
+  var imgH=cover
+    ?'<div class="pc-img" style="position:relative"><img src="'+cover+'" alt="'+p.title+'" loading="lazy" onerror="this.classList.add(\'img-error\')"/>'
       +'<div class="img-ph">'
       +'<svg class="img-ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
-      +'<div class="img-ph-txt">Image not uploaded yet<br/>'+( p.img?p.img.split('/').pop():''  )+'</div>'
+      +'<div class="img-ph-txt">Image not uploaded yet<br/>'+( cover?cover.split('/').pop():''  )+'</div>'
       +'</div></div>'
     :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(idx+1).padStart(2,'0')+'</div></div></div>';
   var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
@@ -3338,7 +3339,7 @@ var _curSort='new'; // 'new' or 'old'
 function esc2(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderGrid(filter){
   var all=getAllProjects();
-  var filtered=all.filter(function(p){return p.title&&(p.src==='manual'||(p.src&&p.img));});
+  var filtered=all.filter(function(p){return p.title&&(p.src==='manual'||(p.src&&getProjectCover(p)));});
   // Apply category filter
   if(filter&&filter!=='all'){filtered=filtered.filter(function(p){return p.cat===filter;});}
   // Sort by year
