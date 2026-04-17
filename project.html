@@ -355,6 +355,7 @@ function renderPage(){
   }
 
   document.title=pj.title+' \u2014 Carving Dezine';
+  var catLabel=CMAP[pj.cat]||pj.cat||'Project';
   var pjDesc=pj.body?pj.body.slice(0,160).replace(/\n/g,' '):(pj.desc||('A '+catLabel+' project by Carving Dezine.'));
   // Update canonical
   var canon=document.getElementById('pj-canonical');
