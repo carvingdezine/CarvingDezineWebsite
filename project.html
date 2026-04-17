@@ -457,12 +457,13 @@ function renderPage(){
     :'<div></div>';
 
   // ── RELATED ──
-  var related=projects.filter(function(p){return p.id!==id&&p.cat===pj.cat&&p.img}).slice(0,3);
+  var related=projects.filter(function(p){return p.id!==id&&p.cat===pj.cat&&getProjectCover(p)}).slice(0,3);
   var relatedH=related.length
     ?'<div class="pj-related"><div class="pj-section-label">Related Projects</div><div class="pj-related-grid">'
       +related.map(function(r){
+        var relatedCover=getProjectCover(r);
         return '<a class="pj-rel-card" href="project.html?id='+r.id+'">'
-          +'<div class="pj-rel-img"><img src="'+esc(r.img)+'" alt="'+esc(r.title)+'" loading="lazy"/></div>'
+          +'<div class="pj-rel-img"><img src="'+esc(relatedCover)+'" alt="'+esc(r.title)+'" loading="lazy"/></div>'
           +'<div class="pj-rel-cat">'+(CMAP[r.cat]||r.cat)+'</div>'
           +'<div class="pj-rel-title">'+esc(r.title)+'</div>'
           +'<div class="pj-rel-yr">'+r.year+(r.client?' \u00b7 '+r.client:'')+'</div></a>';
