@@ -2413,17 +2413,17 @@ function sHi(a){localStorage.setItem(HIKEY,JSON.stringify(a));}
 var GH_KEY='cd_gh_config';
 var GH_CACHE_KEY='cd_pj';
 var GH_CACHE_TS='cd_pj_ts';
+var GH_BRANCH='main';
+var SITE_PROJECTS_URL='projects.json';
+var _pendingCoverUpload=null;
+var _pendingGalleryUploads={};
 
 function ghCfg(){try{return JSON.parse(localStorage.getItem(GH_KEY))||{};}catch(e){return{};}}
 function ghSave(cfg){localStorage.setItem(GH_KEY,JSON.stringify(cfg));}
 function gPjLocal(){try{return JSON.parse(localStorage.getItem(GH_CACHE_KEY))||[];}catch(e){return[];}}
 function gPjLocalSet(a){try{localStorage.setItem(GH_CACHE_KEY,JSON.stringify(a));}catch(e){}}
 
-function ghRawUrl(){
-  var c=ghCfg();
-  if(!c.user||!c.repo)return null;
-  return 'https://raw.githubusercontent.com/'+c.user+'/'+c.repo+'/main/projects.json?t='+Date.now();
-}
+function siteProjectsUrl(){return SITE_PROJECTS_URL+'?t='+Date.now();}
 
 function ghApiUrl(){
   var c=ghCfg();
@@ -2431,10 +2431,75 @@ function ghApiUrl(){
   return 'https://api.github.com/repos/'+c.user+'/'+c.repo+'/contents/projects.json';
 }
 
+function ghAssetApiUrl(path){
+  var c=ghCfg();
+  if(!c.user||!c.repo||!path)return null;
+  return 'https://api.github.com/repos/'+c.user+'/'+c.repo+'/contents/'+path.split('/').map(encodeURIComponent).join('/');
+}
+
+function readFileAsBase64(file){
+  return new Promise(function(resolve,reject){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var result=(e.target&&e.target.result)||'';
+      var idx=result.indexOf(',');
+      resolve(idx===-1?result:result.slice(idx+1));
+    };
+    reader.onerror=function(){reject(new Error('Could not read "'+file.name+'".'));};
+    reader.readAsDataURL(file);
+  });
+}
+
+function ghUploadAsset(upload){
+  var c=ghCfg();
+  if(!c.user||!c.repo||!c.token){
+    return Promise.reject(new Error('Connect GitHub in Settings before uploading files.'));
+  }
+  var apiUrl=ghAssetApiUrl(upload.path);
+  var authHeaders={'Authorization':'token '+c.token,'Accept':'application/vnd.github.v3+json'};
+  return fetch(apiUrl,{headers:authHeaders})
+  .then(function(r){
+    if(r.status===404)return null;
+    return r.json().then(function(data){
+      if(!r.ok)throw new Error((data&&data.message)||('GitHub error '+r.status));
+      return data;
+    });
+  })
+  .then(function(existing){
+    return readFileAsBase64(upload.file).then(function(content){
+      return {existing:existing,content:content};
+    });
+  })
+  .then(function(payload){
+    var body={message:'Upload portfolio asset '+upload.path,content:payload.content,branch:GH_BRANCH};
+    if(payload.existing&&payload.existing.sha)body.sha=payload.existing.sha;
+    return fetch(apiUrl,{
+      method:'PUT',
+      headers:{
+        'Authorization':'token '+c.token,
+        'Accept':'application/vnd.github.v3+json',
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(body)
+    });
+  })
+  .then(function(r){
+    return r.json().then(function(data){
+      if(!r.ok)throw new Error((data&&data.message)||('Unable to upload '+upload.path));
+      return data;
+    });
+  });
+}
+
+function uploadPendingAssets(uploads){
+  return uploads.reduce(function(chain,upload){
+    return chain.then(function(){return ghUploadAsset(upload);});
+  },Promise.resolve());
+}
+
 // Sync read from GitHub then call cb()
 function ghSync(cb){
-  var url=ghRawUrl();
-  if(!url){if(cb)cb();return;}
+  var url=siteProjectsUrl();
   fetch(url,{cache:'no-store'})
   .then(function(r){return r.json();})
   .then(function(data){
@@ -2499,14 +2564,60 @@ function sPj(projects){
 
 // On page load - sync from GitHub if config exists and cache is stale
 (function(){
-  var c=ghCfg();
-  if(!c.user||!c.repo)return;
   var ts=parseInt(localStorage.getItem(GH_CACHE_TS)||'0');
-  if(Date.now()-ts<120000)return;
-  ghSync(function(){renderGrid('all');});
+  if(gPjLocal().length&&Date.now()-ts<120000)return;
+  ghSync(function(){renderGrid('all');renderList();});
 }());
 
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
+
+function getProjectCover(p){
+  if(!p)return'';
+  var direct=(p.img||'').trim();
+  if(direct)return direct;
+  var items=Array.isArray(p.images)?p.images:[];
+  var first=items.find(function(item){
+    if(!item||!item.url)return false;
+    var url=String(item.url);
+    var isYT=item.type==='youtube'||url.indexOf('youtube.com')!==-1||url.indexOf('youtu.be')!==-1;
+    var isVideo=item.type==='video'||/\.(mp4|webm|mov)$/i.test(url);
+    return !isYT&&!isVideo;
+  });
+  return first?first.url:'';
+}
+
+function sanitizeAssetName(name){
+  return String(name||'file').replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
+}
+
+function assetPathForFile(file){
+  var isVideo=file&&file.type&&file.type.startsWith('video/');
+  return (isVideo?'videos/':'images/')+sanitizeAssetName(file&&file.name?file.name:'asset');
+}
+
+function clearPendingAsset(path){
+  if(_pendingCoverUpload&&_pendingCoverUpload.path===path)_pendingCoverUpload=null;
+  if(path&&_pendingGalleryUploads[path])delete _pendingGalleryUploads[path];
+}
+
+function clearPendingUploads(){
+  _pendingCoverUpload=null;
+  _pendingGalleryUploads={};
+}
+
+function collectPendingAssetUploads(coverPath){
+  var uploads=[],seen={};
+  if(coverPath&&_pendingCoverUpload&&_pendingCoverUpload.path===coverPath){
+    uploads.push(_pendingCoverUpload);
+    seen[coverPath]=true;
+  }
+  _giImages.forEach(function(item){
+    if(!item||!item.url||seen[item.url]||!_pendingGalleryUploads[item.url])return;
+    uploads.push(_pendingGalleryUploads[item.url]);
+    seen[item.url]=true;
+  });
+  return uploads;
+}
 
 // -- TAG SYSTEM ----------------------------------------------
 var TAGSKEY='cd_tags';
@@ -3153,6 +3264,8 @@ function giSetLayout(btn){
   renderGiList();
 }
 function giDel(i){
+  var removed=_giImages[i];
+  if(removed&&removed.url)clearPendingAsset(removed.url);
   _giImages.splice(i,1);
   renderGiList();
 }
@@ -3206,14 +3319,14 @@ document.getElementById('gi-file').addEventListener('change',function(e){
   var remaining=20-_giImages.length;
   files.slice(0,remaining).forEach(function(file){
     var isVideo=file.type.startsWith('video/');
-    var folder=isVideo?'videos/':'images/';
-    var fname=folder+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
+    var fname=assetPathForFile(file);
+    _pendingGalleryUploads[fname]={path:fname,file:file};
     _giImages.push({url:fname,layout:'full',gap:false,type:isVideo?'video':'image'});
     renderGiList();
   });
   var names=files.slice(0,remaining).map(function(f){return f.name;}).join(', ');
   var hint=document.getElementById('gi-upload-hint');
-  if(hint){hint.textContent='Upload these files to your images/ or videos/ folder: '+names;hint.style.display='block';}
+  if(hint){hint.textContent='Selected: '+names+' - these files will upload to GitHub automatically when you save the project.';hint.style.display='block';}
   e.target.value='';
 });
 
@@ -3246,6 +3359,7 @@ function renderGrid(filter){
 
   if(!grid)return;
   grid.innerHTML=display.map(function(p,idx){
+    var cover=getProjectCover(p);
     var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
     var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
     var tagsH=p.tags&&p.tags.length?'<div class="pc-tags-ov">'+renderTagBadges(p.tags)+'</div>':'';
@@ -3254,8 +3368,8 @@ function renderGrid(filter){
       +'<div class="pc-title">'+p.title+'</div>'
       +'<div class="pc-yr">'+p.year+(p.client?' \u00b7 '+p.client:'')+'</div>'
       +tagsH+'</div>';
-    var imgH=p.img
-      ?'<div class="pc-img"><img src="'+p.img+'" alt="'+p.title+'" loading="'+(idx<2?'eager':'lazy')+'" onerror="this.classList.add(\'img-error\')"/>'
+    var imgH=cover
+      ?'<div class="pc-img"><img src="'+cover+'" alt="'+p.title+'" loading="'+(idx<2?'eager':'lazy')+'" onerror="this.classList.add(\'img-error\')"/>'
         +'<div class="img-ph"><svg class="img-ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
         +'<div class="img-ph-txt">Not uploaded yet</div></div>'
         +overlay+'</div>'
@@ -3513,6 +3627,7 @@ document.getElementById('itab-path').addEventListener('click',function(){switchI
 
 // Local path preview
 document.getElementById('ap-path').addEventListener('input',function(){
+  _pendingCoverUpload=null;
   var v=this.value.trim(),p=document.getElementById('prev-path');
   if(v){p.src=v;p.classList.add('show');p.onerror=function(){p.classList.remove('show');};}
   else{p.classList.remove('show');}
@@ -3522,16 +3637,14 @@ document.getElementById('ap-path').addEventListener('input',function(){
 document.getElementById('ap-file').addEventListener('change',function(){
   var file=this.files[0];if(!file)return;
   document.getElementById('ap-err').style.display='none';
-  // Save as local path — images/filename
-  var fname='images/'+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
+  var fname=assetPathForFile(file);
+  _pendingCoverUpload={path:fname,file:file};
   document.getElementById('ap-up-path').value=fname;
-  // Show preview using object URL (local only, not saved)
   var p=document.getElementById('prev-up');
   p.src=URL.createObjectURL(file);
   p.classList.add('show');
   p.onload=function(){URL.revokeObjectURL(p.src);};
-  // Show the path so user knows what to name the file
-  document.getElementById('ap-up-hint').textContent='Save path: '+fname+' — upload this file as "'+file.name+'" to your images/ folder on the server.';
+  document.getElementById('ap-up-hint').textContent='Save path: '+fname+' - this file will upload to GitHub automatically when you save the project.';
   document.getElementById('ap-up-hint').style.display='block';
 });
 
@@ -3542,18 +3655,20 @@ if(dz){
   ['dragleave','drop'].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.remove('drag')})});
   dz.addEventListener('drop',function(e){
     var file=e.dataTransfer.files[0];if(!file||!file.type.startsWith('image/'))return;
-    var fname='images/'+file.name.replace(/[^a-zA-Z0-9._-]/g,'-').toLowerCase();
+    var fname=assetPathForFile(file);
+    _pendingCoverUpload={path:fname,file:file};
     document.getElementById('ap-up-path').value=fname;
     var p=document.getElementById('prev-up');
     p.src=URL.createObjectURL(file);p.classList.add('show');
     p.onload=function(){URL.revokeObjectURL(p.src);};
-    document.getElementById('ap-up-hint').textContent='Save path: '+fname+' — upload this file as "'+file.name+'" to your images/ folder on the server.';
+    document.getElementById('ap-up-hint').textContent='Save path: '+fname+' - this file will upload to GitHub automatically when you save the project.';
     document.getElementById('ap-up-hint').style.display='block';
   });
 }
 
 // URL input preview
 document.getElementById('ap-url').addEventListener('input',function(){
+  _pendingCoverUpload=null;
   var u=this.value.trim(),p=document.getElementById('prev-url');
   if(u){p.src=u;p.classList.add('show');p.onerror=function(){p.classList.remove('show')}}
   else{p.classList.remove('show')};
@@ -3565,6 +3680,7 @@ var _editId=null;
 function loadEdit(id){
   var p=gPj().find(function(x){return x.id===id});
   if(!p)return;
+  clearPendingUploads();
   _editId=id;
   // Switch to Add tab
   document.querySelectorAll('.adm-ni').forEach(function(n){n.classList.remove('on')});
@@ -3580,17 +3696,21 @@ function loadEdit(id){
   document.getElementById('ap-body').value=p.body||'';
   document.getElementById('ap-l').value=p.link||'';
   document.getElementById('ap-src').value=p.src||'manual';
+  document.getElementById('ap-up-path').value='';
+  document.getElementById('ap-url').value='';
+  document.getElementById('ap-path').value='';
   // Cover image
-  if(p.img){
-    var isBase64=p.img.startsWith('data:');
-    var isLocal=p.img&&!p.img.startsWith('http')&&!p.img.startsWith('data:');
+  var cover=getProjectCover(p);
+  if(cover){
+    var isBase64=cover.startsWith('data:');
+    var isLocal=cover&&!cover.startsWith('http')&&!cover.startsWith('data:');
     if(isLocal){
       switchItab('path');
-      document.getElementById('ap-path').value=p.img;
-      var pp=document.getElementById('prev-path');pp.src=p.img;pp.classList.add('show');
+      document.getElementById('ap-path').value=cover;
+      var pp=document.getElementById('prev-path');pp.src=cover;pp.classList.add('show');
     } else {
       var pu=document.getElementById('prev-up');
-      pu.src=p.img;pu.classList.add('show');
+      pu.src=cover;pu.classList.add('show');
       switchItab('up');
     }
   }
@@ -3674,7 +3794,9 @@ function saveDraft(){
     link:document.getElementById('ap-l').value,
     src:document.getElementById('ap-src').value,
     img:document.getElementById('ap-up-path').value||document.getElementById('ap-url').value||document.getElementById('ap-path').value,
-    images:_giImages.slice(),
+    images:_giImages.map(function(item){
+      return {url:item.url,layout:item.layout||'full',gap:!!item.gap,type:item.type||'image'};
+    }),
     tags:getSelectedTags(),
     editId:_editId
   };
@@ -3808,6 +3930,7 @@ function clearEditState(){
 
 // save project
 document.getElementById('ap-save').addEventListener('click',function(){
+  var saveBtn=this;
   var title=document.getElementById('ap-t').value.trim();
   var errEl=document.getElementById('ap-err');
   if(!title){errEl.textContent='Project title is required.';errEl.style.display='block';return}
@@ -3823,6 +3946,34 @@ document.getElementById('ap-save').addEventListener('click',function(){
   }else{
     imgSrc=document.getElementById('ap-url').value.trim();
   }
+  if(!imgSrc)imgSrc=getProjectCover({images:_giImages});
+
+  var pendingUploads=collectPendingAssetUploads(imgSrc);
+  if(pendingUploads.length){
+    var c=ghCfg();
+    if(!c.user||!c.repo||!c.token){
+      errEl.textContent='Connect GitHub in Settings before using Upload File. The path alone will not make images appear online.';
+      errEl.style.display='block';
+      return;
+    }
+    saveBtn.textContent='Uploading files...';
+    saveBtn.disabled=true;
+    uploadPendingAssets(pendingUploads)
+    .then(function(){
+      pendingUploads.forEach(function(upload){clearPendingAsset(upload.path);});
+      finishProjectSave();
+    })
+    .catch(function(err){
+      saveBtn.textContent=_editId?'Update Project':'Save Project';
+      saveBtn.disabled=false;
+      errEl.textContent='Upload failed: '+(err.message||'Could not upload files to GitHub.');
+      errEl.style.display='block';
+    });
+    return;
+  }
+  finishProjectSave();
+
+  function finishProjectSave(){
   var pj={
     id:_editId||('u'+Date.now()),title:title,cat:document.getElementById('ap-c').value,
     year:document.getElementById('ap-y').value||'2026',client:document.getElementById('ap-cl').value.trim(),
@@ -3840,20 +3991,23 @@ document.getElementById('ap-save').addEventListener('click',function(){
   } else {
     ps.unshift(pj);
   }
-  ['ap-t','ap-cl','ap-d','ap-body','ap-l'].forEach(function(id){document.getElementById(id).value=''});
+  ['ap-t','ap-cl','ap-d','ap-body','ap-l','ap-up-path','ap-path','ap-url'].forEach(function(id){document.getElementById(id).value=''});
   _giImages=[];renderGiList();
+  clearPendingUploads();
   document.getElementById('ap-y').value='2026';
   document.getElementById('ap-src').value='manual';
   document.getElementById('prev-up').classList.remove('show');
   document.getElementById('prev-url').classList.remove('show');
-  document.getElementById('ap-url').value='';
+  document.getElementById('prev-path').classList.remove('show');
+  document.getElementById('ap-up-hint').style.display='none';
+  var giHint=document.getElementById('gi-upload-hint');if(giHint)giHint.style.display='none';
   try{document.getElementById('ap-file').value=''}catch(e){}
   clearEditState();
   clearDraft();
   setSelectedTags([]);
   sPj(ps); // async — handles ok message, renderList, renderGrid
+  }
 });
-
 function renderList(){
   var list=document.getElementById('pj-list');
   var ps=gPj();

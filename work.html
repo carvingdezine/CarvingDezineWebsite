@@ -219,6 +219,20 @@ var TAG_COLORS={
 
 function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
 function gTags(){try{return JSON.parse(localStorage.getItem(TAGSKEY))||[]}catch(e){return[]}}
+function getProjectCover(p){
+  if(!p)return'';
+  var direct=(p.img||'').trim();
+  if(direct)return direct;
+  var items=Array.isArray(p.images)?p.images:[];
+  var first=items.find(function(item){
+    if(!item||!item.url)return false;
+    var url=String(item.url);
+    var isYT=item.type==='youtube'||url.indexOf('youtube.com')!==-1||url.indexOf('youtu.be')!==-1;
+    var isVideo=item.type==='video'||/\.(mp4|webm|mov)$/i.test(url);
+    return !isYT&&!isVideo;
+  });
+  return first?first.url:'';
+}
 function getAllTags(){return PRESET_TAGS.concat(gTags());}
 function getAllProjects(){
   var all=gPj();
@@ -243,13 +257,14 @@ function renderTagBadges(tagIds){
 var _catFilter='all', _tagFilter='all', _wkSort='new';
 
 function mkCard(p){
+  var cover=getProjectCover(p);
   var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
   var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
   var tagsH=p.tags&&p.tags.length?'<div class="pc-tags-ov">'+renderTagBadges(p.tags)+'</div>':'';
   var yr=p.year+(p.client?' · '+p.client:'');
   var overlay='<div class="pc-overlay">'+(CMAP[p.cat]||p.cat||'Project')+'<br>'+(esc(p.title))+'<br>'+yr+tagsH+'</div>';
   overlay='<div class="pc-overlay"><div class="pc-cat">'+(CMAP[p.cat]||p.cat||'Project')+'</div><div class="pc-title">'+esc(p.title)+'</div><div class="pc-yr">'+p.year+(p.client?' · '+p.client:'')+'</div>'+tagsH+'</div>';
-  var imgH=p.img?'<div class="pc-img"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy"/>'+overlay+'</div>':'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(p.id||'').slice(-2).padStart(2,'0')+'</div></div>'+overlay+'</div>';
+  var imgH=cover?'<div class="pc-img"><img src="'+esc(cover)+'" alt="'+esc(p.title)+'" loading="lazy"/>'+overlay+'</div>':'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(p.id||'').slice(-2).padStart(2,'0')+'</div></div>'+overlay+'</div>';
   return '<div class="pc rv" data-id="'+(p.id||'')+'" data-src="'+(p.src||'manual')+'" data-link="'+(p.link||'')+'">'
     +badge+imgH+'<div class="pc-line"></div></div>';
 }
@@ -332,16 +347,9 @@ document.querySelectorAll('.rv').forEach(function(el){hObs.observe(el);});
 document.querySelectorAll('.rv').forEach(function(el){hObs.observe(el);});
 
 // ── GITHUB READ ──────────────────────────────────────────
-var GH_KEY='cd_gh_config';
-function ghCfg(){try{return JSON.parse(localStorage.getItem(GH_KEY))||{}}catch(e){return{}}}
-function ghRawUrl(){
-  var c=ghCfg();
-  if(!c.user||!c.repo)return null;
-  return 'https://raw.githubusercontent.com/'+c.user+'/'+c.repo+'/main/projects.json?t='+Date.now();
-}
+function projectsUrl(){return 'projects.json?t='+Date.now();}
 function ghLoad(cb){
-  var url=ghRawUrl();
-  if(!url){cb();return;}
+  var url=projectsUrl();
   fetch(url,{cache:'no-store'})
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
     .then(function(data){
@@ -356,21 +364,10 @@ function ghLoad(cb){
 // Render immediately from localStorage
 buildTagFilters();
 render();
-// Then silently sync from GitHub in background  
-(function(){
-  var c=ghCfg();
-  if(!c.user||!c.repo)return;
-  var url='https://raw.githubusercontent.com/'+c.user+'/'+c.repo+'/main/projects.json?t='+Date.now();
-  fetch(url,{cache:'no-store'})
-  .then(function(r){return r.json();})
-  .then(function(data){
-    var p=Array.isArray(data)?data:(data.projects||[]);
-    try{localStorage.setItem('cd_pj',JSON.stringify(p));}catch(e){}
-    buildTagFilters();
-    render();
-  })
-  .catch(function(){});
-})();
+ghLoad(function(){
+  buildTagFilters();
+  render();
+});
 </script>
 </body>
 </html>
