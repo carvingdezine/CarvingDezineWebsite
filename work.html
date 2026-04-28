@@ -217,7 +217,9 @@ var TAG_COLORS={
   teal:{border:'rgba(93,202,165,.4)',text:'#5DCAA5'}
 };
 
-function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
+var PROJECTS_STATE=[];
+function setProjectsState(projects){PROJECTS_STATE=Array.isArray(projects)?projects.slice():[]}
+function gPj(){return PROJECTS_STATE.slice()}
 function gTags(){try{return JSON.parse(localStorage.getItem(TAGSKEY))||[]}catch(e){return[]}}
 function getProjectCover(p){
   if(!p)return'';
@@ -354,7 +356,7 @@ function ghLoad(cb){
     .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
     .then(function(data){
       var p=Array.isArray(data)?data:(data.projects||[]);
-      try{localStorage.setItem('cd_pj',JSON.stringify(p));}catch(e){}
+      setProjectsState(p);
       cb();
     })
     .catch(function(){cb();});

@@ -302,8 +302,10 @@ a{color:inherit;text-decoration:none;}
 
 <script>
 var PJKEY='cd_pj';
+var PROJECTS_STATE=[];
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
-function gPj(){try{return JSON.parse(localStorage.getItem(PJKEY))||[]}catch(e){return[]}}
+function setProjectsState(projects){PROJECTS_STATE=Array.isArray(projects)?projects.slice():[]}
+function gPj(){return PROJECTS_STATE.slice()}
 function getProjectCover(p){
   if(!p)return'';
   var direct=(p.img||'').trim();
@@ -532,7 +534,7 @@ function ghLoadAndRender(cb){
   .then(function(r){return r.json();})
   .then(function(data){
     var p=Array.isArray(data)?data:(data.projects||[]);
-    try{localStorage.setItem('cd_pj',JSON.stringify(p));}catch(e){}
+    setProjectsState(p);
     if(cb)cb();
   })
   .catch(function(){if(cb)cb();});
