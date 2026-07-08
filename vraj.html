@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Brand Discovery — Vraj Shyam Group × Carving Dezine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#000;--white:#fff;--red:#E8001D;--red-dark:#B20016;
+  --g50:#F7F7F7;--g100:#E5E5E5;--g200:#BBBBBB;--g300:#888;
+  --g400:#555;--g700:#1A1A1A;--g900:#0A0A0A;
+  --f:'Outfit',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--black);font-family:var(--f);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-thumb{background:var(--red);}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--red);width:0%;transition:width .3s;z-index:1000;}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--black);display:flex;flex-direction:column;justify-content:flex-end;padding:60px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 71px,rgba(255,255,255,.02) 72px),repeating-linear-gradient(90deg,transparent,transparent 71px,rgba(255,255,255,.02) 72px);pointer-events:none;}
+.cover-stripe{position:absolute;top:0;right:0;width:5px;height:100%;background:var(--red);}
+.cover-tag{font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:36px;position:relative;z-index:1;}
+.cover-title{font-size:clamp(56px,11vw,150px);line-height:.88;font-weight:900;letter-spacing:-.04em;color:var(--white);position:relative;z-index:1;}
+.cover-title span{color:var(--red);}
+.cover-sub{font-size:11px;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:28px;position:relative;z-index:1;}
+.cover-meta{position:absolute;top:60px;right:60px;text-align:right;z-index:1;}
+.cover-meta p{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);line-height:2.2;font-weight:300;}
+
+/* SIDE NAV */
+.sidenav{position:fixed;left:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:100;}
+@media(max-width:900px){.sidenav{display:none;}}
+.nd{width:4px;height:24px;background:var(--g100);transition:all .3s;cursor:pointer;position:relative;}
+.nd.active{background:var(--red);height:36px;}
+.nd::after{content:attr(data-l);position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--g300);white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;}
+.nd:hover::after,.nd.active::after{opacity:1;}
+
+/* MAIN */
+.wrap{max-width:780px;margin:0 auto;padding:0 40px 100px;}
+@media(max-width:600px){.wrap{padding:0 20px 100px;}}
+
+/* INTRO */
+.intro{padding:100px 0 80px;border-bottom:1px solid var(--g100);}
+.sec-tag{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--red);font-weight:700;display:flex;align-items:center;gap:14px;margin-bottom:28px;}
+.sec-tag::before{content:'';display:block;width:28px;height:1px;background:var(--red);}
+.sec-title{font-size:clamp(32px,6vw,60px);font-weight:900;line-height:.92;letter-spacing:-.03em;margin-bottom:36px;text-transform:uppercase;}
+.sec-note{border-left:3px solid var(--red);padding:16px 20px;background:var(--g50);font-size:14px;line-height:1.8;color:var(--g400);margin-bottom:44px;}
+.toc{list-style:none;}
+.toc li{padding:12px 0;border-bottom:1px solid var(--g100);display:flex;align-items:center;gap:18px;font-size:14px;color:var(--g400);}
+.toc li:last-child{border-bottom:none;}
+.tc{font-size:11px;letter-spacing:.2em;color:var(--red);font-weight:700;min-width:14px;}
+.time{margin-top:36px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--g300);}
+.time b{color:var(--black);}
+
+/* SECTION */
+.sec{padding:80px 0 20px;border-bottom:1px solid var(--g100);}
+.sec:last-of-type{border-bottom:none;}
+
+/* SUB SECTION */
+.sub-hd{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);font-weight:700;margin:52px 0 4px;padding-top:36px;border-top:1px solid var(--g100);}
+.sub-hd.first{border-top:none;margin-top:0;padding-top:0;}
+.sub-desc{font-size:13px;color:var(--g300);margin-bottom:24px;line-height:1.7;}
+
+/* QUESTION */
+.q{margin-bottom:32px;}
+.q-title{font-size:13px;font-weight:700;color:var(--black);margin-bottom:14px;line-height:1.5;text-transform:uppercase;letter-spacing:.04em;}
+.q-hint{font-size:12px;color:var(--g300);margin-bottom:14px;font-style:italic;}
+
+/* RADIO / CHECK OPTIONS */
+.opts{display:flex;flex-direction:column;}
+.opts.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.opts.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;}
+@media(max-width:600px){.opts.grid2,.opts.grid3{grid-template-columns:1fr;}}
+
+.opt{display:flex;align-items:center;gap:14px;padding:12px 14px;border-bottom:1px solid var(--g100);cursor:pointer;transition:background .15s;user-select:none;}
+.opts .opt:first-child{border-top:1px solid var(--g100);}
+.opts.grid2 .opt:nth-child(1),.opts.grid2 .opt:nth-child(2){border-top:1px solid var(--g100);}
+.opts.grid3 .opt:nth-child(1),.opts.grid3 .opt:nth-child(2),.opts.grid3 .opt:nth-child(3){border-top:1px solid var(--g100);}
+.opt:hover{background:var(--g50);}
+.opt input{display:none;}
+.ob{width:16px;height:16px;min-width:16px;border:1.5px solid var(--g200);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.opt:hover .ob{border-color:var(--red);}
+.opt input[type=radio]~.ob{border-radius:50%;}
+.opt input:checked~.ob{background:var(--red);border-color:var(--red);}
+.opt input[type=checkbox]:checked~.ob::after{content:'';display:block;width:4px;height:8px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+.opt input[type=radio]:checked~.ob::after{content:'';display:block;width:5px;height:5px;border-radius:50%;background:white;}
+.ot{font-size:13px;color:var(--g400);line-height:1.4;}
+.opt input:checked~.ob~.ot{color:var(--black);font-weight:600;}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{padding:8px 16px;border:1.5px solid var(--g100);font-size:12px;font-weight:600;color:var(--g400);cursor:pointer;transition:all .15s;user-select:none;text-transform:uppercase;letter-spacing:.06em;}
+.chip:hover{border-color:var(--red);color:var(--red);}
+.chip.on{background:var(--red);border-color:var(--red);color:white;}
+.chip-note{font-size:11px;color:var(--g200);margin-top:8px;letter-spacing:.05em;}
+
+/* SCALE */
+.scale{display:flex;align-items:center;gap:0;margin-top:4px;}
+.scale-l{font-size:11px;color:var(--g300);min-width:90px;text-align:right;padding-right:14px;line-height:1.4;}
+.scale-r{font-size:11px;color:var(--g300);min-width:90px;padding-left:14px;line-height:1.4;}
+.scale-opts{display:flex;gap:10px;flex:1;justify-content:center;}
+.sc{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;}
+.sc input{display:none;}
+.sc-c{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--g100);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--g300);transition:all .15s;}
+.sc:hover .sc-c{border-color:var(--red);color:var(--red);}
+.sc input:checked~.sc-c{background:var(--red);border-color:var(--red);color:white;}
+
+/* TWO COL */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:560px){.two{grid-template-columns:1fr;}}
+.fl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--g300);font-weight:600;margin-bottom:8px;}
+
+/* SELECT DROPDOWN */
+select{width:100%;height:48px;border:none;border-left:3px solid var(--red);background:var(--g50);padding:0 16px;font-family:var(--f);font-size:14px;color:var(--black);outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-color:var(--g50);cursor:pointer;transition:background .2s;}
+select:focus{background-color:white;box-shadow:0 0 0 1px var(--g100);}
+select option{color:var(--black);}
+
+/* MINIMAL TEXT (only where essential) */
+input[type=text]{width:100%;height:48px;border:none;border-left:3px solid var(--red);background:var(--g50);padding:0 16px;font-family:var(--f);font-size:14px;color:var(--black);outline:none;transition:background .2s;}
+input[type=text]:focus{background:white;box-shadow:0 0 0 1px var(--g100);}
+input[type=text]::placeholder{color:var(--g200);}
+textarea{width:100%;min-height:70px;border:none;border-left:3px solid var(--red);background:var(--g50);padding:14px 16px;font-family:var(--f);font-size:14px;color:var(--black);resize:vertical;outline:none;transition:background .2s;line-height:1.7;}
+textarea:focus{background:white;box-shadow:0 0 0 1px var(--g100);}
+textarea::placeholder{color:var(--g200);}
+
+
+/* VISUAL CARDS */
+.vis-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}
+@media(max-width:560px){.vis-grid{grid-template-columns:1fr;}}
+.vis-card{cursor:pointer;border:1.5px solid var(--g100);transition:border-color .2s;display:flex;flex-direction:column;}
+.vis-card:hover{border-color:var(--red);}
+.vis-card:has(input:checked){border-color:var(--red);background:rgba(232,0,29,.03);}
+.vis-card input{display:none;}
+.vis-preview{width:100%;padding:12px 0;display:flex;align-items:center;justify-content:center;}
+.vis-preview svg{width:100%;max-width:260px;height:80px;}
+.vis-label{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-top:1px solid var(--g100);}
+.vis-rb{width:16px;height:16px;min-width:16px;border-radius:50%;border:1.5px solid var(--g200);margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.vis-card:hover .vis-rb{border-color:var(--red);}
+.vis-card:has(input:checked) .vis-rb{background:var(--red);border-color:var(--red);}
+.vis-card:has(input:checked) .vis-rb::after{content:'';display:block;width:5px;height:5px;border-radius:50%;background:white;}
+.vis-name{font-size:13px;font-weight:700;color:var(--black);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em;}
+.vis-desc{font-size:12px;color:var(--g400);line-height:1.5;}
+
+/* SUBMIT */
+.sub-area{background:var(--black);padding:80px 60px;text-align:center;margin:0 -40px;}
+@media(max-width:600px){.sub-area{padding:60px 20px;margin:0 -20px;}}
+.sub-title{font-size:clamp(40px,8vw,80px);font-weight:900;letter-spacing:-.03em;color:var(--white);line-height:.9;margin-bottom:20px;text-transform:uppercase;}
+.sub-title span{color:var(--red);}
+.sub-desc2{font-size:13px;color:rgba(255,255,255,.3);margin-bottom:44px;}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:18px 52px;background:var(--red);color:var(--white);font-family:var(--f);font-size:11px;letter-spacing:.25em;text-transform:uppercase;font-weight:700;border:none;cursor:pointer;transition:background .2s,transform .15s;}
+.btn:hover{background:var(--red-dark);transform:translateY(-2px);}
+.btn:disabled{background:var(--g400);cursor:not-allowed;transform:none;}
+#errmsg{display:none;color:var(--red);font-size:12px;margin-top:14px;}
+.sub-note{margin-top:20px;font-size:11px;color:rgba(255,255,255,.2);}
+
+/* SUCCESS */
+#success{display:none;min-height:100vh;background:var(--black);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:60px;}
+#success.show{display:flex;}
+#success h1{font-size:clamp(60px,12vw,130px);font-weight:900;letter-spacing:-.04em;color:var(--white);line-height:.88;margin-bottom:28px;text-transform:uppercase;}
+#success h1 span{color:var(--red);}
+#success p{font-size:15px;color:rgba(255,255,255,.4);max-width:380px;line-height:1.8;margin-bottom:36px;}
+#success .sig{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);}
+
+/* FOOTER */
+.footer{text-align:center;padding:60px 40px;border-top:1px solid var(--g100);}
+.fn{font-size:17px;font-weight:900;letter-spacing:-.01em;text-transform:uppercase;}
+.fc{font-size:12px;color:var(--red);letter-spacing:.1em;margin-top:8px;}
+.fci{font-size:11px;color:var(--g300);letter-spacing:.15em;text-transform:uppercase;margin-top:6px;}
+
+
+/* ── ACCORDION OVERRIDES ─────────────────────────────────────────────────── */
+.wrap { max-width:780px;margin:0 auto;padding:0 40px 80px; }
+@media(max-width:600px){.wrap{padding:0 20px 80px;}}
+
+.sec,.intro { display:none;padding:60px 0 20px;border-bottom:none; }
+
+.accordion-item {
+  border-bottom:1px solid var(--g100);
+  overflow:hidden;
+}
+.accordion-item:last-of-type { border-bottom:none; }
+
+.acc-header {
+  display:flex;align-items:center;gap:16px;
+  padding:22px 0;cursor:pointer;
+  transition:opacity .2s;
+  user-select:none;
+}
+.acc-header:hover { opacity:0.75; }
+
+.acc-num {
+  width:36px;height:36px;min-width:36px;
+  border:1.5px solid var(--g100);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--g300);
+  letter-spacing:.1em;transition:all .3s;
+  flex-shrink:0;
+}
+.accordion-item.active .acc-num {
+  background:var(--red);border-color:var(--red);color:white;
+}
+.accordion-item.done .acc-num {
+  background:var(--black);border-color:var(--black);color:white;
+}
+.accordion-item.done .acc-num::after {
+  content:'✓';font-size:14px;font-weight:700;
+}
+.accordion-item.done .acc-num-text { display:none; }
+
+.acc-title-wrap { flex:1; }
+.acc-title {
+  font-size:15px;font-weight:700;color:var(--black);
+  text-transform:uppercase;letter-spacing:.06em;
+  line-height:1.3;
+}
+.acc-sub {
+  font-size:12px;color:var(--g300);margin-top:2px;
+  display:none;
+}
+.accordion-item.done .acc-sub { display:block; }
+
+.acc-arrow {
+  width:20px;height:20px;border:1.5px solid var(--g100);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:transform .3s;font-size:10px;color:var(--g400);
+}
+.accordion-item.active .acc-arrow { transform:rotate(90deg);border-color:var(--red);color:var(--red); }
+
+.acc-body {
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(0.4,0,0.2,1);
+}
+.accordion-item.active .acc-body { max-height:9999px; }
+
+.acc-inner { padding:0 0 32px; }
+
+/* Next button */
+.acc-next {
+  display:inline-flex;align-items:center;gap:12px;
+  padding:14px 36px;
+  background:var(--black);color:var(--white);
+  font-family:var(--f);font-size:11px;
+  letter-spacing:.25em;text-transform:uppercase;
+  font-weight:700;border:none;cursor:pointer;
+  margin-top:32px;
+  transition:background .2s,transform .15s;
+}
+.acc-next:hover { background:var(--red);transform:translateY(-1px); }
+.acc-next:active { transform:translateY(0); }
+
+/* Progress dots */
+.progress-dots {
+  display:flex;align-items:center;gap:8px;
+  padding:32px 40px 0;
+  max-width:780px;margin:0 auto;
+}
+.pd {
+  height:3px;flex:1;background:var(--g100);
+  transition:background .4s;
+}
+.pd.done { background:var(--black); }
+.pd.active { background:var(--red); }
+
+/* Override intro padding */
+.intro { padding:60px 0 20px; }
+
+/* Hide old side nav — replaced by accordion nav */
+.sidenav { display:none!important; }
+
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-stripe"></div>
+  <div class="cover-meta"><p>Prepared by</p><p>Carving Dezine</p><p>2026</p></div>
+  <div class="cover-tag">Brand Discovery Questionnaire — 2026</div>
+  <div class="cover-title">BRAND<br>DIS<span>COVERY</span></div>
+  <div class="cover-sub">Vraj Shyam Group · Vraj Imperia · Vadodara</div>
+</div>
+
+<!-- PROGRESS DOTS -->
+<div class="progress-dots" id="progressDots">
+  <div class="pd active" id="pd-0"></div>
+  <div class="pd" id="pd-1"></div>
+  <div class="pd" id="pd-2"></div>
+  <div class="pd" id="pd-3"></div>
+  <div class="pd" id="pd-4"></div>
+  <div class="pd" id="pd-5"></div>
+  <div class="pd" id="pd-6"></div>
+  <div class="pd" id="pd-7"></div>
+</div>
+
+<div class="wrap">
+
+  <!-- ACCORDION 00 -->
+  <div class="accordion-item active" id="acc-0" data-index="0">
+    <div class="acc-header" onclick="toggleSection(0)">
+      <div class="acc-num"><span class="acc-num-text">00</span></div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Before You Begin</div>
+        <div class="acc-sub">How this works</div>
+      </div>
+      <div class="acc-arrow">›</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="sec-tag">00 — Before You Begin</div>
+  <div class="sec-title">A Note On<br>This Document.</div>
+  <div class="sec-note">This covers both <strong>Vraj Shyam Group</strong> (parent brand) and <strong>Vraj Imperia</strong> (project brand). Almost everything is click-based — no typing needed except for a few names and dates.</div>
+  <ul class="toc">
+    <li><span class="tc">A</span>About Vraj Shyam Group — history, reputation & assets</li>
+    <li><span class="tc">B</span>Vraj Imperia — project, buyers & market positioning</li>
+    <li><span class="tc">C</span>Brand Personality — tone, language & rejection filters</li>
+    <li><span class="tc">D</span>Competitors & Inspirations</li>
+    <li><span class="tc">E</span>Logo Design — Vraj Shyam Group & Vraj Imperia</li>
+    <li><span class="tc">F</span>Deliverables — Brochures, Signages, Stationery & Profile</li>
+    <li><span class="tc">G</span>Practical — Process & Feedback</li>
+  </ul>
+  <div class="time">Estimated time — <b>12 – 15 minutes</b></div>
+        
+      <button class="acc-next" onclick="advanceSection(0)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORDION A -->
+  <div class="accordion-item" id="acc-1" data-index="1">
+    <div class="acc-header" onclick="toggleSection(1)">
+      <div class="acc-num"><span class="acc-num-text">A</span></div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">About Vraj Shyam Group</div>
+        <div class="acc-sub">History, values & reputation</div>
+      </div>
+      <div class="acc-arrow">›</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="sec-tag">A — About Vraj Shyam Group</div>
+  <div class="sec-title">The Group.</div>
+  <div class="sec-note">Help us understand the soul behind the brand — the legacy, the people, and the direction.</div>
+
+  <div class="q">
+    <div class="q-title">A1. Year the group was founded</div>
+    <input type="text" name="a1" placeholder="e.g. 1984"/>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A2. Projects delivered so far</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="a2" value="1–10"><span class="ob"></span><span class="ot">1 – 10 projects</span></label>
+      <label class="opt"><input type="radio" name="a2" value="10–25"><span class="ob"></span><span class="ot">10 – 25 projects</span></label>
+      <label class="opt"><input type="radio" name="a2" value="25–50"><span class="ob"></span><span class="ot">25 – 50 projects</span></label>
+      <label class="opt"><input type="radio" name="a2" value="50+"><span class="ob"></span><span class="ot">50+ projects</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A3. Types of projects built (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="a3" value="Residential apartments"><span class="ob"></span><span class="ot">Residential apartments</span></label>
+      <label class="opt"><input type="checkbox" name="a3" value="Villas / bungalows"><span class="ob"></span><span class="ot">Villas / bungalows</span></label>
+      <label class="opt"><input type="checkbox" name="a3" value="Plotted developments"><span class="ob"></span><span class="ot">Plotted developments</span></label>
+      <label class="opt"><input type="checkbox" name="a3" value="Commercial / retail"><span class="ob"></span><span class="ot">Commercial / retail</span></label>
+      <label class="opt"><input type="checkbox" name="a3" value="Mixed-use"><span class="ob"></span><span class="ot">Mixed-use</span></label>
+      <label class="opt"><input type="checkbox" name="a3" value="Township"><span class="ob"></span><span class="ot">Township / large community</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A4. Core values of the group (pick up to 4)</div>
+    <div class="chips" id="cg-a4">
+      <span class="chip" data-name="a4" data-val="Trust">Trust</span>
+      <span class="chip" data-name="a4" data-val="Quality">Quality</span>
+      <span class="chip" data-name="a4" data-val="Transparency">Transparency</span>
+      <span class="chip" data-name="a4" data-val="Family">Family</span>
+      <span class="chip" data-name="a4" data-val="Community">Community</span>
+      <span class="chip" data-name="a4" data-val="Innovation">Innovation</span>
+      <span class="chip" data-name="a4" data-val="Integrity">Integrity</span>
+      <span class="chip" data-name="a4" data-val="Excellence">Excellence</span>
+      <span class="chip" data-name="a4" data-val="Heritage">Heritage</span>
+      <span class="chip" data-name="a4" data-val="Growth">Growth</span>
+    </div>
+    <div class="chip-note">Select up to 4</div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A5. Where do you see the group in 10 years?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="a5" value="Most trusted developer in Vadodara"><span class="ob"></span><span class="ot">Most trusted developer in Vadodara</span></label>
+      <label class="opt"><input type="radio" name="a5" value="Major player across Gujarat"><span class="ob"></span><span class="ot">Major player across Gujarat</span></label>
+      <label class="opt"><input type="radio" name="a5" value="National developer with pan-India presence"><span class="ob"></span><span class="ot">National developer with pan-India presence</span></label>
+      <label class="opt"><input type="radio" name="a5" value="Premium niche developer — fewer projects, higher value"><span class="ob"></span><span class="ot">Premium niche — fewer projects, higher value</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A6. What makes Vraj Shyam different?</div>
+    <div class="q-hint">One thing competitors cannot claim</div>
+    <textarea name="a6" placeholder="Type your answer..."></textarea>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A7. How do people in the market currently describe Vraj Shyam Group?</div>
+    <div class="q-hint">Pick all that feel accurate — even if it is not how you want to be seen</div>
+    <div class="chips" id="cg-a7">
+      <span class="chip" data-name="a7" data-val="Trusted">Trusted</span>
+      <span class="chip" data-name="a7" data-val="Old-school">Old-school</span>
+      <span class="chip" data-name="a7" data-val="Strong local name">Strong local name</span>
+      <span class="chip" data-name="a7" data-val="Quality-focused">Quality-focused</span>
+      <span class="chip" data-name="a7" data-val="Traditional">Traditional</span>
+      <span class="chip" data-name="a7" data-val="Premium">Premium</span>
+      <span class="chip" data-name="a7" data-val="Understated">Understated</span>
+      <span class="chip" data-name="a7" data-val="Not clearly positioned">Not clearly positioned</span>
+      <span class="chip" data-name="a7" data-val="Family-run and reliable">Family-run and reliable</span>
+      <span class="chip" data-name="a7" data-val="Good locations">Good locations</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A8. What do you want people to say after the rebrand?</div>
+    <div class="chips" id="cg-a8">
+      <span class="chip" data-name="a8" data-val="Trusted and premium">Trusted and premium</span>
+      <span class="chip" data-name="a8" data-val="Modern and ambitious">Modern and ambitious</span>
+      <span class="chip" data-name="a8" data-val="The Lodha of Baroda">The Lodha of Baroda</span>
+      <span class="chip" data-name="a8" data-val="Rooted but forward-looking">Rooted but forward-looking</span>
+      <span class="chip" data-name="a8" data-val="The most credible developer in Vadodara">Most credible in Vadodara</span>
+      <span class="chip" data-name="a8" data-val="A brand that stands for quality without compromise">Quality without compromise</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A9. Which proof points can we use in your branding and marketing?</div>
+    <div class="q-hint">Select everything that is true and that you are comfortable highlighting</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="a9" value="Years in business"><span class="ob"></span><span class="ot">Years in business</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Number of projects delivered"><span class="ob"></span><span class="ot">Number of projects delivered</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Total sq. ft. delivered"><span class="ob"></span><span class="ot">Total sq. ft. delivered</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Families served"><span class="ob"></span><span class="ot">Families served</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Commercial units sold"><span class="ob"></span><span class="ot">Commercial units sold</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Awards / recognitions"><span class="ob"></span><span class="ot">Awards / recognitions</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Landmark locations developed"><span class="ob"></span><span class="ot">Landmark locations developed</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Client testimonials"><span class="ob"></span><span class="ot">Client testimonials</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Repeat buyers and referrals"><span class="ob"></span><span class="ot">Repeat buyers / referrals</span></label>
+      <label class="opt"><input type="checkbox" name="a9" value="Media coverage"><span class="ob"></span><span class="ot">Media coverage</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A10. Do you already have any of these brand assets available?</div>
+    <div class="q-hint">This helps us understand what we can use immediately and what needs to be created</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="a10" value="Existing logo files (AI / EPS / PNG)"><span class="ob"></span><span class="ot">Existing logo files (AI / EPS / PNG)</span></label>
+      <label class="opt"><input type="checkbox" name="a10" value="Site photos"><span class="ob"></span><span class="ot">Site photos</span></label>
+      <label class="opt"><input type="checkbox" name="a10" value="Completed project photos"><span class="ob"></span><span class="ot">Completed project photos</span></label>
+      <label class="opt"><input type="checkbox" name="a10" value="Drone shots"><span class="ob"></span><span class="ot">Drone shots</span></label>
+      <label class="opt"><input type="checkbox" name="a10" value="Team / founder photos"><span class="ob"></span><span class="ot">Team / founder photos</span></label>
+      <label class="opt"><input type="checkbox" name="a10" value="Architectural renders"><span class="ob"></span><span class="ot">Architectural renders</span></label>
+      <label class="opt"><input type="checkbox" name="a10" value="Floor plans"><span class="ob"></span><span class="ot">Floor plans</span></label>
+      <label class="opt"><input type="checkbox" name="a10" value="RERA / approvals / legal docs"><span class="ob"></span><span class="ot">RERA / approvals / legal docs</span></label>
+      <label class="opt"><input type="checkbox" name="a10" value="None — scattered or unavailable"><span class="ob"></span><span class="ot">None — scattered or unavailable</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A11. How should future project names relate to Vraj Shyam Group?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="a11" value="Every project should clearly carry the Vraj Shyam name"><span class="ob"></span><span class="ot">Every project should clearly carry the Vraj Shyam name</span></label>
+      <label class="opt"><input type="radio" name="a11" value="Projects can have independent names but show by Vraj Shyam Group"><span class="ob"></span><span class="ot">Projects can have their own names, but always show "by Vraj Shyam Group" beneath</span></label>
+      <label class="opt"><input type="radio" name="a11" value="We want a consistent naming pattern for all future launches"><span class="ob"></span><span class="ot">We want a consistent naming pattern for all future launches</span></label>
+      <label class="opt"><input type="radio" name="a11" value="Open to brand strategist recommendation"><span class="ob"></span><span class="ot">Open to the designer / brand strategist's recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">A12. Which naming style feels right for future projects?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="a12" value="Mostly Vraj + descriptor (e.g. Vraj Imperia, Vraj Heights)"><span class="ob"></span><span class="ot">Mostly Vraj + [name] — e.g. Vraj Imperia, Vraj Heights, Vraj Residences</span></label>
+      <label class="opt"><input type="radio" name="a12" value="Mostly Shyam + descriptor (e.g. Shyam Aura, Shyam Elite)"><span class="ob"></span><span class="ot">Mostly Shyam + [name] — e.g. Shyam Aura, Shyam Elite, Shyam Gardens</span></label>
+      <label class="opt"><input type="radio" name="a12" value="A mix of Vraj / Shyam / standalone names"><span class="ob"></span><span class="ot">A mix — sometimes Vraj, sometimes Shyam, sometimes a standalone name</span></label>
+      <label class="opt"><input type="radio" name="a12" value="No fixed pattern yet — open to recommendation"><span class="ob"></span><span class="ot">No fixed pattern yet — open to recommendation</span></label>
+    </div>
+  </div>
+        
+      <button class="acc-next" onclick="advanceSection(1)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORDION B -->
+  <div class="accordion-item" id="acc-2" data-index="2">
+    <div class="acc-header" onclick="toggleSection(2)">
+      <div class="acc-num"><span class="acc-num-text">B</span></div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Vraj Imperia</div>
+        <div class="acc-sub">Project, buyers & positioning</div>
+      </div>
+      <div class="acc-arrow">›</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="sec-tag">B — Vraj Imperia</div>
+  <div class="sec-title">The Project.</div>
+  <div class="sec-note">Vraj Imperia will have its own brand identity — distinct from the group but endorsed by it.</div>
+
+  <div class="q">
+    <div class="q-title">B1. Type of development</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="b1" value="Residential apartments"><span class="ob"></span><span class="ot">Residential apartments</span></label>
+      <label class="opt"><input type="radio" name="b1" value="Villas / bungalows"><span class="ob"></span><span class="ot">Villas / bungalows</span></label>
+      <label class="opt"><input type="radio" name="b1" value="Plotted development"><span class="ob"></span><span class="ot">Plotted development</span></label>
+      <label class="opt"><input type="radio" name="b1" value="Retail shops / showrooms"><span class="ob"></span><span class="ot">Retail shops / showrooms</span></label>
+      <label class="opt"><input type="radio" name="b1" value="Office spaces"><span class="ob"></span><span class="ot">Office spaces</span></label>
+      <label class="opt"><input type="radio" name="b1" value="Mixed — retail + office"><span class="ob"></span><span class="ot">Mixed — retail + office</span></label>
+      <label class="opt"><input type="radio" name="b1" value="Mixed — residential + commercial"><span class="ob"></span><span class="ot">Mixed — residential + commercial</span></label>
+      <label class="opt"><input type="radio" name="b1" value="Mall-type with multiple brands"><span class="ob"></span><span class="ot">Mall-type with multiple brands</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B2. Location</div>
+    <div class="two">
+      <div><div class="fl">Area / Road</div><input type="text" name="b2_area" placeholder="e.g. Waghodia Road"/></div>
+      <div><div class="fl">Nearest Landmark</div><input type="text" name="b2_lm" placeholder="e.g. Near Inorbit Mall"/></div>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B3. Project size</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="b3_size" value="Under 50,000 sq ft"><span class="ob"></span><span class="ot">Under 50,000 sq ft</span></label>
+      <label class="opt"><input type="radio" name="b3_size" value="50,000–1,00,000 sq ft"><span class="ob"></span><span class="ot">50,000 – 1,00,000 sq ft</span></label>
+      <label class="opt"><input type="radio" name="b3_size" value="1,00,000–2,00,000 sq ft"><span class="ob"></span><span class="ot">1,00,000 – 2,00,000 sq ft</span></label>
+      <label class="opt"><input type="radio" name="b3_size" value="Above 2,00,000 sq ft"><span class="ob"></span><span class="ot">Above 2,00,000 sq ft</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B4. Primary target buyer / tenant</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="b4" value="Local Vadodara businesses"><span class="ob"></span><span class="ot">Local Vadodara businesses looking to own space</span></label>
+      <label class="opt"><input type="radio" name="b4" value="National retail brands / franchises"><span class="ob"></span><span class="ot">National retail brands / franchises</span></label>
+      <label class="opt"><input type="radio" name="b4" value="Investors for rental income"><span class="ob"></span><span class="ot">Investors buying for rental income</span></label>
+      <label class="opt"><input type="radio" name="b4" value="Mix of all"><span class="ob"></span><span class="ot">A mix of all the above</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B5. Approximate ticket size</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="b5" value="Under ₹50 Lakhs"><span class="ob"></span><span class="ot">Under ₹50 Lakhs</span></label>
+      <label class="opt"><input type="radio" name="b5" value="₹50L – ₹1 Crore"><span class="ob"></span><span class="ot">₹50L – ₹1 Crore</span></label>
+      <label class="opt"><input type="radio" name="b5" value="₹1 Crore – ₹2 Crore"><span class="ob"></span><span class="ot">₹1 Crore – ₹2 Crore</span></label>
+      <label class="opt"><input type="radio" name="b5" value="Above ₹2 Crore"><span class="ob"></span><span class="ot">Above ₹2 Crore</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B6. What makes Vraj Imperia stand out? (select all that apply)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="b6" value="Prime location / high footfall"><span class="ob"></span><span class="ot">Prime location / high footfall area</span></label>
+      <label class="opt"><input type="checkbox" name="b6" value="Superior design and architecture"><span class="ob"></span><span class="ot">Superior design and architecture</span></label>
+      <label class="opt"><input type="checkbox" name="b6" value="Developer trust — 40 years of Vraj Shyam legacy"><span class="ob"></span><span class="ot">Developer trust — 40 years of Vraj Shyam legacy</span></label>
+      <label class="opt"><input type="checkbox" name="b6" value="Best investment / rental yield in the area"><span class="ob"></span><span class="ot">Best investment / rental yield in the area</span></label>
+      <label class="opt"><input type="checkbox" name="b6" value="Road / highway / transit connectivity"><span class="ob"></span><span class="ot">Road / highway / transit connectivity</span></label>
+      <label class="opt"><input type="checkbox" name="b6" value="Modern facilities and amenities"><span class="ob"></span><span class="ot">Modern facilities and amenities</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B7. Expected timeline</div>
+    <div class="two">
+      <div><div class="fl">Launch / Booking Open</div><input type="text" name="b7_launch" placeholder="e.g. July 2026"/></div>
+      <div><div class="fl">Possession / Completion</div><input type="text" name="b7_pos" placeholder="e.g. Dec 2028"/></div>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B8. Who is the most likely primary buyer for Vraj Imperia?</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="b8" value="Established local business owners"><span class="ob"></span><span class="ot">Established local business owners</span></label>
+      <label class="opt"><input type="radio" name="b8" value="First-time commercial investors"><span class="ob"></span><span class="ot">First-time commercial investors</span></label>
+      <label class="opt"><input type="radio" name="b8" value="HNI / premium investors"><span class="ob"></span><span class="ot">HNI / premium investors</span></label>
+      <label class="opt"><input type="radio" name="b8" value="Franchise / branded retail operators"><span class="ob"></span><span class="ot">Franchise / branded retail operators</span></label>
+      <label class="opt"><input type="radio" name="b8" value="Doctors / professionals / consultants"><span class="ob"></span><span class="ot">Doctors / professionals / consultants</span></label>
+      <label class="opt"><input type="radio" name="b8" value="A mix of the above"><span class="ob"></span><span class="ot">A mix of the above</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B9. What matters most to this buyer? (pick top 3)</div>
+    <div class="chips" id="cg-b9">
+      <span class="chip" data-name="b9" data-val="Visibility">Visibility</span>
+      <span class="chip" data-name="b9" data-val="Prestige">Prestige</span>
+      <span class="chip" data-name="b9" data-val="Footfall">Footfall</span>
+      <span class="chip" data-name="b9" data-val="Rental return">Rental return</span>
+      <span class="chip" data-name="b9" data-val="Appreciation">Appreciation</span>
+      <span class="chip" data-name="b9" data-val="Location">Location</span>
+      <span class="chip" data-name="b9" data-val="Brand trust">Brand trust</span>
+      <span class="chip" data-name="b9" data-val="Architecture">Architecture</span>
+      <span class="chip" data-name="b9" data-val="Easy financing">Easy financing</span>
+      <span class="chip" data-name="b9" data-val="Future growth of area">Future growth of area</span>
+    </div>
+    <div class="chip-note">Select top 3</div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B10. Where should Vraj Imperia sit in the market?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="b10" value="Value-for-money"><span class="ob"></span><span class="ot">Value-for-money — good quality at a competitive price</span></label>
+      <label class="opt"><input type="radio" name="b10" value="Upper-mid premium"><span class="ob"></span><span class="ot">Upper-mid premium — above average, not top of market</span></label>
+      <label class="opt"><input type="radio" name="b10" value="Premium"><span class="ob"></span><span class="ot">Premium — one of the better options in the city</span></label>
+      <label class="opt"><input type="radio" name="b10" value="Luxury / landmark category"><span class="ob"></span><span class="ot">Luxury / landmark — a project people will talk about for years</span></label>
+      <label class="opt"><input type="radio" name="b10" value="Best-in-class for this location"><span class="ob"></span><span class="ot">Best-in-class for this specific location — the obvious choice here</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B11. Compared to nearby competitors, Vraj Imperia should feel: (select all that apply)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="b11" value="More premium"><span class="ob"></span><span class="ot">More premium</span></label>
+      <label class="opt"><input type="checkbox" name="b11" value="More modern"><span class="ob"></span><span class="ot">More modern</span></label>
+      <label class="opt"><input type="checkbox" name="b11" value="More trustworthy"><span class="ob"></span><span class="ot">More trustworthy</span></label>
+      <label class="opt"><input type="checkbox" name="b11" value="More investment-worthy"><span class="ob"></span><span class="ot">More investment-worthy</span></label>
+      <label class="opt"><input type="checkbox" name="b11" value="More architecturally impressive"><span class="ob"></span><span class="ot">More architecturally impressive</span></label>
+      <label class="opt"><input type="checkbox" name="b11" value="More approachable"><span class="ob"></span><span class="ot">More approachable / accessible</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">B12. If someone remembers only one thing about Vraj Imperia, what should it be?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="b12" value="Prime location"><span class="ob"></span><span class="ot">Prime location — it is in the best spot</span></label>
+      <label class="opt"><input type="radio" name="b12" value="Premium address"><span class="ob"></span><span class="ot">Premium address — associated with success and prestige</span></label>
+      <label class="opt"><input type="radio" name="b12" value="Smart investment"><span class="ob"></span><span class="ot">Smart investment — this will grow in value</span></label>
+      <label class="opt"><input type="radio" name="b12" value="Trusted developer behind it"><span class="ob"></span><span class="ot">Trusted developer — Vraj Shyam Group stands behind it</span></label>
+      <label class="opt"><input type="radio" name="b12" value="Future commercial landmark"><span class="ob"></span><span class="ot">Future landmark — this will define the area</span></label>
+      <label class="opt"><input type="radio" name="b12" value="Best-in-class design"><span class="ob"></span><span class="ot">Best-in-class design — looks better than anything else nearby</span></label>
+    </div>
+  </div>
+        
+      <button class="acc-next" onclick="advanceSection(2)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORDION C -->
+  <div class="accordion-item" id="acc-3" data-index="3">
+    <div class="acc-header" onclick="toggleSection(3)">
+      <div class="acc-num"><span class="acc-num-text">C</span></div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Brand Personality</div>
+        <div class="acc-sub">Tone, language & direction</div>
+      </div>
+      <div class="acc-arrow">›</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="sec-tag">C — Brand Personality</div>
+  <div class="sec-title">The Feeling.</div>
+  <div class="sec-note">This shapes everything — the logo, colours, typography, and tone of all communication.</div>
+
+  <div class="q">
+    <div class="q-title">C1. If Vraj Shyam Group were a person</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="c1" value="The wise elder — trusted, experienced, calm"><span class="ob"></span><span class="ot">The wise elder — trusted, experienced, calm</span></label>
+      <label class="opt"><input type="radio" name="c1" value="The ambitious builder — driven, forward-looking"><span class="ob"></span><span class="ot">The ambitious builder — driven, forward-looking</span></label>
+      <label class="opt"><input type="radio" name="c1" value="The spiritual guide — rooted in culture and values"><span class="ob"></span><span class="ot">The spiritual guide — rooted in culture and values</span></label>
+      <label class="opt"><input type="radio" name="c1" value="The modern professional — sharp, contemporary"><span class="ob"></span><span class="ot">The modern professional — sharp, contemporary</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">C2. Words that define Vraj Shyam Group (pick up to 5)</div>
+    <div class="chips" id="cg-c2">
+      <span class="chip" data-name="c2" data-val="Trustworthy">Trustworthy</span>
+      <span class="chip" data-name="c2" data-val="Premium">Premium</span>
+      <span class="chip" data-name="c2" data-val="Timeless">Timeless</span>
+      <span class="chip" data-name="c2" data-val="Modern">Modern</span>
+      <span class="chip" data-name="c2" data-val="Warm">Warm</span>
+      <span class="chip" data-name="c2" data-val="Bold">Bold</span>
+      <span class="chip" data-name="c2" data-val="Elegant">Elegant</span>
+      <span class="chip" data-name="c2" data-val="Grounded">Grounded</span>
+      <span class="chip" data-name="c2" data-val="Innovative">Innovative</span>
+      <span class="chip" data-name="c2" data-val="Spiritual">Spiritual</span>
+      <span class="chip" data-name="c2" data-val="Ambitious">Ambitious</span>
+      <span class="chip" data-name="c2" data-val="Community-first">Community-first</span>
+      <span class="chip" data-name="c2" data-val="Legacy">Legacy</span>
+      <span class="chip" data-name="c2" data-val="Luxurious">Luxurious</span>
+    </div>
+    <div class="chip-note">Select up to 5</div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">C3. Words that define Vraj Imperia (pick up to 5)</div>
+    <div class="chips" id="cg-c3">
+      <span class="chip" data-name="c3" data-val="Prestigious">Prestigious</span>
+      <span class="chip" data-name="c3" data-val="Vibrant">Vibrant</span>
+      <span class="chip" data-name="c3" data-val="Prime Location">Prime Location</span>
+      <span class="chip" data-name="c3" data-val="Modern">Modern</span>
+      <span class="chip" data-name="c3" data-val="High-Visibility">High-Visibility</span>
+      <span class="chip" data-name="c3" data-val="Investment-Grade">Investment-Grade</span>
+      <span class="chip" data-name="c3" data-val="Aspirational">Aspirational</span>
+      <span class="chip" data-name="c3" data-val="Urban">Urban</span>
+      <span class="chip" data-name="c3" data-val="Exclusive">Exclusive</span>
+      <span class="chip" data-name="c3" data-val="Future-Ready">Future-Ready</span>
+      <span class="chip" data-name="c3" data-val="Landmark">Landmark</span>
+      <span class="chip" data-name="c3" data-val="Commercial Hub">Commercial Hub</span>
+    </div>
+    <div class="chip-note">Select up to 5</div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">C4. The Krishna connection — how prominently in the logo?</div>
+    <div class="q-hint">Vraj = land of Krishna · Shyam = name of Krishna</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="c4" value="Prominently — visible Krishna symbol (feather, flute, figure)"><span class="ob"></span><span class="ot">Prominently — visible symbol (peacock feather, flute, figure)</span></label>
+      <label class="opt"><input type="radio" name="c4" value="Subtly — hidden in geometry, not immediately obvious"><span class="ob"></span><span class="ot">Subtly — hidden in geometry, not immediately obvious</span></label>
+      <label class="opt"><input type="radio" name="c4" value="In the name only — logo itself should be clean and corporate"><span class="ob"></span><span class="ot">In the name only — logo itself should be clean and corporate</span></label>
+      <label class="opt"><input type="radio" name="c4" value="Open to designer recommendation"><span class="ob"></span><span class="ot">Open to designer's recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">C5. Colour direction for Vraj Shyam Group</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="c5" value="Deep navy + gold"><span class="ob"></span><span class="ot">Deep navy + gold — premium, trustworthy, timeless</span></label>
+      <label class="opt"><input type="radio" name="c5" value="Black + gold"><span class="ob"></span><span class="ot">Black + gold — ultra luxury, bold, sophisticated</span></label>
+      <label class="opt"><input type="radio" name="c5" value="Earthy tones"><span class="ob"></span><span class="ot">Earthy tones — warm, grounded, culturally rooted</span></label>
+      <label class="opt"><input type="radio" name="c5" value="White + navy"><span class="ob"></span><span class="ot">White + navy — clean, modern, professional</span></label>
+      <label class="opt"><input type="radio" name="c5" value="Open to recommendation"><span class="ob"></span><span class="ot">Open to designer's recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">C6. How modern vs traditional should the brand feel?</div>
+    <div class="scale">
+      <span class="scale-l">Very<br>Traditional</span>
+      <div class="scale-opts">
+        <label class="sc"><input type="radio" name="c6" value="1"><span class="sc-c">1</span></label>
+        <label class="sc"><input type="radio" name="c6" value="2"><span class="sc-c">2</span></label>
+        <label class="sc"><input type="radio" name="c6" value="3"><span class="sc-c">3</span></label>
+        <label class="sc"><input type="radio" name="c6" value="4"><span class="sc-c">4</span></label>
+        <label class="sc"><input type="radio" name="c6" value="5"><span class="sc-c">5</span></label>
+      </div>
+      <span class="scale-r">Very<br>Modern</span>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">C7. How should the brand speak in marketing?</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="c7" value="Formal and corporate"><span class="ob"></span><span class="ot">Formal and corporate</span></label>
+      <label class="opt"><input type="radio" name="c7" value="Premium and aspirational"><span class="ob"></span><span class="ot">Premium and aspirational</span></label>
+      <label class="opt"><input type="radio" name="c7" value="Warm and trustworthy"><span class="ob"></span><span class="ot">Warm and trustworthy</span></label>
+      <label class="opt"><input type="radio" name="c7" value="Bold and sales-driven"><span class="ob"></span><span class="ot">Bold and sales-driven</span></label>
+      <label class="opt"><input type="radio" name="c7" value="Spiritual / rooted but modern"><span class="ob"></span><span class="ot">Spiritual / rooted but modern</span></label>
+      <label class="opt"><input type="radio" name="c7" value="Minimal and sophisticated"><span class="ob"></span><span class="ot">Minimal and sophisticated</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">C8. Which language will dominate your marketing?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="c8" value="Mostly English"><span class="ob"></span><span class="ot">Mostly English</span></label>
+      <label class="opt"><input type="radio" name="c8" value="English + Gujarati equally"><span class="ob"></span><span class="ot">English + Gujarati equally</span></label>
+      <label class="opt"><input type="radio" name="c8" value="Gujarati-first"><span class="ob"></span><span class="ot">Gujarati-first — most buyers communicate in Gujarati</span></label>
+      <label class="opt"><input type="radio" name="c8" value="Hindi + English"><span class="ob"></span><span class="ot">Hindi + English</span></label>
+      <label class="opt"><input type="radio" name="c8" value="Depends on platform"><span class="ob"></span><span class="ot">Depends on the platform — different for hoardings vs social media</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">C9. What would make you reject a logo immediately?</div>
+    <div class="q-hint">Select everything that would be a dealbreaker for you</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="c9" value="Looks too common / generic"><span class="ob"></span><span class="ot">Looks too common / generic</span></label>
+      <label class="opt"><input type="checkbox" name="c9" value="Looks too religious or temple-like"><span class="ob"></span><span class="ot">Looks too religious or temple-like</span></label>
+      <label class="opt"><input type="checkbox" name="c9" value="Looks too modern or cold"><span class="ob"></span><span class="ot">Looks too modern or cold</span></label>
+      <label class="opt"><input type="checkbox" name="c9" value="Looks too local or small-town"><span class="ob"></span><span class="ot">Looks too local or small-town</span></label>
+      <label class="opt"><input type="checkbox" name="c9" value="Looks too luxury or unrelatable"><span class="ob"></span><span class="ot">Looks too luxury / out of reach for our buyers</span></label>
+      <label class="opt"><input type="checkbox" name="c9" value="Hard to read or remember"><span class="ob"></span><span class="ot">Hard to read or remember</span></label>
+      <label class="opt"><input type="checkbox" name="c9" value="Does not feel trustworthy"><span class="ob"></span><span class="ot">Does not feel trustworthy</span></label>
+      <label class="opt"><input type="checkbox" name="c9" value="Looks like a competitor"><span class="ob"></span><span class="ot">Looks like a competitor</span></label>
+    </div>
+  </div>
+        
+      <button class="acc-next" onclick="advanceSection(3)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORDION D -->
+  <div class="accordion-item" id="acc-4" data-index="4">
+    <div class="acc-header" onclick="toggleSection(4)">
+      <div class="acc-num"><span class="acc-num-text">D</span></div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Competitors & Inspirations</div>
+        <div class="acc-sub">Who you admire & who you're not</div>
+      </div>
+      <div class="acc-arrow">›</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="sec-tag">D — Competitors & Inspirations</div>
+  <div class="sec-title">The Market.</div>
+  <div class="sec-note">Understanding who you admire — and who you compete with — is essential.</div>
+
+  <div class="q">
+    <div class="q-title">D1. Which national real estate developer do you admire the most, and why?</div>
+    <div class="q-hint">e.g. Lodha Group — because of their premium branding and quality of construction</div>
+    <textarea name="d1" placeholder="Name the developer and what you like about them..."></textarea>
+  </div>
+
+  <div class="q">
+    <div class="q-title">D2. Which developer in Gujarat or Vadodara do you admire, and why?</div>
+    <div class="q-hint">Could be anyone local — name them and what they do well</div>
+    <textarea name="d2" placeholder="Name the developer and what you like about them..."></textarea>
+  </div>
+
+  <div class="q">
+    <div class="q-title">D3. What should the brand NOT feel like? (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="d3" value="Too traditional / temple-like"><span class="ob"></span><span class="ot">Too traditional / temple-like</span></label>
+      <label class="opt"><input type="checkbox" name="d3" value="Too cold and corporate"><span class="ob"></span><span class="ot">Too cold and corporate</span></label>
+      <label class="opt"><input type="checkbox" name="d3" value="Cheap / generic looking"><span class="ob"></span><span class="ot">Cheap / generic looking</span></label>
+      <label class="opt"><input type="checkbox" name="d3" value="Flashy / over-the-top"><span class="ob"></span><span class="ot">Flashy / over-the-top</span></label>
+      <label class="opt"><input type="checkbox" name="d3" value="Too religious / devotional"><span class="ob"></span><span class="ot">Too religious / devotional</span></label>
+      <label class="opt"><input type="checkbox" name="d3" value="Too local / small-town feeling"><span class="ob"></span><span class="ot">Too local / small-town feeling</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">D4. Is there a project or commercial development anywhere in India that you look at and think — "this is the kind of quality and feel we want for Vraj Imperia"?</div>
+    <div class="q-hint">Could be a mall, a business park, a commercial complex — anywhere in India</div>
+    <textarea name="d4" placeholder="Name the project and what you like about it..."></textarea>
+  </div>
+        
+      <button class="acc-next" onclick="advanceSection(4)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORDION E -->
+  <div class="accordion-item" id="acc-5" data-index="5">
+    <div class="acc-header" onclick="toggleSection(5)">
+      <div class="acc-num"><span class="acc-num-text">E</span></div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Logo Design</div>
+        <div class="acc-sub">Group logo & Imperia logo</div>
+      </div>
+      <div class="acc-arrow">›</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="sec-tag">E — Logo Design</div>
+  <div class="sec-title">The Logo.</div>
+  <div class="sec-note">We are designing two logos — one for <strong>Vraj Shyam Group</strong> (the parent company) and one for <strong>Vraj Imperia</strong> (the project). Help us understand what you have in mind for each.</div>
+
+  <!-- ── GROUP LOGO ─────────────────────────────────────────── -->
+  <div class="sub-hd first">E1 — Vraj Shyam Group Logo</div>
+  <div class="sub-desc">This is the main company logo — it will appear on all documents, visiting cards, signages, and alongside every project.</div>
+
+  <div class="q">
+    <div class="q-title">What kind of logo do you want for Vraj Shyam Group?</div>
+    <div class="q-hint">Click the option that feels right — the examples below show you what each means</div>
+    <div class="vis-grid">
+
+      <label class="vis-card">
+        <input type="radio" name="lg1_type" value="Just the name — company name in a special custom style, no icon">
+        <div class="vis-preview" style="background:#0B1F3A;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#C9A84C" letter-spacing="3">VRAJ SHYAM</text>
+            <text x="130" y="56" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(201,168,76,0.65)" letter-spacing="6">GROUP</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Just the Name</div>
+          <div class="vis-desc">Company name in a specially designed style — clean and no icon</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg1_type" value="Name + symbol or icon beside it">
+        <div class="vis-preview" style="background:#0B1F3A;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="46" cy="40" rx="14" ry="20" fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+            <line x1="46" y1="20" x2="46" y2="60" stroke="#C9A84C" stroke-width="1"/>
+            <line x1="32" y1="40" x2="60" y2="40" stroke="#C9A84C" stroke-width="1"/>
+            <text x="158" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#C9A84C" letter-spacing="2">VRAJ SHYAM</text>
+            <text x="158" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(201,168,76,0.65)" letter-spacing="5">GROUP</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Name + Symbol</div>
+          <div class="vis-desc">Company name alongside a unique icon or graphic mark</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg1_type" value="Initials VS as a unique styled mark with name below">
+        <div class="vis-preview" style="background:#0B1F3A;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="90,15 110,15 100,35" fill="none" stroke="#C9A84C" stroke-width="2"/>
+            <text x="100" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="900" fill="#C9A84C" letter-spacing="1">VS</text>
+            <text x="180" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="600" fill="#C9A84C" letter-spacing="2">VRAJ SHYAM</text>
+            <text x="180" y="52" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="300" fill="rgba(201,168,76,0.6)" letter-spacing="5">GROUP</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Initials "VS"</div>
+          <div class="vis-desc">"VS" designed as a strong unique mark — name sits alongside or below</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg1_type" value="Open to designer recommendation">
+        <div class="vis-label" style="padding:22px 20px;"><span class="vis-rb"></span><div>
+          <div class="vis-name">Not Sure — Open to Recommendation</div>
+          <div class="vis-desc">Let the designer propose the best direction</div>
+        </div></div>
+      </label>
+
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">What style of lettering feels right for Vraj Shyam Group?</div>
+    <div class="q-hint">All four examples below show the same name — only the lettering style is different</div>
+    <div class="vis-grid">
+
+      <label class="vis-card">
+        <input type="radio" name="lg1_font" value="Thin and elegant">
+        <div class="vis-preview" style="background:#0B1F3A;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="300" fill="#C9A84C" letter-spacing="6">VRAJ SHYAM</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="300" fill="rgba(201,168,76,0.6)" letter-spacing="9">GROUP</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Thin &amp; Elegant</div>
+          <div class="vis-desc">Light, airy — like a luxury hotel or high-end brand</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg1_font" value="Strong and bold">
+        <div class="vis-preview" style="background:#0B1F3A;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="38" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="900" fill="#C9A84C" letter-spacing="2">VRAJ SHYAM</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="900" fill="rgba(201,168,76,0.7)" letter-spacing="5">GROUP</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Strong &amp; Bold</div>
+          <div class="vis-desc">Heavy, commanding — confident and authoritative</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg1_font" value="Classic serif">
+        <div class="vis-preview" style="background:#0B1F3A;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="17" font-weight="700" fill="#C9A84C" letter-spacing="3">VRAJ SHYAM</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Georgia,serif" font-size="9" font-weight="400" fill="rgba(201,168,76,0.65)" letter-spacing="6">GROUP</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Classic Serif</div>
+          <div class="vis-desc">Letters with small decorative feet — established, trustworthy</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg1_font" value="Clean and modern">
+        <div class="vis-preview" style="background:#0B1F3A;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="500" fill="#C9A84C" letter-spacing="5">VRAJ SHYAM</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="400" fill="rgba(201,168,76,0.6)" letter-spacing="8">GROUP</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Clean &amp; Modern</div>
+          <div class="vis-desc">Simple, no decorative details — very contemporary</div>
+        </div></div>
+      </label>
+
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Should the Vraj Shyam Group logo include a reference to Lord Krishna?</div>
+    <div class="q-hint">Vraj means the land of Krishna. Shyam is a name for Krishna.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="lg1_krishna" value="Yes — clearly visible (peacock feather, flute, or stylised figure)"><span class="ob"></span><span class="ot">Yes — show it clearly. Something recognisable like a peacock feather, flute, or a stylised figure.</span></label>
+      <label class="opt"><input type="radio" name="lg1_krishna" value="Yes — very subtle, hidden cleverly in the design"><span class="ob"></span><span class="ot">Yes — but very subtle. Hidden cleverly so only those who look closely will notice.</span></label>
+      <label class="opt"><input type="radio" name="lg1_krishna" value="No — keep the logo fully modern and professional"><span class="ob"></span><span class="ot">No — keep the logo fully modern and professional. The name itself carries the meaning.</span></label>
+      <label class="opt"><input type="radio" name="lg1_krishna" value="Open to designer recommendation"><span class="ob"></span><span class="ot">Not sure — open to the designer's recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">What tone should the Vraj Shyam Group logo give?</div>
+    <div class="q-hint">How should someone feel the moment they see it?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="lg1_tone" value="Trust and reliability — this company has been here for decades"><span class="ob"></span><span class="ot">Trust and reliability — "this company has been here for decades and will be here for decades more"</span></label>
+      <label class="opt"><input type="radio" name="lg1_tone" value="Premium and aspirational — associated with quality and success"><span class="ob"></span><span class="ot">Premium and aspirational — "this is a brand associated with quality and success"</span></label>
+      <label class="opt"><input type="radio" name="lg1_tone" value="Rooted and cultural — proudly Indian, proud of values and heritage"><span class="ob"></span><span class="ot">Rooted and cultural — "proudly Indian, proud of its values and heritage"</span></label>
+      <label class="opt"><input type="radio" name="lg1_tone" value="Modern and forward-looking — a developer thinking about the future"><span class="ob"></span><span class="ot">Modern and forward-looking — "a developer thinking about the future"</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Is there any existing logo or brand whose style you admire and would want Vraj Shyam Group to feel similar to?</div>
+    <div class="q-hint">Can be any company — real estate, hotel, fashion — just name it and say what you like about it</div>
+    <textarea name="lg1_ref" placeholder="e.g. Taj Hotels — because it looks classic and premium. Or Lodha Group — clean and corporate."></textarea>
+  </div>
+
+  <!-- ── IMPERIA LOGO ──────────────────────────────────────── -->
+  <div class="sub-hd">E2 — Vraj Imperia Logo</div>
+  <div class="sub-desc">This is the project logo — it will appear on the brochure, signages, and all marketing for Vraj Imperia. It should feel distinct from the group logo but clearly from the same family.</div>
+
+  <div class="q">
+    <div class="q-title">What kind of logo do you want for Vraj Imperia?</div>
+    <div class="q-hint">Click the option that feels right — the examples below show you what each means</div>
+    <div class="vis-grid">
+
+      <label class="vis-card">
+        <input type="radio" name="lg2_type" value="Just the name — project name in a special custom style, no icon">
+        <div class="vis-preview" style="background:#fff;border-bottom:1px solid #eee;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#0B1F3A" letter-spacing="3">VRAJ</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="400" fill="#0B1F3A" letter-spacing="7">IMPERIA</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Just the Name</div>
+          <div class="vis-desc">Project name in a specially designed style — clean, no icon</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg2_type" value="Name + symbol or geometric mark beside it">
+        <div class="vis-preview" style="background:#fff;border-bottom:1px solid #eee;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <rect x="28" y="18" width="44" height="44" fill="none" stroke="#0B1F3A" stroke-width="1.5"/>
+            <line x1="28" y1="40" x2="72" y2="40" stroke="#0B1F3A" stroke-width="1"/>
+            <line x1="50" y1="18" x2="50" y2="62" stroke="#0B1F3A" stroke-width="1"/>
+            <text x="162" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#0B1F3A" letter-spacing="2">VRAJ</text>
+            <text x="162" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="400" fill="#555" letter-spacing="5">IMPERIA</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Name + Symbol</div>
+          <div class="vis-desc">Project name alongside a unique icon or geometric mark</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg2_type" value="Initials VI as a strong mark with name below">
+        <div class="vis-preview" style="background:#fff;border-bottom:1px solid #eee;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <rect x="90" y="10" width="80" height="46" rx="2" fill="none" stroke="#0B1F3A" stroke-width="1.5"/>
+            <text x="130" y="42" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="900" fill="#0B1F3A" letter-spacing="2">VI</text>
+            <text x="130" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="400" fill="#888" letter-spacing="6">VRAJ IMPERIA</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Initials "VI"</div>
+          <div class="vis-desc">"VI" as a strong badge or emblem — full name sits below</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg2_type" value="Open to designer recommendation">
+        <div class="vis-label" style="padding:22px 20px;"><span class="vis-rb"></span><div>
+          <div class="vis-name">Not Sure — Open to Recommendation</div>
+          <div class="vis-desc">Let the designer propose the best direction</div>
+        </div></div>
+      </label>
+
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">What style of lettering feels right for Vraj Imperia?</div>
+    <div class="q-hint">All four examples below show the same name — only the lettering style is different</div>
+    <div class="vis-grid">
+
+      <label class="vis-card">
+        <input type="radio" name="lg2_font" value="Thin and elegant">
+        <div class="vis-preview" style="background:#fff;border-bottom:1px solid #eee;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="300" fill="#0B1F3A" letter-spacing="5">VRAJ</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="300" fill="#555" letter-spacing="9">IMPERIA</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Thin &amp; Elegant</div>
+          <div class="vis-desc">Light, airy — like a luxury hotel or high-end brand</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg2_font" value="Strong and bold">
+        <div class="vis-preview" style="background:#fff;border-bottom:1px solid #eee;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="900" fill="#0B1F3A" letter-spacing="1">VRAJ</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="#0B1F3A" letter-spacing="4">IMPERIA</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Strong &amp; Bold</div>
+          <div class="vis-desc">Heavy, commanding — confident and authoritative</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg2_font" value="Classic serif">
+        <div class="vis-preview" style="background:#fff;border-bottom:1px solid #eee;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="34" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#0B1F3A" letter-spacing="3">VRAJ</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Georgia,serif" font-size="10" font-weight="400" fill="#555" letter-spacing="6">IMPERIA</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Classic Serif</div>
+          <div class="vis-desc">Letters with small decorative feet — established, trustworthy</div>
+        </div></div>
+      </label>
+
+      <label class="vis-card">
+        <input type="radio" name="lg2_font" value="Clean and modern">
+        <div class="vis-preview" style="background:#fff;border-bottom:1px solid #eee;">
+          <svg viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg">
+            <text x="130" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="500" fill="#0B1F3A" letter-spacing="6">VRAJ</text>
+            <text x="130" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="400" fill="#555" letter-spacing="8">IMPERIA</text>
+          </svg>
+        </div>
+        <div class="vis-label"><span class="vis-rb"></span><div>
+          <div class="vis-name">Clean &amp; Modern</div>
+          <div class="vis-desc">Simple, no decorative details — very contemporary</div>
+        </div></div>
+      </label>
+
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">What tone should the Vraj Imperia logo give?</div>
+    <div class="q-hint">How should someone feel the moment they see it on a signage or brochure?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="lg2_tone" value="Premium and exclusive — a high-end address, not for everyone"><span class="ob"></span><span class="ot">Premium and exclusive — "this is a high-end address, not for everyone"</span></label>
+      <label class="opt"><input type="radio" name="lg2_tone" value="Modern and ambitious — a bold commercial destination for the future"><span class="ob"></span><span class="ot">Modern and ambitious — "a bold commercial destination built for the future"</span></label>
+      <label class="opt"><input type="radio" name="lg2_tone" value="Trustworthy and solid — backed by a developer with proven track record"><span class="ob"></span><span class="ot">Trustworthy and solid — "backed by a developer with a proven track record"</span></label>
+      <label class="opt"><input type="radio" name="lg2_tone" value="Vibrant and energetic — a place where business and opportunity meet"><span class="ob"></span><span class="ot">Vibrant and energetic — "a place where business and opportunity meet"</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Is there any logo or brand whose style you like and would want Vraj Imperia to feel similar to?</div>
+    <div class="q-hint">Can be a mall, a hotel, a business park, any brand — name it and say what you like</div>
+    <textarea name="lg2_ref" placeholder="e.g. World Trade Center logo — looks corporate and prestigious. Or One BKC — clean and modern."></textarea>
+  </div>
+        
+      <button class="acc-next" onclick="advanceSection(5)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORDION F -->
+  <div class="accordion-item" id="acc-6" data-index="6">
+    <div class="acc-header" onclick="toggleSection(6)">
+      <div class="acc-num"><span class="acc-num-text">F</span></div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Deliverables</div>
+        <div class="acc-sub">Brochures, signages & stationery</div>
+      </div>
+      <div class="acc-arrow">›</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="sec-tag">F — Deliverables</div>
+  <div class="sec-title">What We're<br>Creating.</div>
+  <div class="sec-note">Help us understand requirements for each deliverable so we design right from the first round.</div>
+
+  <!-- E1 BROCHURES -->
+  <div class="sub-hd first">E1 — Project Brochures (Vraj Imperia)</div>
+  <div class="sub-desc">1 primary brochure, up to 16 pages + 1 adapted alternate size version, available in print and digital formats.</div>
+
+  <div class="q">
+    <div class="q-title">Primary purpose of the brochure (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="e1_purpose" value="Hand out at sales meetings"><span class="ob"></span><span class="ot">Hand out at sales meetings</span></label>
+      <label class="opt"><input type="checkbox" name="e1_purpose" value="Give to walk-in enquiries at site"><span class="ob"></span><span class="ot">Walk-in enquiries at site</span></label>
+      <label class="opt"><input type="checkbox" name="e1_purpose" value="Share as digital PDF on WhatsApp"><span class="ob"></span><span class="ot">Share digitally on WhatsApp</span></label>
+      <label class="opt"><input type="checkbox" name="e1_purpose" value="Present to investors / HNIs"><span class="ob"></span><span class="ot">Present to investors / HNIs</span></label>
+      <label class="opt"><input type="checkbox" name="e1_purpose" value="Display at property expos"><span class="ob"></span><span class="ot">Display at property expos</span></label>
+      <label class="opt"><input type="checkbox" name="e1_purpose" value="Email campaigns"><span class="ob"></span><span class="ot">Email campaigns</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Pages to include (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Cover / hero visual"><span class="ob"></span><span class="ot">Cover / hero visual</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="About Vraj Shyam Group"><span class="ob"></span><span class="ot">About Vraj Shyam Group</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Project introduction"><span class="ob"></span><span class="ot">Project introduction</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Location & connectivity map"><span class="ob"></span><span class="ot">Location & connectivity map</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Floor plans / unit layouts"><span class="ob"></span><span class="ot">Floor plans / unit layouts</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Amenities & specifications"><span class="ob"></span><span class="ot">Amenities & specifications</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Architectural renders / 3D visuals"><span class="ob"></span><span class="ot">Architectural renders / 3D visuals</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Investment highlights / ROI"><span class="ob"></span><span class="ot">Investment highlights / ROI</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Payment plan"><span class="ob"></span><span class="ot">Payment plan</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Past projects & testimonials"><span class="ob"></span><span class="ot">Past projects & testimonials</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="RERA & legal disclosures"><span class="ob"></span><span class="ot">RERA & legal disclosures</span></label>
+      <label class="opt"><input type="checkbox" name="e1_pages" value="Contact / back cover"><span class="ob"></span><span class="ot">Contact / back cover</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Tone of the brochure</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="e1_tone" value="Ultra premium — minimal text, large imagery, luxury feel"><span class="ob"></span><span class="ot">Ultra premium — minimal text, large imagery, luxury feel</span></label>
+      <label class="opt"><input type="radio" name="e1_tone" value="Premium but informative — balanced visuals and content"><span class="ob"></span><span class="ot">Premium but informative — balanced visuals and content</span></label>
+      <label class="opt"><input type="radio" name="e1_tone" value="Information-first — buyers need all facts clearly"><span class="ob"></span><span class="ot">Information-first — buyers need all the facts clearly</span></label>
+      <label class="opt"><input type="radio" name="e1_tone" value="Aspirational lifestyle — sell the feeling not just specs"><span class="ob"></span><span class="ot">Aspirational lifestyle — sell the feeling, not just specs</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Visual style for the brochure</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="e1_style" value="Clean white — editorial, lots of white space"><span class="ob"></span><span class="ot">Clean white — editorial, lots of white space</span></label>
+      <label class="opt"><input type="radio" name="e1_style" value="Dark / navy — bold, luxury real estate feel"><span class="ob"></span><span class="ot">Dark / navy — bold, luxury feel</span></label>
+      <label class="opt"><input type="radio" name="e1_style" value="Warm & earthy — beige, stone, gold tones"><span class="ob"></span><span class="ot">Warm & earthy — beige, stone, gold</span></label>
+      <label class="opt"><input type="radio" name="e1_style" value="Open to recommendation"><span class="ob"></span><span class="ot">Open to recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Content you can provide now (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="e1_ready" value="Architectural renders ready"><span class="ob"></span><span class="ot">Architectural renders ready</span></label>
+      <label class="opt"><input type="checkbox" name="e1_ready" value="Site photography available"><span class="ob"></span><span class="ot">Site photography available</span></label>
+      <label class="opt"><input type="checkbox" name="e1_ready" value="Floor plans / drawings ready"><span class="ob"></span><span class="ot">Floor plans / drawings ready</span></label>
+      <label class="opt"><input type="checkbox" name="e1_ready" value="Written content / copy ready"><span class="ob"></span><span class="ot">Written content / copy ready</span></label>
+      <label class="opt"><input type="checkbox" name="e1_ready" value="Nothing ready yet"><span class="ob"></span><span class="ot">Nothing ready yet</span></label>
+      <label class="opt"><input type="checkbox" name="e1_ready" value="Some content ready, some in progress"><span class="ob"></span><span class="ot">Some ready, some in progress</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Should the primary and alternate size brochure look the same?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="e1_match" value="Identical design, different size"><span class="ob"></span><span class="ot">Identical — same design, different size</span></label>
+      <label class="opt"><input type="radio" name="e1_match" value="Coffee table more premium and detailed"><span class="ob"></span><span class="ot">Different — coffee table more premium and detailed</span></label>
+      <label class="opt"><input type="radio" name="e1_match" value="Same brand language, adapted per format"><span class="ob"></span><span class="ot">Same brand language, adapted per format</span></label>
+    </div>
+  </div>
+
+  <!-- E2 COMPANY PROFILE -->
+  <div class="sub-hd">E2 — Company Profile (Vraj Shyam Group, 4 pages)</div>
+  <div class="sub-desc">A 4-page corporate document for investor meetings, bank liaisoning, and partner presentations.</div>
+
+  <div class="q">
+    <div class="q-title">Primary audience for the company profile (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="e2_aud" value="Investors / HNIs"><span class="ob"></span><span class="ot">Investors / HNIs</span></label>
+      <label class="opt"><input type="checkbox" name="e2_aud" value="Banks / financial institutions"><span class="ob"></span><span class="ot">Banks / financial institutions</span></label>
+      <label class="opt"><input type="checkbox" name="e2_aud" value="Joint venture / land partners"><span class="ob"></span><span class="ot">Joint venture / land partners</span></label>
+      <label class="opt"><input type="checkbox" name="e2_aud" value="Premium end buyers"><span class="ob"></span><span class="ot">Premium end buyers</span></label>
+      <label class="opt"><input type="checkbox" name="e2_aud" value="Channel partners / brokers"><span class="ob"></span><span class="ot">Channel partners / brokers</span></label>
+      <label class="opt"><input type="checkbox" name="e2_aud" value="Government / regulatory bodies"><span class="ob"></span><span class="ot">Government / regulatory bodies</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Tone of the company profile</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="e2_tone" value="Formal corporate — sharp, professional, data-driven"><span class="ob"></span><span class="ot">Formal corporate — sharp, professional, data-driven</span></label>
+      <label class="opt"><input type="radio" name="e2_tone" value="Warm legacy — family values, trust, community story"><span class="ob"></span><span class="ot">Warm legacy — family values, trust, community story</span></label>
+      <label class="opt"><input type="radio" name="e2_tone" value="Premium & ambitious — quality, growth, vision"><span class="ob"></span><span class="ot">Premium & ambitious — quality, growth, vision</span></label>
+      <label class="opt"><input type="radio" name="e2_tone" value="Open to recommendation"><span class="ob"></span><span class="ot">Open to recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">What to highlight in the company profile (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="e2_content" value="Founding story & legacy"><span class="ob"></span><span class="ot">Founding story & legacy</span></label>
+      <label class="opt"><input type="checkbox" name="e2_content" value="Leadership / founders"><span class="ob"></span><span class="ot">Leadership / founders</span></label>
+      <label class="opt"><input type="checkbox" name="e2_content" value="Projects delivered"><span class="ob"></span><span class="ot">Projects delivered (count, area)</span></label>
+      <label class="opt"><input type="checkbox" name="e2_content" value="Awards & recognition"><span class="ob"></span><span class="ot">Awards & recognition</span></label>
+      <label class="opt"><input type="checkbox" name="e2_content" value="Vision, mission & values"><span class="ob"></span><span class="ot">Vision, mission & values</span></label>
+      <label class="opt"><input type="checkbox" name="e2_content" value="Customer testimonials"><span class="ob"></span><span class="ot">Customer testimonials</span></label>
+      <label class="opt"><input type="checkbox" name="e2_content" value="Current project — Vraj Imperia"><span class="ob"></span><span class="ot">Current project — Vraj Imperia</span></label>
+      <label class="opt"><input type="checkbox" name="e2_content" value="Key numbers — years, sq ft, families"><span class="ob"></span><span class="ot">Key numbers — years, sq ft, families</span></label>
+    </div>
+  </div>
+
+  <!-- E3 SIGNAGES -->
+  <div class="sub-hd">E3 — Signages</div>
+  <div class="sub-desc">Advertising boards placed around the project site. Each board may be a different size and carry different content.</div>
+
+  <div class="q">
+    <div class="q-title">How many signage boards are planned?</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="e3_count" value="3 boards"><span class="ob"></span><span class="ot">3 boards</span></label>
+      <label class="opt"><input type="radio" name="e3_count" value="4 boards"><span class="ob"></span><span class="ot">4 boards</span></label>
+      <label class="opt"><input type="radio" name="e3_count" value="5 boards"><span class="ob"></span><span class="ot">5 boards</span></label>
+      <label class="opt"><input type="radio" name="e3_count" value="6 boards"><span class="ob"></span><span class="ot">6 boards</span></label>
+      <label class="opt"><input type="radio" name="e3_count" value="Not confirmed yet"><span class="ob"></span><span class="ot">Not confirmed yet</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Approximate size of the boards</div>
+    <div class="q-hint">Enter the size in feet — e.g. 40ft, or a range like 30ft to 80ft</div>
+    <input type="text" name="e3_size" placeholder="e.g. 30ft to 80ft"/>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Content on the signages (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="e3_content" value="Vraj Imperia logo / name"><span class="ob"></span><span class="ot">Vraj Imperia logo / name</span></label>
+      <label class="opt"><input type="checkbox" name="e3_content" value="Developed by Vraj Shyam Group"><span class="ob"></span><span class="ot">"Developed by Vraj Shyam Group"</span></label>
+      <label class="opt"><input type="checkbox" name="e3_content" value="Architectural render / building visual"><span class="ob"></span><span class="ot">Architectural render / building visual</span></label>
+      <label class="opt"><input type="checkbox" name="e3_content" value="Tagline / headline copy"><span class="ob"></span><span class="ot">Tagline / headline copy</span></label>
+      <label class="opt"><input type="checkbox" name="e3_content" value="Project highlights / USPs"><span class="ob"></span><span class="ot">Project highlights / USPs</span></label>
+      <label class="opt"><input type="checkbox" name="e3_content" value="Contact number / QR code"><span class="ob"></span><span class="ot">Contact number / QR code</span></label>
+      <label class="opt"><input type="checkbox" name="e3_content" value="RERA number / legal line"><span class="ob"></span><span class="ot">RERA number / legal line</span></label>
+      <label class="opt"><input type="checkbox" name="e3_content" value="Availability messaging"><span class="ob"></span><span class="ot">"Shops / Offices Available" messaging</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Should each signage board have a different design or follow one layout?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="e3_design" value="Different designs per board — each highlights something unique"><span class="ob"></span><span class="ot">Different designs per board — each highlights something unique</span></label>
+      <label class="opt"><input type="radio" name="e3_design" value="One unified design repeated across all boards"><span class="ob"></span><span class="ot">One unified design repeated across all boards</span></label>
+      <label class="opt"><input type="radio" name="e3_design" value="Same brand layout, different content per board"><span class="ob"></span><span class="ot">Same brand layout, different content per board</span></label>
+      <label class="opt"><input type="radio" name="e3_design" value="Open to recommendation"><span class="ob"></span><span class="ot">Open to recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Languages on the signages</div>
+    <div class="opts grid3">
+      <label class="opt"><input type="checkbox" name="e3_lang" value="English"><span class="ob"></span><span class="ot">English</span></label>
+      <label class="opt"><input type="checkbox" name="e3_lang" value="Gujarati"><span class="ob"></span><span class="ot">Gujarati</span></label>
+      <label class="opt"><input type="checkbox" name="e3_lang" value="Hindi"><span class="ob"></span><span class="ot">Hindi</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Are the signages lit at night?</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="e3_lit" value="Yes — backlit / internally lit"><span class="ob"></span><span class="ot">Yes — backlit / internally lit</span></label>
+      <label class="opt"><input type="radio" name="e3_lit" value="Yes — external spotlights"><span class="ob"></span><span class="ot">Yes — external spotlights</span></label>
+      <label class="opt"><input type="radio" name="e3_lit" value="No — day visibility only"><span class="ob"></span><span class="ot">No — day visibility only</span></label>
+      <label class="opt"><input type="radio" name="e3_lit" value="Not decided yet"><span class="ob"></span><span class="ot">Not decided yet</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Overall look & feel of the signages</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="e3_feel" value="Dark background — bold, premium, high-contrast"><span class="ob"></span><span class="ot">Dark background — bold, premium, high-contrast</span></label>
+      <label class="opt"><input type="radio" name="e3_feel" value="Light / white — clean, modern, bright"><span class="ob"></span><span class="ot">Light / white — clean, modern, bright</span></label>
+      <label class="opt"><input type="radio" name="e3_feel" value="Render-dominant — building visual takes most space"><span class="ob"></span><span class="ot">Render-dominant — building visual takes most space</span></label>
+      <label class="opt"><input type="radio" name="e3_feel" value="Open to recommendation"><span class="ob"></span><span class="ot">Open to recommendation</span></label>
+    </div>
+  </div>
+
+  <!-- E4 STATIONERY -->
+  <div class="sub-hd">E4 — Stationery (Vraj Shyam Group)</div>
+  <div class="sub-desc">Letterhead, envelope, and visiting card for the group.</div>
+
+  <div class="q">
+    <div class="q-title">Visiting card style preference</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="e4_style" value="Minimal white — clean, text-forward, editorial"><span class="ob"></span><span class="ot">Minimal white — clean, editorial</span></label>
+      <label class="opt"><input type="radio" name="e4_style" value="Dark / navy — bold and luxurious"><span class="ob"></span><span class="ot">Dark / navy — bold and luxurious</span></label>
+      <label class="opt"><input type="radio" name="e4_style" value="Two-sided — bold design front, contact details back"><span class="ob"></span><span class="ot">Two-sided — bold front, contact back</span></label>
+      <label class="opt"><input type="radio" name="e4_style" value="Open to recommendation"><span class="ob"></span><span class="ot">Open to recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Visiting card print finish</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="e4_finish" value="Soft touch matte — ultra premium"><span class="ob"></span><span class="ot">Soft touch matte — ultra premium</span></label>
+      <label class="opt"><input type="radio" name="e4_finish" value="Matte lamination — understated"><span class="ob"></span><span class="ot">Matte lamination — understated</span></label>
+      <label class="opt"><input type="radio" name="e4_finish" value="Gloss lamination — sharp and vivid"><span class="ob"></span><span class="ot">Gloss lamination — sharp and vivid</span></label>
+      <label class="opt"><input type="radio" name="e4_finish" value="Gold foil accent — statement piece"><span class="ob"></span><span class="ot">Gold foil accent — statement piece</span></label>
+      <label class="opt"><input type="radio" name="e4_finish" value="Open to recommendation"><span class="ob"></span><span class="ot">Open to recommendation</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">How many people need individual visiting cards?</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="e4_people" value="1–2 people"><span class="ob"></span><span class="ot">1 – 2 people</span></label>
+      <label class="opt"><input type="radio" name="e4_people" value="3–5 people"><span class="ob"></span><span class="ot">3 – 5 people</span></label>
+      <label class="opt"><input type="radio" name="e4_people" value="5–10 people"><span class="ob"></span><span class="ot">5 – 10 people</span></label>
+      <label class="opt"><input type="radio" name="e4_people" value="More than 10 people"><span class="ob"></span><span class="ot">More than 10 people</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Letterhead version needed</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="e4_lh" value="Both — print-ready PDF + editable Word / Google Doc"><span class="ob"></span><span class="ot">Both — print-ready PDF + editable Word / Google Doc</span></label>
+      <label class="opt"><input type="radio" name="e4_lh" value="Print-ready PDF only"><span class="ob"></span><span class="ot">Print-ready PDF only</span></label>
+      <label class="opt"><input type="radio" name="e4_lh" value="Digital editable only"><span class="ob"></span><span class="ot">Digital editable only (Word / Google Doc)</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">Envelope size needed (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="e4_env" value="DL — standard letter envelope"><span class="ob"></span><span class="ot">DL — standard letter envelope</span></label>
+      <label class="opt"><input type="checkbox" name="e4_env" value="A4 — large document envelope"><span class="ob"></span><span class="ot">A4 — large document envelope</span></label>
+      <label class="opt"><input type="checkbox" name="e4_env" value="Not sure — advise us"><span class="ob"></span><span class="ot">Not sure — advise us</span></label>
+    </div>
+  </div>
+
+  <!-- E5 BROKER / CHANNEL PARTNERS -->
+  <div class="sub-hd">E5 — Sales & Distribution</div>
+  <div class="sub-desc">Understanding how sales happen shapes the entire design system.</div>
+
+  <div class="q">
+    <div class="q-title">E5. How will most enquiries come in? (select all)</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="checkbox" name="e5_enquiry" value="Site walk-ins"><span class="ob"></span><span class="ot">Site walk-ins</span></label>
+      <label class="opt"><input type="checkbox" name="e5_enquiry" value="Brokers / channel partners"><span class="ob"></span><span class="ot">Brokers / channel partners</span></label>
+      <label class="opt"><input type="checkbox" name="e5_enquiry" value="WhatsApp marketing"><span class="ob"></span><span class="ot">WhatsApp marketing</span></label>
+      <label class="opt"><input type="checkbox" name="e5_enquiry" value="Meta / Google ads"><span class="ob"></span><span class="ot">Meta / Google ads</span></label>
+      <label class="opt"><input type="checkbox" name="e5_enquiry" value="Outdoor signages"><span class="ob"></span><span class="ot">Outdoor signages</span></label>
+      <label class="opt"><input type="checkbox" name="e5_enquiry" value="Referrals"><span class="ob"></span><span class="ot">Referrals from existing buyers</span></label>
+      <label class="opt"><input type="checkbox" name="e5_enquiry" value="Direct sales team"><span class="ob"></span><span class="ot">Direct sales team outreach</span></label>
+      <label class="opt"><input type="checkbox" name="e5_enquiry" value="Retail leasing outreach"><span class="ob"></span><span class="ot">Retail leasing / corporate outreach</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">E6. How important are brokers / channel partners as a sales source?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="e6_brokers" value="Very important — most sales will come through brokers"><span class="ob"></span><span class="ot">Very important — most sales will come through brokers</span></label>
+      <label class="opt"><input type="radio" name="e6_brokers" value="Somewhat — brokers help but not the main source"><span class="ob"></span><span class="ot">Somewhat — brokers help but not the main source</span></label>
+      <label class="opt"><input type="radio" name="e6_brokers" value="Not really — mostly direct sales"><span class="ob"></span><span class="ot">Not really — mostly direct sales</span></label>
+    </div>
+  </div>
+
+  <!-- E7 LOGO USAGE -->
+  <div class="sub-hd">E6 — Logo Usage Priority</div>
+  <div class="sub-desc">Where the logo appears most often directly shapes how it is designed.</div>
+
+  <div class="q">
+    <div class="q-title">E7. Where will these logos appear most often? (pick top 5)</div>
+    <div class="chips" id="cg-e7">
+      <span class="chip" data-name="e7" data-val="Site signages">Site signages</span>
+      <span class="chip" data-name="e7" data-val="Sales office branding">Sales office</span>
+      <span class="chip" data-name="e7" data-val="Brochure covers">Brochure covers</span>
+      <span class="chip" data-name="e7" data-val="WhatsApp PDFs">WhatsApp PDFs</span>
+      <span class="chip" data-name="e7" data-val="Instagram / Meta ads">Instagram / Meta ads</span>
+      <span class="chip" data-name="e7" data-val="Website / landing page">Website</span>
+      <span class="chip" data-name="e7" data-val="Newspaper ads">Newspaper ads</span>
+      <span class="chip" data-name="e7" data-val="Visiting cards">Visiting cards</span>
+      <span class="chip" data-name="e7" data-val="RERA creatives">RERA creatives</span>
+      <span class="chip" data-name="e7" data-val="Project gate / facade signage">Gate / facade signage</span>
+    </div>
+    <div class="chip-note">Select top 5</div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">E8. Should this identity system work for future Vraj Shyam projects too?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="e8_future" value="Yes — build a reusable system we can apply to every future launch"><span class="ob"></span><span class="ot">Yes — build a system we can apply to every future project launch</span></label>
+      <label class="opt"><input type="radio" name="e8_future" value="No — focus only on Vraj Shyam Group and Vraj Imperia for now"><span class="ob"></span><span class="ot">No — focus only on Vraj Shyam Group and Vraj Imperia for now</span></label>
+      <label class="opt"><input type="radio" name="e8_future" value="Open to recommendation"><span class="ob"></span><span class="ot">Open to the designer's recommendation</span></label>
+    </div>
+  </div>
+        
+      <button class="acc-next" onclick="advanceSection(6)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORDION G -->
+  <div class="accordion-item" id="acc-7" data-index="7">
+    <div class="acc-header" onclick="toggleSection(7)">
+      <div class="acc-num"><span class="acc-num-text">G</span></div>
+      <div class="acc-title-wrap">
+        <div class="acc-title">Process</div>
+        <div class="acc-sub">How we work together</div>
+      </div>
+      <div class="acc-arrow">›</div>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="sec-tag">G — Process</div>
+  <div class="sec-title">The Process.</div>
+  <div class="sec-note">Help us understand how decisions are made and what timelines we're working toward.</div>
+
+  <div class="q">
+    <div class="q-title">F1. Key decision makers</div>
+    <div style="display:grid;gap:10px;">
+      <div class="two">
+        <div><div class="fl">Name — Person 1</div><input type="text" name="f1_n1" placeholder="Full name"/></div>
+        <div><div class="fl">Role & WhatsApp</div><input type="text" name="f1_c1" placeholder="e.g. Director · +91 99999 00000"/></div>
+      </div>
+      <div class="two">
+        <div><div class="fl">Name — Person 2</div><input type="text" name="f1_n2" placeholder="Full name (if applicable)"/></div>
+        <div><div class="fl">Role & WhatsApp</div><input type="text" name="f1_c2" placeholder="e.g. Marketing Head · +91 99999 00000"/></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">F2. Who gives final approval on designs?</div>
+    <div class="fl" style="margin-bottom:8px;">Name the person</div>
+    <input type="text" name="f2" placeholder="e.g. Mr. Fagun Parikh"/>
+  </div>
+
+  <div class="q">
+    <div class="q-title">F3. Preferred feedback method</div>
+    <div class="opts grid2">
+      <label class="opt"><input type="radio" name="f5" value="WhatsApp — quick and informal"><span class="ob"></span><span class="ot">WhatsApp — quick and informal</span></label>
+      <label class="opt"><input type="radio" name="f5" value="Video call — talk through it together"><span class="ob"></span><span class="ot">Video call — talk through it</span></label>
+      <label class="opt"><input type="radio" name="f5" value="In-person meeting in Vadodara"><span class="ob"></span><span class="ot">In-person in Vadodara</span></label>
+      <label class="opt"><input type="radio" name="f5" value="Email — written documented feedback"><span class="ob"></span><span class="ot">Email — written feedback</span></label>
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">F4. Anything else we should know?</div>
+    <div class="q-hint">Concerns, vision, family context, special requirements — no filter needed</div>
+    <textarea name="f4_open" placeholder="Optional — type anything on your mind..."></textarea>
+  </div>
+        
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- SUBMIT -->
+<div class="sub-area">
+  <div class="sub-title">READY TO<br><span>SUBMIT?</span></div>
+  <div class="sub-desc2">All your answers go directly to Carving Dezine.</div>
+  <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.7;">This will directly shape the first design direction you receive — the more honest your answers, the stronger the concepts.</div>
+  <button class="btn" id="submitBtn" onclick="handleSubmit()">Submit Discovery Form →</button>
+  <div id="errmsg" style="display:none;color:var(--red);font-size:12px;margin-top:14px;">Something went wrong. Please try again or WhatsApp us directly.</div>
+  <div class="sub-note">Submitted securely via Formspree to carvingdezine@gmail.com</div>
+</div>
+
+<!-- SUCCESS -->
+<div id="success">
+  <h1>THANK<br><span>YOU.</span></h1>
+  <p>We have received your responses and will be in touch within 24 hours.</p>
+  <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.35);">This will directly shape the first design direction you receive.</p>
+  <div class="sig">— Carving Dezine · carvingdezine@gmail.com</div>
+</div>
+
+<div class="footer">
+  <div class="fn">Carving Dezine</div>
+  <div class="fc">carvingdezine@gmail.com · www.carvingdezine.com</div>
+  <div class="fci">Mumbai & Surat · Working Globally</div>
+</div>
+
+<script>
+// ── PROGRESS BAR ─────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('prog').style.width =
+    (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+});
+
+// ── ACCORDION ─────────────────────────────────────────────────────────────────
+const TOTAL = 8;
+
+function toggleSection(idx) {
+  const item = document.getElementById('acc-' + idx);
+  const isActive = item.classList.contains('active');
+  document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
+  if (!isActive) {
+    item.classList.add('active');
+    updateDots(idx);
+    setTimeout(() => {
+      const header = item.querySelector('.acc-header');
+      const y = header.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }, 100);
+  }
+}
+
+function advanceSection(idx) {
+  const current = document.getElementById('acc-' + idx);
+  current.classList.remove('active');
+  current.classList.add('done');
+  updateDots(idx, true);
+  const next = document.getElementById('acc-' + (idx + 1));
+  if (next) {
+    next.classList.add('active');
+    updateDots(idx + 1);
+    // Wait for accordion animation to open, then scroll to top of next section
+    setTimeout(() => {
+      const header = next.querySelector('.acc-header');
+      const y = header.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }, 380);
+  } else {
+    setTimeout(() => {
+      document.querySelector('.sub-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 380);
+  }
+}
+
+function updateDots(activeIdx) {
+  for (let i = 0; i < TOTAL; i++) {
+    const dot = document.getElementById('pd-' + i);
+    if (!dot) continue;
+    dot.classList.remove('active', 'done');
+    const item = document.getElementById('acc-' + i);
+    if (item && item.classList.contains('done')) dot.classList.add('done');
+    else if (i === activeIdx) dot.classList.add('active');
+  }
+  const done = document.querySelectorAll('.accordion-item.done').length;
+  const active = document.querySelectorAll('.accordion-item.active').length;
+  document.getElementById('prog').style.width =
+    ((done + active * 0.5) / TOTAL * 100) + '%';
+}
+
+// ── CHIPS ─────────────────────────────────────────────────────────────────────
+const chipMax = { 'a4': 4, 'c2': 5, 'c3': 5, 'b9': 3, 'e7': 5 };
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const grp = chip.closest('.chips');
+    const name = chip.dataset.name;
+    const max = chipMax[name] || 99;
+    const sel = grp.querySelectorAll('.chip.on');
+    if (chip.classList.contains('on')) chip.classList.remove('on');
+    else if (sel.length < max) chip.classList.add('on');
+  });
+});
+
+// ── COLLECT DATA ──────────────────────────────────────────────────────────────
+function collect() {
+  const d = {};
+  document.querySelectorAll('input[type=text], textarea').forEach(el => {
+    if (el.name && el.value.trim()) d[el.name] = el.value.trim();
+  });
+  document.querySelectorAll('input[type=radio]:checked').forEach(el => {
+    d[el.name] = el.value;
+  });
+  const cb = {};
+  document.querySelectorAll('input[type=checkbox]').forEach(el => {
+    if (!cb[el.name]) cb[el.name] = [];
+    if (el.checked) cb[el.name].push(el.value);
+  });
+  Object.entries(cb).forEach(([k, v]) => { if (v.length) d[k] = v.join(', '); });
+  document.querySelectorAll('.chip.on').forEach(chip => {
+    const n = chip.dataset.name;
+    d[n] = (d[n] ? d[n] + ', ' : '') + chip.dataset.val;
+  });
+  return d;
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────────────────
+async function handleSubmit() {
+  const btn = document.getElementById('submitBtn');
+  const err = document.getElementById('errmsg');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  err.style.display = 'none';
+  const data = collect();
+  try {
+    const fd = new FormData();
+    Object.entries(data).forEach(([k, v]) => fd.append(k, v));
+    fd.append('_subject', 'Brand Discovery — Vraj Shyam Group + Vraj Imperia');
+    const res = await fetch('https://formspree.io/f/mpqoqonz', {
+      method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      ['cover', 'progress-dots', 'wrap', 'sub-area', 'footer'].forEach(cls => {
+        const el = document.querySelector('.' + cls) || document.getElementById(cls);
+        if (el) el.style.display = 'none';
+      });
+      document.getElementById('success').classList.add('show');
+      window.scrollTo(0, 0);
+    } else throw new Error();
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Submit Discovery Form →';
+    err.style.display = 'block';
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+updateDots(0);
+</script>
+</body>
+</html>
