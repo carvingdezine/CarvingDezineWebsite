@@ -1861,14 +1861,26 @@ h2 .whu{display:inline-block;vertical-align:bottom}
       <div class="adm-pnl" id="p-settings">
         <div class="adm-st">Settings</div>
 
-        <!-- GitHub Config -->
+        <!-- Project Data Sync (Neon Postgres via API) -->
         <div class="adm-hint" style="margin-bottom:16px">
-<strong>GitHub Sync</strong> — save your projects to <code style="color:var(--red)">projects.json</code> and upload selected images/videos into your GitHub repo so the live website can load them everywhere.<br/><br/>
+<strong>Project Data Sync</strong> — projects are stored in a Postgres database and served through <code style="color:var(--red)">/api/projects</code>. Paste your Admin Key below (the same value you set as the <code style="color:var(--red)">ADMIN_KEY</code> environment variable in Cloudflare Pages) — it's required to save or delete projects, and is checked on the server, not just in this browser.
+        </div>
+        <div class="adm-g" style="max-width:520px;margin-bottom:8px">
+          <div class="adm-f full"><label class="adm-l">Admin Key <span style="color:rgba(255,255,255,.3);font-size:9px">(stored only in this browser)</span></label><input class="adm-in" type="password" id="adm-key" placeholder="paste the same value as ADMIN_KEY in Cloudflare"/></div>
+        </div>
+        <button class="adm-btn" id="adm-key-save-btn">Save Admin Key</button>
+        <button class="adm-btn" id="adm-key-test-btn" style="margin-left:8px;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5)">Test Connection</button>
+        <div id="adm-key-msg" style="display:none;margin-top:12px;font-family:var(--m);font-size:11px;letter-spacing:.08em;line-height:1.7;"></div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:28px 0"/>
+
+        <!-- GitHub Config (used only for uploading image/video assets to your repo) -->
+        <div class="adm-hint" style="margin-bottom:16px">
+<strong>Image/Video Uploads</strong> — the "Upload File" option in the project form commits files to your GitHub repo's <code style="color:var(--red)">images/</code> or <code style="color:var(--red)">videos/</code> folder so they have a public URL. This is separate from project data above. If you'd rather not use a browser-side GitHub token, just paste an image URL instead (Path/URL tabs) — this is optional.<br/><br/>
           <strong>Setup:</strong><br/>
           1. Go to <strong>github.com → Settings → Developer Settings → Personal Access Tokens → Tokens (classic)</strong><br/>
           2. Click <strong>Generate new token</strong> → tick <strong>repo</strong> scope → Generate<br/>
-          3. Copy the token and paste below. It never leaves your browser.<br/>
-          4. Make sure your GitHub repo has a <code style="color:var(--red)">projects.json</code> file (even an empty <code style="color:var(--red)">[]</code> to start).
+          3. Copy the token and paste below. It never leaves your browser.
         </div>
         <div class="adm-g" style="max-width:520px;margin-bottom:8px">
           <div class="adm-f"><label class="adm-l">GitHub Username</label><input class="adm-in" id="gh-user" placeholder="e.g. carvingdezine"/></div>
@@ -2394,6 +2406,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   </div>
   <div class="ft-btm">
     <span>A part of <a href="https://www.microngroup.in" target="_blank" rel="noopener">Micron Group</a> &nbsp;·&nbsp; www.carvingdezine.com</span>
+    <span id="cd-last-updated" style="font-family:var(--m,monospace);font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.3)" title="Timestamp of the most recently saved project, straight from the database — use this to check you're not looking at a cached/old version.">Last updated: —</span>
     <span>Designed with intention &nbsp;·&nbsp; <a href="/#admin" target="_blank">Studio Admin</a></span>
   </div>
 </footer>
@@ -2409,33 +2422,14 @@ function sTm(a){localStorage.setItem(TMKEY,JSON.stringify(a));}
 function gHi(){try{return JSON.parse(localStorage.getItem(HIKEY))||[];}catch(e){return[];}}
 function sHi(a){localStorage.setItem(HIKEY,JSON.stringify(a));}
 
-// GITHUB STORAGE - projects.json on GitHub
+// GITHUB ASSET UPLOAD - image/video files only (project data now lives in Postgres, see below)
 var GH_KEY='cd_gh_config';
-var GH_CACHE_KEY='cd_pj';
-var GH_CACHE_TS='cd_pj_ts';
 var GH_BRANCH='main';
-var SITE_PROJECTS_URL='projects.json';
 var _pendingCoverUpload=null;
 var _pendingGalleryUploads={};
 
 function ghCfg(){try{return JSON.parse(localStorage.getItem(GH_KEY))||{};}catch(e){return{};}}
 function ghSave(cfg){localStorage.setItem(GH_KEY,JSON.stringify(cfg));}
-function gPjLocal(){try{return JSON.parse(localStorage.getItem(GH_CACHE_KEY))||[];}catch(e){return[];}}
-function gPjLocalSet(a){try{localStorage.setItem(GH_CACHE_KEY,JSON.stringify(a));}catch(e){}}
-var PROJECTS_STATE=[];
-function setProjectsState(projects){
-  PROJECTS_STATE=Array.isArray(projects)?projects.slice():[];
-  gPjLocalSet(PROJECTS_STATE);
-  try{localStorage.setItem(GH_CACHE_TS,Date.now()+'');}catch(e){}
-}
-
-function siteProjectsUrl(){return SITE_PROJECTS_URL+'?t='+Date.now();}
-
-function ghApiUrl(){
-  var c=ghCfg();
-  if(!c.user||!c.repo)return null;
-  return 'https://api.github.com/repos/'+c.user+'/'+c.repo+'/contents/projects.json';
-}
 
 function ghAssetApiUrl(path){
   var c=ghCfg();
@@ -2503,31 +2497,56 @@ function uploadPendingAssets(uploads){
   },Promise.resolve());
 }
 
-// Sync read from GitHub then call cb()
-function ghSync(cb){
-  var url=siteProjectsUrl();
-  fetch(url,{cache:'no-store'})
+// PROJECT DATA STORAGE - Postgres (Neon) via /api/projects, no more client-side GitHub commits
+var API_URL='/api/projects';
+var ADMIN_KEY_STORAGE='cd_admin_key';
+var PROJECTS_STATE=[];
+var LAST_UPDATED=null;
+
+function getAdminKey(){return localStorage.getItem(ADMIN_KEY_STORAGE)||'';}
+function setAdminKey(k){localStorage.setItem(ADMIN_KEY_STORAGE,k);}
+
+function setProjectsState(projects,lastUpdated){
+  PROJECTS_STATE=Array.isArray(projects)?projects.slice():[];
+  if(lastUpdated)LAST_UPDATED=lastUpdated;
+  updateLastUpdatedBadge();
+}
+
+function updateLastUpdatedBadge(){
+  var el=document.getElementById('cd-last-updated');
+  if(!el)return;
+  if(!LAST_UPDATED){el.textContent='Last updated: —';return;}
+  try{
+    var d=new Date(LAST_UPDATED);
+    el.textContent='Last updated: '+d.toLocaleString();
+  }catch(e){el.textContent='Last updated: '+LAST_UPDATED;}
+}
+
+function apiUrl(){return API_URL+'?t='+Date.now();}
+
+// Read from Postgres (via API) then call cb()
+function apiLoad(cb){
+  fetch(apiUrl(),{cache:'no-store'})
   .then(function(r){return r.json();})
   .then(function(data){
     var p=Array.isArray(data)?data:(data.projects||[]);
-    setProjectsState(p);
+    setProjectsState(p,data.lastUpdated);
     if(cb)cb();
   })
   .catch(function(){if(cb)cb();});
 }
 
-// Single source of truth in the page runtime; synced from projects.json / GitHub saves.
+// Single source of truth in the page runtime; synced from /api/projects.
 function gPj(){return PROJECTS_STATE.slice();}
 
-// Override sPj - saves to GitHub then updates cache
+// Save all projects to Postgres via the API (full replace, matching prior GitHub-commit behavior)
 function sPj(projects){
-  var c=ghCfg();
+  var key=getAdminKey();
   var saveBtn=document.getElementById('ap-save');
   var okEl=document.getElementById('ap-ok');
 
-  // Project content should have one source of truth: GitHub/projects.json.
-  if(!c.user||!c.repo||!c.token){
-    if(okEl){okEl.textContent='GitHub connection is required to save live project content.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4000);}
+  if(!key){
+    if(okEl){okEl.textContent='Add your Admin Key in Settings before saving projects.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4000);}
     return false;
   }
 
@@ -2535,42 +2554,41 @@ function sPj(projects){
   renderList();
   renderGrid('all');
 
-  // Save to GitHub
-  if(saveBtn){saveBtn.textContent='Saving to GitHub...';saveBtn.disabled=true;}
-  var apiUrl=ghApiUrl();
-  var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(projects,null,2))));
+  if(saveBtn){saveBtn.textContent='Saving...';saveBtn.disabled=true;}
 
-  fetch(apiUrl,{headers:{'Authorization':'token '+c.token,'Accept':'application/vnd.github.v3+json'}})
-  .then(function(r){return r.json();})
-  .then(function(existing){
-    var body={message:'Update portfolio via admin',content:encoded,branch:'main'};
-    if(existing.sha)body.sha=existing.sha;
-    return fetch(apiUrl,{
-      method:'PUT',
-      headers:{'Authorization':'token '+c.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
-      body:JSON.stringify(body)
-    });
+  fetch(API_URL,{
+    method:'POST',
+    headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
+    body:JSON.stringify({projects:projects})
   })
   .then(function(r){
+    return r.json().then(function(data){return {ok:r.ok,status:r.status,data:data};});
+  })
+  .then(function(res){
     if(saveBtn){saveBtn.textContent='Save Project';saveBtn.disabled=false;}
-    if(r.ok){
-      if(okEl){okEl.textContent='Saved to GitHub - visible on all devices!';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},3500);}
+    if(res.ok){
+      setProjectsState(res.data.projects,res.data.lastUpdated);
+      renderList();renderGrid('all');
+      if(okEl){okEl.textContent='Saved to the database - visible on all devices!';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},3500);}
+    } else if(res.status===401){
+      if(okEl){okEl.textContent='Wrong Admin Key - check Settings.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4500);}
+      apiLoad(function(){renderList();renderGrid('all');});
     } else {
-      ghSync(function(){renderList();renderGrid('all');});
-      if(okEl){okEl.textContent='GitHub sync failed - reloaded live data from projects.json.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4500);}
+      apiLoad(function(){renderList();renderGrid('all');});
+      if(okEl){okEl.textContent='Save failed - reloaded live data instead.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4500);}
     }
   })
   .catch(function(){
     if(saveBtn){saveBtn.textContent='Save Project';saveBtn.disabled=false;}
-    ghSync(function(){renderList();renderGrid('all');});
-    if(okEl){okEl.textContent='Save failed - restored live data from projects.json.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4500);}
+    apiLoad(function(){renderList();renderGrid('all');});
+    if(okEl){okEl.textContent='Save failed - restored live data from the database.';okEl.style.display='block';setTimeout(function(){okEl.style.display='none';},4500);}
   });
   return true;
 }
 
-// On page load, fetch the deployed projects.json so every browser sees the same data.
+// On page load, fetch live data from Postgres so every browser sees the same thing.
 (function(){
-  ghSync(function(){renderGrid('all');renderList();});
+  apiLoad(function(){renderGrid('all');renderList();});
 }());
 
 var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
@@ -4060,7 +4078,49 @@ function renderList(){
 
 // settings
 
-// -- GITHUB SETTINGS --------------------------------------
+// -- ADMIN KEY SETTINGS (Neon/Postgres project data) ------
+(function(){
+  var k=document.getElementById('adm-key');
+  if(k)k.value=getAdminKey();
+  var msg=document.getElementById('adm-key-msg');
+
+  function showMsg(text,color){
+    if(!msg)return;
+    msg.textContent=text;
+    msg.style.color=color||'rgba(255,255,255,.6)';
+    msg.style.display='block';
+    setTimeout(function(){msg.style.display='none';},6000);
+  }
+
+  var saveBtn=document.getElementById('adm-key-save-btn');
+  if(saveBtn)saveBtn.addEventListener('click',function(){
+    var val=(k?k.value.trim():'');
+    if(!val){showMsg('Enter the Admin Key first.','#ff2a2a');return;}
+    setAdminKey(val);
+    showMsg('✓ Admin Key saved in this browser. Try saving a project.','#97C459');
+  });
+
+  var testBtn=document.getElementById('adm-key-test-btn');
+  if(testBtn)testBtn.addEventListener('click',function(){
+    var val=(k?k.value.trim():getAdminKey());
+    if(!val){showMsg('Enter the Admin Key first.','#ff2a2a');return;}
+    showMsg('Testing connection…','rgba(255,255,255,.5)');
+    fetch(API_URL,{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+val,'Content-Type':'application/json'},
+      body:JSON.stringify({projects:gPj()})
+    })
+    .then(function(r){return r.json().then(function(data){return{ok:r.ok,status:r.status,data:data};});})
+    .then(function(res){
+      if(res.ok){showMsg('Connected! /api/projects accepted the key. All set.','#97C459');}
+      else if(res.status===401){showMsg('Rejected: wrong Admin Key.','#ff2a2a');}
+      else{showMsg('Error: '+(res.data&&res.data.error?res.data.error:'request failed'),'#ff2a2a');}
+    })
+    .catch(function(e){showMsg('Connection failed: '+e.message,'#ff2a2a');});
+  });
+})();
+
+// -- GITHUB SETTINGS (image/video asset uploads) ----------
 (function(){
   // Pre-fill saved config
   var c=ghCfg();
