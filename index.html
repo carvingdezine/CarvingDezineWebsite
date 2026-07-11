@@ -181,7 +181,7 @@ input,textarea,select{font-family:var(--f)}
    WA FLOAT
 ═══════════════════════════════════ */
 #wa{
-  position:fixed;bottom:28px;right:28px;z-index:600;width:50px;height:50px;border-radius:50%;
+  position:fixed;bottom:92px;right:28px;z-index:600;width:50px;height:50px;border-radius:50%;
   background:#25D366;display:flex;align-items:center;justify-content:center;
   box-shadow:0 4px 20px rgba(37,211,102,.28);transition:transform .3s var(--ease),box-shadow .3s,opacity .5s;
   opacity:0;
@@ -2724,20 +2724,17 @@ window._ambientPad=(function(){
     audio.loop=true;
     audio.preload='auto';
     audio.volume=0.15; // fixed low & soothing — intentionally no volume control
-    audio.play().catch(function(){ started=false; });
+    var p=audio.play();
+    if(p&&p.catch){ p.catch(function(){ started=false; }); } // blocked by browser — wait for a gesture instead
   }
   function stop(){
     if(audio){ audio.pause(); audio=null; }
     started=false;
   }
-  function armOnGesture(){
-    if(!wanted())return;
-    start();
-    document.removeEventListener('pointerdown',armOnGesture);
-    document.removeEventListener('keydown',armOnGesture);
-  }
-  document.addEventListener('pointerdown',armOnGesture,{once:true});
-  document.addEventListener('keydown',armOnGesture,{once:true});
+  function armOnGesture(){ if(wanted())start(); }
+  if(wanted())start(); // try right away on page load
+  document.addEventListener('pointerdown',armOnGesture); // fallback: starts on the very first click/tap anywhere
+  document.addEventListener('keydown',armOnGesture);
   return{start:start,stop:stop,isWanted:wanted};
 })();
 
@@ -4708,10 +4705,10 @@ function renderTmList(){
 
 </script>
 <style>
-#cd-scroll-btn{position:fixed;left:18px;bottom:24px;z-index:9000;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
+#cd-scroll-btn{position:fixed;right:28px;bottom:24px;z-index:590;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
 #cd-scroll-btn:hover{opacity:1;transform:translateY(-2px)}
 #cd-scroll-btn svg{width:18px;height:18px}
-@media(max-width:640px){#cd-scroll-btn{width:40px;height:40px;left:12px;bottom:18px}}
+@media(max-width:640px){#cd-scroll-btn{width:40px;height:40px;right:22px;bottom:18px}}
 </style>
 <button id="cd-scroll-btn" title="Scroll down / up" aria-label="Scroll page">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>

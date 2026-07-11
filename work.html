@@ -400,20 +400,17 @@ window._ambientPad=(function(){
     audio.loop=true;
     audio.preload='auto';
     audio.volume=0.15; // fixed low & soothing — intentionally no volume control
-    audio.play().catch(function(){ started=false; });
+    var p=audio.play();
+    if(p&&p.catch){ p.catch(function(){ started=false; }); } // blocked by browser — wait for a gesture instead
   }
   function stop(){
     if(audio){ audio.pause(); audio=null; }
     started=false;
   }
-  function armOnGesture(){
-    if(!wanted())return;
-    start();
-    document.removeEventListener('pointerdown',armOnGesture);
-    document.removeEventListener('keydown',armOnGesture);
-  }
-  document.addEventListener('pointerdown',armOnGesture,{once:true});
-  document.addEventListener('keydown',armOnGesture,{once:true});
+  function armOnGesture(){ if(wanted())start(); }
+  if(wanted())start(); // try right away on page load
+  document.addEventListener('pointerdown',armOnGesture); // fallback: starts on the very first click/tap anywhere
+  document.addEventListener('keydown',armOnGesture);
   return{start:start,stop:stop,isWanted:wanted};
 })();
 
