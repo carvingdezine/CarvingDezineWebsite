@@ -168,7 +168,7 @@ a{color:inherit;text-decoration:none}
 button{font-family:var(--f);cursor:pointer;border:none;background:none}
 img{display:block;max-width:100%}
 input,textarea,select{font-family:var(--f)}
-::-webkit-scrollbar{width:2px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--red)}
+::-webkit-scrollbar{width:12px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:6px;border:3px solid var(--black);background-clip:padding-box}::-webkit-scrollbar-thumb:hover{background:#ff5252;background-clip:padding-box}html{scrollbar-width:auto;scrollbar-color:var(--red) var(--black)}
 
 /* Cursor: system default */
 
@@ -1800,6 +1800,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
             <div style="display:flex;gap:8px;margin-top:4px;">
               <button class="gi-add-btn" style="flex:1" onclick="document.getElementById('gi-file').click()">+ Upload Images</button>
               <button class="gi-add-btn" style="flex:1" onclick="giAddPath()">+ Local Path</button>
+              <button class="gi-add-btn" style="flex:0 0 auto;border-color:rgba(255,60,60,.4);color:rgba(255,120,120,.85)" onclick="giDelAll()" title="Remove every gallery image from this project">Delete All</button>
             </div>
             <div id="gi-upload-hint" style="display:none;font-family:var(--m);font-size:9px;letter-spacing:.12em;color:rgba(255,165,0,.8);margin-top:8px;line-height:1.7;"></div>
           </div></div>
@@ -3292,6 +3293,13 @@ function giDel(i){
   _giImages.splice(i,1);
   renderGiList();
 }
+function giDelAll(){
+  if(!_giImages.length)return;
+  if(!confirm('Remove all '+_giImages.length+' gallery images from this project? This only affects this draft until you save.'))return;
+  _giImages.forEach(function(img){if(img&&img.url)clearPendingAsset(img.url);});
+  _giImages=[];
+  renderGiList();
+}
 function giAddPath(){
   var path=prompt('File path or YouTube URL (e.g. images/slide.jpg, videos/demo.mp4, https://youtu.be/abc123):');
   if(!path||!path.trim())return;
@@ -4655,6 +4663,43 @@ function renderTmList(){
   renderGrid=function(f){ origRenderGrid(f); bindHoverSound(); };
 })();
 
+</script>
+<style>
+#cd-scroll-btn{position:fixed;right:18px;bottom:24px;z-index:9000;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
+#cd-scroll-btn:hover{opacity:1;transform:translateY(-2px)}
+#cd-scroll-btn svg{width:18px;height:18px}
+@media(max-width:640px){#cd-scroll-btn{width:40px;height:40px;right:12px;bottom:18px}}
+</style>
+<button id="cd-scroll-btn" title="Scroll down / up" aria-label="Scroll page">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</button>
+<script>
+(function(){
+  var btn=document.getElementById('cd-scroll-btn');
+  if(!btn)return;
+  function activeScroller(){
+    var ov=document.getElementById('adm-ov');
+    if(ov&&getComputedStyle(ov).display!=='none')return ov;
+    return document.scrollingElement||document.documentElement;
+  }
+  function updateArrow(){
+    var el=activeScroller();
+    var atBottom=el.scrollTop+el.clientHeight>=el.scrollHeight-40;
+    btn.querySelector('svg').innerHTML=atBottom
+      ?'<polyline points="18 15 12 9 6 15"></polyline>'
+      :'<polyline points="6 9 12 15 18 9"></polyline>';
+  }
+  btn.addEventListener('click',function(){
+    var el=activeScroller();
+    var atBottom=el.scrollTop+el.clientHeight>=el.scrollHeight-40;
+    var delta=atBottom?-el.clientHeight*0.9:el.clientHeight*0.9;
+    el.scrollBy({top:delta,behavior:'smooth'});
+    setTimeout(updateArrow,350);
+  });
+  window.addEventListener('scroll',updateArrow,{passive:true});
+  document.addEventListener('scroll',function(e){if(e.target&&e.target.id==='adm-ov')updateArrow();},true);
+  updateArrow();
+})();
 </script>
 </body>
 </html>
