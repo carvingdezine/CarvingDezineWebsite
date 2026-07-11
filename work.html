@@ -89,13 +89,13 @@ a{color:inherit;text-decoration:none;}
 .pc-ph-n{font-size:38px;font-weight:900;letter-spacing:-.06em;color:rgba(255,255,255,.05);}
 .pc-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.1) 55%,transparent 100%);
+  background:linear-gradient(to top,rgba(0,0,0,.94) 0%,rgba(0,0,0,.8) 40%,rgba(0,0,0,.25) 75%,transparent 100%);
   display:flex;flex-direction:column;justify-content:flex-end;
   padding:16px;
 }
-.pc-cat{font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:4px;}
-.pc-title{font-size:14px;font-weight:700;color:#fff;line-height:1.25;}
-.pc-yr{font-family:var(--m);font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.45);margin-top:3px;}
+.pc-cat{font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:4px;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+.pc-title{font-size:14px;font-weight:700;color:#fff;line-height:1.25;text-shadow:0 1px 6px rgba(0,0,0,.7);}
+.pc-yr{font-family:var(--m);font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.7);margin-top:3px;text-shadow:0 1px 4px rgba(0,0,0,.6);}
 .pc-tags-ov{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
 .pc-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease);}
 .pc:hover .pc-line{transform:scaleX(1);}
@@ -191,9 +191,13 @@ a{color:inherit;text-decoration:none;}
       <a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">Behance</a>
       <a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">Dribbble</a>
       <a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">Instagram</a>
-      <a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">LinkedIn</a>
       <a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">X</a>
-      <a href="/cdn-cgi/l/email-protection#a2c1c3d0d4cbccc5c6c7d8cbccc7e2c5cfc3cbce8cc1cdcf" class="wk-ft-link">Email</a>
+      <a href="https://threads.net/@carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">Threads</a>
+      <a href="https://reddit.com/r/CarvingDezine" target="_blank" rel="noopener" class="wk-ft-link">Reddit</a>
+      <a href="https://facebook.com/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">Facebook</a>
+      <a href="https://youtube.com/@carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">YouTube</a>
+      <a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="wk-ft-link">LinkedIn</a>
+      <a href="mailto:carvingdezine@gmail.com" class="wk-ft-link">Email</a>
       <a href="index.html" class="wk-ft-link">&#8593; Home</a>
     </div></div>
   </div>
@@ -264,7 +268,7 @@ function renderTagBadges(tagIds){
   return tagIds.map(function(id){
     var t=getAllTags().find(function(x){return x.id===id;});if(!t)return'';
     var c=TAG_COLORS[t.color]||TAG_COLORS.gray;
-    return'<span style="font-family:var(--m);font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border:1px solid '+c.border+';color:'+c.text+'">'+t.label+'</span>';
+    return'<span style="font-family:var(--m);font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border:1px solid '+c.border+';color:'+c.text+';background:rgba(0,0,0,.55);border-radius:2px">'+t.label+'</span>';
   }).join('');
 }
 
