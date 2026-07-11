@@ -580,7 +580,7 @@ function initScrollReveals(){
   });
 
   // Right panel stagger
-  var rp=document.querySelector('.pj-rp');
+  var rp=document.querySelector('.pj-right');
   if(rp){
     var rpObs=new IntersectionObserver(function(entries){
       entries.forEach(function(e){if(e.isIntersecting){rp.classList.add('pj-rp-ready');rpObs.disconnect();}});
