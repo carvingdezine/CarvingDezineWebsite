@@ -419,5 +419,150 @@ window._ambientPad=(function(){
 })();
 
 </script>
+
+<!-- WA FLOAT -->
+<button id="wa" type="button" aria-label="Chat on WhatsApp" aria-expanded="false">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</button>
+
+<!-- WA CHAT WIDGET -->
+<div id="wa-panel" role="dialog" aria-label="WhatsApp chat">
+  <div class="wa-p-head">
+    <div class="wa-p-avatar">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </div>
+    <div class="wa-p-head-txt">
+      <div class="wa-p-name">Tanvi Shah — Carving Dezine</div>
+      <div class="wa-p-status">Typically replies within a few hours</div>
+    </div>
+    <button id="wa-close" type="button" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="wa-p-body">
+    <div class="wa-p-bubble">Hi there! 👋 Tell me a bit about your project and I'll get back to you on WhatsApp.</div>
+  </div>
+  <div class="wa-p-foot">
+    <textarea id="wa-msg" rows="2" placeholder="Type your message...">Hi Carving Dezine, I'd like to discuss a project.</textarea>
+    <button id="wa-send" type="button">
+      <span>Send via WhatsApp</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+    <div class="wa-p-note">Opens WhatsApp with your message ready to send — nothing sends automatically.</div>
+  </div>
+</div>
+
+<style>
+#wa{
+  position:fixed;bottom:92px;right:28px;z-index:600;width:50px;height:50px;border-radius:50%;
+  background:#25D366;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,.28);transition:transform .3s ease,box-shadow .3s,opacity .5s;
+  opacity:1;border:none;cursor:pointer;padding:0;
+}
+#wa:hover{transform:scale(1.12);box-shadow:0 8px 30px rgba(37,211,102,.45)}
+#wa svg{width:24px;height:24px;fill:#fff}
+
+#wa-panel{
+  position:fixed;right:28px;bottom:154px;z-index:601;width:320px;max-width:calc(100vw - 40px);
+  background:#111;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+  display:flex;flex-direction:column;
+  opacity:0;transform:translateY(16px) scale(.97);pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease;
+}
+#wa-panel.open{opacity:1;transform:none;pointer-events:auto;}
+.wa-p-head{display:flex;align-items:center;gap:10px;padding:14px 14px;background:#1a1a1a;border-bottom:1px solid var(--line);}
+.wa-p-avatar{width:34px;height:34px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wa-p-avatar svg{width:18px;height:18px;fill:#fff;}
+.wa-p-head-txt{flex:1;min-width:0;}
+.wa-p-name{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wa-p-status{font-family:var(--m);font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;}
+#wa-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:20px;line-height:1;cursor:pointer;padding:4px 6px;}
+#wa-close:hover{color:#fff;}
+.wa-p-body{padding:16px 14px;background:#0c0c0c;}
+.wa-p-bubble{background:#1e1e1e;color:rgba(255,255,255,.85);font-size:13px;line-height:1.6;padding:10px 12px;border-radius:10px 10px 10px 2px;max-width:90%;}
+.wa-p-foot{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;}
+#wa-msg{width:100%;resize:none;background:#1a1a1a;border:1px solid var(--line);border-radius:8px;color:#fff;font-family:inherit;font-size:12.5px;padding:9px 10px;line-height:1.5;}
+#wa-msg:focus{outline:none;border-color:#25D366;}
+#wa-send{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#0c0c0c;border:none;border-radius:8px;padding:10px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.02em;}
+#wa-send:hover{background:#2ee574;}
+#wa-send svg{width:14px;height:14px;}
+.wa-p-note{font-size:10px;color:rgba(255,255,255,.3);line-height:1.5;text-align:center;}
+@media(max-width:640px){#wa-panel{right:12px;bottom:130px;width:280px;}}
+</style>
+
+<script>
+(function(){
+  var btn=document.getElementById('wa');
+  var panel=document.getElementById('wa-panel');
+  var closeBtn=document.getElementById('wa-close');
+  var sendBtn=document.getElementById('wa-send');
+  var msgBox=document.getElementById('wa-msg');
+  var WA_NUMBER='919820142005';
+  if(!btn||!panel)return;
+
+  function openPanel(){
+    panel.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    setTimeout(function(){msgBox.focus();msgBox.select();},260);
+  }
+  function closePanel(){
+    panel.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+  }
+  btn.addEventListener('click',function(){
+    if(panel.classList.contains('open'))closePanel();else openPanel();
+  });
+  if(closeBtn)closeBtn.addEventListener('click',closePanel);
+
+  document.addEventListener('click',function(e){
+    if(panel.classList.contains('open') && !panel.contains(e.target) && e.target!==btn && !btn.contains(e.target)){
+      closePanel();
+    }
+  });
+
+  if(sendBtn)sendBtn.addEventListener('click',function(){
+    var text=(msgBox&&msgBox.value.trim())||"Hi Carving Dezine, I'd like to discuss a project.";
+    window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(text),'_blank','noopener');
+  });
+})();
+</script>
+
+
+<style>
+#cd-scroll-btn{position:fixed;right:28px;bottom:24px;z-index:590;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
+#cd-scroll-btn:hover{opacity:1;transform:translateY(-2px)}
+#cd-scroll-btn svg{width:18px;height:18px}
+@media(max-width:640px){#cd-scroll-btn{width:40px;height:40px;right:22px;bottom:18px}}
+</style>
+<button id="cd-scroll-btn" title="Scroll down / up" aria-label="Scroll page">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</button>
+<script>
+(function(){
+  var btn=document.getElementById('cd-scroll-btn');
+  if(!btn)return;
+  function activeScroller(){
+    var ov=document.getElementById('adm-ov');
+    if(ov&&getComputedStyle(ov).display!=='none')return ov;
+    return document.scrollingElement||document.documentElement;
+  }
+  function updateArrow(){
+    var el=activeScroller();
+    var atBottom=el.scrollTop+el.clientHeight>=el.scrollHeight-40;
+    btn.querySelector('svg').innerHTML=atBottom
+      ?'<polyline points="18 15 12 9 6 15"></polyline>'
+      :'<polyline points="6 9 12 15 18 9"></polyline>';
+  }
+  btn.addEventListener('click',function(){
+    var el=activeScroller();
+    var atBottom=el.scrollTop+el.clientHeight>=el.scrollHeight-40;
+    var delta=atBottom?-el.clientHeight*0.9:el.clientHeight*0.9;
+    el.scrollBy({top:delta,behavior:'smooth'});
+    setTimeout(updateArrow,350);
+  });
+  window.addEventListener('scroll',updateArrow,{passive:true});
+  document.addEventListener('scroll',function(e){if(e.target&&e.target.id==='adm-ov')updateArrow();},true);
+  updateArrow();
+})();
+</script>
 </body>
 </html>
