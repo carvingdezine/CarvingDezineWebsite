@@ -559,10 +559,16 @@ function ghLoadAndRender(cb){
 }
 
 // Render from the live database, not any cached/local copy.
-ghLoadAndRender(function(){renderPage();});
+ghLoadAndRender(function(){
+  renderPage();
+  initScrollReveals();
+});
 
 // ── IMMERSIVE SCROLL REVEALS ────────────────────────────
-(function(){
+// Must run AFTER the project content is actually in the DOM (i.e. after the
+// data fetch + renderPage() finish) — otherwise it observes elements that
+// don't exist yet, and everything stays permanently invisible (opacity:0).
+function initScrollReveals(){
   // Gallery images
   var imgObs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
@@ -587,7 +593,7 @@ ghLoadAndRender(function(){renderPage();});
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');btmObs.unobserve(e.target);}});
   },{threshold:0.1});
   document.querySelectorAll('.pj-nav-row,.pj-rel-card,.pj-cta-inner').forEach(function(el){btmObs.observe(el);});
-})();
+}
 
 
 // ── AMBIENT BACKGROUND MUSIC — real soft piano track, low fixed volume, shared mute pref ──
