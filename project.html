@@ -34,7 +34,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSIjZmYyYTJhIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsMjgzLjQ3LDAsMjgzLjQ3LDAsNDQwLjAyLDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNikiIHg9IjMyNC4yMiIgeT0iMjAwLjk1IiB3aWR0aD0iMTcuMjQiIGhlaWdodD0iNjAuNDgiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDAwLjQ3LDExMy4zOWMtMzIuNTksMC01OS4wMSwyNi40Mi01OS4wMSw1OXYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg=="/>
-<style>
+<style>::-webkit-scrollbar{width:12px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:6px;border:3px solid var(--black);background-clip:padding-box}::-webkit-scrollbar-thumb:hover{background:#ff5252;background-clip:padding-box}html{scrollbar-width:auto;scrollbar-color:var(--red) var(--black)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
   --black:#000;--white:#fff;--red:#ff2a2a;
@@ -248,9 +248,9 @@ a{color:inherit;text-decoration:none;}
 .sh-ft-brand{display:flex;align-items:center;gap:10px;}
 .sh-ft-logo{width:28px;height:28px;object-fit:contain;opacity:.7;}
 .sh-ft-name{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.65);}
-.sh-ft-copy{font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.sh-ft-copy{font-family:var(--m);font-size:12px;letter-spacing:.06em;color:rgba(255,255,255,.55);}
 .sh-ft-links{display:flex;flex-wrap:wrap;gap:4px 14px;}
-.sh-ft-link{font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .2s;}
+.sh-ft-link{font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:color .2s;}
 .sh-ft-link:hover{color:#fff;}
 .sh-ft-btm{padding:14px clamp(20px,4vw,44px);display:flex;align-items:center;justify-content:space-between;font-family:var(--m);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);}
 .sh-ft-btm a{color:rgba(255,255,255,.25);transition:color .2s;}
@@ -552,8 +552,8 @@ function ghLoadAndRender(cb){
   .then(function(data){
     var p=Array.isArray(data)?data:(data.projects||[]);
     setProjectsState(p);
-    updateLastUpdatedBadge(data.lastUpdated);
     if(cb)cb();
+    updateLastUpdatedBadge(data.lastUpdated); // after cb(), so the footer (with #cd-last-updated) already exists
   })
   .catch(function(){if(cb)cb();});
 }
