@@ -2716,51 +2716,63 @@ window.addEventListener('scroll',function(){
 window._ambientPad=(function(){
   var PREF_KEY='cd_sound_pref';
   function wanted(){ return localStorage.getItem(PREF_KEY)!=='off'; }
-  var actx=null,started=false,nodes=[];
+  var actx=null,started=false,master=null;
   function start(){
     if(started||!wanted())return;
     started=true;
     try{ actx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){return;}
-    var master=actx.createGain();
+    master=actx.createGain();
     master.gain.setValueAtTime(0,actx.currentTime);
-    master.gain.linearRampToValueAtTime(0.016,actx.currentTime+5); // very slow, very quiet fade-in
-    master.connect(actx.destination);
+    master.gain.linearRampToValueAtTime(0.014,actx.currentTime+6); // slow, quiet fade-in
 
     var filter=actx.createBiquadFilter();
     filter.type='lowpass';
-    filter.frequency.value=700;
+    filter.frequency.value=2600; // bright/warm, not muffled
     filter.connect(master);
+    master.connect(actx.destination);
 
-    var freqs=[130.81,164.81,196.00]; // soft C major triad, low register
-    freqs.forEach(function(f,i){
+    // Soft piano-register triad (C4-E4-G4), same warm palette as the hover notes
+    var main=[261.63,329.63,392.00];
+    main.forEach(function(f,i){
       var osc=actx.createOscillator();
       osc.type='sine';
       osc.frequency.value=f;
-      osc.detune.value=(i-1)*4;
+      osc.detune.value=(i-1)*2.5; // very slight warmth, no beating/dissonance
       var g=actx.createGain();
-      g.gain.value=0.4;
+      g.gain.value=0.34;
       osc.connect(g); g.connect(filter);
       osc.start();
-      nodes.push(osc);
+    });
+    // Very quiet high shimmer, one octave up — soft, like piano overtones
+    var shimmer=[523.25,659.25,783.99];
+    shimmer.forEach(function(f){
+      var osc=actx.createOscillator();
+      osc.type='sine';
+      osc.frequency.value=f;
+      var g=actx.createGain();
+      g.gain.value=0.05;
+      osc.connect(g); g.connect(filter);
+      osc.start();
     });
 
+    // Gentle amplitude "breathing" — subtle, not a sweeping filter (that's what sounded eerie before)
     var lfo=actx.createOscillator();
-    lfo.frequency.value=0.025; // slow breathing movement
+    lfo.type='sine';
+    lfo.frequency.value=0.045; // slow, calm
     var lfoGain=actx.createGain();
-    lfoGain.gain.value=220;
-    lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
+    lfoGain.gain.value=0.003; // small depth around the 0.014 base level
+    lfo.connect(lfoGain); lfoGain.connect(master.gain);
     lfo.start();
-    nodes.push(lfo);
-    window._ambientMaster=master;
   }
   function stop(){
     if(actx){
       try{
-        if(window._ambientMaster)window._ambientMaster.gain.linearRampToValueAtTime(0,actx.currentTime+0.6);
-        setTimeout(function(){try{actx.close();}catch(e){}},700);
+        if(master)master.gain.linearRampToValueAtTime(0,actx.currentTime+0.6);
+        var a=actx;
+        setTimeout(function(){try{a.close();}catch(e){}},700);
       }catch(e){}
     }
-    started=false; actx=null; nodes=[];
+    started=false; actx=null; master=null;
   }
   function armOnGesture(){
     if(!wanted())return;
