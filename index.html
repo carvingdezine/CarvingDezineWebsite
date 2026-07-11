@@ -2712,6 +2712,67 @@ window.addEventListener('scroll',function(){
 // HERO CANVAS — particle network
 // Hero canvas — nodes repel/attract cursor, links to cursor node
 
+// ── AMBIENT BACKGROUND PAD — subtle, soothing, shared mute pref across all pages ──
+window._ambientPad=(function(){
+  var PREF_KEY='cd_sound_pref';
+  function wanted(){ return localStorage.getItem(PREF_KEY)!=='off'; }
+  var actx=null,started=false,nodes=[];
+  function start(){
+    if(started||!wanted())return;
+    started=true;
+    try{ actx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){return;}
+    var master=actx.createGain();
+    master.gain.setValueAtTime(0,actx.currentTime);
+    master.gain.linearRampToValueAtTime(0.016,actx.currentTime+5); // very slow, very quiet fade-in
+    master.connect(actx.destination);
+
+    var filter=actx.createBiquadFilter();
+    filter.type='lowpass';
+    filter.frequency.value=700;
+    filter.connect(master);
+
+    var freqs=[130.81,164.81,196.00]; // soft C major triad, low register
+    freqs.forEach(function(f,i){
+      var osc=actx.createOscillator();
+      osc.type='sine';
+      osc.frequency.value=f;
+      osc.detune.value=(i-1)*4;
+      var g=actx.createGain();
+      g.gain.value=0.4;
+      osc.connect(g); g.connect(filter);
+      osc.start();
+      nodes.push(osc);
+    });
+
+    var lfo=actx.createOscillator();
+    lfo.frequency.value=0.025; // slow breathing movement
+    var lfoGain=actx.createGain();
+    lfoGain.gain.value=220;
+    lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
+    lfo.start();
+    nodes.push(lfo);
+    window._ambientMaster=master;
+  }
+  function stop(){
+    if(actx){
+      try{
+        if(window._ambientMaster)window._ambientMaster.gain.linearRampToValueAtTime(0,actx.currentTime+0.6);
+        setTimeout(function(){try{actx.close();}catch(e){}},700);
+      }catch(e){}
+    }
+    started=false; actx=null; nodes=[];
+  }
+  function armOnGesture(){
+    if(!wanted())return;
+    start();
+    document.removeEventListener('pointerdown',armOnGesture);
+    document.removeEventListener('keydown',armOnGesture);
+  }
+  document.addEventListener('pointerdown',armOnGesture,{once:true});
+  document.addEventListener('keydown',armOnGesture,{once:true});
+  return{start:start,stop:stop,isWanted:wanted};
+})();
+
 // -----------------------------------------
 // HOVER SOUND — plays on every underline hover
 var _hoverSound=(function(){
@@ -2837,7 +2898,7 @@ var _heroCanvas=(function(){
 
   function init(){
     pts=[];
-    var n=Math.min(225,80); // starts lean, ramps after load
+    var n=Math.min(220,Math.max(120,Math.floor((c.width*c.height)/9000))); // denser network, scales with screen size
     for(var i=0;i<n;i++){
       pts.push({
         x:Math.random()*c.width,  y:Math.random()*c.height,
@@ -4496,24 +4557,38 @@ function renderTmList(){
 
 // Sound toggle button
 (function(){
+  var PREF_KEY='cd_sound_pref';
   var btn=document.getElementById('snd-btn');
   var iconOn=document.getElementById('snd-icon-on');
   var iconOff=document.getElementById('snd-icon-off');
-  if(!btn)return;
+
+  function wanted(){ return localStorage.getItem(PREF_KEY)!=='off'; } // on by default
 
   function updateUI(){
-    var on=_hoverSound.isEnabled();
+    var on=wanted();
+    if(!btn)return;
     btn.classList.toggle('on',on);
     if(iconOn)iconOn.style.display=on?'':'none';
     if(iconOff)iconOff.style.display=on?'none':'';
     btn.title=on?'Sound on — click to mute':'Sound off — click to enable';
   }
 
-  btn.addEventListener('click',function(){
-    var next=!_hoverSound.isEnabled();
-    _hoverSound.setEnabled(next);
-    updateUI();
-  });
+  function armOnGesture(){
+    if(!wanted())return;
+    _hoverSound.setEnabled(true);
+  }
+  document.addEventListener('pointerdown',armOnGesture,{once:true});
+  document.addEventListener('keydown',armOnGesture,{once:true});
+
+  if(btn){
+    btn.addEventListener('click',function(){
+      var next=!wanted();
+      localStorage.setItem(PREF_KEY,next?'on':'off');
+      _hoverSound.setEnabled(next);
+      if(window._ambientPad){ if(next)window._ambientPad.start(); else window._ambientPad.stop(); }
+      updateUI();
+    });
+  }
 
   updateUI();
 })();
@@ -4665,10 +4740,10 @@ function renderTmList(){
 
 </script>
 <style>
-#cd-scroll-btn{position:fixed;right:18px;bottom:24px;z-index:9000;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
+#cd-scroll-btn{position:fixed;left:18px;bottom:24px;z-index:9000;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
 #cd-scroll-btn:hover{opacity:1;transform:translateY(-2px)}
 #cd-scroll-btn svg{width:18px;height:18px}
-@media(max-width:640px){#cd-scroll-btn{width:40px;height:40px;right:12px;bottom:18px}}
+@media(max-width:640px){#cd-scroll-btn{width:40px;height:40px;left:12px;bottom:18px}}
 </style>
 <button id="cd-scroll-btn" title="Scroll down / up" aria-label="Scroll page">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>

@@ -376,6 +376,53 @@ ghLoad(function(){
   buildTagFilters();
   render();
 });
+
+// ── AMBIENT BACKGROUND PAD — subtle, soothing, shared mute pref across all pages ──
+window._ambientPad=(function(){
+  var PREF_KEY='cd_sound_pref';
+  function wanted(){ return localStorage.getItem(PREF_KEY)!=='off'; } // on by default
+  var actx=null,started=false;
+  function start(){
+    if(started||!wanted())return;
+    started=true;
+    try{ actx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){return;}
+    var master=actx.createGain();
+    master.gain.setValueAtTime(0,actx.currentTime);
+    master.gain.linearRampToValueAtTime(0.016,actx.currentTime+5);
+    master.connect(actx.destination);
+    var filter=actx.createBiquadFilter();
+    filter.type='lowpass';
+    filter.frequency.value=700;
+    filter.connect(master);
+    var freqs=[130.81,164.81,196.00];
+    freqs.forEach(function(f,i){
+      var osc=actx.createOscillator();
+      osc.type='sine';
+      osc.frequency.value=f;
+      osc.detune.value=(i-1)*4;
+      var g=actx.createGain();
+      g.gain.value=0.4;
+      osc.connect(g); g.connect(filter);
+      osc.start();
+    });
+    var lfo=actx.createOscillator();
+    lfo.frequency.value=0.025;
+    var lfoGain=actx.createGain();
+    lfoGain.gain.value=220;
+    lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
+    lfo.start();
+  }
+  function armOnGesture(){
+    if(!wanted())return;
+    start();
+    document.removeEventListener('pointerdown',armOnGesture);
+    document.removeEventListener('keydown',armOnGesture);
+  }
+  document.addEventListener('pointerdown',armOnGesture,{once:true});
+  document.addEventListener('keydown',armOnGesture,{once:true});
+  return{start:start,isWanted:wanted};
+})();
+
 </script>
 </body>
 </html>
