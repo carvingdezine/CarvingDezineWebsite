@@ -132,6 +132,17 @@ a{color:inherit;text-decoration:none;}
 @media(max-width:900px){.wk-masonry{column-count:2;}.wk-nav-links{display:none;}.wk-ft-main{grid-template-columns:1fr;}.wk-ft-col{border-right:none;border-top:1px solid var(--line);}.wk-ft-col:first-child{border-top:none;}.wk-ft-col:last-child{justify-content:flex-start;}}
 @media(max-width:560px){.wk-masonry{column-count:1;}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Work — Carving Dezine",
+  "description": "All design projects by Tanvi Shah — Carving Dezine. Freelance UX/UI and Brand Identity designer based in Mumbai & Surat, India.",
+  "url": "https://www.carvingdezine.com/work.html",
+  "isPartOf": { "@type": "WebSite", "name": "Carving Dezine", "url": "https://www.carvingdezine.com" },
+  "author": { "@type": "Person", "name": "Tanvi Shah", "url": "https://www.carvingdezine.com" }
+}
+</script>
 </head>
 <body>
 
@@ -376,6 +387,33 @@ ghLoad(function(){
   buildTagFilters();
   render();
 });
+
+// ── AMBIENT BACKGROUND MUSIC — real soft piano track, low fixed volume, shared mute pref ──
+window._ambientPad=(function(){
+  var PREF_KEY='cd_sound_pref';
+  function wanted(){ return localStorage.getItem(PREF_KEY)!=='off'; }
+  var audio=null,started=false;
+  function start(){
+    if(started||!wanted())return;
+    started=true;
+    audio=new Audio('audio/ambient-piano.mp3');
+    audio.loop=true;
+    audio.preload='auto';
+    audio.volume=0.15; // fixed low & soothing — intentionally no volume control
+    var p=audio.play();
+    if(p&&p.catch){ p.catch(function(){ started=false; }); } // blocked by browser — wait for a gesture instead
+  }
+  function stop(){
+    if(audio){ audio.pause(); audio=null; }
+    started=false;
+  }
+  function armOnGesture(){ if(wanted())start(); }
+  if(wanted())start(); // try right away on page load
+  document.addEventListener('pointerdown',armOnGesture); // fallback: starts on the very first click/tap anywhere
+  document.addEventListener('keydown',armOnGesture);
+  return{start:start,stop:stop,isWanted:wanted};
+})();
+
 </script>
 </body>
 </html>
