@@ -2712,67 +2712,23 @@ window.addEventListener('scroll',function(){
 // HERO CANVAS — particle network
 // Hero canvas — nodes repel/attract cursor, links to cursor node
 
-// ── AMBIENT BACKGROUND PAD — subtle, soothing, shared mute pref across all pages ──
+// ── AMBIENT BACKGROUND MUSIC — real soft piano track, low fixed volume, shared mute pref ──
 window._ambientPad=(function(){
   var PREF_KEY='cd_sound_pref';
   function wanted(){ return localStorage.getItem(PREF_KEY)!=='off'; }
-  var actx=null,started=false,master=null;
+  var audio=null,started=false;
   function start(){
     if(started||!wanted())return;
     started=true;
-    try{ actx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){return;}
-    master=actx.createGain();
-    master.gain.setValueAtTime(0,actx.currentTime);
-    master.gain.linearRampToValueAtTime(0.014,actx.currentTime+6); // slow, quiet fade-in
-
-    var filter=actx.createBiquadFilter();
-    filter.type='lowpass';
-    filter.frequency.value=2600; // bright/warm, not muffled
-    filter.connect(master);
-    master.connect(actx.destination);
-
-    // Soft piano-register triad (C4-E4-G4), same warm palette as the hover notes
-    var main=[261.63,329.63,392.00];
-    main.forEach(function(f,i){
-      var osc=actx.createOscillator();
-      osc.type='sine';
-      osc.frequency.value=f;
-      osc.detune.value=(i-1)*2.5; // very slight warmth, no beating/dissonance
-      var g=actx.createGain();
-      g.gain.value=0.34;
-      osc.connect(g); g.connect(filter);
-      osc.start();
-    });
-    // Very quiet high shimmer, one octave up — soft, like piano overtones
-    var shimmer=[523.25,659.25,783.99];
-    shimmer.forEach(function(f){
-      var osc=actx.createOscillator();
-      osc.type='sine';
-      osc.frequency.value=f;
-      var g=actx.createGain();
-      g.gain.value=0.05;
-      osc.connect(g); g.connect(filter);
-      osc.start();
-    });
-
-    // Gentle amplitude "breathing" — subtle, not a sweeping filter (that's what sounded eerie before)
-    var lfo=actx.createOscillator();
-    lfo.type='sine';
-    lfo.frequency.value=0.045; // slow, calm
-    var lfoGain=actx.createGain();
-    lfoGain.gain.value=0.003; // small depth around the 0.014 base level
-    lfo.connect(lfoGain); lfoGain.connect(master.gain);
-    lfo.start();
+    audio=new Audio('audio/ambient-piano.mp3');
+    audio.loop=true;
+    audio.preload='auto';
+    audio.volume=0.15; // fixed low & soothing — intentionally no volume control
+    audio.play().catch(function(){ started=false; });
   }
   function stop(){
-    if(actx){
-      try{
-        if(master)master.gain.linearRampToValueAtTime(0,actx.currentTime+0.6);
-        var a=actx;
-        setTimeout(function(){try{a.close();}catch(e){}},700);
-      }catch(e){}
-    }
-    started=false; actx=null; master=null;
+    if(audio){ audio.pause(); audio=null; }
+    started=false;
   }
   function armOnGesture(){
     if(!wanted())return;
