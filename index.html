@@ -163,12 +163,26 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{overflow-x:hidden;font-size:16px}
 a,button,[data-href],input,select,textarea,[onclick]{cursor:pointer}
-body{background:var(--black);color:var(--white);font-family:var(--f);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255,42,42,.055) 0, rgba(255,42,42,.055) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 68% 8%, rgba(255,42,42,.04) 0, rgba(255,42,42,.04) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 88% 42%, rgba(255,42,42,.045) 0, rgba(255,42,42,.045) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 30% 65%, rgba(255,42,42,.035) 0, rgba(255,42,42,.035) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 55% 88%, rgba(255,42,42,.04) 0, rgba(255,42,42,.04) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 8% 92%, rgba(255,42,42,.03) 0, rgba(255,42,42,.03) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 95% 78%, rgba(255,42,42,.035) 0, rgba(255,42,42,.035) 1.5px, transparent 2.5px),
+    var(--black);
+  background-repeat:repeat;
+  background-size:640px 640px,540px 540px,720px 720px,480px 480px,610px 610px,700px 700px,560px 560px,auto;
+  background-attachment:fixed;
+  color:var(--white);font-family:var(--f);overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--f);cursor:pointer;border:none;background:none}
 img{display:block;max-width:100%}
 input,textarea,select{font-family:var(--f)}
-::-webkit-scrollbar{width:12px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:6px;border:3px solid var(--black);background-clip:padding-box}::-webkit-scrollbar-thumb:hover{background:#ff5252;background-clip:padding-box}html{scrollbar-width:auto;scrollbar-color:var(--red) var(--black)}
+::-webkit-scrollbar{display:none}html{scrollbar-width:none;-ms-overflow-style:none}
 
 /* Cursor: system default */
 
@@ -479,6 +493,8 @@ input,textarea,select{font-family:var(--f)}
 }
 .carve-h .wh:hover::after{transform:scaleX(1)}
 .carve-sub{margin-top:20px;font-size:15px;font-weight:300;color:var(--muted);line-height:1.75;opacity:0;transition:opacity .8s ease 1.2s}
+.carve-cta{margin-top:36px;opacity:0;transform:translateY(12px);transition:opacity .8s ease 1.4s,transform .8s var(--ease) 1.4s;}
+#carve.carved .carve-cta{opacity:1;transform:none}
 #carve.carved .carve-sub{opacity:1}
 
 /* ═══════════════════════════════════
@@ -526,27 +542,29 @@ input,textarea,select{font-family:var(--f)}
    SERVICES
 ═══════════════════════════════════ */
 #services{border-bottom:1px solid var(--line)}
-.svc-grid{display:grid;grid-template-columns:repeat(5,1fr);overflow:hidden;}
-.svc{
-  padding:clamp(30px,4vw,52px) clamp(22px,3vw,40px);border-right:1px solid var(--line);
-  position:relative;overflow:hidden;transition:background .3s;
+.svc-list{max-width:980px;margin:0 auto;padding:8px clamp(20px,4vw,52px) clamp(40px,6vw,72px);}
+.svc-row{border-bottom:1px solid var(--line);}
+.svc-row:first-child{border-top:1px solid var(--line);}
+.svc-row-main{
+  width:100%;display:flex;align-items:center;gap:clamp(14px,2.5vw,28px);
+  padding:clamp(18px,2.8vw,28px) 4px;background:none;border:none;cursor:pointer;text-align:left;
+  font-family:var(--f);color:var(--white);transition:padding-left .3s var(--ease);
 }
-.svc:last-child{border-right:none}
-.svc:hover{background:var(--g2)}
-.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
-.svc:hover::before{transform:scaleX(1)}
-.svc-n{font-family:var(--m);font-size:12px;letter-spacing:.18em;color:rgba(255,255,255,.40);margin-bottom:clamp(14px,2.5vw,28px)}
-.svc-icon{width:44px;height:44px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:border-color .3s,background .3s;font-size:20px}
-.svc:hover .svc-icon{border-color:var(--red);background:rgba(255,42,42,.08)}
-/* WORD HOVER UNDERLINE on service names */
-.svc-name{text-transform:uppercase;
-  font-size:clamp(16px,1.8vw,22px);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px;
-  display:inline-block;position:relative;
+.svc-row-main:hover{padding-left:10px}
+.svc-row-n{font-family:var(--m);font-size:12px;letter-spacing:.18em;color:rgba(255,255,255,.35);flex-shrink:0;}
+.svc-row-name{
+  flex:1;text-transform:uppercase;font-size:clamp(18px,2.6vw,30px);font-weight:700;letter-spacing:-.02em;
+  transition:color .3s;
 }
-.svc-name::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
-.svc:hover .svc-name::after{transform:scaleX(1)}
-.svc-body{font-size:14px;line-height:1.9;color:rgba(255,255,255,.68);max-width:260px}
-.svc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.svc-row.open .svc-row-name,.svc-row-main:hover .svc-row-name{color:var(--red)}
+.svc-row-icon{width:36px;height:36px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;transition:border-color .3s,background .3s,transform .3s var(--ease);}
+.svc-row.open .svc-row-icon{border-color:var(--red);background:rgba(255,42,42,.08);transform:rotate(-8deg)}
+.svc-row-arrow{font-family:var(--m);font-size:20px;font-weight:300;color:rgba(255,255,255,.4);flex-shrink:0;width:20px;text-align:center;transition:transform .35s var(--ease),color .3s;}
+.svc-row.open .svc-row-arrow{transform:rotate(45deg);color:var(--red)}
+.svc-row-detail{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s var(--ease),opacity .4s ease;padding-left:calc(12px + 36px + clamp(14px,2.5vw,28px));}
+.svc-row.open .svc-row-detail{max-height:220px;opacity:1;padding-bottom:26px;}
+.svc-row-body{font-size:14px;line-height:1.9;color:rgba(255,255,255,.68);max-width:520px}
+.svc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
 .svc-tag{font-family:var(--m);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
 
 /* ═══════════════════════════════════
@@ -1014,6 +1032,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   .tm-grid{grid-template-columns:1fr 1fr}
   .tm-cell:nth-child(2){border-right:none}
   .tm-cell:nth-child(3){display:none}
+  .proc-nodes{flex-wrap:wrap;gap:32px 16px;max-width:640px;justify-content:center;}
+  .pnode{flex:0 0 calc(33.333% - 16px);max-width:calc(33.333% - 16px);}
 }
 @media(max-width:560px){
   .tm-grid{grid-template-columns:1fr}
@@ -2128,13 +2148,6 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <div class="hint-dot"></div>
     move cursor to interact
   </div>
-  <div class="hero-chips" id="hero-chips">
-    <span class="chip">UX / UI Design</span>
-    <span class="chip">Brand Identity</span>
-    <span class="chip">Presentation Design</span>
-    <span class="chip">Print &amp; Marketing</span>
-    <span class="chip">Interactive Web</span>
-  </div>
   <div class="hero-stats">
     <div class="hs"><div class="hs-n" data-c="350">0</div><div class="hs-l">Projects</div></div>
     <div class="hs"><div class="hs-n" data-c="80">0</div><div class="hs-l">Clients</div></div>
@@ -2151,42 +2164,6 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   </div>
 </div>
 
-<!-- ═══════════════════ SERVICES ═══════════════════ -->
-<section id="services">
-  <div class="s-hd rv"><span class="sec-tag">Specialisms</span><span class="sec-ct">5 services</span></div>
-  <div class="svc-grid svc-scene">
-    <div class="svc rv" style="transition-delay:0s">
-      <div class="svc-n">01</div><div class="svc-icon">⬡</div>
-      <div class="svc-name">UX &amp; UI Design</div>
-      <div class="svc-body">Human-centred interfaces balancing beauty with function. Full product design from wireframe to developer handoff.</div>
-      <div class="svc-tags"><span class="svc-tag">Product Design</span><span class="svc-tag">Figma</span><span class="svc-tag">Design Systems</span><span class="svc-tag">Prototyping</span></div>
-    </div>
-    <div class="svc rv" style="transition-delay:0.08s">
-      <div class="svc-n">02</div><div class="svc-icon">◈</div>
-      <div class="svc-name">Brand Identity</div>
-      <div class="svc-body">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</div>
-      <div class="svc-tags"><span class="svc-tag">Logo Design</span><span class="svc-tag">Brand System</span><span class="svc-tag">Style Guide</span></div>
-    </div>
-    <div class="svc rv" style="transition-delay:0.16s">
-      <div class="svc-n">03</div><div class="svc-icon">▣</div>
-      <div class="svc-name">Presentation Design</div>
-      <div class="svc-body">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</div>
-      <div class="svc-tags"><span class="svc-tag">Pitch Decks</span><span class="svc-tag">Keynote</span><span class="svc-tag">PowerPoint</span></div>
-    </div>
-    <div class="svc rv" style="transition-delay:0.24s">
-      <div class="svc-n">04</div><div class="svc-icon">▦</div>
-      <div class="svc-name">Print &amp; Marketing</div>
-      <div class="svc-body">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</div>
-      <div class="svc-tags"><span class="svc-tag">Brochures</span><span class="svc-tag">Catalogues</span><span class="svc-tag">Annual Reports</span></div>
-    </div>
-    <div class="svc rv" style="transition-delay:0.32s">
-      <div class="svc-n">05</div><div class="svc-icon" style="font-size:16px">⟡</div>
-      <div class="svc-name">Interactive Web</div>
-      <div class="svc-body">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</div>
-      <div class="svc-tags"><span class="svc-tag">WebGL</span><span class="svc-tag">Motion Design</span><span class="svc-tag">Front-end</span><span class="svc-tag">GSAP</span></div>
-    </div>
-  </div>
-</section>
 <!-- ═══════════════════ WORK ═══════════════════ -->
 <section id="work">
   <div class="s-hd rv">
@@ -2217,13 +2194,82 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   </div>
 </section>
 
-<!-- ═══════════════════ CARVE REVEAL ═══════════════════ -->
+<!-- ═══════════════════ CARVE REVEAL + CTA ═══════════════════ -->
 <div id="carve" class="parallax-med">
   <div class="carve-h">
     "<span class="whu">EVERY</span> <span class="whu">BRAND</span> <span class="whu">HAS</span> <span class="whu">NOISE.</span><br><em><span class="whu">WE</span> <span class="whu">CARVE</span> <span class="whu">CLARITY."</span></em>
   </div>
   <p class="carve-sub">15+ years of intentional design. From Mumbai and Surat - to the world.</p>
+  <a href="#contact" class="btn-p carve-cta">Start a Project <svg viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></a>
 </div>
+
+<!-- ═══════════════════ SERVICES ═══════════════════ -->
+<section id="services">
+  <div class="s-hd rv"><span class="sec-tag">Specialisms</span><span class="sec-ct">5 services</span></div>
+  <div class="svc-list" id="svc-list">
+    <div class="svc-row rv open" data-i="0">
+      <button class="svc-row-main">
+        <span class="svc-row-n">01</span>
+        <span class="svc-row-name">UX &amp; UI Design</span>
+        <span class="svc-row-icon">⬡</span>
+        <span class="svc-row-arrow">+</span>
+      </button>
+      <div class="svc-row-detail">
+        <p class="svc-row-body">Human-centred interfaces balancing beauty with function. Full product design from wireframe to developer handoff.</p>
+        <div class="svc-row-tags"><span class="svc-tag">Product Design</span><span class="svc-tag">Figma</span><span class="svc-tag">Design Systems</span><span class="svc-tag">Prototyping</span></div>
+      </div>
+    </div>
+    <div class="svc-row rv" data-i="1">
+      <button class="svc-row-main">
+        <span class="svc-row-n">02</span>
+        <span class="svc-row-name">Brand Identity</span>
+        <span class="svc-row-icon">◈</span>
+        <span class="svc-row-arrow">+</span>
+      </button>
+      <div class="svc-row-detail">
+        <p class="svc-row-body">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</p>
+        <div class="svc-row-tags"><span class="svc-tag">Logo Design</span><span class="svc-tag">Brand System</span><span class="svc-tag">Style Guide</span></div>
+      </div>
+    </div>
+    <div class="svc-row rv" data-i="2">
+      <button class="svc-row-main">
+        <span class="svc-row-n">03</span>
+        <span class="svc-row-name">Presentation Design</span>
+        <span class="svc-row-icon">▣</span>
+        <span class="svc-row-arrow">+</span>
+      </button>
+      <div class="svc-row-detail">
+        <p class="svc-row-body">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</p>
+        <div class="svc-row-tags"><span class="svc-tag">Pitch Decks</span><span class="svc-tag">Keynote</span><span class="svc-tag">PowerPoint</span></div>
+      </div>
+    </div>
+    <div class="svc-row rv" data-i="3">
+      <button class="svc-row-main">
+        <span class="svc-row-n">04</span>
+        <span class="svc-row-name">Print &amp; Marketing</span>
+        <span class="svc-row-icon">▦</span>
+        <span class="svc-row-arrow">+</span>
+      </button>
+      <div class="svc-row-detail">
+        <p class="svc-row-body">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</p>
+        <div class="svc-row-tags"><span class="svc-tag">Brochures</span><span class="svc-tag">Catalogues</span><span class="svc-tag">Annual Reports</span></div>
+      </div>
+    </div>
+    <div class="svc-row rv" data-i="4">
+      <button class="svc-row-main">
+        <span class="svc-row-n">05</span>
+        <span class="svc-row-name">Interactive Web</span>
+        <span class="svc-row-icon" style="font-size:16px">⟡</span>
+        <span class="svc-row-arrow">+</span>
+      </button>
+      <div class="svc-row-detail">
+        <p class="svc-row-body">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</p>
+        <div class="svc-row-tags"><span class="svc-tag">WebGL</span><span class="svc-tag">Motion Design</span><span class="svc-tag">Front-end</span><span class="svc-tag">GSAP</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ═══════════════════ PROCESS ═══════════════════ -->
 <section id="process">
@@ -3154,10 +3200,9 @@ function startHero(){
   document.querySelectorAll('.hwi').forEach(function(w){w.classList.add('vis')});
   // red sweep on CARVE
   setTimeout(function(){var c=document.querySelector('.carve-w');if(c)c.classList.add('drawn')},980);
-  // desc/actions/chips
+  // desc/actions
   setTimeout(function(){document.getElementById('hero-desc').classList.add('vis')},200);
   setTimeout(function(){document.getElementById('hero-act').classList.add('vis')},380);
-  setTimeout(function(){document.getElementById('hero-chips').classList.add('vis')},580);
   setTimeout(function(){
     var h=document.getElementById('cursor-hint');
     if(h)h.classList.add('vis');
@@ -4618,6 +4663,21 @@ function renderTmList(){
 
 
 
+// Specialisms accordion - click to expand, single-open
+(function(){
+  var rows=document.querySelectorAll('.svc-row');
+  if(!rows.length)return;
+  rows.forEach(function(row){
+    var btn=row.querySelector('.svc-row-main');
+    if(!btn)return;
+    btn.addEventListener('click',function(){
+      var wasOpen=row.classList.contains('open');
+      rows.forEach(function(r){r.classList.remove('open');});
+      if(!wasOpen)row.classList.add('open');
+    });
+  });
+})();
+
 // Sound toggle button
 (function(){
   var PREF_KEY='cd_sound_pref';
@@ -4802,6 +4862,27 @@ function renderTmList(){
 })();
 
 </script>
+<style>
+#cd-scroll-progress{position:fixed;top:0;right:0;width:3px;height:100%;z-index:9500;pointer-events:none;background:rgba(255,255,255,.05);}
+#cd-scroll-progress-bar{width:100%;background:var(--red);height:0%;transition:height .08s linear;box-shadow:0 0 8px rgba(255,42,42,.5);}
+</style>
+<div id="cd-scroll-progress"><div id="cd-scroll-progress-bar"></div></div>
+<script>
+(function(){
+  var bar=document.getElementById('cd-scroll-progress-bar');
+  if(!bar)return;
+  function update(){
+    var el=document.scrollingElement||document.documentElement;
+    var max=el.scrollHeight-el.clientHeight;
+    var pct=max>0?(el.scrollTop/max)*100:0;
+    bar.style.height=pct+'%';
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+  update();
+})();
+</script>
+
 <style>
 #cd-scroll-btn{position:fixed;right:28px;bottom:24px;z-index:590;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
 #cd-scroll-btn:hover{opacity:1;transform:translateY(-2px)}
