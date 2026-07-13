@@ -129,7 +129,7 @@ a{color:inherit;text-decoration:none;}
 .wk-ft-btm a{color:rgba(255,255,255,.25);transition:color .2s;}
 .wk-ft-btm a:hover{color:#fff;}
 
-@media(max-width:900px){.wk-masonry{column-count:2;}.wk-nav-links{display:none;}.wk-ft-main{grid-template-columns:1fr;}.wk-ft-col{border-right:none;border-top:1px solid var(--line);}.wk-ft-col:first-child{border-top:none;}.wk-ft-col:last-child{justify-content:flex-start;}}
+@media(max-width:900px){.wk-masonry{column-count:2;}.wk-nav-links{display:none;}.wk-ft-main{grid-template-columns:1fr;}.wk-ft-col{border-right:none;border-top:1px solid var(--line);justify-content:center;text-align:center;}.wk-ft-col:first-child{border-top:none;}.wk-ft-links{justify-content:center;}.wk-ft-btm{flex-direction:column;gap:8px;text-align:center;justify-content:center;}}
 @media(max-width:560px){.wk-masonry{column-count:1;}}
 </style>
 <script type="application/ld+json">
@@ -441,7 +441,7 @@ window._ambientPad=(function(){
     <div class="wa-p-bubble">Hi there! 👋 Tell me a bit about your project and I'll get back to you on WhatsApp.</div>
   </div>
   <div class="wa-p-foot">
-    <textarea id="wa-msg" rows="2" placeholder="Type your message...">Hi Carving Dezine, I'd like to discuss a project.</textarea>
+    <textarea id="wa-msg" rows="2" placeholder="Type your message...">Hi Tanvi! I'd like to discuss a project.</textarea>
     <button id="wa-send" type="button">
       <span>Send via WhatsApp</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
@@ -452,13 +452,13 @@ window._ambientPad=(function(){
 
 <style>
 #wa{
-  position:fixed;bottom:92px;right:28px;z-index:600;width:50px;height:50px;border-radius:50%;
+  position:fixed;bottom:84px;right:28px;z-index:600;width:46px;height:46px;border-radius:50%;
   background:#25D366;display:flex;align-items:center;justify-content:center;
   box-shadow:0 4px 20px rgba(37,211,102,.28);transition:transform .3s ease,box-shadow .3s,opacity .5s;
   opacity:1;border:none;cursor:pointer;padding:0;
 }
 #wa:hover{transform:scale(1.12);box-shadow:0 8px 30px rgba(37,211,102,.45)}
-#wa svg{width:24px;height:24px;fill:#fff}
+#wa svg{width:21px;height:21px;fill:#fff}
 
 #wa-panel{
   position:fixed;right:28px;bottom:154px;z-index:601;width:320px;max-width:calc(100vw - 40px);
@@ -520,7 +520,7 @@ window._ambientPad=(function(){
   });
 
   if(sendBtn)sendBtn.addEventListener('click',function(){
-    var text=(msgBox&&msgBox.value.trim())||"Hi Carving Dezine, I'd like to discuss a project.";
+    var text=(msgBox&&msgBox.value.trim())||"Hi Tanvi! I'd like to discuss a project.";
     window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(text),'_blank','noopener');
   });
 })();
@@ -528,10 +528,14 @@ window._ambientPad=(function(){
 
 
 <style>
-#cd-scroll-btn{position:fixed;right:28px;bottom:24px;z-index:590;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
+#cd-scroll-btn{position:fixed;right:28px;bottom:24px;z-index:590;width:46px;height:46px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}
 #cd-scroll-btn:hover{opacity:1;transform:translateY(-2px)}
 #cd-scroll-btn svg{width:18px;height:18px}
-@media(max-width:640px){#cd-scroll-btn{width:40px;height:40px;right:22px;bottom:18px}}
+@media(max-width:640px){
+  #cd-scroll-btn{width:36px;height:36px;right:16px;bottom:16px}
+  #wa{width:36px;height:36px;right:16px;bottom:62px}
+  #wa svg{width:17px;height:17px}
+}
 </style>
 <button id="cd-scroll-btn" title="Scroll down / up" aria-label="Scroll page">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
