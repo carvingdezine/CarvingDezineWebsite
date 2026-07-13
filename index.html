@@ -176,7 +176,7 @@ body{
   background-repeat:repeat;
   background-size:640px 640px,540px 540px,720px 720px,480px 480px,610px 610px,700px 700px,560px 560px,auto;
   background-attachment:fixed;
-  color:var(--white);font-family:var(--f);overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  color:var(--white);font-family:var(--f);overflow-x:clip;-webkit-font-smoothing:antialiased;
 }
 a{color:inherit;text-decoration:none}
 button{font-family:var(--f);cursor:pointer;border:none;background:none}
@@ -502,7 +502,7 @@ input,textarea,select{font-family:var(--f)}
 ═══════════════════════════════════ */
 #services{border-bottom:1px solid var(--line)}
 .svc-sticky-wrap{height:600vh;position:relative;}
-.svc-sticky-track{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 clamp(20px,4vw,52px);}
+.svc-sticky-track{height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 clamp(20px,4vw,52px);width:100%;box-sizing:border-box;}
 .svc-sticky-progress{position:absolute;left:clamp(20px,4vw,52px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:2;}
 .ssp-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:background .4s,transform .4s;cursor:pointer;}
 .ssp-dot.on{background:var(--red);transform:scale(1.4);}
@@ -1761,8 +1761,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <!-- MOBILE NAV -->
 <div id="mob-nav">
   <button class="mob-close" id="mob-close">✕</button>
-  <a href="#services" class="mob-ni">Services</a>
   <a href="#work" class="mob-ni">Work</a>
+  <a href="#services" class="mob-ni">Services</a>
   <a href="#testimonials" class="mob-ni">Testimonials</a>
   <a href="#about" class="mob-ni">About</a>
   <a href="#contact" class="mob-ni red">Start a Project ↗</a>
@@ -2068,8 +2068,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <span>Carving Dezine</span>
   </div>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li>
@@ -3158,20 +3158,39 @@ var carveObs=new IntersectionObserver(function(entries){
 var ce=document.getElementById('carve');if(ce)carveObs.observe(ce);
 
 // SPECIALISMS - sticky scroll (scroll-driven, not click-driven)
+// Uses JS-controlled position (fixed while pinned) rather than CSS position:sticky,
+// since sticky can silently fail depending on ancestor properties - this is more reliable.
 (function(){
   var wrap=document.getElementById('svc-sticky-wrap');
+  var track=wrap?wrap.querySelector('.svc-sticky-track'):null;
   var slides=document.querySelectorAll('.svc-slide');
   var dots=document.querySelectorAll('.ssp-dot');
-  if(!wrap||!slides.length)return;
+  if(!wrap||!track||!slides.length)return;
   var n=slides.length;
   var raf=null;
 
+  function isMobile(){return window.innerWidth<=768;}
+
   function update(){
     raf=null;
+    if(isMobile()){
+      // Mobile: CSS handles a plain stacked layout, don't fight it with inline styles
+      track.style.position='';track.style.top='';track.style.left='';track.style.width='';
+      return;
+    }
     var rect=wrap.getBoundingClientRect();
     var vh=window.innerHeight;
     var total=rect.height-vh;
     if(total<=0)return;
+
+    if(rect.top>0){
+      track.style.position='absolute';track.style.top='0';track.style.left='0';track.style.width='100%';
+    }else if(rect.bottom>vh){
+      track.style.position='fixed';track.style.top='0';track.style.left='0';track.style.width='100%';
+    }else{
+      track.style.position='absolute';track.style.top=total+'px';track.style.left='0';track.style.width='100%';
+    }
+
     var progress=(-rect.top)/total;
     progress=Math.max(0,Math.min(1,progress));
     var idx=Math.min(n-1,Math.floor(progress*n));
