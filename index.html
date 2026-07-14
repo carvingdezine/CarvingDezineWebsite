@@ -498,24 +498,47 @@ input,textarea,select{font-family:var(--f)}
 #carve.carved .carve-sub{opacity:1}
 
 /* ═══════════════════════════════════
-   SERVICES - STICKY SCROLL (merged with How We Work)
+   SERVICES - EDITORIAL LIST (merged with How We Work)
 ═══════════════════════════════════ */
 #services{border-bottom:1px solid var(--line)}
-.svc-sticky-wrap{height:600vh;position:relative;}
-.svc-sticky-track{height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 clamp(20px,4vw,52px);width:100%;box-sizing:border-box;}
-.svc-sticky-progress{position:absolute;left:clamp(20px,4vw,52px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:2;}
-.ssp-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:background .4s,transform .4s;cursor:pointer;}
-.ssp-dot.on{background:var(--red);transform:scale(1.4);}
-.svc-sticky-content{max-width:720px;margin:0 auto;position:relative;height:min(420px,60vh);width:100%;}
-.svc-slide{position:absolute;inset:0;opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s var(--ease);pointer-events:none;display:flex;flex-direction:column;justify-content:center;}
-.svc-slide.on{opacity:1;transform:none;pointer-events:auto;}
-.svc-slide-n{font-family:var(--m);font-size:12px;letter-spacing:.18em;color:rgba(255,255,255,.4);margin-bottom:18px;}
-.svc-slide-icon{width:56px;height:56px;border:1px solid var(--red);border-radius:50%;background:rgba(255,42,42,.08);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:22px;}
-.svc-slide-name{text-transform:uppercase;font-size:clamp(28px,4.5vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:18px;color:var(--red);}
-.svc-slide-body{font-size:clamp(15px,1.6vw,18px);line-height:1.8;color:rgba(255,255,255,.75);max-width:560px;margin-bottom:14px;}
-.svc-slide-how{font-family:var(--m);font-size:12px;letter-spacing:.05em;color:rgba(255,255,255,.5);margin-bottom:20px;}
+.svc-eds{max-width:1080px;margin:0 auto;padding:8px clamp(20px,4vw,52px) clamp(20px,4vw,52px);}
+.svc-ed{
+  display:flex;align-items:center;gap:clamp(24px,4vw,56px);
+  padding:clamp(32px,5vw,56px) 0;border-bottom:1px solid var(--line);
+  transition:padding-left .4s var(--ease);
+}
+.svc-ed:first-child{border-top:1px solid var(--line);}
+.svc-ed:nth-child(even){flex-direction:row-reverse;}
+.svc-ed:hover{padding-left:8px;}
+.svc-ed:nth-child(even):hover{padding-left:0;padding-right:8px;}
+.svc-ed-num{
+  font-family:var(--m);font-size:14px;letter-spacing:.18em;color:rgba(255,255,255,.3);
+  flex-shrink:0;transition:color .4s;align-self:flex-start;margin-top:6px;
+}
+.svc-ed:hover .svc-ed-num{color:var(--red);}
+.svc-ed-main{flex:1;min-width:0;}
+.svc-ed-name{
+  text-transform:uppercase;font-size:clamp(24px,3.6vw,42px);font-weight:800;
+  letter-spacing:-.03em;line-height:1.05;margin-bottom:14px;transition:color .35s;
+}
+.svc-ed:hover .svc-ed-name{color:var(--red);}
+.svc-ed-body{font-size:clamp(14px,1.4vw,16px);line-height:1.85;color:rgba(255,255,255,.7);max-width:520px;margin-bottom:12px;}
+.svc-ed-how{font-family:var(--m);font-size:11.5px;letter-spacing:.03em;color:rgba(255,255,255,.45);margin-bottom:18px;}
+.svc-ed-how span{color:rgba(255,255,255,.75);}
 .svc-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .svc-tag{font-family:var(--m);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.svc-ed-icon{
+  width:clamp(64px,8vw,104px);height:clamp(64px,8vw,104px);border-radius:50%;flex-shrink:0;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  font-size:clamp(24px,3vw,36px);color:rgba(255,255,255,.3);
+  transition:border-color .4s,background .4s,color .4s,transform .5s var(--ease);
+}
+.svc-ed:hover .svc-ed-icon{border-color:var(--red);background:rgba(255,42,42,.08);color:var(--red);transform:scale(1.08) rotate(-6deg);}
+@media(max-width:768px){
+  .svc-ed,.svc-ed:nth-child(even){flex-direction:column;align-items:flex-start;gap:20px;}
+  .svc-ed-icon{order:-1;}
+  .svc-ed:hover,.svc-ed:nth-child(even):hover{padding-left:0;padding-right:0;}
+}
 
 /* ═══════════════════════════════════
    ABOUT
@@ -991,12 +1014,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 @media(max-width:768px){
   .tm-grid{grid-template-columns:1fr}
   .tm-cell:nth-child(2),.tm-cell:nth-child(3){display:none}
-  .svc-sticky-wrap{height:auto !important;}
-  .svc-sticky-track{position:static;height:auto;display:block;padding:24px 20px 48px;}
-  .svc-sticky-progress{display:none;}
-  .svc-sticky-content{height:auto;max-width:none;}
-  .svc-slide{position:static;opacity:1;transform:none;pointer-events:auto;display:block;padding:28px 0;border-bottom:1px solid var(--line);}
-  .svc-slide:first-child{border-top:1px solid var(--line);}
+  .svc-eds{padding-left:20px;padding-right:20px;}
 }
 
 
@@ -2162,64 +2180,62 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   <a href="#contact" class="btn-p carve-cta">Start a Project <svg viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></a>
 </div>
 
-<!-- ═══════════════════ SERVICES (sticky scroll, merged with How We Work) ═══════════════════ -->
+<!-- ═══════════════════ SERVICES (editorial list, merged with How We Work) ═══════════════════ -->
 <section id="services">
   <div class="s-hd rv"><span class="sec-tag">Specialisms</span><span class="sec-ct">5 services</span></div>
-  <div class="svc-sticky-wrap" id="svc-sticky-wrap">
-    <div class="svc-sticky-track">
-      <div class="svc-sticky-progress" id="svc-sticky-progress">
-        <span class="ssp-dot on" data-i="0"></span>
-        <span class="ssp-dot" data-i="1"></span>
-        <span class="ssp-dot" data-i="2"></span>
-        <span class="ssp-dot" data-i="3"></span>
-        <span class="ssp-dot" data-i="4"></span>
+  <div class="svc-eds">
+    <div class="svc-ed rv" data-i="0">
+      <div class="svc-ed-num">01</div>
+      <div class="svc-ed-main">
+        <h3 class="svc-ed-name">UX &amp; UI Design</h3>
+        <p class="svc-ed-body">Human-centred interfaces balancing beauty with function. Full product design from wireframe to developer handoff.</p>
+        <p class="svc-ed-how"><span>How I work:</span> Discover &rarr; Strategy &rarr; Design &rarr; Refine &rarr; Deliver.</p>
+        <div class="svc-tags"><span class="svc-tag">Product Design</span><span class="svc-tag">Figma</span><span class="svc-tag">Design Systems</span><span class="svc-tag">Prototyping</span></div>
       </div>
-      <div class="svc-sticky-content" id="svc-sticky-content">
-        <div class="svc-slide on" data-i="0">
-          <div class="svc-slide-n">01 / 05</div>
-          <div class="svc-slide-icon">⬡</div>
-          <h3 class="svc-slide-name">UX &amp; UI Design</h3>
-          <p class="svc-slide-body">Human-centred interfaces balancing beauty with function. Full product design from wireframe to developer handoff.</p>
-          <p class="svc-slide-how">How I work: Discover &rarr; Strategy &rarr; Design &rarr; Refine &rarr; Deliver.</p>
-          <div class="svc-tags"><span class="svc-tag">Product Design</span><span class="svc-tag">Figma</span><span class="svc-tag">Design Systems</span><span class="svc-tag">Prototyping</span></div>
-        </div>
-        <div class="svc-slide" data-i="1">
-          <div class="svc-slide-n">02 / 05</div>
-          <div class="svc-slide-icon">◈</div>
-          <h3 class="svc-slide-name">Brand Identity</h3>
-          <p class="svc-slide-body">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</p>
-          <p class="svc-slide-how">How I work: Listen &rarr; Position &rarr; Concept &rarr; Develop &rarr; System.</p>
-          <div class="svc-tags"><span class="svc-tag">Logo Design</span><span class="svc-tag">Brand System</span><span class="svc-tag">Style Guide</span></div>
-        </div>
-        <div class="svc-slide" data-i="2">
-          <div class="svc-slide-n">03 / 05</div>
-          <div class="svc-slide-icon">▣</div>
-          <h3 class="svc-slide-name">Presentation Design</h3>
-          <p class="svc-slide-body">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</p>
-          <p class="svc-slide-how">How I work: Brief &rarr; Narrative &rarr; Design &rarr; Refine &rarr; Present.</p>
-          <div class="svc-tags"><span class="svc-tag">Pitch Decks</span><span class="svc-tag">Keynote</span><span class="svc-tag">PowerPoint</span></div>
-        </div>
-        <div class="svc-slide" data-i="3">
-          <div class="svc-slide-n">04 / 05</div>
-          <div class="svc-slide-icon">▦</div>
-          <h3 class="svc-slide-name">Print &amp; Marketing</h3>
-          <p class="svc-slide-body">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</p>
-          <p class="svc-slide-how">How I work: Brief &rarr; Layout &rarr; Review &rarr; Output.</p>
-          <div class="svc-tags"><span class="svc-tag">Brochures</span><span class="svc-tag">Catalogues</span><span class="svc-tag">Annual Reports</span></div>
-        </div>
-        <div class="svc-slide" data-i="4">
-          <div class="svc-slide-n">05 / 05</div>
-          <div class="svc-slide-icon" style="font-size:16px">⟡</div>
-          <h3 class="svc-slide-name">Interactive Web</h3>
-          <p class="svc-slide-body">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</p>
-          <p class="svc-slide-how">How I work: Concept &rarr; Prototype &rarr; Build &rarr; Test &rarr; Launch.</p>
-          <div class="svc-tags"><span class="svc-tag">WebGL</span><span class="svc-tag">Motion Design</span><span class="svc-tag">Front-end</span><span class="svc-tag">GSAP</span></div>
-        </div>
+      <div class="svc-ed-icon">⬡</div>
+    </div>
+    <div class="svc-ed rv" data-i="1">
+      <div class="svc-ed-num">02</div>
+      <div class="svc-ed-main">
+        <h3 class="svc-ed-name">Brand Identity</h3>
+        <p class="svc-ed-body">Distinctive identities built to endure. Logos, typography, colour systems and guidelines that communicate who you are instantly.</p>
+        <p class="svc-ed-how"><span>How I work:</span> Listen &rarr; Position &rarr; Concept &rarr; Develop &rarr; System.</p>
+        <div class="svc-tags"><span class="svc-tag">Logo Design</span><span class="svc-tag">Brand System</span><span class="svc-tag">Style Guide</span></div>
       </div>
+      <div class="svc-ed-icon">◈</div>
+    </div>
+    <div class="svc-ed rv" data-i="2">
+      <div class="svc-ed-num">03</div>
+      <div class="svc-ed-main">
+        <h3 class="svc-ed-name">Presentation Design</h3>
+        <p class="svc-ed-body">Pitch decks that win rooms and close rounds. Investor-grade storytelling where every slide earns its place.</p>
+        <p class="svc-ed-how"><span>How I work:</span> Brief &rarr; Narrative &rarr; Design &rarr; Refine &rarr; Present.</p>
+        <div class="svc-tags"><span class="svc-tag">Pitch Decks</span><span class="svc-tag">Keynote</span><span class="svc-tag">PowerPoint</span></div>
+      </div>
+      <div class="svc-ed-icon">▣</div>
+    </div>
+    <div class="svc-ed rv" data-i="3">
+      <div class="svc-ed-num">04</div>
+      <div class="svc-ed-main">
+        <h3 class="svc-ed-name">Print &amp; Marketing</h3>
+        <p class="svc-ed-body">Brochures, catalogues, annual reports and collateral where paper and ink become tactile experiences people keep.</p>
+        <p class="svc-ed-how"><span>How I work:</span> Brief &rarr; Layout &rarr; Review &rarr; Output.</p>
+        <div class="svc-tags"><span class="svc-tag">Brochures</span><span class="svc-tag">Catalogues</span><span class="svc-tag">Annual Reports</span></div>
+      </div>
+      <div class="svc-ed-icon">▦</div>
+    </div>
+    <div class="svc-ed rv" data-i="4">
+      <div class="svc-ed-num">05</div>
+      <div class="svc-ed-main">
+        <h3 class="svc-ed-name">Interactive Web</h3>
+        <p class="svc-ed-body">Experimental web interfaces where UX, motion and front-end execution come together to create immersive digital experiences.</p>
+        <p class="svc-ed-how"><span>How I work:</span> Concept &rarr; Prototype &rarr; Build &rarr; Test &rarr; Launch.</p>
+        <div class="svc-tags"><span class="svc-tag">WebGL</span><span class="svc-tag">Motion Design</span><span class="svc-tag">Front-end</span><span class="svc-tag">GSAP</span></div>
+      </div>
+      <div class="svc-ed-icon" style="font-size:22px">⟡</div>
     </div>
   </div>
 </section>
-
 
 <!-- ═══════════════════ ABOUT ═══════════════════ -->
 <section id="about">
@@ -3156,67 +3172,6 @@ var carveObs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('carved');carveObs.unobserve(e.target)}});
 },{threshold:.3});
 var ce=document.getElementById('carve');if(ce)carveObs.observe(ce);
-
-// SPECIALISMS - sticky scroll (scroll-driven, not click-driven)
-// Uses JS-controlled position (fixed while pinned) rather than CSS position:sticky,
-// since sticky can silently fail depending on ancestor properties - this is more reliable.
-(function(){
-  var wrap=document.getElementById('svc-sticky-wrap');
-  var track=wrap?wrap.querySelector('.svc-sticky-track'):null;
-  var slides=document.querySelectorAll('.svc-slide');
-  var dots=document.querySelectorAll('.ssp-dot');
-  if(!wrap||!track||!slides.length)return;
-  var n=slides.length;
-  var raf=null;
-
-  function isMobile(){return window.innerWidth<=768;}
-
-  function update(){
-    raf=null;
-    if(isMobile()){
-      // Mobile: CSS handles a plain stacked layout, don't fight it with inline styles
-      track.style.position='';track.style.top='';track.style.left='';track.style.width='';
-      return;
-    }
-    var rect=wrap.getBoundingClientRect();
-    var vh=window.innerHeight;
-    var total=rect.height-vh;
-    if(total<=0)return;
-
-    if(rect.top>0){
-      track.style.position='absolute';track.style.top='0';track.style.left='0';track.style.width='100%';
-    }else if(rect.bottom>vh){
-      track.style.position='fixed';track.style.top='0';track.style.left='0';track.style.width='100%';
-    }else{
-      track.style.position='absolute';track.style.top=total+'px';track.style.left='0';track.style.width='100%';
-    }
-
-    var progress=(-rect.top)/total;
-    progress=Math.max(0,Math.min(1,progress));
-    var idx=Math.min(n-1,Math.floor(progress*n));
-    slides.forEach(function(s,i){s.classList.toggle('on',i===idx);});
-    dots.forEach(function(d,i){d.classList.toggle('on',i===idx);});
-  }
-  function onScroll(){
-    if(raf)return;
-    raf=requestAnimationFrame(update);
-  }
-  window.addEventListener('scroll',onScroll,{passive:true});
-  window.addEventListener('resize',onScroll);
-  update();
-
-  dots.forEach(function(d){
-    d.addEventListener('click',function(){
-      var i=parseInt(d.dataset.i,10);
-      var rect=wrap.getBoundingClientRect();
-      var vh=window.innerHeight;
-      var total=rect.height-vh;
-      var targetProgress=(i+0.5)/n;
-      var targetScrollY=window.pageYOffset+rect.top+targetProgress*total;
-      window.scrollTo({top:targetScrollY,behavior:'smooth'});
-    });
-  });
-})();
 
 // WORK GRID - unified, no duplication
 // All projects: user-added + seeds (deduped by id) + platform-fetched
