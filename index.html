@@ -3758,7 +3758,8 @@ document.getElementById('fsub').addEventListener('click',function(){
     if(totalScroll<=0){track.style.transform='';return}
     var scrolled=Math.min(Math.max(-rect.top,0),totalScroll);
     var progress=scrolled/totalScroll;
-    var maxTranslate=Math.max(track.scrollWidth-vh+80,0);
+    var vw=window.innerWidth;
+    var maxTranslate=Math.max(track.scrollWidth-vw+80,0);
     track.style.transform='translateX(-'+(progress*maxTranslate)+'px)';
     if(dots.length){
       var idx=Math.min(Math.floor(progress*dots.length),dots.length-1);
