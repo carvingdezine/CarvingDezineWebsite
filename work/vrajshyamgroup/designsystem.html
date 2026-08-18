@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Vraj Shyam Group — Brand Bible</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ch: #2E2E2E;
+  --ch-dark: #1E1E1E;
+  --brick: #B85C38;
+  --stone: #8C7B6E;
+  --ow: #F0EBE3;
+  --ow-soft: #F5F1EB;
+  --ow-deep: #E8E0D2;
+  --rule: rgba(46,46,46,.1);
+  --rule-strong: rgba(46,46,46,.22);
+  --brick-soft: rgba(184,92,56,.08);
+  --f-display: 'Cinzel', serif;
+  --f-body: 'DM Sans', sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--f-body);font-weight:300;line-height:1.65;color:var(--ch);background:var(--ow);-webkit-font-smoothing:antialiased;}
+::selection{background:var(--brick);color:var(--ow);}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--brick);}
+
+/* ─── PROGRESS BAR ─── */
+#prog{position:fixed;top:0;left:0;height:2px;background:var(--brick);width:0%;z-index:500;transition:width .15s;}
+
+/* ─── SIDEBAR ─── */
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--ch-dark);padding:40px 28px;display:flex;flex-direction:column;gap:32px;border-right:1px solid rgba(240,235,227,.06);}
+.sb-brand{font-family:var(--f-display);font-size:11px;font-weight:600;color:var(--ow);letter-spacing:.08em;line-height:1.4;padding-bottom:24px;border-bottom:1px solid rgba(240,235,227,.1);}
+.sb-brand span{display:block;font-family:var(--f-body);font-size:9px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-top:4px;}
+.sb-section{display:flex;flex-direction:column;gap:4px;}
+.sb-label{font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--stone);margin-bottom:6px;margin-top:4px;}
+.sb-link{font-size:11px;font-weight:400;color:rgba(240,235,227,.4);text-decoration:none;padding:5px 0;transition:color .2s;letter-spacing:.02em;}
+.sb-link:hover,.sb-link.active{color:var(--ow);}
+.sb-link.active{color:var(--brick);}
+.sb-foot{margin-top:auto;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,227,.2);padding-top:24px;border-top:1px solid rgba(240,235,227,.08);}
+
+/* ─── MAIN ─── */
+main{overflow-x:hidden;}
+
+/* ─── HERO — 12-col diagonal ─── */
+.hero{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+.hero-content{
+  grid-column:1/7;
+  background:var(--ow);
+  padding:80px 60px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;z-index:2;
+}
+.hero-visual{
+  grid-column:7/13;
+  background:var(--ch-dark);
+  clip-path:polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%);
+  position:relative;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:60px 60px 60px 80px;
+}
+.hero-tag{font-size:9px;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--brick);}
+.hero-title{font-family:var(--f-display);font-size:clamp(36px,5vw,72px);font-weight:500;line-height:1;letter-spacing:-.01em;color:var(--ch);margin:auto 0;}
+.hero-title em{display:block;color:var(--brick);font-style:normal;}
+.hero-desc{font-size:14px;font-weight:300;line-height:1.75;color:var(--stone);max-width:400px;}
+.hero-stats{display:flex;gap:32px;margin-top:32px;}
+.hero-stat-n{font-family:var(--f-display);font-size:28px;font-weight:500;color:var(--ch);}
+.hero-stat-l{font-size:9px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--stone);margin-top:2px;}
+.hero-visual-wordmark{font-family:var(--f-display);font-size:13px;font-weight:600;color:var(--ow);letter-spacing:.06em;line-height:1.4;}
+.hero-visual-wordmark span{display:block;font-family:var(--f-body);font-size:8px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-top:4px;}
+.hero-edition{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,235,227,.25);margin-bottom:12px;}
+
+/* ─── SECTIONS ─── */
+.section{padding:80px 72px;border-bottom:1px solid var(--rule);}
+.section.dark{background:var(--ch-dark);color:var(--ow);border-color:rgba(240,235,227,.08);}
+.section-head{display:grid;grid-template-columns:80px 1fr;gap:40px;align-items:start;margin-bottom:56px;}
+.section-num{font-family:var(--f-display);font-size:11px;font-weight:600;color:var(--brick);letter-spacing:.1em;padding-top:6px;}
+.section-eyebrow{font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--brick);margin-bottom:10px;}
+.section-title{font-family:var(--f-display);font-size:clamp(28px,3.5vw,48px);font-weight:500;color:var(--ch);letter-spacing:-.005em;margin-bottom:14px;}
+.dark .section-title{color:var(--ow);}
+.section-lede{font-size:14px;font-weight:300;line-height:1.8;color:var(--stone);max-width:640px;}
+.dark .section-lede{color:rgba(240,235,227,.5);}
+
+/* ─── NOTE BOX ─── */
+.note{padding:20px 24px;background:var(--ow-soft);border-left:2px solid var(--brick);margin:24px 0;}
+.note-label{font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--brick);margin-bottom:8px;}
+.note-text{font-size:13px;line-height:1.7;color:var(--ch);}
+.note-text strong{font-weight:500;}
+.dark .note{background:rgba(240,235,227,.06);border-color:var(--brick);}
+.dark .note-text{color:rgba(240,235,227,.7);}
+.dark .note-text strong{color:var(--ow);}
+
+/* ─── ARCH GRID ─── */
+.arch-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule-strong);}
+.arch-card{padding:40px;background:var(--ow-soft);}
+.arch-card:first-child{border-right:1px solid var(--rule-strong);}
+.arch-card-tag{font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--brick);margin-bottom:14px;}
+.arch-card-name{font-family:var(--f-display);font-size:24px;font-weight:600;color:var(--ch);margin-bottom:4px;}
+.arch-card-role{font-size:11px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-bottom:16px;}
+.arch-card-desc{font-size:13px;font-weight:300;line-height:1.75;color:var(--ch);}
+.arch-endorsement{grid-column:1/-1;background:var(--ch);padding:20px 40px;display:flex;align-items:center;gap:16px;}
+.arch-endorsement-text{font-size:12px;line-height:1.7;color:rgba(240,235,227,.5);}
+.arch-endorsement-text strong{color:var(--ow);font-weight:500;}
+
+/* ─── LOGO DISPLAY ─── */
+.logo-block{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule-strong);}
+.logo-display{padding:60px 48px;display:flex;flex-direction:column;gap:16px;background:var(--ow-soft);}
+.logo-display:first-child{border-right:1px solid var(--rule-strong);}
+.logo-display svg{max-height:100px;width:100%;}
+.logo-display-tag{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);}
+.logo-display-id{font-size:10px;color:var(--stone);letter-spacing:.12em;}
+.logo-darkbg{background:var(--ch-dark);padding:60px;display:flex;align-items:center;justify-content:center;margin-top:1px;border:1px solid var(--ch-dark);}
+.logo-darkbg svg{max-height:100px;}
+
+.logo-rules{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--rule-strong);margin-top:1px;}
+.logo-rule{padding:32px;border-right:1px solid var(--rule-strong);}
+.logo-rule:last-child{border-right:none;}
+.logo-rule-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:10px;}
+.logo-rule-title{font-family:var(--f-display);font-size:16px;font-weight:600;color:var(--ch);margin-bottom:8px;}
+.logo-rule-text{font-size:13px;line-height:1.65;color:var(--ch);}
+
+/* ─── COLOUR PALETTE ─── */
+.palette{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--rule-strong);}
+.sw{display:flex;flex-direction:column;border-right:1px solid rgba(46,46,46,.06);}
+.sw:last-child{border-right:none;}
+.sw-top{padding:40px 24px 28px;flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:200px;}
+.sw-name{font-family:var(--f-display);font-size:16px;font-weight:600;letter-spacing:.01em;}
+.sw-hex{font-family:var(--f-body);font-size:12px;font-weight:400;letter-spacing:.06em;margin-top:6px;}
+.sw-meta{font-size:9px;letter-spacing:.16em;text-transform:uppercase;line-height:1.7;margin-top:16px;}
+/* Colour data table inside each swatch */
+.sw-data{border-top:1px solid rgba(46,46,46,.12);}
+.sw-data-row{display:grid;grid-template-columns:64px 1fr;border-bottom:1px solid rgba(46,46,46,.08);}
+.sw-data-row:last-child{border-bottom:none;}
+.sw-data-key{font-size:8px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;padding:9px 12px;border-right:1px solid rgba(46,46,46,.08);}
+.sw-data-val{font-family:monospace;font-size:11px;font-weight:400;letter-spacing:.04em;padding:9px 12px;line-height:1.4;}
+/* Dark swatch overrides */
+.sw-ch{background:var(--ch);color:var(--ow);}
+.sw-ch .sw-meta{color:rgba(240,235,227,.5);}
+.sw-ch .sw-data{border-top-color:rgba(240,235,227,.1);}
+.sw-ch .sw-data-row{border-bottom-color:rgba(240,235,227,.08);}
+.sw-ch .sw-data-key{border-right-color:rgba(240,235,227,.08);color:rgba(240,235,227,.4);}
+.sw-ch .sw-data-val{color:rgba(240,235,227,.75);}
+.sw-chd{background:var(--ch-dark);color:var(--ow);}
+.sw-chd .sw-meta{color:rgba(240,235,227,.5);}
+.sw-chd .sw-data{border-top-color:rgba(240,235,227,.1);}
+.sw-chd .sw-data-row{border-bottom-color:rgba(240,235,227,.08);}
+.sw-chd .sw-data-key{border-right-color:rgba(240,235,227,.08);color:rgba(240,235,227,.4);}
+.sw-chd .sw-data-val{color:rgba(240,235,227,.75);}
+.sw-brick{background:var(--brick);color:var(--ow);}
+.sw-brick .sw-meta{color:rgba(240,235,227,.65);}
+.sw-brick .sw-data{border-top-color:rgba(240,235,227,.18);}
+.sw-brick .sw-data-row{border-bottom-color:rgba(240,235,227,.12);}
+.sw-brick .sw-data-key{border-right-color:rgba(240,235,227,.12);color:rgba(240,235,227,.55);}
+.sw-brick .sw-data-val{color:rgba(240,235,227,.9);}
+.sw-stone{background:var(--stone);color:var(--ch);}
+.sw-stone .sw-meta{color:rgba(46,46,46,.55);}
+.sw-stone .sw-data{border-top-color:rgba(46,46,46,.15);}
+.sw-stone .sw-data-row{border-bottom-color:rgba(46,46,46,.1);}
+.sw-stone .sw-data-key{border-right-color:rgba(46,46,46,.1);color:rgba(46,46,46,.5);}
+.sw-stone .sw-data-val{color:rgba(46,46,46,.85);}
+.sw-ow{background:var(--ow);color:var(--ch);}
+.sw-ow .sw-meta{color:var(--stone);}
+.sw-ow .sw-data{border-top-color:var(--rule);}
+.sw-ow .sw-data-row{border-bottom-color:var(--rule);}
+.sw-ow .sw-data-key{border-right-color:var(--rule);color:var(--stone);}
+.sw-ow .sw-data-val{color:var(--ch);}
+
+.palette-notes{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px;}
+
+/* ─── TYPOGRAPHY ─── */
+.type-spec{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule-strong);}
+.type-card{padding:56px 48px;}
+.type-card:first-child{border-right:1px solid var(--rule-strong);background:var(--ow-soft);}
+.type-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:12px;}
+.type-name{font-family:var(--f-display);font-size:28px;font-weight:500;color:var(--ch);margin-bottom:6px;}
+.type-purpose{font-size:11px;color:var(--stone);text-transform:uppercase;letter-spacing:.16em;margin-bottom:32px;}
+.type-specimen-d{font-family:var(--f-display);font-size:56px;font-weight:500;line-height:1;color:var(--ch);margin-bottom:6px;}
+.type-specimen-b{font-family:var(--f-body);font-size:40px;font-weight:300;line-height:1.05;color:var(--ch);margin-bottom:6px;}
+.type-weights{margin-top:20px;font-size:13px;color:var(--ch);line-height:2;}
+.tw300{font-weight:300;} .tw400{font-weight:400;} .tw500{font-weight:500;} .tw600{font-weight:600;} .tw700{font-weight:700;}
+
+.type-scale{margin-top:32px;border:1px solid var(--rule-strong);}
+.tsr{display:grid;grid-template-columns:140px 1fr 200px;gap:0;border-bottom:1px solid var(--rule);align-items:baseline;padding:18px 28px;}
+.tsr:last-child{border-bottom:none;}
+.tsr-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);}
+.tsr-spec{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);text-align:right;}
+
+/* ─── DESIGN LANGUAGE ─── */
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+.dl-card{border:1px solid var(--rule-strong);}
+.dl-visual{height:260px;position:relative;overflow:hidden;}
+/* Live diagonal demo */
+.dl-diag{background:var(--ch-dark);height:100%;display:grid;grid-template-columns:repeat(12,1fr);}
+.dl-diag-c{grid-column:1/7;background:var(--ow);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;}
+.dl-diag-v{grid-column:7/13;background:var(--brick);clip-path:polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%);}
+.dl-col-guides{position:absolute;inset:0;pointer-events:none;z-index:5;display:grid;grid-template-columns:repeat(12,1fr);}
+.dl-col-g{border-right:1px dashed rgba(184,92,56,.25);height:100%;}
+.dl-col-g.c7{border-right-color:var(--brick);border-width:1.5px;}
+.dl-ann{position:absolute;top:14px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--ch);background:var(--ow-deep);padding:3px 10px;white-space:nowrap;z-index:10;}
+/* Triangle demo */
+.dl-tri-bg{background:var(--ow-soft);display:flex;align-items:center;justify-content:center;height:100%;}
+.dl-tri-shape{width:180px;height:155px;background:var(--ch);clip-path:polygon(50% 100%, 0% 0%, 100% 0%);}
+.dl-card-text{padding:28px 32px;}
+.dl-card-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:8px;}
+.dl-card-title{font-family:var(--f-display);font-size:20px;font-weight:600;color:var(--ch);margin-bottom:10px;}
+.dl-card-desc{font-size:13px;line-height:1.7;color:var(--ch);}
+
+/* ─── PHOTOGRAPHY ─── */
+.photo-rules{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule-strong);}
+.photo-rule{padding:36px;border-bottom:1px solid var(--rule-strong);border-right:1px solid var(--rule-strong);}
+.photo-rule:nth-child(even){border-right:none;}
+.photo-rule:nth-last-child(-n+2){border-bottom:none;}
+.photo-rule-num{font-family:var(--f-display);font-size:13px;font-weight:600;color:var(--brick);margin-bottom:12px;}
+.photo-rule-title{font-family:var(--f-display);font-size:18px;font-weight:600;color:var(--ch);margin-bottom:10px;}
+.photo-rule-text{font-size:13px;line-height:1.7;color:var(--ch);}
+
+/* ─── PRINT STANDARDS ─── */
+.print-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule-strong);border:1px solid var(--rule-strong);}
+.print-item{background:var(--ow);padding:32px;}
+.dark .print-item{background:var(--ch);}
+.print-icon{font-family:var(--f-display);font-size:28px;font-weight:600;color:var(--brick);margin-bottom:12px;}
+.print-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:6px;}
+.print-title{font-family:var(--f-display);font-size:17px;font-weight:600;color:var(--ch);margin-bottom:8px;}
+.dark .print-title{color:var(--ow);}
+.print-text{font-size:13px;line-height:1.65;color:var(--ch);}
+.dark .print-text{color:rgba(240,235,227,.6);}
+.print-text strong{font-weight:500;color:var(--brick);}
+
+/* ─── STATIONERY SYSTEM ─── */
+.stationery-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+
+/* Business card mockup */
+.mock-card{
+  width:280px;height:170px;background:var(--ow);
+  padding:20px;display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:0 20px 48px -16px rgba(30,30,30,.25);
+  position:relative;
+  border-top:3px solid var(--brick);
+}
+.mc-logo{font-family:var(--f-display);font-size:11px;font-weight:600;color:var(--ch);letter-spacing:.06em;line-height:1.1;}
+.mc-logo span{display:block;color:var(--brick);font-size:7.5px;letter-spacing:.24em;text-transform:uppercase;margin-top:3px;font-family:var(--f-body);font-weight:600;}
+.mc-name{font-family:var(--f-display);font-size:15px;font-weight:600;color:var(--ch);}
+.mc-role{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--brick);margin-top:3px;font-weight:600;}
+.mc-contact{font-size:7.5px;color:var(--stone);line-height:1.7;}
+.mc-contact strong{color:var(--ch);font-weight:500;}
+.mc-est{font-size:7px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);}
+
+.mock-card-back{
+  width:280px;height:170px;background:var(--ch-dark);
+  padding:20px;display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 20px 48px -16px rgba(30,30,30,.3);
+}
+.mc-b-tri{width:70px;height:60px;background:var(--brick);clip-path:polygon(50% 100%,0% 0%,100% 0%);}
+.mc-b-word{font-family:var(--f-display);font-size:10px;font-weight:600;color:var(--ow);letter-spacing:.06em;line-height:1.4;text-align:right;}
+.mc-b-word span{display:block;font-family:var(--f-body);font-size:7px;letter-spacing:.24em;text-transform:uppercase;color:var(--brick);margin-top:3px;}
+
+/* Letterhead mockup */
+.mock-letter{
+  width:220px;height:311px;background:var(--ow);
+  padding:20px 20px 16px;display:flex;flex-direction:column;
+  box-shadow:0 20px 48px -16px rgba(30,30,30,.2);
+  position:relative;
+}
+.mock-letter::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--brick);}
+.ml-head{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid var(--rule);}
+.ml-logo{font-family:var(--f-display);font-size:10px;font-weight:600;color:var(--ch);line-height:1.1;letter-spacing:.04em;}
+.ml-logo span{display:block;font-size:5.5px;letter-spacing:.3em;color:var(--brick);text-transform:uppercase;margin-top:2px;font-family:var(--f-body);font-weight:600;}
+.ml-meta{font-size:5.5px;letter-spacing:.16em;color:var(--stone);text-transform:uppercase;text-align:right;line-height:1.6;}
+.ml-body{flex:1;padding:18px 0;display:flex;flex-direction:column;gap:6px;}
+.ml-line{height:2.5px;background:rgba(46,46,46,.08);}
+.ml-line.med{width:78%;}
+.ml-line.short{width:55%;}
+.ml-gap{height:12px;}
+.ml-foot{margin-top:auto;padding-top:10px;border-top:1px solid var(--rule);font-size:5px;color:var(--stone);letter-spacing:.16em;text-transform:uppercase;line-height:1.7;text-align:center;}
+
+/* Envelope mockup */
+.mock-env{
+  width:340px;height:170px;background:var(--ow);
+  padding:16px;display:flex;justify-content:space-between;align-items:flex-start;
+  box-shadow:0 20px 48px -16px rgba(30,30,30,.2);
+  position:relative;border-bottom:3px solid var(--brick);
+}
+.me-logo{font-family:var(--f-display);font-size:10px;font-weight:600;color:var(--ch);line-height:1.15;letter-spacing:.06em;}
+.me-logo span{display:block;font-size:6px;letter-spacing:.26em;color:var(--brick);text-transform:uppercase;margin-top:3px;font-family:var(--f-body);}
+.me-addr{font-size:6px;color:var(--stone);text-align:right;line-height:1.8;letter-spacing:.04em;}
+
+/* Brochure cover mockup */
+.mock-brochure{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  width:100%;aspect-ratio:297/210;
+  border:1px solid var(--rule-strong);overflow:hidden;
+}
+.mb-visual{
+  grid-column:1/7;
+  background:var(--ch);
+  clip-path:polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.mb-visual-text{font-family:var(--f-display);font-size:clamp(14px,3.5vw,26px);font-weight:500;color:rgba(240,235,227,.07);letter-spacing:.04em;text-align:center;line-height:1.1;}
+.mb-content{
+  grid-column:7/13;
+  background:var(--ow);
+  padding:6% 7% 6% 12%;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:10px;
+}
+.mb-by{font-size:clamp(5px,1vw,8px);letter-spacing:.28em;text-transform:uppercase;color:var(--stone);}
+.mb-title{font-family:var(--f-display);font-size:clamp(14px,3vw,24px);font-weight:500;color:var(--ch);line-height:1.05;}
+.mb-rule{width:28px;height:1.5px;background:var(--brick);}
+.mb-sub{font-size:clamp(5px,1vw,8px);letter-spacing:.28em;text-transform:uppercase;color:var(--ch);font-weight:400;}
+
+/* Hoarding mockup */
+.mock-hoard{
+  background:var(--ch-dark);
+  width:100%;padding:28px;
+  position:relative;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:220px;overflow:hidden;
+}
+.mock-hoard::after{
+  content:'';position:absolute;bottom:0;right:0;
+  width:48%;height:58%;
+  background:var(--brick);
+  clip-path:polygon(40% 0,100% 0,100% 100%,0 100%);
+}
+.mh-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2;}
+.mh-logo{font-family:var(--f-display);font-size:14px;font-weight:600;color:var(--ow);letter-spacing:.06em;}
+.mh-logo span{display:block;font-size:8px;letter-spacing:.32em;color:var(--brick);text-transform:uppercase;margin-top:3px;font-family:var(--f-body);font-weight:600;}
+.mh-rera{font-size:8px;letter-spacing:.18em;color:rgba(240,235,227,.4);text-transform:uppercase;}
+.mh-mid{position:relative;z-index:2;}
+.mh-eye{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--brick);margin-bottom:6px;}
+.mh-hl{font-family:var(--f-display);font-size:22px;font-weight:500;color:var(--ow);line-height:1.1;}
+.mh-bot{display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;}
+.mh-cta{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,235,227,.7);}
+.mh-phone{font-family:var(--f-display);font-size:13px;font-weight:600;color:var(--ow);}
+
+/* ─── SPEC BLOCKS ─── */
+.spec-list{padding:0;}
+.spec-list-title{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--rule-strong);}
+.spec-row{display:grid;grid-template-columns:140px 1fr;gap:20px;padding:11px 0;border-bottom:1px solid var(--rule);align-items:start;}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);}
+.spec-val{font-size:13px;color:var(--ch);line-height:1.6;}
+.spec-val strong{font-weight:500;}
+.deliv-rules{margin-top:24px;padding:20px 24px;background:var(--ow-soft);border-left:2px solid var(--brick);}
+.deliv-rules-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:12px;}
+.deliv-rules-list{font-size:12px;line-height:1.8;color:var(--ch);padding-left:16px;}
+.deliv-rules-list li{margin-bottom:4px;}
+.deliv-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--rule);}
+.deliv-num{font-family:var(--f-display);font-size:12px;font-weight:600;color:var(--brick);letter-spacing:.1em;}
+.deliv-title{font-family:var(--f-display);font-size:28px;font-weight:500;color:var(--ch);}
+.dark .deliv-title{color:var(--ow);}
+.deliv-spec{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);text-align:right;line-height:1.8;}
+.deliv-content{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+.mockup{background:var(--ow-deep);padding:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:320px;gap:20px;position:relative;}
+.mockup-tag{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--stone);}
+
+/* ─── COMPANY INFO ─── */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule-strong);}
+.info-block{padding:36px 40px;}
+.info-block:first-child{border-right:1px solid var(--rule-strong);background:var(--ow-soft);}
+.info-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:16px;}
+.info-row{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:7px 0;font-size:12px;line-height:1.65;}
+.info-row dt{color:var(--stone);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding-top:2px;}
+.info-row dd{color:var(--ch);}
+
+/* ─── PROMPT ─── */
+.prompt-wrap{background:var(--ch-dark);padding:48px;border:1px solid var(--ch);}
+.prompt-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid rgba(240,235,227,.1);}
+.prompt-meta-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);margin-bottom:8px;}
+.prompt-meta-title{font-family:var(--f-display);font-size:22px;font-weight:500;color:var(--ow);}
+.copy-btn{font-family:var(--f-body);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ch-dark);background:var(--brick);border:none;padding:10px 20px;cursor:pointer;font-weight:500;transition:background .2s;}
+.copy-btn:hover{background:#cc7350;}
+.copy-btn.copied{background:var(--stone);color:var(--ow);}
+.prompt-text{font-family:'Courier New',monospace;font-size:12px;line-height:1.75;color:rgba(240,235,227,.8);white-space:pre-wrap;word-break:break-word;}
+
+.usage-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px;}
+.usage-card{padding:22px 26px;background:var(--ow-soft);border-top:2px solid var(--brick);}
+.usage-step{font-family:var(--f-display);font-size:12px;font-weight:600;color:var(--brick);margin-bottom:8px;}
+.usage-title{font-family:var(--f-display);font-size:15px;font-weight:600;color:var(--ch);margin-bottom:6px;}
+.usage-text{font-size:12px;line-height:1.65;color:var(--ch);}
+
+/* ─── FOOTER ─── */
+.footer{background:var(--ch-dark);padding:56px 72px 36px;border-top:1px solid var(--ch);}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:32px;border-bottom:1px solid rgba(240,235,227,.1);margin-bottom:24px;}
+.footer-brand{font-family:var(--f-display);font-size:18px;font-weight:600;letter-spacing:.04em;color:var(--ow);}
+.footer-brand span{color:var(--brick);}
+.footer-mark{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--stone);}
+.footer-bot{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,227,.3);}
+
+/* ═══════════════════════════════════════════
+   WEBSITE DESIGN SYSTEM
+   ═══════════════════════════════════════════ */
+
+/* ─── Web type scale table ─── */
+.web-type-table{border:1px solid var(--rule-strong);margin-top:32px;}
+.wtt-row{display:grid;grid-template-columns:100px 1fr 220px;align-items:center;padding:20px 28px;border-bottom:1px solid var(--rule);}
+.wtt-row:last-child{border-bottom:none;}
+.wtt-row:nth-child(odd){background:var(--ow-soft);}
+.wtt-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);}
+.wtt-spec{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);text-align:right;line-height:1.8;}
+
+/* ─── Web colour usage grid ─── */
+.web-colour-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:32px;}
+.wc-card{padding:28px 24px;display:flex;flex-direction:column;gap:12px;border:1px solid var(--rule-strong);}
+.wc-card-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);}
+.wc-swatch{height:48px;display:flex;align-items:center;padding:0 14px;font-family:var(--f-body);font-size:12px;font-weight:400;letter-spacing:.04em;}
+.wc-rule{font-size:12px;line-height:1.75;color:var(--ch);}
+.wc-rule strong{font-weight:500;}
+
+/* ─── Spacing system ─── */
+.spacing-strip{display:flex;align-items:flex-end;gap:0;border:1px solid var(--rule-strong);background:var(--ow-soft);padding:32px 28px 20px;margin-top:32px;overflow-x:auto;}
+.sp-unit{display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;margin-right:12px;}
+.sp-bar{background:var(--brick);width:24px;}
+.sp-val{font-size:9px;font-weight:600;color:var(--ch);letter-spacing:.06em;}
+.sp-name{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);}
+
+/* ─── Breakpoints ─── */
+.bp-table{border:1px solid var(--rule-strong);margin-top:32px;}
+.bp-row{display:grid;grid-template-columns:120px 120px 1fr;padding:14px 28px;border-bottom:1px solid var(--rule);font-size:13px;align-items:center;}
+.bp-row:last-child{border-bottom:none;}
+.bp-row.head{background:var(--ch);color:var(--ow);}
+.bp-row.head div{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--stone);}
+.bp-name{font-family:var(--f-display);font-size:12px;font-weight:600;color:var(--brick);}
+.bp-val{font-family:monospace;font-size:12px;color:var(--ch);}
+.bp-desc{font-size:12px;color:var(--stone);}
+
+/* ─── Nav demo ─── */
+.web-nav-demo{border:1px solid var(--rule-strong);margin-top:32px;overflow:hidden;}
+.wnd-label{font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--stone);padding:10px 20px;background:var(--ow-deep);border-bottom:1px solid var(--rule);}
+/* Desktop nav */
+.demo-nav{background:var(--ow);border-bottom:2px solid var(--brick);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.demo-nav-logo{font-family:var(--f-display);font-size:13px;font-weight:600;color:var(--ch);letter-spacing:.06em;line-height:1.2;}
+.demo-nav-logo span{display:block;font-family:var(--f-body);font-size:7.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--brick);margin-top:1px;}
+.demo-nav-links{display:flex;align-items:center;gap:32px;}
+.demo-nav-link{font-size:11px;font-weight:400;letter-spacing:.08em;color:var(--stone);text-decoration:none;transition:color .2s;cursor:pointer;}
+.demo-nav-link:hover,.demo-nav-link.active{color:var(--ch);}
+.demo-nav-link.active{color:var(--brick);}
+.demo-nav-cta{font-family:var(--f-display);font-size:10px;font-weight:600;letter-spacing:.14em;background:var(--brick);color:var(--ow);padding:10px 20px;border:none;cursor:pointer;transition:background .2s;}
+.demo-nav-cta:hover{background:#cc7350;}
+/* Scroll state */
+.demo-nav.scrolled{background:var(--ch-dark);}
+.demo-nav.scrolled .demo-nav-logo{color:var(--ow);}
+.demo-nav.scrolled .demo-nav-link{color:rgba(240,235,227,.45);}
+.demo-nav.scrolled .demo-nav-link:hover,.demo-nav.scrolled .demo-nav-link.active{color:var(--ow);}
+.demo-nav.scrolled .demo-nav-link.active{color:var(--brick);}
+
+/* ─── Button demos ─── */
+.web-btn-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding:32px;background:var(--ow-soft);border:1px solid var(--rule-strong);margin-top:8px;}
+.web-btn-row.dark-bg{background:var(--ch-dark);}
+/* Buttons — all sharp 90° */
+.btn-primary{font-family:var(--f-display);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;background:var(--brick);color:var(--ow);border:none;padding:14px 28px;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{background:#a34a2a;}
+.btn-secondary{font-family:var(--f-display);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;background:transparent;color:var(--ch);border:1.5px solid var(--ch);padding:13px 28px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-secondary:hover{background:var(--ch);color:var(--ow);}
+.btn-ghost{font-family:var(--f-body);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--brick);border:1px solid var(--brick);padding:12px 24px;cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{background:var(--brick);color:var(--ow);}
+/* Dark background variants */
+.btn-primary-inv{font-family:var(--f-display);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;background:var(--ow);color:var(--ch);border:none;padding:14px 28px;cursor:pointer;transition:all .2s;}
+.btn-ghost-inv{font-family:var(--f-body);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--ow);border:1px solid rgba(240,235,227,.35);padding:12px 24px;cursor:pointer;transition:all .2s;}
+.btn-text-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--brick);background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;}
+
+/* ─── Form inputs ─── */
+.web-form-demo{padding:40px;background:var(--ow-soft);border:1px solid var(--rule-strong);margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-field.full{grid-column:1/-1;}
+.fl-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--ch);}
+.fl-input{width:100%;height:48px;border:none;border-bottom:1.5px solid var(--stone);background:transparent;padding:0 2px;font-family:var(--f-body);font-size:14px;font-weight:300;color:var(--ch);outline:none;transition:border-color .2s;}
+.fl-input::placeholder{color:var(--stone);font-weight:300;}
+.fl-input:focus{border-color:var(--brick);}
+.fl-input.error{border-color:#c0392b;}
+.fl-select{width:100%;height:48px;border:none;border-bottom:1.5px solid var(--stone);background:transparent;padding:0 2px;font-family:var(--f-body);font-size:14px;font-weight:300;color:var(--ch);outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238C7B6E' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;cursor:pointer;}
+.fl-textarea{width:100%;min-height:80px;border:none;border-bottom:1.5px solid var(--stone);background:transparent;padding:8px 2px;font-family:var(--f-body);font-size:14px;font-weight:300;color:var(--ch);outline:none;resize:vertical;transition:border-color .2s;line-height:1.65;}
+.fl-textarea:focus{border-color:var(--brick);}
+.fl-hint{font-size:10px;color:var(--stone);letter-spacing:.04em;}
+.fl-error{font-size:10px;color:#c0392b;letter-spacing:.04em;}
+
+/* ─── Project card ─── */
+.web-card-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:8px;}
+.project-card{background:var(--ow);border:1px solid var(--rule-strong);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .25s;}
+.project-card:hover{box-shadow:0 16px 48px -12px rgba(46,46,46,.18);}
+.pc-image{height:160px;background:var(--ch);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pc-image-tri{width:70%;height:70%;background:var(--ch-dark);clip-path:polygon(50% 100%,0% 0%,100% 0%);position:relative;z-index:1;}
+.pc-image-eyebrow{position:absolute;top:14px;left:14px;font-size:8px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brick);z-index:2;}
+.pc-body{padding:24px;flex:1;display:flex;flex-direction:column;gap:8px;}
+.pc-type{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);}
+.pc-name{font-family:var(--f-display);font-size:18px;font-weight:600;color:var(--ch);line-height:1.15;}
+.pc-meta{font-size:11px;color:var(--stone);line-height:1.6;}
+.pc-foot{padding:16px 24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;}
+.pc-link{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--brick);text-decoration:none;display:flex;align-items:center;gap:6px;}
+.pc-year{font-family:var(--f-display);font-size:11px;font-weight:600;color:var(--stone);}
+
+/* ─── Stats strip ─── */
+.web-stats-demo{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule-strong);margin-top:8px;}
+.stat-cell{padding:36px 28px;border-right:1px solid var(--rule-strong);background:var(--ow-soft);}
+.stat-cell:nth-child(even){background:var(--ow);}
+.stat-cell:last-child{border-right:none;}
+.stat-n{font-family:var(--f-display);font-size:40px;font-weight:500;color:var(--ch);line-height:1;}
+.stat-unit{font-family:var(--f-display);font-size:20px;color:var(--brick);}
+.stat-l{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--stone);margin-top:8px;}
+
+/* Dark stats variant */
+.web-stats-demo.dark-stat{border-color:rgba(240,235,227,.1);}
+.dark-stat .stat-cell{background:var(--ch-dark);border-color:rgba(240,235,227,.08);}
+.dark-stat .stat-cell:nth-child(even){background:var(--ch);}
+.dark-stat .stat-n{color:var(--ow);}
+.dark-stat .stat-l{color:rgba(240,235,227,.35);}
+
+/* ─── Section pattern — CTA banner ─── */
+.web-cta-demo{border:1px solid var(--rule-strong);margin-top:8px;overflow:hidden;}
+.demo-cta{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  min-height:200px;position:relative;overflow:hidden;
+}
+.demo-cta-content{
+  grid-column:1/7;background:var(--ch);
+  padding:48px;display:flex;flex-direction:column;justify-content:center;gap:16px;
+  position:relative;z-index:2;
+}
+.demo-cta-visual{
+  grid-column:7/13;background:var(--brick);
+  clip-path:polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.demo-cta-tri{width:48%;aspect-ratio:1;background:rgba(255,255,255,.08);clip-path:polygon(50% 100%,0% 0%,100% 0%);}
+.demo-cta-eyebrow{font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--brick);}
+.demo-cta-title{font-family:var(--f-display);font-size:24px;font-weight:500;color:var(--ow);line-height:1.1;}
+.demo-cta-actions{display:flex;gap:12px;align-items:center;margin-top:8px;}
+
+/* ─── Link states ─── */
+.link-states-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:32px;}
+.ls-card{padding:24px;background:var(--ow-soft);border:1px solid var(--rule-strong);}
+.ls-state{font-size:8px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;}
+.ls-link{font-size:14px;font-weight:400;text-decoration:none;letter-spacing:.02em;}
+.ls-default{color:var(--brick);}
+.ls-hover{color:#a34a2a;text-decoration:underline;text-underline-offset:3px;}
+.ls-visited{color:var(--stone);}
+.ls-focus{color:var(--brick);outline:2px solid var(--brick);outline-offset:3px;}
+
+/* ─── CSS Vars block ─── */
+.css-vars-block{background:var(--ch-dark);padding:40px;border:1px solid var(--ch);margin-top:32px;}
+.css-vars-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(240,235,227,.1);}
+.css-vars-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brick);}
+.css-vars-title{font-family:var(--f-display);font-size:18px;font-weight:500;color:var(--ow);margin-top:4px;}
+.copy-css-btn{font-family:var(--f-body);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ch-dark);background:var(--brick);border:none;padding:9px 18px;cursor:pointer;font-weight:500;transition:background .2s;}
+.copy-css-btn:hover{background:#cc7350;}
+.copy-css-btn.copied{background:var(--stone);color:var(--ow);}
+.css-code{font-family:'Courier New',monospace;font-size:12px;line-height:1.8;color:rgba(240,235,227,.8);white-space:pre;overflow-x:auto;}
+.css-comment{color:rgba(140,123,110,.7);}
+.css-prop{color:var(--brick);}
+.css-val{color:var(--ow);}
+.css-punct{color:rgba(240,235,227,.3);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;flex-direction:row;flex-wrap:wrap;gap:16px;padding:24px 32px;}
+  .sb-brand{padding-bottom:0;border-bottom:none;flex-basis:100%;}
+  .sb-section{flex-direction:row;flex-wrap:wrap;gap:4px;}
+  .sb-label{display:none;}
+  .sb-link{padding:3px 8px;background:rgba(240,235,227,.06);}
+  .sb-foot{display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-visual{display:none;}
+  .section{padding:56px 32px;}
+  .logo-block,.arch-grid,.type-spec,.info-grid,.stationery-grid,.deliv-content{grid-template-columns:1fr;}
+  .logo-display:first-child,.arch-card:first-child,.type-card:first-child,.info-block:first-child{border-right:none;border-bottom:1px solid var(--rule-strong);}
+  .logo-rules,.palette,.print-grid,.photo-rules,.usage-grid{grid-template-columns:1fr 1fr;}
+  .palette-notes{grid-template-columns:1fr;}
+  .footer{padding:40px 32px 28px;}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<div class="layout">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="sb-brand">VRAJ SHYAM<br>GROUP<span>Brand &amp; Design System</span></div>
+  <div class="sb-section">
+    <div class="sb-label">Foundations</div>
+    <a href="#architecture" class="sb-link active">Brand Architecture</a>
+    <a href="#logos" class="sb-link">Logos</a>
+    <a href="#colour" class="sb-link">Colour</a>
+    <a href="#typography" class="sb-link">Typography</a>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Visual Direction</div>
+    <a href="#design-language" class="sb-link">Design Language</a>
+    <a href="#photography" class="sb-link">Photography</a>
+    <a href="#print" class="sb-link">Print Standards</a>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Deliverables</div>
+    <a href="#card" class="sb-link">Business Card</a>
+    <a href="#letterhead" class="sb-link">Letterhead</a>
+    <a href="#envelope" class="sb-link">Envelope</a>
+    <a href="#profile" class="sb-link">Company Profile</a>
+    <a href="#brochure" class="sb-link">Imperia Brochure</a>
+    <a href="#hoardings" class="sb-link">Hoardings</a>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Web System</div>
+    <a href="#web-system" class="sb-link">Web Overview</a>
+    <a href="#web-type" class="sb-link">Type Scale</a>
+    <a href="#web-colour" class="sb-link">Colour Usage</a>
+    <a href="#web-spacing" class="sb-link">Spacing &amp; Grid</a>
+    <a href="#web-nav" class="sb-link">Navigation</a>
+    <a href="#web-buttons" class="sb-link">Buttons</a>
+    <a href="#web-forms" class="sb-link">Form Inputs</a>
+    <a href="#web-cards" class="sb-link">Cards &amp; Stats</a>
+    <a href="#web-sections" class="sb-link">Section Patterns</a>
+    <a href="#web-tokens" class="sb-link">CSS Tokens</a>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Reference</div>
+    <a href="#prompt" class="sb-link">Master AI Prompt</a>
+    <a href="#info" class="sb-link">Company Info</a>
+  </div>
+  <div class="sb-foot">Edition 01 · 2026<br>Vadodara, India</div>
+</aside>
+
+<main>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Brand &amp; Design System · Edition 01 · 2026</div>
+    <div>
+      <h1 class="hero-title">A house built<br>on <em>trust,</em><br>drawn in brick.</h1>
+      <p class="hero-desc" style="margin-top:24px">This is the working visual language of Vraj Shyam Group — the parent brand and its project, Vraj Imperia. Every mark, colour, typeface, and surface rule is a decision; together they protect the brand across every print, hoarding, and screen it appears on.</p>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-n">1984</div>
+        <div class="hero-stat-l">Established</div>
+      </div>
+      <div>
+        <div class="hero-stat-n">25+</div>
+        <div class="hero-stat-l">Projects</div>
+      </div>
+      <div>
+        <div class="hero-stat-n">3M sqft</div>
+        <div class="hero-stat-l">Delivered</div>
+      </div>
+      <div>
+        <div class="hero-stat-n">3,000+</div>
+        <div class="hero-stat-l">Families</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-edition">Edition 01 · 2026</div>
+    <div class="hero-visual-wordmark">VRAJ SHYAM<span>Group · Estd. 1984</span></div>
+  </div>
+</section>
+
+<!-- ═══ 01 BRAND ARCHITECTURE ═══ -->
+<section class="section" id="architecture">
+  <div class="section-head">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-eyebrow">Foundations</div>
+      <h2 class="section-title">Brand Architecture</h2>
+      <p class="section-lede">A parent brand with a distinct project identity. Vraj Shyam Group leads; Vraj Imperia carries forward — each with its own mark, both drawn from the same palette and typefaces, so they read as one family.</p>
+    </div>
+  </div>
+
+  <div class="arch-grid">
+    <div class="arch-card">
+      <div class="arch-card-tag">Parent Brand</div>
+      <h3 class="arch-card-name">Vraj Shyam Group</h3>
+      <div class="arch-card-role">Real Estate Developer · Established 1984</div>
+      <p class="arch-card-desc">The endorsing brand. Appears on letterhead, company profile, site boards, and as the trust signature on every project's collateral. Its geometric crystal mark — a faceted form encoding four decades of architectural precision — is its primary device. A forty-year mark drawn from the same earth it builds on.</p>
+    </div>
+    <div class="arch-card">
+      <div class="arch-card-tag">Current Project</div>
+      <h3 class="arch-card-name">Vraj Imperia</h3>
+      <div class="arch-card-role">Mixed Use · Retail + Office · Waghodia Road</div>
+      <p class="arch-card-desc">A 4-floor commercial development, 42 units, launching April 2026. Its wordmark is paired with an architectural icon abstracted from the building's own facade — fins, brick, vertical rhythm. On all Imperia collateral the VSG mark is always present as endorsement, below or alongside the project mark, never above it.</p>
+    </div>
+    <div class="arch-endorsement" style="grid-column:1/-1;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><circle cx="8" cy="8" r="7" stroke="#B85C38" stroke-width="1.2"/><path d="M5 8.5l2 2 4-4" stroke="#B85C38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p class="arch-endorsement-text">Every project brand carries the endorsement <strong>"by Vraj Shyam Group"</strong> on all sales material — connecting every new project to 40 years of delivered trust. This line is mandatory. It is never hidden, never below minimum size, never omitted.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 LOGOS ═══ -->
+<section class="section" id="logos">
+  <div class="section-head">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-eyebrow">Foundations</div>
+      <h2 class="section-title">Logos</h2>
+      <p class="section-lede">Two final marks. Both use Charcoal <strong style="font-weight:500">#2E2E2E</strong> for the wordmark and Brick Red <strong style="font-weight:500">#B85C38</strong> for the device. The dark in the logo is charcoal — never pure black. SVG masters are the source of truth.</p>
+    </div>
+  </div>
+
+  <div class="logo-block">
+    <div class="logo-display">
+      <div class="logo-display-tag">Vraj Shyam Group · Primary Mark</div>
+      <svg viewBox="0 0 369.33 190.49" xmlns="http://www.w3.org/2000/svg">
+        <defs><style>.v1{fill:#2e2e2e}.v2{fill:#a94e36}.v3{fill:#b85c38}.v4{fill:#8c7b6e}</style></defs>
+        <g><path class="v1" d="M51.71,102.65v-.67h-13.8v.67h.61c.85,0,1.62.36,2.29,1.08.6.64.71,1.55.38,2.68l-13.9,33.2-13.18-32.79h.03c-.49-1.35-.42-2.38.24-3.1.65-.72,1.4-1.08,2.26-1.08h.61v-.67H0v.67h.54c1.03,0,2.11.33,3.23.98,1.1.64,1.98,1.7,2.65,3.18l19.37,43.38h.61l16-35.76h.02c.72-1.53,1.64-2.61,2.76-3.27,1.12-.65,2.18-.98,3.17-.98h.61Z"/><path class="v1" d="M368.39,148.44c-1.12,0-2.12-.33-3-.98-.81-.6-1.31-1.46-1.52-2.54l-5.45-37.15h-.61l-17.45,32.14-18.11-32.14h-.67l-5.17,36.9h-.08c-.13,1.21-.63,2.14-1.48,2.79-.99.75-2.19,1.27-3.3.79-.99-.63-1.82-1.68-2.49-3.16h-.06l-16.97-36.83h-.54l-15.24,32.69-2.43,2.93c-.99.63-1.93.94-2.83.94h-.54v.67h13.06v-.67h-.54c-.81,0-1.53-.36-2.15-1.08l3.54-8.33h16.02l3.47,8.38c.3,1.06.2,1.91-.34,2.53-.63.72-1.33,1.08-2.09,1.08h-.54v.67h24.31v-.61h-.94l2.82-24.64,15.96,28.7h.67l1.62-3.81,12.09-22.12,3.21,24.48c.09.58-.03,1.19-.37,1.82-.34.63-1,.97-1.99,1.01h-1.01v.61h15.55v-.67h-.94ZM283.53,134.23l7.16-16.85,6.98,16.85h-14.15Z"/></g>
+        <g><path class="v4" d="M141.1,190.49c-1.84,0-3.44-.41-4.81-1.23-1.36-.82-2.42-1.97-3.18-3.45-.76-1.48-1.13-3.21-1.13-5.18s.39-3.74,1.16-5.26c.77-1.52,1.89-2.71,3.34-3.58,1.45-.87,3.2-1.3,5.22-1.3,2.27,0,4.15.54,5.65,1.63,1.5,1.09,2.47,2.6,2.91,4.53h-4.17c-.28-.85-.79-1.51-1.53-2s-1.71-.73-2.89-.73c-1.25,0-2.32.28-3.2.83-.88.55-1.56,1.33-2.02,2.32-.46.99-.69,2.18-.69,3.56s.23,2.59.69,3.56c.46.98,1.12,1.72,1.97,2.22.86.51,1.86.76,3.02.76,1.69,0,2.98-.46,3.85-1.37.87-.91,1.39-2.09,1.56-3.55h-4.75v-2.79h8.51v10.69h-3.45l-.28-2.46c-.41.61-.88,1.12-1.42,1.53-.54.41-1.17.73-1.89.94s-1.55.32-2.49.32Z"/><path class="v4" d="M223.17,190.16v-19.34h7.24c1.57,0,2.86.27,3.9.8,1.03.53,1.8,1.25,2.29,2.15.5.9.75,1.93.75,3.09,0,1.07-.24,2.05-.72,2.96-.48.9-1.23,1.63-2.27,2.2-1.03.56-2.35.84-3.95.84h-3.51v7.29h-3.73ZM226.9,179.85h3.29c1.2,0,2.06-.27,2.58-.81.52-.54.79-1.27.79-2.17,0-.96-.26-1.7-.79-2.22s-1.39-.79-2.58-.79h-3.29v5.99Z"/><rect class="v2" x="249.33" y="181.05" width="120" height="1.5"/><rect class="v2" y="181.05" width="120" height="1.5"/></g>
+        <g><polygon class="v3" points="181.87 79.27 175.35 67.98 172.08 62.32 165.53 50.99 168.82 45.3 172.07 39.66 175.33 45.3 178.6 50.96 181.88 56.65 185.15 50.99 181.89 45.33 175.34 34 172.08 28.34 165.54 17.02 162.27 11.35 155.73 .03 168.79 0 175.33 0 188.4 0 194.94 0 208.01 0 201.52 11.32 198.25 16.99 191.71 28.32 185.15 17.01 188.43 11.32 175.33 11.32 178.6 16.99 181.88 22.67 185.14 28.32 191.69 39.67 194.94 45.3 198.21 50.96 191.71 62.28 181.9 79.27"/><polygon class="v3" points="136.13 0 149.17 0 152.46 5.69 155.71 11.32 158.98 16.99 162.27 22.68 165.52 28.32 168.79 33.98 162.28 45.3 155.73 34.01 145.93 17.02 136.12 .03 136.13 0"/><polygon class="v3" points="227.65 .03 221.13 11.32 217.86 16.99 211.32 28.32 208.05 33.98 201.51 45.3 194.96 34 198.24 28.32 201.49 22.68 208.05 11.32 214.57 .03 227.63 0 227.65 .03"/></g>
+      </svg>
+      <div class="logo-display-id">SVG · 369 × 190 · Primary</div>
+    </div>
+
+    <div class="logo-display">
+      <div class="logo-display-tag">Vraj Imperia · Primary Mark</div>
+      <svg viewBox="0 0 530.08 220" xmlns="http://www.w3.org/2000/svg">
+        <defs><style>.i1{fill:#2e2e2e}.i2{fill:#b85c38}</style></defs>
+        <g>
+          <path class="i1" d="M81.21,21.06v-1.06h-21.68v1.06h.95c1.34,0,2.54.57,3.6,1.69.94,1.01,1.11,2.43.6,4.22l-21.82,52.14L22.16,27.61h.05c-.78-2.12-.65-3.74.37-4.87,1.02-1.13,2.2-1.69,3.54-1.69h.95v-1.06H0v1.06h.85c1.62,0,3.31.51,5.08,1.53,1.73,1,3.11,2.67,4.16,5l30.42,72.41h.95l29.47-72.28h.03c1.13-2.4,2.57-4.1,4.34-5.13,1.76-1.02,3.42-1.53,4.97-1.53h.95Z"/>
+          <path class="i1" d="M204.01,36.55l.11,1.07h1.29c1.86,0,3.44.56,4.72,1.67,1.08.93,1.71,2.07,1.93,3.38v57.13c0,2.72-.5,5.37-1.5,7.95-1,2.58-2.42,4.87-4.24,6.87-1.83,2-3.96,3.44-6.39,4.29v1.07c2.86.07,5.62-.38,8.27-1.34,2.65-.97,4.99-2.36,7.03-4.19,2.04-1.83,3.65-3.99,4.83-6.5,1.18-2.51,1.77-5.19,1.77-8.05v-56.49c.07-1.65.77-3.02,2.09-4.13,1.32-1.11,2.88-1.67,4.67-1.67h1.39v-1.07h-25.99Z"/>
+          <path class="i2" d="M407,99.76c4.38-.44,8.77-.89,13.15-1.33v-.21s-42.91,0-42.91,0v.2c3.97.45,7.96.91,11.95,1.36v.18s-75.85.04-75.85.04v-3.33h20s0-8,0-8l36.67-7v15h3.33V26.67l6.67,3.33v66.67h3.33v-17.67s20.12-3.19,20-3.33c.12.14.12,21.05,0,21,0,0,3.15.05,3.33,0V0l13.33,6.67s0,20,0,20c0,0-6.59,3.41-6.67,3.33,0,0,.11,10.23,0,10,.11-.1,10-5,10-5v3.67l-10,4.67v10l10-3.33s.04,3.35,0,3.33c0,0-9.8,3.4-10,3.33-.13.07.1,13.07,0,13.33,0,0,10.18-3.45,10-3.33-.15.22,0,3.67,0,3.67l-10,3s-.03,23.16,0,23.33h13.33V16.67c2.27.89,5.38,2.34,7.42,3.16,8.57,3.46,17.34,6.74,25.92,10.17-.12.12,0,66.67,0,66.67,0,0,20,.03,20,0v3.33h-72.99v-.24Z"/>
+        </g>
+      </svg>
+      <div class="logo-display-id">SVG · 530 × 220 · Primary</div>
+    </div>
+  </div>
+
+  <div class="logo-darkbg">
+    <svg viewBox="0 0 369.33 190.49" xmlns="http://www.w3.org/2000/svg" style="max-height:100px">
+      <defs><style>.d1{fill:#F0EBE3}.d2{fill:#a94e36}.d3{fill:#b85c38}.d4{fill:rgba(176,164,156,.7)}</style></defs>
+      <path class="d1" d="M51.71,102.65v-.67h-13.8v.67h.61c.85,0,1.62.36,2.29,1.08.6.64.71,1.55.38,2.68l-13.9,33.2-13.18-32.79h.03c-.49-1.35-.42-2.38.24-3.1.65-.72,1.4-1.08,2.26-1.08h.61v-.67H0v.67h.54c1.03,0,2.11.33,3.23.98,1.1.64,1.98,1.7,2.65,3.18l19.37,43.38h.61l16-35.76c.72-1.53,1.64-2.61,2.76-3.27,1.12-.65,2.18-.98,3.17-.98h.61Z"/>
+      <path class="d1" d="M368.39,148.44c-1.12,0-2.12-.33-3-.98-.81-.6-1.31-1.46-1.52-2.54l-5.45-37.15h-.61l-17.45,32.14-18.11-32.14h-.67l-5.17,36.9c-.13,1.21-.63,2.14-1.48,2.79-.99.75-2.19,1.27-3.3.79-.99-.63-1.82-1.68-2.49-3.16h-.06l-16.97-36.83h-.54l-15.24,32.69-2.43,2.93c-.99.63-1.93.94-2.83.94h-.54v.67h13.06v-.67h-.54c-.81,0-1.53-.36-2.15-1.08l3.54-8.33h16.02l3.47,8.38c.3,1.06.2,1.91-.34,2.53-.63.72-1.33,1.08-2.09,1.08h-.54v.67h24.31v-.61h-.94l2.82-24.64,15.96,28.7h.67l1.62-3.81,12.09-22.12,3.21,24.48c.09.58-.03,1.19-.37,1.82-.34.63-1,.97-1.99,1.01h-1.01v.61h15.55v-.67h-.94ZM283.53,134.23l7.16-16.85,6.98,16.85h-14.15Z"/>
+      <rect class="d2" x="249.33" y="181.05" width="120" height="1.5"/><rect class="d2" y="181.05" width="120" height="1.5"/>
+      <path class="d4" d="M141.1,190.49c-1.84,0-3.44-.41-4.81-1.23-1.36-.82-2.42-1.97-3.18-3.45-.76-1.48-1.13-3.21-1.13-5.18s.39-3.74,1.16-5.26c.77-1.52,1.89-2.71,3.34-3.58,1.45-.87,3.2-1.3,5.22-1.3,2.27,0,4.15.54,5.65,1.63,1.5,1.09,2.47,2.6,2.91,4.53h-4.17c-.28-.85-.79-1.51-1.53-2s-1.71-.73-2.89-.73c-1.25,0-2.32.28-3.2.83-.88.55-1.56,1.33-2.02,2.32-.46.99-.69,2.18-.69,3.56s.23,2.59.69,3.56c.46.98,1.12,1.72,1.97,2.22.86.51,1.86.76,3.02.76,1.69,0,2.98-.46,3.85-1.37.87-.91,1.39-2.09,1.56-3.55h-4.75v-2.79h8.51v10.69h-3.45l-.28-2.46c-.41.61-.88,1.12-1.42,1.53-.54.41-1.17.73-1.89.94s-1.55.32-2.49.32Z"/>
+      <path class="d4" d="M223.17,190.16v-19.34h7.24c1.57,0,2.86.27,3.9.8,1.03.53,1.8,1.25,2.29,2.15.5.9.75,1.93.75,3.09,0,1.07-.24,2.05-.72,2.96-.48.9-1.23,1.63-2.27,2.2-1.03.56-2.35.84-3.95.84h-3.51v7.29h-3.73ZM226.9,179.85h3.29c1.2,0,2.06-.27,2.58-.81.52-.54.79-1.27.79-2.17,0-.96-.26-1.7-.79-2.22s-1.39-.79-2.58-.79h-3.29v5.99Z"/>
+      <g><polygon class="d3" points="181.87 79.27 172.08 62.32 165.53 50.99 168.82 45.3 172.07 39.66 175.33 45.3 181.88 56.65 185.15 50.99 175.34 34 172.08 28.34 165.54 17.02 162.27 11.35 155.73 .03 168.79 0 175.33 0 188.4 0 194.94 0 208.01 0 201.52 11.32 198.25 16.99 191.71 28.32 185.15 17.01 188.43 11.32 175.33 11.32 178.6 16.99 181.88 22.67 185.14 28.32 191.69 39.67 194.94 45.3 198.21 50.96 191.71 62.28 181.9 79.27"/><polygon class="d3" points="136.13 0 149.17 0 152.46 5.69 155.71 11.32 158.98 16.99 162.27 22.68 165.52 28.32 168.79 33.98 162.28 45.3 155.73 34.01 145.93 17.02 136.12 .03 136.13 0"/><polygon class="d3" points="227.65 .03 221.13 11.32 217.86 16.99 211.32 28.32 208.05 33.98 201.51 45.3 194.96 34 198.24 28.32 201.49 22.68 208.05 11.32 214.57 .03 227.63 0 227.65 .03"/></g>
+    </svg>
+  </div>
+
+  <div class="logo-rules">
+    <div class="logo-rule">
+      <div class="logo-rule-label">Clear Space</div>
+      <div class="logo-rule-title">Cap-height on every side</div>
+      <div class="logo-rule-text">Maintain a margin equal to the height of one capital letter from the wordmark on all four sides. Nothing — text, image, or edge — enters this zone.</div>
+    </div>
+    <div class="logo-rule">
+      <div class="logo-rule-label">Minimum Size</div>
+      <div class="logo-rule-title">28mm print · 120px screen</div>
+      <div class="logo-rule-text">Below this the GROUP subtitle and the crystal device lose definition. Use the brick triangle device alone for favicons and app icons.</div>
+    </div>
+    <div class="logo-rule">
+      <div class="logo-rule-label">Inversion</div>
+      <div class="logo-rule-title">Off-White on dark surfaces</div>
+      <div class="logo-rule-text">On Charcoal Dark, the wordmark switches to Off-White #F0EBE3. The brick device stays brick. Never use grey, never tint or recolour the mark.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 COLOUR ═══ -->
+<section class="section" id="colour">
+  <div class="section-head">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-eyebrow">Foundations</div>
+      <h2 class="section-title">Colour Palette</h2>
+      <p class="section-lede">Five colours drawn from the building itself — brick, stone, concrete, and the warm paper of an old letter. Always cite exact hex values. Brick is dusty and matte, never bright or orange. Charcoal is a deep warm brown, never pure black.</p>
+    </div>
+  </div>
+
+  <div class="palette">
+
+    <!-- Charcoal -->
+    <div class="sw sw-ch">
+      <div class="sw-top">
+        <div>
+          <div class="sw-name">Charcoal</div>
+          <div class="sw-hex">#2E2E2E</div>
+        </div>
+        <div class="sw-meta">Logo mark<br>Body text<br>Dark backgrounds</div>
+      </div>
+      <div class="sw-data">
+        <div class="sw-data-row"><div class="sw-data-key">HEX</div><div class="sw-data-val">#2E2E2E</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">RGB</div><div class="sw-data-val">46 · 46 · 46</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">CMYK</div><div class="sw-data-val">0 · 0 · 0 · 82</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">Pantone</div><div class="sw-data-val">Black 6 C</div></div>
+      </div>
+    </div>
+
+    <!-- Charcoal Dark -->
+    <div class="sw sw-chd">
+      <div class="sw-top">
+        <div>
+          <div class="sw-name">Charcoal Dark</div>
+          <div class="sw-hex">#1E1E1E</div>
+        </div>
+        <div class="sw-meta">Sidebars<br>Back covers<br>Deepest darks</div>
+      </div>
+      <div class="sw-data">
+        <div class="sw-data-row"><div class="sw-data-key">HEX</div><div class="sw-data-val">#1E1E1E</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">RGB</div><div class="sw-data-val">30 · 30 · 30</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">CMYK</div><div class="sw-data-val">0 · 0 · 0 · 88</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">Pantone</div><div class="sw-data-val">Black C</div></div>
+      </div>
+    </div>
+
+    <!-- Brick Red -->
+    <div class="sw sw-brick">
+      <div class="sw-top">
+        <div>
+          <div class="sw-name">Brick Red</div>
+          <div class="sw-hex">#B85C38</div>
+        </div>
+        <div class="sw-meta">Accent<br>Rules &amp; dividers<br>Iconography</div>
+      </div>
+      <div class="sw-data">
+        <div class="sw-data-row"><div class="sw-data-key">HEX</div><div class="sw-data-val">#B85C38</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">RGB</div><div class="sw-data-val">184 · 92 · 56</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">CMYK</div><div class="sw-data-val">18 · 75 · 85 · 7</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">Pantone</div><div class="sw-data-val">7586 C</div></div>
+      </div>
+    </div>
+
+    <!-- Stone -->
+    <div class="sw sw-stone">
+      <div class="sw-top">
+        <div>
+          <div class="sw-name">Stone</div>
+          <div class="sw-hex">#8C7B6E</div>
+        </div>
+        <div class="sw-meta">Secondary text<br>Strips &amp; captions<br>Supporting copy</div>
+      </div>
+      <div class="sw-data">
+        <div class="sw-data-row"><div class="sw-data-key">HEX</div><div class="sw-data-val">#8C7B6E</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">RGB</div><div class="sw-data-val">140 · 123 · 110</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">CMYK</div><div class="sw-data-val">0 · 12 · 21 · 45</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">Pantone</div><div class="sw-data-val">Warm Gray 8 C</div></div>
+      </div>
+    </div>
+
+    <!-- Off-White -->
+    <div class="sw sw-ow">
+      <div class="sw-top">
+        <div>
+          <div class="sw-name">Off-White</div>
+          <div class="sw-hex">#F0EBE3</div>
+        </div>
+        <div class="sw-meta">Primary background<br>Paper stock<br>Light text on dark</div>
+      </div>
+      <div class="sw-data">
+        <div class="sw-data-row"><div class="sw-data-key">HEX</div><div class="sw-data-val">#F0EBE3</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">RGB</div><div class="sw-data-val">240 · 235 · 227</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">CMYK</div><div class="sw-data-val">0 · 2 · 5 · 6</div></div>
+        <div class="sw-data-row"><div class="sw-data-key">Pantone</div><div class="sw-data-val">9180 C</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="palette-notes">
+    <div class="note">
+      <div class="note-label">Charcoal is not black</div>
+      <div class="note-text">Both logo marks use Charcoal <strong>#2E2E2E</strong> — a deep warm brown — never pure black <strong>#000000</strong>. In print, build Charcoal as <strong>CMYK 0/0/0/82</strong> (Pantone Black 6 C). Never use a 4-colour rich black build on fine text; single K only. Pure black kills the warmth of the system and makes Brick Red read too saturated by contrast.</div>
+    </div>
+    <div class="note">
+      <div class="note-label">Brick is dusty, not bright</div>
+      <div class="note-text">Brick Red <strong>#B85C38</strong> is muted and matte — taken from kiln-fired brick under an Indian sky. In print: <strong>CMYK 18/75/85/7 · Pantone 7586 C</strong>. Always request a wet proof before press approval. If the swatch returns glossy, orange-shifted, or over-saturated, reject and reprint. The ink should look dry and earthen, not vivid.</div>
+    </div>
+    <div class="note">
+      <div class="note-label">Stone — warm grey, not cool</div>
+      <div class="note-text">Stone <strong>#8C7B6E</strong> is a warm brownish grey — <strong>CMYK 0/12/21/45 · Pantone Warm Gray 8 C</strong>. Never substitute a neutral or cool grey. The yellow and magenta ink components are intentional; they give the grey its warmth and connect it visually to the Brick Red.</div>
+    </div>
+    <div class="note">
+      <div class="note-label">Off-White — visible warmth on paper</div>
+      <div class="note-text">Off-White <strong>#F0EBE3</strong> is the paper stock colour as much as an ink colour — <strong>CMYK 0/2/5/6 · Pantone 9180 C</strong>. When specifying paper for print, match the stock swatch to Pantone 9180 C at proof. A stock that reads bright white in hand means the paper is wrong; request a warmer uncoated sheet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 TYPOGRAPHY ═══ -->
+<section class="section" id="typography">
+  <div class="section-head">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-eyebrow">Foundations</div>
+      <h2 class="section-title">Typography</h2>
+      <p class="section-lede">Two typefaces, no exceptions. Cinzel — a Roman-capital serif — anchors the logo and every display heading. DM Sans handles all body copy, captions, addresses, and small print. Classical authority with modern legibility.</p>
+    </div>
+  </div>
+
+  <div class="type-spec">
+    <div class="type-card">
+      <div class="type-label">Display · Logo · Headings</div>
+      <div class="type-name">Cinzel</div>
+      <div class="type-purpose">Serif · Roman Capitals</div>
+      <div class="type-specimen-d">VRAJ SHYAM</div>
+      <div class="type-weights">
+        <span class="tw400">Regular 400 — Display body, large quotes</span>
+        <span class="tw500">Medium 500 — Section titles, headlines</span>
+        <span class="tw600">SemiBold 600 — Logo wordmark, eyebrows</span>
+        <span class="tw700">Bold 700 — Reserved, use sparingly</span>
+      </div>
+    </div>
+    <div class="type-card">
+      <div class="type-label">Body · Captions · Details</div>
+      <div class="type-name">DM Sans</div>
+      <div class="type-purpose">Sans Serif · Geometric</div>
+      <div class="type-specimen-b">Building communities since 1984</div>
+      <div class="type-weights">
+        <span class="tw300">Light 300 — Long-form body, descriptive copy</span>
+        <span class="tw400">Regular 400 — Standard running text</span>
+        <span class="tw500">Medium 500 — Sub-headings, emphasis</span>
+        <span class="tw600">SemiBold 600 — Small caps, tags, micro-headings</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="type-scale">
+    <div class="tsr"><div class="tsr-label">Display XL</div><div style="font-family:var(--f-display);font-size:48px;font-weight:500;line-height:1;color:var(--ch)">A house of trust</div><div class="tsr-spec">Cinzel 500 · 64–96px</div></div>
+    <div class="tsr"><div class="tsr-label">Display L</div><div style="font-family:var(--f-display);font-size:32px;font-weight:500;line-height:1.05;color:var(--ch)">Section headings</div><div class="tsr-spec">Cinzel 500 · 36–48px</div></div>
+    <div class="tsr"><div class="tsr-label">Heading</div><div style="font-family:var(--f-display);font-size:20px;font-weight:600;color:var(--ch)">Subsection title</div><div class="tsr-spec">Cinzel 600 · 18–24px</div></div>
+    <div class="tsr"><div class="tsr-label">Body L</div><div style="font-size:16px;font-weight:300;line-height:1.65;color:var(--ch)">Lede paragraphs and descriptive copy that needs room to breathe.</div><div class="tsr-spec">DM Sans 300 · 16–17px</div></div>
+    <div class="tsr"><div class="tsr-label">Body</div><div style="font-size:14px;font-weight:400;line-height:1.65;color:var(--ch)">Standard running text — letterhead, profile, and brochure body copy.</div><div class="tsr-spec">DM Sans 400 · 13–14px</div></div>
+    <div class="tsr"><div class="tsr-label">Caption</div><div style="font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brick)">Small Caps · Tags · Eyebrows</div><div class="tsr-spec">DM Sans 600 · 10–11px · +.22em</div></div>
+  </div>
+</section>
+
+<!-- ═══ 05 DESIGN LANGUAGE ═══ -->
+<section class="section" id="design-language">
+  <div class="section-head">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-eyebrow">Visual Direction</div>
+      <h2 class="section-title">Design Language</h2>
+      <p class="section-lede">Two visual signatures separate this brand from generic real estate work: a diagonal cut that organises every layout, and a downward-pointing triangle that holds every photograph. Together they echo the geometry already inside the crystal mark.</p>
+    </div>
+  </div>
+
+  <div class="dl-grid">
+    <div class="dl-card">
+      <div class="dl-visual">
+        <div class="dl-diag">
+          <div class="dl-diag-c">
+            <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--brick);margin-bottom:5px">Content Zone</div>
+            <div style="font-family:var(--f-display);font-size:11px;font-weight:600;color:var(--ch)">Cols 1–6</div>
+            <div style="font-size:8px;color:var(--stone);margin-top:2px">Off-White</div>
+          </div>
+          <div class="dl-diag-v">
+            <div style="position:absolute;top:10px;left:0;right:0;text-align:center;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.7)">Visual Zone · Cols 7–12</div>
+          </div>
+          <div class="dl-col-guides">
+            <div class="dl-col-g"></div><div class="dl-col-g"></div><div class="dl-col-g"></div>
+            <div class="dl-col-g"></div><div class="dl-col-g"></div>
+            <div class="dl-col-g c7"></div>
+            <div class="dl-col-g"></div><div class="dl-col-g"></div><div class="dl-col-g"></div>
+            <div class="dl-col-g"></div><div class="dl-col-g"></div>
+            <div class="dl-col-g" style="border-right:none"></div>
+          </div>
+          <div class="dl-ann">Diagonal col 7 → col 10 · 25% shift · ≈ 30°</div>
+        </div>
+      </div>
+      <div class="dl-card-text">
+        <div class="dl-card-label">The Diagonal</div>
+        <h3 class="dl-card-title">Angled cuts, not rectangles</h3>
+        <p class="dl-card-desc">One structural diagonal runs through every layout — a single grid-anchored boundary that starts at the top of column 7 (50% of layout width) and ends at column 10 at the bottom (75%). This divides the Content Zone (cols 1–6, Off-White) from the Visual Zone (cols 7–12, Charcoal Dark) in every brand asset. The 25% shift creates a ≈ 30° angle. This is not a decorative element — it is the structural grid.</p>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-visual">
+        <div class="dl-tri-bg">
+          <div class="dl-tri-shape"></div>
+        </div>
+      </div>
+      <div class="dl-card-text">
+        <div class="dl-card-label">The Triangle</div>
+        <h3 class="dl-card-title">Photographs cropped to a downward V</h3>
+        <p class="dl-card-desc">Every photograph in the system — in the profile, brochure, on hoardings — is masked into a downward-pointing triangle with sharp die-cut edges. The off-white paper remains visible in the corners outside the triangle. This is intentional negative space; it must never be filled in or softened to a rectangle. The triangle echoes the geometry of the logo mark.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <div class="note-label">Hard rule — no exceptions</div>
+    <div class="note-text">No rounded corners — anywhere. Cards, documents, photo crops, panels, and buttons all use sharp 90° corners. Roundness reads as soft, generic, and web-app default. This brand is architectural, and <strong>architecture has edges.</strong></div>
+  </div>
+</section>
+
+<!-- ═══ 06 PHOTOGRAPHY ═══ -->
+<section class="section" id="photography">
+  <div class="section-head">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-eyebrow">Visual Direction</div>
+      <h2 class="section-title">Photography</h2>
+      <p class="section-lede">Bright, airy, warm — premium earthy editorial. Reference: Aesop campaign photography, Good Earth catalogue, Indian heritage architecture at golden hour. Never moody, never dramatic, never over-styled.</p>
+    </div>
+  </div>
+
+  <div class="photo-rules">
+    <div class="photo-rule">
+      <div class="photo-rule-num">A</div>
+      <div class="photo-rule-title">Light</div>
+      <div class="photo-rule-text">A single warm natural source from upper left — late afternoon window light quality. Soft diffused shadows. Never a softbox grid, never harsh strobe, never fluorescent. The image should feel like 4:30pm on a clear day.</div>
+    </div>
+    <div class="photo-rule">
+      <div class="photo-rule-num">B</div>
+      <div class="photo-rule-title">Lens &amp; Depth</div>
+      <div class="photo-rule-text">50mm equivalent at f/2.2. Shallow depth of field with a calm subject in focus and the surrounding surface dropping gently out. No fisheye, no extreme tele, no in-camera filters.</div>
+    </div>
+    <div class="photo-rule">
+      <div class="photo-rule-num">C</div>
+      <div class="photo-rule-title">Surfaces</div>
+      <div class="photo-rule-text">Stationery shots: dark honed black granite beneath the printed piece. Outdoor and site assets: real Indian environments — paving, scaffolding, evening street. Marble with veining, white linen, polished glass, and polished wood are out of system.</div>
+    </div>
+    <div class="photo-rule">
+      <div class="photo-rule-num">D</div>
+      <div class="photo-rule-title">Mood</div>
+      <div class="photo-rule-text">Calm, grounded, refined. The image should feel earned — like a developer with forty years to point to, not a startup launching its first asset. No motion, no people gesturing at camera, no lifestyle stock.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 07 PRINT STANDARDS ═══ -->
+<section class="section dark" id="print">
+  <div class="section-head">
+    <div class="section-num">07</div>
+    <div>
+      <div class="section-eyebrow">Visual Direction</div>
+      <h2 class="section-title">Print Standards</h2>
+      <p class="section-lede">Every printed piece follows the same three rules: matte finish, warm paper, ink-flat colour. Reject any proof that returns outside these parameters.</p>
+    </div>
+  </div>
+
+  <div class="print-grid">
+    <div class="print-item">
+      <div class="print-icon">01</div>
+      <div class="print-label">Finish</div>
+      <div class="print-title">Flat matte only</div>
+      <div class="print-text">No spot UV, no foil, no metallic ink, no embossing, no varnish. The whole system prints dry. Texture comes from the paper, not the finish.</div>
+    </div>
+    <div class="print-item">
+      <div class="print-icon">02</div>
+      <div class="print-label">Paper</div>
+      <div class="print-title">Warm uncoated stock</div>
+      <div class="print-text">300 GSM uncoated cotton-blend for cards. 120 GSM matte uncoated for letterhead. The stock should be visibly off-white in hand — match swatch <strong>#F0EBE3</strong> at proof.</div>
+    </div>
+    <div class="print-item">
+      <div class="print-icon">03</div>
+      <div class="print-label">Ink</div>
+      <div class="print-title">Flat dusty brick</div>
+      <div class="print-text">Brick Red as flat, slightly dusty matte ink. Pantone <strong>7586 C</strong> is the reference. CMYK build: <strong>18 / 75 / 85 / 7</strong>. If the ink returns bright, glossy, or orange-shifted — reprint. See Colour Palette section for all five colours' full CMYK and Pantone references.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 08 BUSINESS CARD ═══ -->
+<section class="section" id="card">
+  <div class="section-head">
+    <div class="section-num">08</div>
+    <div>
+      <div class="section-eyebrow">Deliverables</div>
+      <h2 class="section-title">Business Card</h2>
+      <p class="section-lede">A duplex card on heavy uncoated stock. Wordmark and contact on the front; a single brick triangle device on the back. Calm, not cluttered.</p>
+    </div>
+  </div>
+
+  <div class="deliv-head">
+    <div><div class="deliv-num">08·A</div><div class="deliv-title">Standard Card · Front + Back</div></div>
+    <div class="deliv-spec">89 × 54 mm<br>300 GSM Uncoated<br>Duplex · Matte</div>
+  </div>
+
+  <div class="deliv-content">
+    <div class="mockup">
+      <div class="mockup-tag">Front</div>
+      <div class="mock-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div class="mc-logo">VRAJ SHYAM<span>Group · Estd. 1984</span></div>
+          <div class="mc-est">Est.<br>1984</div>
+        </div>
+        <div>
+          <div class="mc-name">Fagun Parikh</div>
+          <div class="mc-role">Director · Strategy &amp; Operations</div>
+        </div>
+        <div class="mc-contact">
+          <strong>+91 9714049965</strong><br>
+          vrajshyamrealty@gmail.com<br>
+          Vraj Imperia, Waghodia Road, Vadodara
+        </div>
+      </div>
+      <div class="mockup-tag">Back</div>
+      <div class="mock-card-back">
+        <div class="mc-b-tri"></div>
+        <div class="mc-b-word">VRAJ SHYAM<span>Group</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="spec-list">
+        <div class="spec-list-title">Specifications</div>
+        <div class="spec-row"><div class="spec-key">Trim Size</div><div class="spec-val">89 × 54 mm (standard CR80)</div></div>
+        <div class="spec-row"><div class="spec-key">Bleed</div><div class="spec-val">3 mm all sides</div></div>
+        <div class="spec-row"><div class="spec-key">Paper</div><div class="spec-val">300 GSM uncoated cotton-blend, warm white matched to <strong>#F0EBE3</strong></div></div>
+        <div class="spec-row"><div class="spec-key">Print</div><div class="spec-val">CMYK both sides, flat matte</div></div>
+        <div class="spec-row"><div class="spec-key">Inks</div><div class="spec-val">Charcoal <strong>#2E2E2E</strong> · Brick Red <strong>#B85C38</strong></div></div>
+        <div class="spec-row"><div class="spec-key">Front</div><div class="spec-val">Wordmark top-left · Cardholder name &amp; role · Contact block at base</div></div>
+        <div class="spec-row"><div class="spec-key">Back</div><div class="spec-val">Charcoal Dark field · single brick triangle device, centred-left · wordmark bottom-right</div></div>
+      </div>
+      <div class="deliv-rules">
+        <div class="deliv-rules-label">Layout rules</div>
+        <ul class="deliv-rules-list">
+          <li>Brick rule above wordmark is exactly 3pt thick — never thinner</li>
+          <li>Name: Cinzel 600 at 14pt. Role: DM Sans 600 micro-caps</li>
+          <li>Contact block: DM Sans 400 at 7pt. Phone in DM Sans 500 for emphasis</li>
+          <li>Hard 90° corners — no radius anywhere on the card</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 09 LETTERHEAD ═══ -->
+<section class="section dark" id="letterhead">
+  <div class="section-head">
+    <div class="section-num">09</div>
+    <div>
+      <div class="section-eyebrow">Deliverables</div>
+      <h2 class="section-title">Letterhead</h2>
+      <p class="section-lede">A4 portrait. Brick rule at top of page, wordmark and contact in the header, footer with address and registration details. The diagonal is present in the right-column charcoal panel.</p>
+    </div>
+  </div>
+
+  <div class="deliv-head">
+    <div><div class="deliv-num">09·A</div><div class="deliv-title">A4 Letterhead</div></div>
+    <div class="deliv-spec">A4 · 210 × 297 mm<br>120 GSM Matte Uncoated<br>Digital + Print</div>
+  </div>
+
+  <div class="deliv-content">
+    <div class="mockup" style="background:var(--ch)">
+      <div class="mockup-tag" style="color:rgba(240,235,227,.4)">Portrait · 12-Col Grid</div>
+      <div class="mock-letter">
+        <div class="ml-head">
+          <div class="ml-logo">VRAJ SHYAM<span>Group · Estd. 1984</span></div>
+          <div class="ml-meta">+91 9714049965<br>vrajshyamrealty@gmail.com</div>
+        </div>
+        <div class="ml-body">
+          <div class="ml-line"></div>
+          <div class="ml-line med"></div>
+          <div class="ml-gap"></div>
+          <div class="ml-line"></div>
+          <div class="ml-line med"></div>
+          <div class="ml-line short"></div>
+          <div class="ml-gap"></div>
+          <div class="ml-line short"></div>
+        </div>
+        <div class="ml-foot">Vraj Imperia, Waghodia Road, Parivar Char Rasta, Vadodara – 390019 · vrajshyamrealty@gmail.com · +91 9714049965</div>
+      </div>
+    </div>
+    <div>
+      <div class="spec-list">
+        <div class="spec-list-title">Specifications</div>
+        <div class="spec-row"><div class="spec-key">Size</div><div class="spec-val">A4 · 210 × 297 mm · 3 mm bleed</div></div>
+        <div class="spec-row"><div class="spec-key">Paper</div><div class="spec-val">120 GSM matte uncoated — visible off-white in hand</div></div>
+        <div class="spec-row"><div class="spec-key">Header</div><div class="spec-val">4px Brick rule at top edge · Wordmark left · Contact right</div></div>
+        <div class="spec-row"><div class="spec-key">Body zone</div><div class="spec-val">Left margin 20mm · Body starts at 36mm from top · DM Sans 300 at 11pt</div></div>
+        <div class="spec-row"><div class="spec-key">Footer</div><div class="spec-val">Address · Email · Phone in DM Sans 400 at 8pt, Stone #8C7B6E</div></div>
+        <div class="spec-row"><div class="spec-key">Digital</div><div class="spec-val">Supply as Word .dotx and PDF template for Acrobat form fill</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 ENVELOPE ═══ -->
+<section class="section" id="envelope">
+  <div class="section-head">
+    <div class="section-num">10</div>
+    <div>
+      <div class="section-eyebrow">Deliverables</div>
+      <h2 class="section-title">Envelope</h2>
+      <p class="section-lede">DL envelope. Wordmark and return address on the front left. Brick rule at the base. Clean and uncluttered — the brand speaks through restraint.</p>
+    </div>
+  </div>
+
+  <div class="deliv-head">
+    <div><div class="deliv-num">10·A</div><div class="deliv-title">DL Envelope</div></div>
+    <div class="deliv-spec">220 × 110 mm<br>100 GSM Uncoated<br>Gummed Seal</div>
+  </div>
+
+  <div class="deliv-content">
+    <div class="mockup">
+      <div class="mockup-tag">Front</div>
+      <div class="mock-env">
+        <div>
+          <div class="me-logo">VRAJ SHYAM<span>Group · Estd. 1984</span></div>
+          <div style="font-size:7px;color:var(--stone);margin-top:10px;line-height:1.7;letter-spacing:.04em">
+            Vraj Imperia, Waghodia Road<br>
+            Parivar Char Rasta<br>
+            Vadodara – 390019
+          </div>
+        </div>
+        <div class="me-addr">
+          vrajshyamrealty<br>@gmail.com<br>
+          +91 9714049965
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="spec-list">
+        <div class="spec-list-title">Specifications</div>
+        <div class="spec-row"><div class="spec-key">Size</div><div class="spec-val">220 × 110 mm (DL standard)</div></div>
+        <div class="spec-row"><div class="spec-key">Paper</div><div class="spec-val">100 GSM matte uncoated, off-white matched to #F0EBE3</div></div>
+        <div class="spec-row"><div class="spec-key">Print</div><div class="spec-val">Front only · CMYK flat matte</div></div>
+        <div class="spec-row"><div class="spec-key">Rule</div><div class="spec-val">2pt Brick Red rule at bottom edge of envelope</div></div>
+        <div class="spec-row"><div class="spec-key">Content</div><div class="spec-val">Wordmark + return address, top-left · No reverse print on back flap</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11 COMPANY PROFILE ═══ -->
+<section class="section dark" id="profile">
+  <div class="section-head">
+    <div class="section-num">11</div>
+    <div>
+      <div class="section-eyebrow">Deliverables</div>
+      <h2 class="section-title">Company Profile</h2>
+      <p class="section-lede">A 4-page saddle-stitched document — credentials, story, projects, and contact. Charcoal Dark cover with a diagonal brick triangle. Triangle photograph crops on interior pages.</p>
+    </div>
+  </div>
+
+  <div class="deliv-head">
+    <div><div class="deliv-num">11·A</div><div class="deliv-title">4-Page Profile</div></div>
+    <div class="deliv-spec">A4 Portrait · 210 × 297 mm<br>Cover 270 GSM · Inside 170 GSM<br>Saddle Stitched</div>
+  </div>
+
+  <div class="deliv-content">
+    <div class="mockup" style="background:var(--ch)">
+      <div class="mockup-tag" style="color:rgba(240,235,227,.4)">4-Page Sequence</div>
+      <div style="display:flex;gap:8px;align-items:flex-end">
+        <div style="width:110px;height:155px;background:var(--ch-dark);padding:12px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden">
+          <div style="font-size:6px;letter-spacing:.24em;text-transform:uppercase;color:var(--brick)">Vraj Shyam Group</div>
+          <div style="font-family:var(--f-display);font-size:11px;font-weight:600;color:var(--ow);line-height:1.1;position:relative;z-index:2">A house<br>built on<br>trust.</div>
+          <div style="position:absolute;bottom:0;right:0;width:55%;height:48%;background:var(--brick);clip-path:polygon(40% 0,100% 0,100% 100%,0 100%)"></div>
+        </div>
+        <div style="width:110px;height:148px;background:var(--ow);padding:10px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:5px;letter-spacing:.2em;text-transform:uppercase;color:var(--brick);margin-bottom:4px">02 · Story</div>
+          <div style="height:2px;background:rgba(46,46,46,.1)"></div>
+          <div style="height:2px;background:rgba(46,46,46,.1);width:75%"></div>
+          <div style="height:45px;background:var(--ch);clip-path:polygon(50% 100%,0 0,100% 0);margin:4px 0"></div>
+          <div style="height:2px;background:rgba(46,46,46,.1);width:55%"></div>
+        </div>
+        <div style="width:110px;height:148px;background:var(--ow);padding:10px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:5px;letter-spacing:.2em;text-transform:uppercase;color:var(--brick);margin-bottom:4px">03 · Projects</div>
+          <div style="height:42px;background:var(--ch);clip-path:polygon(50% 100%,0 0,100% 0);margin-bottom:4px"></div>
+          <div style="height:2px;background:rgba(46,46,46,.1);width:55%"></div>
+          <div style="height:42px;background:var(--brick);clip-path:polygon(50% 100%,0 0,100% 0);margin:4px 0"></div>
+        </div>
+        <div style="width:110px;height:148px;background:var(--ch-dark);padding:10px;display:flex;flex-direction:column;justify-content:space-between">
+          <div style="font-size:5px;letter-spacing:.22em;text-transform:uppercase;color:var(--brick)">04 · Contact</div>
+          <div>
+            <div style="font-family:var(--f-display);font-size:9px;font-weight:600;color:var(--ow);letter-spacing:.04em">VRAJ SHYAM<br>GROUP</div>
+            <div style="font-size:5px;color:rgba(240,235,227,.5);letter-spacing:.14em;text-transform:uppercase;margin-top:4px;line-height:1.7">Vadodara<br>Estd. 1984</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="spec-list">
+        <div class="spec-list-title">Page Sequence</div>
+        <div class="spec-row"><div class="spec-key">Page 01</div><div class="spec-val"><strong>Cover</strong> — Charcoal Dark field with diagonal brick triangle device. Wordmark top-left in Off-White. Single Cinzel headline. No imagery.</div></div>
+        <div class="spec-row"><div class="spec-key">Page 02</div><div class="spec-val"><strong>The Story</strong> — Forty-year journey. Triangle photograph of an early project at top. 280-word body in DM Sans 300 at 11pt.</div></div>
+        <div class="spec-row"><div class="spec-key">Page 03</div><div class="spec-val"><strong>Projects</strong> — Three triangle-cropped photographs of flagship work. Project name + year + units beneath each.</div></div>
+        <div class="spec-row"><div class="spec-key">Page 04</div><div class="spec-val"><strong>Back Cover</strong> — Charcoal Dark. VSG wordmark centred. Address, email, phone in Off-White below. Brick triangle device bottom-right.</div></div>
+      </div>
+      <div class="deliv-rules">
+        <div class="deliv-rules-label">Production</div>
+        <ul class="deliv-rules-list">
+          <li>Cover: 270 GSM matte uncoated · Inside: 170 GSM matte uncoated</li>
+          <li>Saddle-stitched binding (two staples at spine)</li>
+          <li>Photography on pages 2 &amp; 3 must use the triangle crop — never rectangles</li>
+          <li>Both covers print 4/0 CMYK · Insides 4/4 CMYK</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 12 BROCHURE ═══ -->
+<section class="section" id="brochure">
+  <div class="section-head">
+    <div class="section-num">12</div>
+    <div>
+      <div class="section-eyebrow">Deliverables</div>
+      <h2 class="section-title">Vraj Imperia Brochure</h2>
+      <p class="section-lede">A 12–16 page A4 landscape commercial brochure — the project's primary sales document. Photography-led. Plans presented cleanly with white space. The VSG endorsement appears on cover and back, never above the project mark.</p>
+    </div>
+  </div>
+
+  <div class="deliv-head">
+    <div><div class="deliv-num">12·A</div><div class="deliv-title">12–16 Page Brochure</div></div>
+    <div class="deliv-spec">A4 Landscape · 297 × 210 mm<br>200 GSM Matte Cover<br>Wire-bound or Stitched</div>
+  </div>
+
+  <div class="deliv-content">
+    <div class="mockup">
+      <div class="mockup-tag">Cover · 12-Col Grid · Inverted Diagonal</div>
+      <div class="mock-brochure">
+        <div class="mb-visual">
+          <div class="mb-visual-text">VRAJ<br>IMPERIA</div>
+        </div>
+        <div class="mb-content">
+          <div class="mb-by">By Vraj Shyam Group</div>
+          <div class="mb-title">Vraj<br>Imperia.</div>
+          <div class="mb-rule"></div>
+          <div class="mb-sub">Where Vadodara Does Business</div>
+          <div style="font-size:clamp(5px,1vw,7px);letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-top:auto;padding-top:4%">Waghodia Road · Apr 2026</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="spec-list">
+        <div class="spec-list-title">16-Page Plan</div>
+        <div class="spec-row"><div class="spec-key">01 Cover</div><div class="spec-val">12-col diagonal grid: render cols 1–6, Imperia wordmark cols 7–12 (Off-White), inverted diagonal divider.</div></div>
+        <div class="spec-row"><div class="spec-key">02–03</div><div class="spec-val">Hero exterior render across spread · positioning paragraph left column.</div></div>
+        <div class="spec-row"><div class="spec-key">04–05</div><div class="spec-val">Location map + landmark callouts (Mumbai–Vadodara Highway, Parul University, Savita Hospital).</div></div>
+        <div class="spec-row"><div class="spec-key">06–07</div><div class="spec-val">Ground floor + upper floor plans · generous white space · dimensions in DM Sans 300.</div></div>
+        <div class="spec-row"><div class="spec-key">08–09</div><div class="spec-val">Specifications: structural · facilities · safety. Triangle photograph of fin detail.</div></div>
+        <div class="spec-row"><div class="spec-key">10–11</div><div class="spec-val">Buyer profiles: retail · F&amp;B · professional · investor. One-line value statements.</div></div>
+        <div class="spec-row"><div class="spec-key">12–13</div><div class="spec-val">Vraj Shyam Group credentials. Three flagship projects. MD signatures.</div></div>
+        <div class="spec-row"><div class="spec-key">14–16</div><div class="spec-val">RERA + approvals · Contact · Back cover (VSG wordmark, Charcoal Dark, brick triangle).</div></div>
+      </div>
+      <div class="deliv-rules" style="background:rgba(184,92,56,.1)">
+        <div class="deliv-rules-label">Mandatory before print</div>
+        <ul class="deliv-rules-list">
+          <li>RERA number on cover footer and back cover</li>
+          <li>Pricing is "On Request" — never publish prices in the brochure</li>
+          <li>QR code linking to project landing page, back cover lower-right</li>
+          <li>All photographs use triangle crop — never rectangular masks</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 13 HOARDINGS ═══ -->
+<section class="section dark" id="hoardings">
+  <div class="section-head">
+    <div class="section-num">13</div>
+    <div>
+      <div class="section-eyebrow">Deliverables</div>
+      <h2 class="section-title">Site Hoardings</h2>
+      <p class="section-lede">The most visible brand touchpoint. Charcoal Dark field, diagonal brick triangle anchoring the lower-right corner, project name in Cinzel, and a phone number large enough to read from a moving vehicle.</p>
+    </div>
+  </div>
+
+  <div class="deliv-head">
+    <div><div class="deliv-num">13·A</div><div class="deliv-title">Primary Site Hoarding</div></div>
+    <div class="deliv-spec">40 × 20 ft · Flex<br>300 DPI at 1:10 scale<br>Aluminium frame</div>
+  </div>
+
+  <div class="deliv-content">
+    <div class="mockup" style="background:var(--ch);padding:20px">
+      <div class="mockup-tag" style="color:rgba(240,235,227,.4)">40 × 20 ft · Flex Hoarding</div>
+      <div class="mock-hoard" style="width:100%;flex:1">
+        <div class="mh-top">
+          <div class="mh-logo">VRAJ SHYAM<span>Group · Estd. 1984</span></div>
+          <div class="mh-rera">RERA: [Add before printing]</div>
+        </div>
+        <div class="mh-mid">
+          <div class="mh-eye">Launching April 2026</div>
+          <div class="mh-hl">Vraj Imperia<br>Where Vadodara<br>Does Business.</div>
+        </div>
+        <div class="mh-bot">
+          <div class="mh-cta">Waghodia Road, Vadodara · Enquire Now</div>
+          <div class="mh-phone">+91 9714049965</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="spec-list">
+        <div class="spec-list-title">Specifications</div>
+        <div class="spec-row"><div class="spec-key">Primary</div><div class="spec-val">40 × 20 ft vinyl flex, 440 GSM, UV-resistant inks, aluminium frame</div></div>
+        <div class="spec-row"><div class="spec-key">Site boundary</div><div class="spec-val">8 × 4 ft panels · Charcoal Dark field · Project name + "by VSG" only</div></div>
+        <div class="spec-row"><div class="spec-key">Mandatory</div><div class="spec-val">RERA number in DM Sans 400 at approved minimum size, top-right corner</div></div>
+        <div class="spec-row"><div class="spec-key">Phone</div><div class="spec-val">+91 9714049965 in Cinzel 600 at minimum 120pt equivalent · Off-White</div></div>
+        <div class="spec-row"><div class="spec-key">Triangle</div><div class="spec-val">Brick diagonal anchors lower-right of every hoarding variant — this is the campaign's visual signature</div></div>
+        <div class="spec-row"><div class="spec-key">Pricing</div><div class="spec-val">Never appear on any hoarding. "On Request" may appear if needed.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 14 MASTER AI PROMPT ═══ -->
+<section class="section" id="prompt">
+  <div class="section-head">
+    <div class="section-num">14</div>
+    <div>
+      <div class="section-eyebrow">Reference</div>
+      <h2 class="section-title">Master AI Generation Prompt</h2>
+      <p class="section-lede">Append this to every AI image generation request. It encodes every rule above into one repeatable instruction so imagery stays inside the system regardless of who generates it.</p>
+    </div>
+  </div>
+
+  <div class="prompt-wrap">
+    <div class="prompt-meta">
+      <div>
+        <div class="prompt-meta-label">Master Style Block · Append to every prompt</div>
+        <div class="prompt-meta-title">Vraj Shyam Group · Visual Direction</div>
+      </div>
+      <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">Copy Prompt</button>
+    </div>
+    <div class="prompt-text" id="promptText">VRAJ SHYAM GROUP — MASTER VISUAL DIRECTION
+
+PURPOSE
+Photoreal image for design direction and client presentation. Premium real estate brand campaign.
+
+PALETTE — exact hex only
+- Charcoal #2E2E2E (deep warm brown — NOT pure black, NOT navy. The dark in our logo is THIS, not black.)
+- Charcoal Dark #1E1E1E (sidebar / back cover dark)
+- Brick Red #B85C38 (dusty muted brick — NOT orange, NOT bright clay, NOT shiny red)
+- Stone #8C7B6E (warm mid grey-brown)
+- Off-White #F0EBE3 (warm paper background — NOT pure white, NOT cream)
+
+TYPOGRAPHY
+- Display, headings, logo wordmark: Cinzel (serif). Weights 500–600.
+- Body, captions, addresses, small print: DM Sans (sans-serif). Weights 300–500.
+- The wordmark VRAJ SHYAM GROUP and VRAJ IMPERIA are always set in Cinzel.
+
+PHOTOGRAPHY
+- 50mm lens equivalent, f/2.2, shallow depth of field.
+- Single warm natural light from upper LEFT — late afternoon window light quality.
+- Bright, airy, warm. Premium earthy editorial. Reference: Aesop, Good Earth catalogue.
+- NOT moody, NOT dark, NOT dramatic, NOT high-contrast.
+- Soft diffused shadows. Calm, grounded mood.
+
+SURFACES
+- Stationery (cards, letterhead, profile, brochure): dark honed black granite surface beneath the printed piece. Bright airy mood despite the dark surface.
+- Outdoor and site assets: real Indian environment — paving, scaffolding, evening street, building facade.
+- NEVER white linen, marble with veining, polished glass, polished wood grain.
+
+DESIGN LANGUAGE
+- Diagonal cuts run through every layout — angled lines (typically 30°) define panel divisions. NOT rectangular grids.
+- Photographs are masked into a downward-pointing triangle with sharp die-cut edges. The off-white paper is visible in the corners outside the triangle. Do not fill these corners.
+- Hard 90° corners on every card, document, panel. Never rounded.
+
+PRINT FINISH
+- Flat matte only. NO foil, NO emboss, NO metallic ink, NO spot UV, NO varnish.
+- Brick Red prints as flat dusty matte ink — never shiny, never saturated.
+- Off-White paper is visibly warm — never appears as bright pure white in the image.
+
+TYPOGRAPHIC RULE — CRITICAL
+Only render text that is inside quotation marks " " in the prompt as printed visible content.
+If you see "Vraj Shyam Group" in quotes — print that exactly.
+If you see Cinzel, #B85C38, 11pt without quotes — these are instructions, never print as visible text.
+
+CORRECT INFORMATION (when used in stationery)
+Address: "Vraj Imperia, Waghodia Road, Parivar Char Rasta, Vadodara – 390019"
+Email: "vrajshyamrealty@gmail.com"
+Phone: "+91 9714049965"
+Spelling: Waghodia (not Wagholdia) · Vadodara · Vraj Shyam · Vraj Imperia
+
+PROHIBITED IN OUTPUT
+- Font names, hex codes, point sizes, dimension labels printed as visible content.
+- The word "placeholder" appearing as content.
+- Rounded card or document corners.
+- Light linen surfaces under stationery.
+- Pure black ink (#000000) — always use Charcoal #2E2E2E instead.
+- AI watermarks, sparkle symbols, branding overlays.
+- Inventing text or details not specified — leave area blank if uncertain.</div>
+  </div>
+
+  <div class="usage-grid">
+    <div class="usage-card">
+      <div class="usage-step">Step 01</div>
+      <div class="usage-title">Write the asset prompt</div>
+      <div class="usage-text">Describe the specific deliverable — "A4 letterhead mockup", "site hoarding at dusk", "business card on a granite slab".</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-step">Step 02</div>
+      <div class="usage-title">Append the master block</div>
+      <div class="usage-text">Paste the prompt above at the bottom of every request. Without it the AI defaults to generic stock-photo aesthetics.</div>
+    </div>
+    <div class="usage-card">
+      <div class="usage-step">Step 03</div>
+      <div class="usage-title">Attach the logo PNG</div>
+      <div class="usage-text">For mockups requiring the logo, attach a Charcoal-on-transparent or Off-White-on-transparent PNG export of the SVG master.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 15 COMPANY INFO ═══ -->
+<section class="section" id="info">
+  <div class="section-head">
+    <div class="section-num">15</div>
+    <div>
+      <div class="section-eyebrow">Reference</div>
+      <h2 class="section-title">Company Information</h2>
+      <p class="section-lede">Canonical contact and project data. Copy verbatim onto every printed piece — no alterations to spelling, punctuation, or formatting.</p>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-block">
+      <div class="info-label">Vraj Shyam Group</div>
+      <div class="info-row"><dt>Established</dt><dd>1984</dd></div>
+      <div class="info-row"><dt>Registered</dt><dd>Vraj Imperia, Waghodia Road, Parivar Char Rasta, Vadodara – 390019</dd></div>
+      <div class="info-row"><dt>Email</dt><dd>vrajshyamrealty@gmail.com</dd></div>
+      <div class="info-row"><dt>Primary</dt><dd>+91 9714049965</dd></div>
+      <div class="info-row"><dt>Site Office</dt><dd>+91 9974055347 · +91 9974055337</dd></div>
+      <div class="info-row"><dt>Contact</dt><dd>Fagun Parikh — Director, Strategy &amp; Operations</dd></div>
+      <div class="info-row"><dt>Directors</dt><dd>Bakul Parikh · Mahesh Thakkar</dd></div>
+      <div class="info-row"><dt>City</dt><dd>Vadodara, Gujarat</dd></div>
+      <div class="info-row"><dt>Track Record</dt><dd>25+ projects · 3 million sqft · 3,000+ families</dd></div>
+    </div>
+    <div class="info-block">
+      <div class="info-label">Vraj Imperia</div>
+      <div class="info-row"><dt>Type</dt><dd>Mixed-Use · Retail + Office</dd></div>
+      <div class="info-row"><dt>Location</dt><dd>Waghodia Road, Vadodara</dd></div>
+      <div class="info-row"><dt>Landmarks</dt><dd>Savita Hospital · Parivar Char Rasta · 500m from Mumbai–Vadodara Highway</dd></div>
+      <div class="info-row"><dt>Launch</dt><dd>April 2026</dd></div>
+      <div class="info-row"><dt>Possession</dt><dd>May 2027</dd></div>
+      <div class="info-row"><dt>Floors</dt><dd>4 · 42 units total</dd></div>
+      <div class="info-row"><dt>Ground</dt><dd>10 units × 1,010 sqft (10,101 sqft total)</dd></div>
+      <div class="info-row"><dt>Floors 1–3</dt><dd>8 units × 846–2,061 sqft (9,393 sqft per floor)</dd></div>
+      <div class="info-row"><dt>Frontage</dt><dd>27m road · full frontage</dd></div>
+      <div class="info-row"><dt>Pricing</dt><dd>On Request — never publish</dd></div>
+      <div class="info-row"><dt>RERA</dt><dd>Add before any printed deployment</dd></div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <div class="note-label">Spelling watch</div>
+    <div class="note-text"><strong>Waghodia</strong> (not Wagholdia) · <strong>Vadodara</strong> · <strong>Vraj</strong> · <strong>Shyam</strong> · <strong>Imperia</strong> · <strong>Parivar Char Rasta</strong>. Verify every printed piece against this list before sending to press.</div>
+  </div>
+</section>
+
+<!-- ═══ 16 WEBSITE DESIGN SYSTEM ═══ -->
+<section class="section dark" id="web-system">
+  <div class="section-head">
+    <div class="section-num">16</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Website Design System</h2>
+      <p class="section-lede">Every rule from the print system carries directly to the web — Cinzel for all headings, DM Sans for all body copy, the five-colour palette, sharp 90° corners on every component, and the diagonal used as a structural device wherever space allows. The web introduces one addition: interactive states. Everything else is already decided.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="note-label">Core principle</div>
+    <div class="note-text">The website is the print system in motion. Cinzel headings, DM Sans body, the five brand colours, and sharp 90° corners apply to every element without exception. <strong>No rounded corners, no pure black, no web-default blues for links.</strong> Browser default styles must be completely overridden.</div>
+  </div>
+</section>
+
+<!-- ─── 16A WEB TYPOGRAPHY ─── -->
+<section class="section" id="web-type">
+  <div class="section-head">
+    <div class="section-num">16·A</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Web Type Scale</h2>
+      <p class="section-lede">All headings H1–H4 use Cinzel. H5, H6, body copy, captions, and labels use DM Sans. Sizes are specified in <code style="font-family:monospace;font-size:12px;background:var(--ow-deep);padding:2px 6px">clamp()</code> for fluid responsive scaling — always set a min, mid, and max.</p>
+    </div>
+  </div>
+
+  <div class="web-type-table">
+    <!-- H1 -->
+    <div class="wtt-row">
+      <div class="wtt-label">H1</div>
+      <div style="font-family:var(--f-display);font-size:clamp(40px,7vw,88px);font-weight:500;line-height:1;letter-spacing:-.01em;color:var(--ch)">Building trust</div>
+      <div class="wtt-spec">Cinzel 500<br>clamp(40px, 7vw, 88px)<br>line-height: 1<br>letter-spacing: −0.01em</div>
+    </div>
+    <!-- H2 -->
+    <div class="wtt-row">
+      <div class="wtt-label">H2</div>
+      <div style="font-family:var(--f-display);font-size:clamp(28px,4.5vw,56px);font-weight:500;line-height:1.05;color:var(--ch)">Our Projects</div>
+      <div class="wtt-spec">Cinzel 500<br>clamp(28px, 4.5vw, 56px)<br>line-height: 1.05</div>
+    </div>
+    <!-- H3 -->
+    <div class="wtt-row">
+      <div class="wtt-label">H3</div>
+      <div style="font-family:var(--f-display);font-size:clamp(20px,2.8vw,36px);font-weight:600;line-height:1.1;color:var(--ch)">Vraj Villa 3</div>
+      <div class="wtt-spec">Cinzel 600<br>clamp(20px, 2.8vw, 36px)<br>line-height: 1.1</div>
+    </div>
+    <!-- H4 -->
+    <div class="wtt-row">
+      <div class="wtt-label">H4</div>
+      <div style="font-family:var(--f-display);font-size:clamp(15px,1.8vw,22px);font-weight:600;line-height:1.2;color:var(--ch)">Waghodia Road, Vadodara</div>
+      <div class="wtt-spec">Cinzel 600<br>clamp(15px, 1.8vw, 22px)<br>line-height: 1.2</div>
+    </div>
+    <!-- H5 -->
+    <div class="wtt-row">
+      <div class="wtt-label">H5</div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ch)">Residential · 4 BHK Bungalows</div>
+      <div class="wtt-spec">DM Sans 600<br>13px · ALL CAPS<br>letter-spacing: 0.22em</div>
+    </div>
+    <!-- H6 / Eyebrow -->
+    <div class="wtt-row">
+      <div class="wtt-label">Eyebrow</div>
+      <div style="font-size:10px;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--brick)">Our Projects</div>
+      <div class="wtt-spec">DM Sans 600<br>10px · ALL CAPS<br>color: Brick #B85C38</div>
+    </div>
+    <!-- Body L -->
+    <div class="wtt-row">
+      <div class="wtt-label">Body L</div>
+      <div style="font-size:17px;font-weight:300;line-height:1.75;color:var(--ch);max-width:580px">At Vraj Shyam Group, we believe a home is more than just a structure — it is a sanctuary where memories are created, dreams are nurtured, and legacies are built.</div>
+      <div class="wtt-spec">DM Sans 300<br>17px / 1rem + 1px<br>line-height: 1.75</div>
+    </div>
+    <!-- Body -->
+    <div class="wtt-row">
+      <div class="wtt-label">Body</div>
+      <div style="font-size:15px;font-weight:400;line-height:1.7;color:var(--ch);max-width:560px">These spacious 4 BHK bungalows are nestled along the Waghodia–Dabhoi Ring Road corridor, offering proximity to premier schools, hospitals, and retail, with seamless connectivity to the city.</div>
+      <div class="wtt-spec">DM Sans 400<br>15px<br>line-height: 1.7</div>
+    </div>
+    <!-- Small / Caption -->
+    <div class="wtt-row">
+      <div class="wtt-label">Caption</div>
+      <div style="font-size:12px;font-weight:400;color:var(--stone);line-height:1.6">45 units · Started 2018 · Waghodia–Dabhoi Ring Road</div>
+      <div class="wtt-spec">DM Sans 400<br>12px · color: Stone<br>line-height: 1.6</div>
+    </div>
+    <!-- Micro label -->
+    <div class="wtt-row" style="border-bottom:none">
+      <div class="wtt-label">Micro</div>
+      <div style="font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)">RERA · Approvals · Disclaimer</div>
+      <div class="wtt-spec">DM Sans 500<br>10px · letter-spacing: 0.16em<br>color: Stone</div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <div class="note-label">Heading hierarchy rule</div>
+    <div class="note-text">Never skip heading levels in the DOM. An H3 must always follow an H2. Every page has exactly <strong>one H1</strong>. Cinzel renders badly at sizes below 13px — never set any Cinzel text smaller than that on any screen.</div>
+  </div>
+</section>
+
+<!-- ─── 16B WEB COLOUR USAGE ─── -->
+<section class="section dark" id="web-colour">
+  <div class="section-head">
+    <div class="section-num">16·B</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Colour Usage on Screen</h2>
+      <p class="section-lede">The five brand colours cover every web context. No other colours are introduced on the website. Link colour is always Brick Red, not the browser default blue.</p>
+    </div>
+  </div>
+
+  <div class="web-colour-grid">
+    <div class="wc-card" style="background:var(--ch);">
+      <div class="wc-card-label" style="color:var(--brick)">Background — Dark</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="wc-swatch" style="background:var(--ch-dark);color:var(--ow);font-size:11px;letter-spacing:.04em">Charcoal Dark #1E1E1E — Hero sections, dark CTAs, footer</div>
+        <div class="wc-swatch" style="background:var(--ch);color:var(--ow);font-size:11px;letter-spacing:.04em">Charcoal #2E2E2E — Dark cards, nav when scrolled, sidebars</div>
+      </div>
+      <div class="wc-rule" style="color:rgba(240,235,227,.5);font-size:12px">Pair with Off-White text and Brick Red accents. Never use Stone text on Charcoal Dark — insufficient contrast.</div>
+    </div>
+    <div class="wc-card" style="background:var(--ow-soft);">
+      <div class="wc-card-label">Background — Light</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="wc-swatch" style="background:var(--ow);color:var(--ch);font-size:11px;letter-spacing:.04em">Off-White #F0EBE3 — Primary page background</div>
+        <div class="wc-swatch" style="background:var(--ow-soft);color:var(--ch);font-size:11px;letter-spacing:.04em">Off-White Soft #F5F1EB — Section alternates, input fields</div>
+        <div class="wc-swatch" style="background:var(--ow-deep);color:var(--ch);font-size:11px;letter-spacing:.04em">Off-White Deep #E8E0D2 — Code blocks, meta areas</div>
+      </div>
+      <div class="wc-rule">All body text on light backgrounds uses Charcoal <strong>#2E2E2E</strong> only. Never pure black.</div>
+    </div>
+    <div class="wc-card">
+      <div class="wc-card-label">Text Colours</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+        <div>
+          <div style="font-size:16px;font-weight:400;color:var(--ch)">Primary text — #2E2E2E</div>
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:2px">Headings, body, UI labels</div>
+        </div>
+        <div>
+          <div style="font-size:15px;font-weight:300;color:var(--stone)">Secondary text — #8C7B6E</div>
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:2px">Captions, meta, placeholders</div>
+        </div>
+        <div>
+          <div style="font-size:15px;font-weight:500;color:var(--brick)">Accent text — #B85C38</div>
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:2px">Links, eyebrows, highlight copy</div>
+        </div>
+        <div>
+          <div style="font-size:15px;font-weight:400;color:rgba(240,235,227,.85)">Inverted text — #F0EBE3</div>
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:2px">Body text on dark backgrounds</div>
+        </div>
+      </div>
+    </div>
+    <div class="wc-card">
+      <div class="wc-card-label">Links &amp; States</div>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:4px">
+        <div>
+          <div style="font-size:13px;letter-spacing:.02em;margin-bottom:4px">Default link state</div>
+          <a href="#" style="color:var(--brick);font-size:14px;font-weight:400;text-decoration:none;letter-spacing:.02em" onclick="return false">Enquire about Vraj Imperia →</a>
+        </div>
+        <div>
+          <div style="font-size:13px;letter-spacing:.02em;margin-bottom:4px">Hover state</div>
+          <a href="#" style="color:#a34a2a;font-size:14px;font-weight:400;text-decoration:underline;text-underline-offset:3px;letter-spacing:.02em" onclick="return false">Enquire about Vraj Imperia →</a>
+        </div>
+        <div>
+          <div style="font-size:13px;letter-spacing:.02em;margin-bottom:4px">Visited state</div>
+          <a href="#" style="color:var(--stone);font-size:14px;font-weight:400;text-decoration:none;letter-spacing:.02em" onclick="return false">Enquire about Vraj Imperia →</a>
+        </div>
+        <div>
+          <div style="font-size:13px;letter-spacing:.02em;margin-bottom:4px">Focus (keyboard nav)</div>
+          <a href="#" style="color:var(--brick);font-size:14px;outline:2px solid var(--brick);outline-offset:3px;text-decoration:none;letter-spacing:.02em" onclick="return false">Enquire about Vraj Imperia →</a>
+        </div>
+      </div>
+    </div>
+    <div class="wc-card" style="background:var(--ch-dark);">
+      <div class="wc-card-label" style="color:var(--brick)">Dividers &amp; Borders</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:4px">
+        <div>
+          <div style="height:1px;background:rgba(46,46,46,.1);margin-bottom:6px"></div>
+          <div style="font-size:11px;color:rgba(240,235,227,.4);letter-spacing:.1em">Light rule — rgba(46,46,46,.10)</div>
+        </div>
+        <div>
+          <div style="height:1px;background:rgba(46,46,46,.22);margin-bottom:6px"></div>
+          <div style="font-size:11px;color:rgba(240,235,227,.4);letter-spacing:.1em">Strong rule — rgba(46,46,46,.22)</div>
+        </div>
+        <div>
+          <div style="height:2px;background:var(--brick);margin-bottom:6px"></div>
+          <div style="font-size:11px;color:rgba(240,235,227,.4);letter-spacing:.1em">Brick rule — #B85C38 · 2px accent</div>
+        </div>
+        <div>
+          <div style="height:1px;background:rgba(240,235,227,.1);margin-bottom:6px"></div>
+          <div style="font-size:11px;color:rgba(240,235,227,.4);letter-spacing:.1em">Dark-bg rule — rgba(240,235,227,.10)</div>
+        </div>
+      </div>
+    </div>
+    <div class="wc-card">
+      <div class="wc-card-label">Accessibility Minimums</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+        <div style="padding:10px 14px;background:var(--brick);display:flex;justify-content:space-between;align-items:center">
+          <span style="color:var(--ow);font-size:13px">White on Brick</span>
+          <span style="color:rgba(240,235,227,.7);font-size:10px;letter-spacing:.1em">4.5:1 ✓</span>
+        </div>
+        <div style="padding:10px 14px;background:var(--ow);border:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center">
+          <span style="color:var(--ch);font-size:13px">Charcoal on Off-White</span>
+          <span style="color:var(--stone);font-size:10px;letter-spacing:.1em">12.1:1 ✓</span>
+        </div>
+        <div style="padding:10px 14px;background:var(--ch-dark);display:flex;justify-content:space-between;align-items:center">
+          <span style="color:var(--ow);font-size:13px">Off-White on Charcoal Dark</span>
+          <span style="color:rgba(240,235,227,.5);font-size:10px;letter-spacing:.1em">14.3:1 ✓</span>
+        </div>
+        <div style="padding:10px 14px;background:var(--ow);border:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center">
+          <span style="color:var(--stone);font-size:13px">Stone on Off-White</span>
+          <span style="color:var(--stone);font-size:10px;letter-spacing:.1em">3.9:1 · body only</span>
+        </div>
+        <div class="note-text" style="font-size:11px;margin-top:4px">Stone (#8C7B6E) on Off-White passes AA for large text (18px+) only. Never use Stone for small body copy on light backgrounds.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 16C SPACING & GRID ─── -->
+<section class="section" id="web-spacing">
+  <div class="section-head">
+    <div class="section-num">16·C</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Spacing &amp; Grid</h2>
+      <p class="section-lede">An 8px base grid. All spacing values are multiples of 8. Page content max-width is 1280px, padding is 80px at desktop and 24px at mobile. Sections alternate Off-White and Off-White Soft to create visual breathing room without extra chrome.</p>
+    </div>
+  </div>
+
+  <div class="spacing-strip">
+    <div class="sp-unit"><div class="sp-bar" style="height:4px"></div><div class="sp-val">4px</div><div class="sp-name">--space-1</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:8px"></div><div class="sp-val">8px</div><div class="sp-name">--space-2</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:12px"></div><div class="sp-val">12px</div><div class="sp-name">--space-3</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:16px"></div><div class="sp-val">16px</div><div class="sp-name">--space-4</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:24px"></div><div class="sp-val">24px</div><div class="sp-name">--space-6</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:32px"></div><div class="sp-val">32px</div><div class="sp-name">--space-8</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:40px"></div><div class="sp-val">40px</div><div class="sp-name">--space-10</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:48px"></div><div class="sp-val">48px</div><div class="sp-name">--space-12</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:64px"></div><div class="sp-val">64px</div><div class="sp-name">--space-16</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:80px"></div><div class="sp-val">80px</div><div class="sp-name">--space-20</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:96px"></div><div class="sp-val">96px</div><div class="sp-name">--space-24</div></div>
+    <div class="sp-unit"><div class="sp-bar" style="height:120px"></div><div class="sp-val">120px</div><div class="sp-name">--space-30</div></div>
+  </div>
+
+  <div class="bp-table" style="margin-top:32px">
+    <div class="bp-row head"><div>Breakpoint</div><div>Range</div><div>Layout behaviour</div></div>
+    <div class="bp-row"><div class="bp-name">Mobile</div><div class="bp-val">< 640px</div><div class="bp-desc">Single column · 24px page padding · Hamburger nav · Diagonals hidden, full-width sections</div></div>
+    <div class="bp-row"><div class="bp-name">Tablet</div><div class="bp-val">640–1024px</div><div class="bp-desc">2 columns max · 40px page padding · Nav condenses · Diagonal at 50% opacity</div></div>
+    <div class="bp-row"><div class="bp-name">Desktop</div><div class="bp-val">1024–1280px</div><div class="bp-desc">12-column grid active · 60px page padding · Full nav · All diagonal elements visible</div></div>
+    <div class="bp-row"><div class="bp-name">Wide</div><div class="bp-val">> 1280px</div><div class="bp-desc">Content max-width 1280px centred · Page padding 80px · Layout does not stretch beyond max-width</div></div>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <div class="note-label">Section padding rule</div>
+    <div class="note-text">Every section uses <strong>padding-top: 80px; padding-bottom: 80px</strong> on desktop, scaling to 48px on mobile. Reduce only for tightly stacked components inside a section, not between sections. Consistent rhythm is more important than tight packing.</div>
+  </div>
+</section>
+
+<!-- ─── 16D NAVIGATION ─── -->
+<section class="section dark" id="web-nav">
+  <div class="section-head">
+    <div class="section-num">16·D</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Navigation</h2>
+      <p class="section-lede">The nav bar sits at the top with a 2px Brick Red rule at the base. On page load it uses Off-White background. On scroll it transitions to Charcoal Dark, wordmark to Off-White. Links in DM Sans 400, logo wordmark in Cinzel 600. One CTA button, always present.</p>
+    </div>
+  </div>
+
+  <div class="web-nav-demo">
+    <div class="wnd-label">Default state — top of page</div>
+    <div class="demo-nav">
+      <div class="demo-nav-logo">VRAJ SHYAM<span>Group · Estd. 1984</span></div>
+      <div class="demo-nav-links">
+        <a class="demo-nav-link active" href="#" onclick="return false">Home</a>
+        <a class="demo-nav-link" href="#" onclick="return false">About</a>
+        <a class="demo-nav-link" href="#" onclick="return false">Projects</a>
+        <a class="demo-nav-link" href="#" onclick="return false">Vraj Imperia</a>
+        <a class="demo-nav-link" href="#" onclick="return false">Contact</a>
+        <button class="demo-nav-cta">Enquire Now</button>
+      </div>
+    </div>
+    <div class="wnd-label" style="margin-top:0">Scrolled state — Charcoal Dark background</div>
+    <div class="demo-nav scrolled">
+      <div class="demo-nav-logo">VRAJ SHYAM<span>Group · Estd. 1984</span></div>
+      <div class="demo-nav-links">
+        <a class="demo-nav-link" href="#" onclick="return false">Home</a>
+        <a class="demo-nav-link" href="#" onclick="return false">About</a>
+        <a class="demo-nav-link active" href="#" onclick="return false">Projects</a>
+        <a class="demo-nav-link" href="#" onclick="return false">Vraj Imperia</a>
+        <a class="demo-nav-link" href="#" onclick="return false">Contact</a>
+        <button class="demo-nav-cta">Enquire Now</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-list" style="margin-top:28px">
+    <div class="spec-list-title">Navigation specifications</div>
+    <div class="spec-row"><div class="spec-key">Height</div><div class="spec-val">64px desktop · 56px mobile</div></div>
+    <div class="spec-row"><div class="spec-key">Logo</div><div class="spec-val">Cinzel 600 · 13px · Charcoal (default) / Off-White (scrolled)</div></div>
+    <div class="spec-row"><div class="spec-key">Links</div><div class="spec-val">DM Sans 400 · 11px · letter-spacing 0.08em · Stone (default/scrolled) → Charcoal or Off-White on hover</div></div>
+    <div class="spec-row"><div class="spec-key">Active link</div><div class="spec-val">Brick Red #B85C38 — both states</div></div>
+    <div class="spec-row"><div class="spec-key">Base rule</div><div class="spec-val">2px Brick Red border-bottom on the nav bar — both states. Never remove.</div></div>
+    <div class="spec-row"><div class="spec-key">Transition</div><div class="spec-val">background, color: 300ms ease. Triggered at scrollY > 80px.</div></div>
+    <div class="spec-row"><div class="spec-key">CTA button</div><div class="spec-val">Cinzel 600 · 10px · Brick background · Off-White text · No border-radius</div></div>
+    <div class="spec-row"><div class="spec-key">Mobile</div><div class="spec-val">Hamburger at 1024px and below. Full-screen Charcoal Dark overlay. Links in Cinzel 500 at 24px, stacked vertically.</div></div>
+  </div>
+</section>
+
+<!-- ─── 16E BUTTONS ─── -->
+<section class="section" id="web-buttons">
+  <div class="section-head">
+    <div class="section-num">16·E</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Buttons</h2>
+      <p class="section-lede">Three button types. All use Cinzel or DM Sans as specified. All have sharp 90° corners — no border-radius anywhere. Transitions are 200ms ease on background and color only.</p>
+    </div>
+  </div>
+
+  <!-- Light background buttons -->
+  <div class="wnd-label" style="padding:10px 24px;background:var(--ow-deep);border:1px solid var(--rule-strong);font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--stone)">On light background — Off-White / Off-White Soft</div>
+  <div class="web-btn-row">
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <button class="btn-primary">Enquire Now →</button>
+      <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)">Primary · Cinzel 600 · bg: Brick</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <button class="btn-secondary">View Projects</button>
+      <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)">Secondary · Cinzel 600 · border: Charcoal</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <button class="btn-ghost">Learn More</button>
+      <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)">Ghost · DM Sans 500 · border: Brick</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <a href="#" class="btn-text-link" onclick="return false">View all projects →</a>
+      <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)">Text link · DM Sans 500 · color: Brick</div>
+    </div>
+  </div>
+
+  <!-- Dark background buttons -->
+  <div class="wnd-label" style="padding:10px 24px;background:var(--ch);border:1px solid var(--ch);font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:rgba(240,235,227,.4);margin-top:2px">On dark background — Charcoal / Charcoal Dark</div>
+  <div class="web-btn-row dark-bg">
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <button class="btn-primary">Enquire Now →</button>
+      <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.35)">Primary · same as light bg</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <button class="btn-primary-inv">View Projects</button>
+      <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.35)">Inverted · Cinzel 600 · bg: Off-White</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <button class="btn-ghost-inv">Learn More</button>
+      <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.35)">Ghost Inv · DM Sans 500 · border: Off-White 35%</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <a href="#" class="btn-text-link" style="color:rgba(240,235,227,.7)" onclick="return false">View all projects →</a>
+      <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.35)">Text link · DM Sans 500 · Off-White 70%</div>
+    </div>
+  </div>
+
+  <div class="spec-list" style="margin-top:28px">
+    <div class="spec-list-title">Button specifications</div>
+    <div class="spec-row"><div class="spec-key">border-radius</div><div class="spec-val"><strong>0</strong> — always. Never add any radius to any button, anywhere.</div></div>
+    <div class="spec-row"><div class="spec-key">Padding</div><div class="spec-val">Primary / Secondary: 14px top-bottom · 28px left-right. Ghost: 12px top-bottom · 24px left-right.</div></div>
+    <div class="spec-row"><div class="spec-key">Transition</div><div class="spec-val">background 200ms ease, color 200ms ease, border-color 200ms ease. No transform, no shadow.</div></div>
+    <div class="spec-row"><div class="spec-key">Focus state</div><div class="spec-val">outline: 2px solid var(--brick); outline-offset: 3px. Never remove focus outline — keyboard accessibility.</div></div>
+    <div class="spec-row"><div class="spec-key">Disabled</div><div class="spec-val">opacity: 0.4 · cursor: not-allowed · no hover effect</div></div>
+    <div class="spec-row"><div class="spec-key">Loading</div><div class="spec-val">Replace label with "…" · same opacity 0.7 · cursor: wait. No spinner animation — too playful for this brand.</div></div>
+  </div>
+</section>
+
+<!-- ─── 16F FORM INPUTS ─── -->
+<section class="section dark" id="web-forms">
+  <div class="section-head">
+    <div class="section-num">16·F</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Form Inputs</h2>
+      <p class="section-lede">Inputs use a borderless bottom-line style — no box, no shadow, no border-radius. The label sits above in DM Sans 600 micro-caps. Focus shifts the bottom border from Stone to Brick Red. Error state shifts to a muted red.</p>
+    </div>
+  </div>
+
+  <div class="web-form-demo">
+    <!-- Name -->
+    <div class="form-field">
+      <label class="fl-label">Full Name</label>
+      <input class="fl-input" type="text" placeholder="Bakul Parikh" />
+    </div>
+    <!-- Phone -->
+    <div class="form-field">
+      <label class="fl-label">Phone Number</label>
+      <input class="fl-input" type="tel" placeholder="+91 XXXXX XXXXX" />
+    </div>
+    <!-- Email -->
+    <div class="form-field">
+      <label class="fl-label">Email Address</label>
+      <input class="fl-input" type="email" placeholder="name@company.com" />
+    </div>
+    <!-- Project interest -->
+    <div class="form-field">
+      <label class="fl-label">Interested In</label>
+      <select class="fl-select">
+        <option value="">Select a project</option>
+        <option>Vraj Imperia · Commercial</option>
+        <option>Radhika Bungalows · Residential</option>
+        <option>General Enquiry</option>
+      </select>
+    </div>
+    <!-- Budget -->
+    <div class="form-field">
+      <label class="fl-label">Budget Range</label>
+      <input class="fl-input" type="text" placeholder="e.g. ₹1 Cr – ₹2 Cr" />
+      <div class="fl-hint">Pricing available on request</div>
+    </div>
+    <!-- Error state demo -->
+    <div class="form-field">
+      <label class="fl-label">Error State</label>
+      <input class="fl-input error" type="text" value="invalid@" />
+      <div class="fl-error">Please enter a valid email address</div>
+    </div>
+    <!-- Message -->
+    <div class="form-field full">
+      <label class="fl-label">Message (optional)</label>
+      <textarea class="fl-textarea" placeholder="Tell us what you're looking for…"></textarea>
+    </div>
+    <!-- Submit -->
+    <div class="form-field full" style="flex-direction:row;justify-content:space-between;align-items:center;margin-top:8px">
+      <button class="btn-primary">Submit Enquiry →</button>
+      <div style="font-size:11px;color:rgba(240,235,227,.35);letter-spacing:.04em">We respond within 24 hours</div>
+    </div>
+  </div>
+
+  <div class="spec-list" style="margin-top:28px">
+    <div class="spec-list-title">Input specifications</div>
+    <div class="spec-row" style="color:var(--ow)"><div class="spec-key">Style</div><div class="spec-val">border: none · border-bottom: 1.5px solid Stone · background: transparent · no box-shadow</div></div>
+    <div class="spec-row"><div class="spec-key">Font</div><div class="spec-val">DM Sans 300 · 14px · color: Charcoal · placeholder: Stone</div></div>
+    <div class="spec-row"><div class="spec-key">Label</div><div class="spec-val">DM Sans 600 · 9px · letter-spacing: 0.28em · ALL CAPS · color: Charcoal</div></div>
+    <div class="spec-row"><div class="spec-key">Focus</div><div class="spec-val">border-bottom-color: Brick #B85C38 · transition: 200ms</div></div>
+    <div class="spec-row"><div class="spec-key">Error</div><div class="spec-val">border-bottom-color: #C0392B · error message: DM Sans 400 · 10px · color: #C0392B</div></div>
+    <div class="spec-row"><div class="spec-key">border-radius</div><div class="spec-val">0 — always, on all inputs, selects, and textareas.</div></div>
+    <div class="spec-row"><div class="spec-key">Height</div><div class="spec-val">Inputs: 48px · Textarea: min 80px, resizable vertically only</div></div>
+  </div>
+</section>
+
+<!-- ─── 16G CARDS & STATS ─── -->
+<section class="section" id="web-cards">
+  <div class="section-head">
+    <div class="section-num">16·G</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Cards &amp; Stats</h2>
+      <p class="section-lede">Project cards use a downward triangle as the image crop — consistent with print. The photo zone is a triangle, not a rectangle. Stat strips appear in both light and dark variants and use Cinzel numerals.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:16px">Project cards</h3>
+  <div class="web-card-demo">
+    <div class="project-card">
+      <div class="pc-image">
+        <div class="pc-image-eyebrow">Residential · 2018</div>
+        <div class="pc-image-tri"></div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-type">4 BHK Bungalows</div>
+        <div class="pc-name">Vraj Villa 3</div>
+        <div class="pc-meta">45 units · Waghodia–Dabhoi Ring Road<br>Completed &amp; Delivered</div>
+      </div>
+      <div class="pc-foot">
+        <a class="pc-link" href="#" onclick="return false">View Project →</a>
+        <div class="pc-year">2018</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="pc-image" style="background:var(--ch-dark)">
+        <div class="pc-image-eyebrow" style="color:var(--brick)">Commercial · 2026</div>
+        <div class="pc-image-tri" style="background:var(--brick)"></div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-type">Mixed-Use · Retail + Office</div>
+        <div class="pc-name">Vraj Imperia</div>
+        <div class="pc-meta">42 units · 4 floors · Waghodia Road<br>Launching April 2026</div>
+      </div>
+      <div class="pc-foot" style="background:var(--ow-soft)">
+        <a class="pc-link" href="#" onclick="return false">Enquire Now →</a>
+        <div class="pc-year" style="color:var(--brick)">2026</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="pc-image">
+        <div class="pc-image-eyebrow">Residential · 2015</div>
+        <div class="pc-image-tri" style="background:var(--stone)"></div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-type">3 BHK · Penthouse</div>
+        <div class="pc-name">Vraj Madhurya</div>
+        <div class="pc-meta">9 apartments + 3 penthouses<br>Alkapuri, Vadodara</div>
+      </div>
+      <div class="pc-foot">
+        <a class="pc-link" href="#" onclick="return false">View Project →</a>
+        <div class="pc-year">2015</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:40px;margin-bottom:16px">Stats strip — light variant</h3>
+  <div class="web-stats-demo">
+    <div class="stat-cell">
+      <div class="stat-n">25<span class="stat-unit">+</span></div>
+      <div class="stat-l">Projects Delivered</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">3M<span class="stat-unit" style="font-size:16px"> sqft</span></div>
+      <div class="stat-l">Built &amp; Handed Over</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">3,000<span class="stat-unit">+</span></div>
+      <div class="stat-l">Families Served</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">40<span class="stat-unit">+</span></div>
+      <div class="stat-l">Years of Excellence</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:28px;margin-bottom:16px">Stats strip — dark variant</h3>
+  <div class="web-stats-demo dark-stat">
+    <div class="stat-cell">
+      <div class="stat-n">25<span class="stat-unit">+</span></div>
+      <div class="stat-l">Projects Delivered</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">3M<span class="stat-unit" style="font-size:16px"> sqft</span></div>
+      <div class="stat-l">Built &amp; Handed Over</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">3,000<span class="stat-unit">+</span></div>
+      <div class="stat-l">Families Served</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">1984</div>
+      <div class="stat-l">Established</div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <div class="note-label">Card hover rule</div>
+    <div class="note-text">Card hover adds box-shadow only — <strong>never translate/lift the card, never change the background</strong>. Shadow: 0 16px 48px -12px rgba(46,46,46,.18). The brand is grounded; cards do not float.</div>
+  </div>
+</section>
+
+<!-- ─── 16H SECTION PATTERNS ─── -->
+<section class="section dark" id="web-sections">
+  <div class="section-head">
+    <div class="section-num">16·H</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">Section Patterns</h2>
+      <p class="section-lede">The diagonal from the print system translates directly to web CTAs and hero sections — using the same 12-column clip-path geometry. The triangle appears as a photo crop and as a geometric device inside dark sections.</p>
+    </div>
+  </div>
+
+  <div class="wnd-label">CTA banner — diagonal layout (12-col grid)</div>
+  <div class="web-cta-demo">
+    <div class="demo-cta">
+      <div class="demo-cta-content">
+        <div class="demo-cta-eyebrow">Now Launching</div>
+        <div class="demo-cta-title">Vraj Imperia<br>Where Vadodara<br>Does Business.</div>
+        <div class="demo-cta-actions">
+          <button class="btn-primary">Enquire Now →</button>
+          <a href="#" class="btn-ghost-inv" onclick="return false" style="font-size:10px;padding:12px 20px">View Plans</a>
+        </div>
+      </div>
+      <div class="demo-cta-visual">
+        <div class="demo-cta-tri"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-list" style="margin-top:28px">
+    <div class="spec-list-title">Section usage rules</div>
+    <div class="spec-row" style="color:var(--ow)"><div class="spec-key">Section BGs</div><div class="spec-val">Alternate: Off-White → Off-White Soft → Charcoal Dark → Off-White. Never two Charcoal Dark sections back-to-back without an Off-White break.</div></div>
+    <div class="spec-row"><div class="spec-key">Diagonal in web</div><div class="spec-val">Applies to hero sections and CTA banners using the same clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%). Only used when a full-bleed visual panel is present — not on text-only sections.</div></div>
+    <div class="spec-row"><div class="spec-key">Triangle device</div><div class="spec-val">Used inside dark sections as a geometric accent, and as a photo crop mask on all project images. clip-path: polygon(50% 100%, 0% 0%, 100% 0%)</div></div>
+    <div class="spec-row"><div class="spec-key">Section heading</div><div class="spec-val">Always: eyebrow (DM Sans 600 caps, Brick) → H2 (Cinzel 500) → lede (DM Sans 300, max-width 640px). Never skip the eyebrow on a hero or landing section.</div></div>
+    <div class="spec-row"><div class="spec-key">Max width</div><div class="spec-val">Section content max-width: 1280px · margin: 0 auto · padding: 0 80px desktop, 0 24px mobile.</div></div>
+  </div>
+</section>
+
+<!-- ─── 16I CSS TOKENS ─── -->
+<section class="section" id="web-tokens">
+  <div class="section-head">
+    <div class="section-num">16·I</div>
+    <div>
+      <div class="section-eyebrow">Web System</div>
+      <h2 class="section-title">CSS Design Tokens</h2>
+      <p class="section-lede">Copy this block into the <code style="font-family:monospace;font-size:12px;background:var(--ow-deep);padding:2px 6px">:root</code> of every web project that carries this brand. All values are derived directly from the brand system — no deviations permitted in production code.</p>
+    </div>
+  </div>
+
+  <div class="css-vars-block">
+    <div class="css-vars-meta">
+      <div>
+        <div class="css-vars-label">CSS Custom Properties · Paste into :root</div>
+        <div class="css-vars-title">Vraj Shyam Group · Design Tokens</div>
+      </div>
+      <button class="copy-css-btn" id="copyCssBtn" onclick="copyCss()">Copy Tokens</button>
+    </div>
+    <pre class="css-code" id="cssTokens"><span class="css-comment">/* ═══════════════════════════════════════════
+   VRAJ SHYAM GROUP — CSS DESIGN TOKENS
+   Edition 01 · 2026
+   ═══════════════════════════════════════════ */</span>
+
+<span class="css-comment">/* ── Colour ── */</span>
+<span class="css-prop">  --color-charcoal</span><span class="css-punct">:</span>      <span class="css-val">#2E2E2E</span><span class="css-punct">;</span>    <span class="css-comment">/* Wordmark, body text, dark UI */</span>
+<span class="css-prop">  --color-charcoal-dark</span><span class="css-punct">:</span>  <span class="css-val">#1E1E1E</span><span class="css-punct">;</span>    <span class="css-comment">/* Hero bg, footer, darkest darks */</span>
+<span class="css-prop">  --color-brick</span><span class="css-punct">:</span>         <span class="css-val">#B85C38</span><span class="css-punct">;</span>    <span class="css-comment">/* Primary accent, links, CTA bg */</span>
+<span class="css-prop">  --color-brick-hover</span><span class="css-punct">:</span>   <span class="css-val">#A34A2A</span><span class="css-punct">;</span>    <span class="css-comment">/* Brick on hover */</span>
+<span class="css-prop">  --color-stone</span><span class="css-punct">:</span>         <span class="css-val">#8C7B6E</span><span class="css-punct">;</span>    <span class="css-comment">/* Secondary text, captions, meta */</span>
+<span class="css-prop">  --color-offwhite</span><span class="css-punct">:</span>      <span class="css-val">#F0EBE3</span><span class="css-punct">;</span>    <span class="css-comment">/* Primary background, light text on dark */</span>
+<span class="css-prop">  --color-offwhite-soft</span><span class="css-punct">:</span> <span class="css-val">#F5F1EB</span><span class="css-punct">;</span>    <span class="css-comment">/* Alternate section bg, input fields */</span>
+<span class="css-prop">  --color-offwhite-deep</span><span class="css-punct">:</span> <span class="css-val">#E8E0D2</span><span class="css-punct">;</span>    <span class="css-comment">/* Code blocks, deep bg tones */</span>
+
+<span class="css-comment">/* ── Typography ── */</span>
+<span class="css-prop">  --font-display</span><span class="css-punct">:</span>       <span class="css-val">'Cinzel', serif</span><span class="css-punct">;</span>
+<span class="css-prop">  --font-body</span><span class="css-punct">:</span>          <span class="css-val">'DM Sans', sans-serif</span><span class="css-punct">;</span>
+
+<span class="css-comment">/* ── Type scale ── */</span>
+<span class="css-prop">  --text-h1</span><span class="css-punct">:</span>    <span class="css-val">clamp(40px, 7vw, 88px)</span><span class="css-punct">;</span>
+<span class="css-prop">  --text-h2</span><span class="css-punct">:</span>    <span class="css-val">clamp(28px, 4.5vw, 56px)</span><span class="css-punct">;</span>
+<span class="css-prop">  --text-h3</span><span class="css-punct">:</span>    <span class="css-val">clamp(20px, 2.8vw, 36px)</span><span class="css-punct">;</span>
+<span class="css-prop">  --text-h4</span><span class="css-punct">:</span>    <span class="css-val">clamp(15px, 1.8vw, 22px)</span><span class="css-punct">;</span>
+<span class="css-prop">  --text-body-l</span><span class="css-punct">:</span> <span class="css-val">17px</span><span class="css-punct">;</span>
+<span class="css-prop">  --text-body</span><span class="css-punct">:</span>   <span class="css-val">15px</span><span class="css-punct">;</span>
+<span class="css-prop">  --text-small</span><span class="css-punct">:</span>  <span class="css-val">13px</span><span class="css-punct">;</span>
+<span class="css-prop">  --text-caption</span><span class="css-punct">:</span> <span class="css-val">12px</span><span class="css-punct">;</span>
+<span class="css-prop">  --text-micro</span><span class="css-punct">:</span>  <span class="css-val">10px</span><span class="css-punct">;</span>
+
+<span class="css-comment">/* ── Line heights ── */</span>
+<span class="css-prop">  --leading-tight</span><span class="css-punct">:</span>  <span class="css-val">1</span><span class="css-punct">;</span>
+<span class="css-prop">  --leading-snug</span><span class="css-punct">:</span>   <span class="css-val">1.15</span><span class="css-punct">;</span>
+<span class="css-prop">  --leading-normal</span><span class="css-punct">:</span> <span class="css-val">1.65</span><span class="css-punct">;</span>
+<span class="css-prop">  --leading-relaxed</span><span class="css-punct">:</span><span class="css-val">1.75</span><span class="css-punct">;</span>
+<span class="css-prop">  --leading-loose</span><span class="css-punct">:</span>  <span class="css-val">1.85</span><span class="css-punct">;</span>
+
+<span class="css-comment">/* ── Spacing (8px grid) ── */</span>
+<span class="css-prop">  --space-1</span><span class="css-punct">:</span>   <span class="css-val">4px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-2</span><span class="css-punct">:</span>   <span class="css-val">8px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-3</span><span class="css-punct">:</span>   <span class="css-val">12px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-4</span><span class="css-punct">:</span>   <span class="css-val">16px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-6</span><span class="css-punct">:</span>   <span class="css-val">24px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-8</span><span class="css-punct">:</span>   <span class="css-val">32px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-10</span><span class="css-punct">:</span>  <span class="css-val">40px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-12</span><span class="css-punct">:</span>  <span class="css-val">48px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-16</span><span class="css-punct">:</span>  <span class="css-val">64px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-20</span><span class="css-punct">:</span>  <span class="css-val">80px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-24</span><span class="css-punct">:</span>  <span class="css-val">96px</span><span class="css-punct">;</span>
+<span class="css-prop">  --space-30</span><span class="css-punct">:</span>  <span class="css-val">120px</span><span class="css-punct">;</span>
+
+<span class="css-comment">/* ── Layout ── */</span>
+<span class="css-prop">  --max-width</span><span class="css-punct">:</span>       <span class="css-val">1280px</span><span class="css-punct">;</span>
+<span class="css-prop">  --page-pad-desktop</span><span class="css-punct">:</span> <span class="css-val">80px</span><span class="css-punct">;</span>
+<span class="css-prop">  --page-pad-tablet</span><span class="css-punct">:</span>  <span class="css-val">40px</span><span class="css-punct">;</span>
+<span class="css-prop">  --page-pad-mobile</span><span class="css-punct">:</span>  <span class="css-val">24px</span><span class="css-punct">;</span>
+<span class="css-prop">  --nav-height</span><span class="css-punct">:</span>      <span class="css-val">64px</span><span class="css-punct">;</span>
+<span class="css-prop">  --section-pad</span><span class="css-punct">:</span>     <span class="css-val">80px 0</span><span class="css-punct">;</span>
+
+<span class="css-comment">/* ── Rules & borders ── */</span>
+<span class="css-prop">  --rule</span><span class="css-punct">:</span>         <span class="css-val">rgba(46,46,46,.10)</span><span class="css-punct">;</span>
+<span class="css-prop">  --rule-strong</span><span class="css-punct">:</span>  <span class="css-val">rgba(46,46,46,.22)</span><span class="css-punct">;</span>
+<span class="css-prop">  --rule-dark</span><span class="css-punct">:</span>    <span class="css-val">rgba(240,235,227,.10)</span><span class="css-punct">;</span>
+<span class="css-prop">  --radius</span><span class="css-punct">:</span>       <span class="css-val">0</span><span class="css-punct">;</span>              <span class="css-comment">/* NEVER add border-radius */</span>
+
+<span class="css-comment">/* ── Motion ── */</span>
+<span class="css-prop">  --transition</span><span class="css-punct">:</span>   <span class="css-val">200ms ease</span><span class="css-punct">;</span>
+<span class="css-prop">  --transition-slow</span><span class="css-punct">:</span> <span class="css-val">300ms ease</span><span class="css-punct">;</span>
+
+<span class="css-comment">/* ── Clip paths (structural) ── */</span>
+<span class="css-prop">  --diagonal-right</span><span class="css-punct">:</span>  <span class="css-val">polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%)</span><span class="css-punct">;</span>
+<span class="css-prop">  --diagonal-left</span><span class="css-punct">:</span>   <span class="css-val">polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%)</span><span class="css-punct">;</span>
+<span class="css-prop">  --triangle-down</span><span class="css-punct">:</span>   <span class="css-val">polygon(50% 100%, 0% 0%, 100% 0%)</span><span class="css-punct">;</span></pre>
+  </div>
+
+  <div class="note" style="margin-top:24px">
+    <div class="note-label">Implementation notes</div>
+    <div class="note-text">Import Cinzel and DM Sans from Google Fonts with <code style="font-family:monospace;font-size:11px;background:var(--ow-deep);padding:1px 5px">display=swap</code> for performance. Set <code style="font-family:monospace;font-size:11px;background:var(--ow-deep);padding:1px 5px">font-size: 16px</code> on the root <code style="font-family:monospace;font-size:11px;background:var(--ow-deep);padding:1px 5px">html</code> element and let all other sizes scale from it. Never use px for line-heights — use unitless multipliers. <strong>Never set border-radius on any element</strong> — include a global override: <code style="font-family:monospace;font-size:11px;background:var(--ow-deep);padding:1px 5px">*, *::before, *::after { border-radius: 0 !important; }</code> to catch browser defaults.</div>
+  </div>
+</section>
+  <div class="footer-top">
+    <div class="footer-brand">VRAJ SHYAM <span>·</span> Brand &amp; Design System</div>
+    <div class="footer-mark">Edition 01 · 2026</div>
+  </div>
+  <div class="footer-bot">
+    <div>Vadodara · Established 1984</div>
+    <div>Maintained by the Vraj Shyam Group brand custodian</div>
+  </div>
+</footer>
+
+</main>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  document.getElementById('prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+},{ passive:true });
+
+const links=document.querySelectorAll('.sb-link');
+const secs=document.querySelectorAll('section[id], .hero');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-120) cur=s.id||'';
+  });
+  links.forEach(l=>{
+    l.classList.toggle('active',l.getAttribute('href')==='#'+cur);
+  });
+},{passive:true});
+
+function copyPrompt(){
+  const text=document.getElementById('promptText').innerText;
+  const btn=document.getElementById('copyBtn');
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy Prompt';btn.classList.remove('copied');},2200);
+  });
+}
+
+function copyCss(){
+  const text=document.getElementById('cssTokens').innerText;
+  const btn=document.getElementById('copyCssBtn');
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy Tokens';btn.classList.remove('copied');},2200);
+  });
+}
+</script>
+</body>
+</html>
