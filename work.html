@@ -82,10 +82,10 @@ a{color:inherit;text-decoration:none;}
   break-inside:avoid;margin-bottom:3px;display:block;
   background:var(--g2);
 }
-.pc-img{overflow:hidden;background:var(--g2);position:relative;}
-.pc-img img{width:100%;height:auto;display:block;transition:transform .8s var(--ease);}
+.pc-img{overflow:hidden;background:var(--g2);position:relative;aspect-ratio:4/3;}
+.pc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease);}
 .pc:hover .pc-img img{transform:scale(1.04);}
-.pc-ph{min-height:240px;display:flex;align-items:center;justify-content:center;background:var(--g2);}
+.pc-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--g2);}
 .pc-ph-n{font-size:38px;font-weight:900;letter-spacing:-.06em;color:rgba(255,255,255,.05);}
 .pc-overlay{
   position:absolute;inset:0;
