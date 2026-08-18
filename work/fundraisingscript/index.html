@@ -1,1 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FundraisingScript — #1 White-Label Crowdfunding Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   TOKENS — DARK THEME (default)
+═══════════════════════════════════════════════ */
+:root,
+[data-theme="dark"] {
+  --bg-base:      #0c0920;
+  --bg-elevated:  #110d2a;
+  --bg-card:      #16113a;
+  --bg-card-hover:#1b1547;
+  --surface:      #1b1147;
+  --surface-2:    #231760;
+  --border:       rgba(255,255,255,0.07);
+  --border-md:    rgba(255,255,255,0.12);
+  --border-lg:    rgba(255,255,255,0.18);
 
+  --red:          #ed314f;
+  --red-bright:   #ff3d5f;
+  --red-dim:      rgba(237,49,79,0.14);
+  --red-glow:     rgba(237,49,79,0.28);
+  --purple:       #6c5491;
+  --purple-dim:   rgba(108,84,145,0.15);
+
+  --fg:           #f0ecfa;
+  --fg-70:        rgba(240,236,250,0.70);
+  --fg-45:        rgba(240,236,250,0.45);
+  --fg-20:        rgba(240,236,250,0.20);
+  --fg-09:        rgba(240,236,250,0.09);
+
+  --nav-bg:       rgba(12,9,32,0.90);
+  --shadow-card:  0 24px 64px rgba(0,0,0,0.50);
+  --shadow-red:   0 16px 48px rgba(237,49,79,0.28);
+
+  --ease:         cubic-bezier(0.16,1,0.3,1);
+  --spring:       cubic-bezier(0.34,1.56,0.64,1);
+}
+
+[data-theme="light"] {
+  --bg-base:      #ffffff;
+  --bg-elevated:  #f4f2fb;
+  --bg-card:      #ffffff;
+  --bg-card-hover:#fdfcff;
+  --surface:      #1b1147;
+  --surface-2:    #231760;
+  --border:       rgba(27,17,71,0.08);
+  --border-md:    rgba(27,17,71,0.13);
+  --border-lg:    rgba(27,17,71,0.20);
+
+  --red:          #ed314f;
+  --red-bright:   #d42040;
+  --red-dim:      rgba(237,49,79,0.08);
+  --red-glow:     rgba(237,49,79,0.18);
+  --purple:       #6c5491;
+  --purple-dim:   rgba(108,84,145,0.10);
+
+  --fg:           #1b1147;
+  --fg-70:        rgba(27,17,71,0.70);
+  --fg-45:        rgba(27,17,71,0.48);
+  --fg-20:        rgba(27,17,71,0.22);
+  --fg-09:        rgba(27,17,71,0.05);
+
+  --nav-bg:       rgba(255,255,255,0.92);
+  --shadow-card:  0 4px 24px rgba(27,17,71,0.08),0 1px 4px rgba(27,17,71,0.04);
+  --shadow-red:   0 8px 32px rgba(237,49,79,0.18);
+
+  --ease:         cubic-bezier(0.16,1,0.3,1);
+  --spring:       cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* Light mode — each section gets a distinct warm/cool tone */
+[data-theme="light"] .hero{background:linear-gradient(160deg,#fff 0%,#f9f7ff 50%,#fff5f7 100%)}
+[data-theme="light"] .cred-strip{background:linear-gradient(135deg,#f4f2fb 0%,#fff0f2 100%)}
+[data-theme="light"] .solutions-sticky{background:linear-gradient(160deg,#ffffff 0%,#f5f2fc 100%)}
+[data-theme="light"] .solutions-grid-section{background:linear-gradient(135deg,#fef8f9 0%,#f4f2fb 100%)}
+[data-theme="light"] .integrations{background:#ffffff}
+[data-theme="light"] .why{background:linear-gradient(160deg,#f4f2fb 0%,#fff5f7 100%)}
+[data-theme="light"] .pricing{background:#ffffff}
+[data-theme="light"] .tech{background:linear-gradient(135deg,#fef8f9 0%,#f4f2fb 50%,#fff 100%)}
+[data-theme="light"] .testimonials{background:linear-gradient(160deg,#ffffff 0%,#f9f7ff 100%)}
+[data-theme="light"] .cta-final{background:linear-gradient(135deg,#1b1147 0%,#2d1d7a 60%,#3d1535 100%)}
+[data-theme="light"] .cta-final .cta-label,
+[data-theme="light"] .cta-final .cta-h2,
+[data-theme="light"] .cta-final .cta-sub{color:#fff}
+[data-theme="light"] .cta-final .cta-h2 em{color:rgba(237,49,79,0.9)}
+[data-theme="light"] .cta-final .cta-sub{color:rgba(255,255,255,0.65)}
+[data-theme="light"] .cta-final .btn-cta-secondary{border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.08)}
+[data-theme="light"] .cta-final .btn-cta-secondary:hover{background:rgba(255,255,255,0.15);color:#fff}
+[data-theme="light"] .cta-final .cta-trust-item{color:rgba(255,255,255,0.6)}
+[data-theme="light"] .footer{background:linear-gradient(160deg,#f4f2fb 0%,#fff 100%)}
+[data-theme="light"] .sol-card{
+  background:#fff;border-color:rgba(27,17,71,0.09);
+  box-shadow:0 2px 12px rgba(27,17,71,0.05);
+}
+[data-theme="light"] .sol-card:hover{box-shadow:0 8px 32px rgba(27,17,71,0.10)}
+[data-theme="light"] .why-item{background:#fff;border-color:rgba(27,17,71,0.09);box-shadow:0 2px 10px rgba(27,17,71,0.05)}
+[data-theme="light"] .pricing-card{background:#fff;border-color:rgba(27,17,71,0.09);box-shadow:0 2px 12px rgba(27,17,71,0.05)}
+[data-theme="light"] .pricing-card:hover{box-shadow:0 8px 32px rgba(27,17,71,0.10)}
+[data-theme="light"] .tech-card{background:#fff;border-color:rgba(27,17,71,0.09);box-shadow:0 2px 8px rgba(27,17,71,0.04)}
+[data-theme="light"] .int-item{background:#fff;border-color:rgba(27,17,71,0.09);box-shadow:0 1px 6px rgba(27,17,71,0.04)}
+[data-theme="light"] .int-tabs{background:#f4f2fb;border-color:rgba(27,17,71,0.10)}
+[data-theme="light"] .why-visual{box-shadow:0 8px 40px rgba(27,17,71,0.12)}
+[data-theme="light"] .d-kpi{background:#f7f5ff;border-color:rgba(27,17,71,0.09)}
+[data-theme="light"] .sol-window{box-shadow:0 8px 40px rgba(27,17,71,0.12)}
+[data-theme="light"] .sol-window-bar{background:#f4f2fb}
+[data-theme="light"] .flow-item,.kyc-card{background:#f7f5ff}
+[data-theme="light"] .hero-grid-overlay{opacity:0.4}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg-base);
+  color:var(--fg);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  cursor:none;
+  transition:background .4s var(--ease),color .4s var(--ease);
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:none;background:none;cursor:none}
+img{display:block;max-width:100%}
+
+/* ═══════════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════════ */
+#cur{position:fixed;top:0;left:0;z-index:99999;pointer-events:none;
+  width:10px;height:10px;background:var(--red);border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:width .2s var(--ease),height .2s var(--ease),background .2s;}
+#cur-ring{position:fixed;top:0;left:0;z-index:99998;pointer-events:none;
+  width:36px;height:36px;border:1.5px solid rgba(237,49,79,0.5);border-radius:50%;
+  transform:translate(-50%,-50%);}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:16px;height:16px;}
+body:has(a:hover) #cur-ring,body:has(button:hover) #cur-ring{width:52px;height:52px;border-color:var(--red);}
+
+/* ═══════════════════════════════════════════════
+   SCROLL PROGRESS
+═══════════════════════════════════════════════ */
+#scroll-bar{position:fixed;top:0;left:0;height:2px;width:0;
+  background:linear-gradient(90deg,var(--red),var(--red-bright));
+  z-index:9999;transition:width .05s linear;}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════ */
+.container{max-width:1280px;margin:0 auto;padding:0 52px}
+.container--wide{max-width:1440px;margin:0 auto;padding:0 52px}
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:20px 0;transition:all .4s var(--ease);
+}
+.nav.pinned{
+  background:var(--nav-bg);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--border-md);
+  padding:13px 0;
+}
+.nav-row{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-logo-box{
+  width:34px;height:34px;border-radius:9px;background:var(--red);
+  display:grid;place-items:center;font-size:13px;font-weight:800;
+  color:#fff;letter-spacing:-.03em;flex-shrink:0;
+  box-shadow:0 4px 12px var(--red-glow);
+}
+.nav-logo-text{font-size:15px;font-weight:700;letter-spacing:-.03em}
+.nav-logo-text em{font-style:normal;color:var(--red)}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--fg-45);
+  letter-spacing:-.01em;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--fg)}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn-ghost-sm{font-size:13.5px;font-weight:600;color:var(--fg-45);
+  padding:8px 16px;border-radius:8px;letter-spacing:-.01em;
+  transition:all .2s;border:1px solid transparent}
+.btn-ghost-sm:hover{color:var(--fg);background:var(--fg-09);border-color:var(--border-md)}
+
+/* Theme Toggle */
+.theme-toggle{
+  width:38px;height:38px;border-radius:8px;
+  background:var(--fg-09);border:1px solid var(--border-md);
+  display:grid;place-items:center;font-size:15px;
+  transition:all .2s;color:var(--fg-45);
+}
+.theme-toggle:hover{background:var(--fg-09);color:var(--fg);border-color:var(--border-lg)}
+
+.btn-red{
+  font-size:13.5px;font-weight:700;color:#fff;
+  background:var(--red);padding:9px 22px;border-radius:8px;
+  letter-spacing:-.01em;transition:all .2s var(--ease);
+  box-shadow:0 0 0 0 var(--red-glow);
+}
+.btn-red:hover{background:var(--red-bright);transform:translateY(-1px);box-shadow:var(--shadow-red)}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;padding:130px 0 100px;
+}
+#hero-canvas{position:absolute;inset:0;pointer-events:none;opacity:0.85}
+.hero-fade-bottom{
+  position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:linear-gradient(to bottom,transparent,var(--bg-base));
+  pointer-events:none;z-index:1;
+}
+.hero-grid-overlay{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 75% 75% at 50% 40%,black 20%,transparent 100%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:72px;align-items:center;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--red);letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:24px;padding:6px 14px 6px 10px;
+  background:var(--red-dim);border:1px solid rgba(237,49,79,0.22);
+  border-radius:100px;
+  opacity:0;animation:up .8s var(--ease) .1s forwards;
+}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--red);
+  box-shadow:0 0 8px var(--red);animation:pulse-red 2s ease-in-out infinite}
+@keyframes pulse-red{0%,100%{box-shadow:0 0 4px var(--red)}50%{box-shadow:0 0 14px var(--red),0 0 28px var(--red-glow)}}
+
+.hero-h1{
+  font-size:clamp(48px,5.6vw,80px);font-weight:800;
+  line-height:1.02;letter-spacing:-.038em;margin-bottom:10px;
+  opacity:0;animation:up .9s var(--ease) .2s forwards;
+}
+.hero-h1-italic{
+  display:block;font-family:'Cormorant Garamond',serif;
+  font-weight:300;font-style:italic;
+  font-size:clamp(46px,5.2vw,76px);
+  color:var(--fg-70);letter-spacing:-.01em;line-height:1.08;
+}
+.hero-sub{
+  font-size:17px;font-weight:400;line-height:1.7;
+  color:var(--fg-45);max-width:460px;
+  margin:26px 0 44px;
+  opacity:0;animation:up .9s var(--ease) .35s forwards;
+}
+.hero-actions{
+  display:flex;align-items:center;gap:14px;margin-bottom:52px;
+  opacity:0;animation:up .9s var(--ease) .5s forwards;
+}
+.btn-hero-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:15px;font-weight:700;color:#fff;
+  background:var(--red);padding:15px 32px;border-radius:10px;
+  letter-spacing:-.02em;transition:all .25s var(--ease);
+  box-shadow:0 0 0 0 var(--red-glow);
+}
+.btn-hero-primary:hover{background:var(--red-bright);transform:translateY(-2px);box-shadow:var(--shadow-red)}
+.btn-hero-primary svg{transition:transform .2s var(--spring)}
+.btn-hero-primary:hover svg{transform:translateX(4px)}
+.btn-hero-secondary{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:15px;font-weight:600;color:var(--fg-70);
+  border:1px solid var(--border-md);padding:14px 28px;border-radius:10px;
+  letter-spacing:-.02em;transition:all .2s var(--ease);
+  background:var(--fg-09);
+}
+.btn-hero-secondary:hover{color:var(--fg);border-color:var(--border-lg);background:var(--fg-09);transform:translateY(-1px)}
+
+.hero-trust{
+  display:flex;align-items:center;gap:0;
+  opacity:0;animation:up .9s var(--ease) .65s forwards;
+}
+.hero-trust-item{padding:0 28px;text-align:center;position:relative}
+.hero-trust-item:first-child{padding-left:0}
+.hero-trust-item::after{content:'';position:absolute;right:0;top:10%;bottom:10%;
+  width:1px;background:var(--border-md)}
+.hero-trust-item:last-child::after{display:none}
+.trust-num{font-size:28px;font-weight:800;letter-spacing:-.05em;color:var(--fg);line-height:1}
+.trust-num span{color:var(--red)}
+.trust-label{font-size:11.5px;color:var(--fg-45);font-weight:500;margin-top:4px}
+
+/* ── Dashboard Mockup ── */
+.hero-right{position:relative;opacity:0;animation:fadeIn 1.2s var(--ease) .3s forwards}
+.dash-wrap{position:relative}
+.dash{
+  background:var(--bg-card);border:1px solid var(--border-md);
+  border-radius:18px;overflow:hidden;
+  box-shadow:var(--shadow-card),0 0 80px rgba(237,49,79,0.05);
+  transform:perspective(1300px) rotateY(-7deg) rotateX(3deg);
+  animation:dash-float 7s ease-in-out infinite;
+}
+@keyframes dash-float{
+  0%,100%{transform:perspective(1300px) rotateY(-7deg) rotateX(3deg) translateY(0)}
+  50%{transform:perspective(1300px) rotateY(-7deg) rotateX(3deg) translateY(-12px)}
+}
+.dash-chrome{
+  background:var(--bg-elevated);padding:11px 16px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--border);
+}
+.d-dots{display:flex;gap:5px}
+.d-dot{width:9px;height:9px;border-radius:50%}
+.d-dot:nth-child(1){background:#ff5f57}.d-dot:nth-child(2){background:#febc2e}.d-dot:nth-child(3){background:#28c840}
+.d-url{flex:1;background:var(--bg-base);border:1px solid var(--border);border-radius:5px;
+  padding:4px 12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--fg-20)}
+.dash-layout{display:flex;height:370px}
+.dash-side{width:112px;flex-shrink:0;background:var(--bg-elevated);
+  border-right:1px solid var(--border);padding:14px 8px;
+  display:flex;flex-direction:column;gap:2px}
+.ds-item{display:flex;align-items:center;gap:7px;padding:7px 10px;
+  border-radius:6px;font-size:10px;font-weight:600;color:var(--fg-20);transition:all .15s;cursor:default}
+.ds-item.active{background:var(--red-dim);color:var(--red)}
+.ds-item:hover:not(.active){background:var(--fg-09);color:var(--fg-45)}
+.ds-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;flex-shrink:0}
+.dash-main{flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.d-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.d-kpi{background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:10px 11px}
+.d-kpi-l{font-size:9px;font-weight:600;color:var(--fg-20);letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.d-kpi-v{font-size:17px;font-weight:800;letter-spacing:-.04em;color:var(--fg);line-height:1}
+.d-kpi-s{font-size:9px;font-weight:600;color:var(--purple);margin-top:3px}
+.d-chart{background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:11px;flex:1}
+.d-chart-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.d-chart-title{font-size:10px;font-weight:600;color:var(--fg-45)}
+.d-live-badge{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--purple);
+  background:var(--purple-dim);padding:2px 7px;border-radius:3px;border:1px solid rgba(108,84,145,.2)}
+.d-bars{display:flex;align-items:flex-end;gap:3px;height:58px}
+.d-b{flex:1;border-radius:2px 2px 0 0;animation:barUp .8s var(--ease) both;transform-origin:bottom}
+@keyframes barUp{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.d-b:nth-child(1){height:28%;background:var(--border-md);animation-delay:.5s}
+.d-b:nth-child(2){height:45%;background:var(--border-md);animation-delay:.55s}
+.d-b:nth-child(3){height:33%;background:var(--border-md);animation-delay:.6s}
+.d-b:nth-child(4){height:70%;background:rgba(237,49,79,.4);animation-delay:.65s}
+.d-b:nth-child(5){height:52%;background:var(--border-md);animation-delay:.7s}
+.d-b:nth-child(6){height:85%;background:rgba(237,49,79,.55);animation-delay:.75s}
+.d-b:nth-child(7){height:62%;background:var(--border-md);animation-delay:.8s}
+.d-b:nth-child(8){height:100%;background:linear-gradient(to top,var(--red),var(--red-bright));animation-delay:.85s}
+.d-feed{display:flex;flex-direction:column;gap:5px}
+.d-feed-row{display:flex;align-items:center;gap:7px;
+  background:var(--bg-elevated);border:1px solid var(--border);
+  border-radius:6px;padding:6px 9px}
+.d-feed-ico{width:17px;height:17px;border-radius:4px;display:grid;place-items:center;font-size:9px;flex-shrink:0}
+.d-feed-text{flex:1;font-size:9.5px;color:var(--fg-45)}
+.d-feed-amt{font-size:10px;font-weight:700;color:var(--fg)}
+
+/* Floating cards */
+.dash-float{position:absolute;background:var(--bg-card);
+  border:1px solid var(--border-md);border-radius:12px;
+  padding:12px 16px;box-shadow:var(--shadow-card);
+  backdrop-filter:blur(16px);}
+.dash-float-a{bottom:-16px;left:-44px;animation:flt-a 5s ease-in-out infinite}
+.dash-float-b{top:16px;right:-40px;animation:flt-b 6s ease-in-out infinite 1.5s}
+@keyframes flt-a{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes flt-b{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.fl-label{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--fg-20);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.fl-val{font-size:20px;font-weight:800;letter-spacing:-.04em;color:var(--fg)}
+.fl-sub{font-size:9px;font-weight:600;color:var(--purple);margin-top:2px}
+.fl-row{display:flex;align-items:center;gap:8px}
+.fl-pulse{width:8px;height:8px;border-radius:50%;background:var(--purple);
+  box-shadow:0 0 8px var(--purple);flex-shrink:0;
+  animation:pulse-purple 2s ease-in-out infinite}
+@keyframes pulse-purple{0%,100%{box-shadow:0 0 4px var(--purple)}50%{box-shadow:0 0 14px var(--purple),0 0 28px var(--purple-dim)}}
+.fl-text{font-size:11.5px;font-weight:600;color:var(--fg)}
+.fl-subtext{font-size:9.5px;color:var(--fg-20)}
+
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ═══════════════════════════════════════════════
+   CREDIBILITY STRIP
+═══════════════════════════════════════════════ */
+.cred-strip{
+  border-top:1px solid var(--border-md);
+  border-bottom:1px solid var(--border-md);
+  background:var(--bg-elevated);
+  padding:56px 0;
+  transition:background .4s var(--ease);
+}
+.cred-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.cred-cell{text-align:center;padding:12px 36px;position:relative}
+.cred-cell::after{content:'';position:absolute;right:0;top:12%;bottom:12%;
+  width:1px;background:var(--border-md)}
+.cred-cell:last-child::after{display:none}
+.cred-num{font-size:clamp(36px,4vw,54px);font-weight:800;letter-spacing:-.05em;
+  color:var(--fg);line-height:1;margin-bottom:6px}
+.cred-num span{color:var(--red)}
+.cred-label{font-size:13px;font-weight:500;color:var(--fg-45)}
+.cred-sub{font-size:11px;color:var(--fg-20);margin-top:3px}
+
+/* ═══════════════════════════════════════════════
+   SECTION TYPOGRAPHY
+═══════════════════════════════════════════════ */
+.sec-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--red);letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:18px;
+}
+.sec-eyebrow::before,.sec-eyebrow::after{content:'';width:20px;height:1px;background:var(--red);opacity:.5}
+.sec-title{
+  font-size:clamp(36px,4vw,58px);font-weight:800;
+  letter-spacing:-.04em;color:var(--fg);line-height:1.03;margin-bottom:18px;
+}
+.sec-title em{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-weight:300;color:var(--fg-70);letter-spacing:-.01em;
+}
+.sec-body{font-size:16.5px;color:var(--fg-45);line-height:1.7;max-width:560px;margin:0 auto}
+
+/* ═══════════════════════════════════════════════
+   SOLUTIONS — PINNED HORIZONTAL SCROLL
+   Full viewport height panels, occupying full width
+═══════════════════════════════════════════════ */
+.solutions-outer{
+  /* 6 panels × 100vh — user scrolls through each */
+  height:700vh;
+  position:relative;
+}
+.solutions-sticky{
+  position:sticky;top:0;height:100vh;
+  overflow:hidden;display:flex;flex-direction:column;
+}
+
+/* Top label row */
+.solutions-topbar{
+  position:absolute;top:0;left:0;right:0;
+  padding:80px 52px 0;z-index:10;pointer-events:none;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.solutions-label{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--red);letter-spacing:.14em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+}
+.solutions-label::before{content:'';width:20px;height:1px;background:var(--red);opacity:.5}
+.solutions-progress-track{
+  display:flex;align-items:center;gap:8px;
+}
+.solutions-progress-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--border-lg);transition:all .4s var(--ease);
+}
+.solutions-progress-dot.active{
+  width:24px;border-radius:3px;background:var(--red);
+}
+.solutions-counter{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;
+  color:var(--fg-20);margin-left:16px;
+}
+
+/* Sliding track */
+.solutions-track-wrap{flex:1;display:flex;align-items:center;overflow:hidden}
+.solutions-track{
+  display:flex;gap:0;
+  will-change:transform;
+  transition:transform 0s;
+  height:100%;
+}
+.sol-panel{
+  flex-shrink:0;
+  width:100vw;height:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:60px 52px 80px;
+  gap:80px;
+}
+/* Left side: content */
+.sol-left{display:flex;flex-direction:column;justify-content:center}
+.sol-step-num{
+  font-family:'IBM Plex Mono',monospace;font-size:72px;font-weight:500;
+  color:var(--border-lg);line-height:1;letter-spacing:-.04em;
+  margin-bottom:8px;
+  transition:color .4s;
+}
+.sol-panel.active .sol-step-num{color:var(--red-dim)}
+.sol-icon-wrap{
+  width:64px;height:64px;background:var(--red-dim);
+  border:1px solid rgba(237,49,79,.2);border-radius:18px;
+  display:grid;place-items:center;font-size:28px;
+  margin-bottom:28px;
+  transition:all .4s var(--ease);
+}
+.sol-panel.active .sol-icon-wrap{
+  background:var(--red);box-shadow:0 0 32px var(--red-glow);
+}
+.sol-title{
+  font-size:clamp(36px,4vw,56px);font-weight:800;letter-spacing:-.04em;
+  color:var(--fg);line-height:1.05;margin-bottom:16px;
+}
+.sol-desc{font-size:16px;font-weight:400;color:var(--fg-45);line-height:1.7;max-width:480px;margin-bottom:32px}
+.sol-feats{display:flex;flex-direction:column;gap:12px}
+.sol-feat{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--fg-45)}
+.sol-feat::before{content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--red);flex-shrink:0;box-shadow:0 0 8px var(--red)}
+.sol-cta{
+  display:inline-flex;align-items:center;gap:8px;margin-top:32px;
+  font-size:14px;font-weight:700;color:var(--red);letter-spacing:-.01em;
+  transition:gap .2s var(--spring);
+}
+.sol-cta:hover{gap:14px}
+
+/* Right side: UI window */
+.sol-right{display:flex;align-items:center;justify-content:center;position:relative}
+.sol-window{
+  width:100%;max-width:580px;
+  background:var(--bg-card);border:1px solid var(--border-md);
+  border-radius:20px;overflow:hidden;
+  box-shadow:var(--shadow-card);
+  transform:translateY(0);
+  transition:transform .6s var(--ease),box-shadow .6s var(--ease);
+}
+.sol-panel.active .sol-window{
+  transform:translateY(-8px);
+  box-shadow:var(--shadow-card),0 0 60px rgba(237,49,79,.06);
+}
+.sol-window-bar{
+  background:var(--bg-elevated);padding:11px 16px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--border);
+}
+.sw-dots{display:flex;gap:5px}
+.sw-d{width:8px;height:8px;border-radius:50%}
+.sw-d:nth-child(1){background:#ff5f57}.sw-d:nth-child(2){background:#febc2e}.sw-d:nth-child(3){background:#28c840}
+.sw-tab{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--fg-20);margin-left:8px}
+.sol-window-body{padding:20px}
+
+/* UI components inside panels */
+.ui-table{width:100%;border-collapse:collapse}
+.ui-table th{font-size:9.5px;font-weight:600;color:var(--fg-20);
+  letter-spacing:.08em;text-transform:uppercase;padding:0 0 10px;
+  text-align:left;border-bottom:1px solid var(--border)}
+.ui-table td{font-size:11.5px;padding:9px 0;border-bottom:1px solid var(--border);color:var(--fg-45)}
+.ui-table td:first-child{color:var(--fg-70);font-weight:600}
+.ui-table tr:last-child td{border-bottom:none}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700}
+.badge-live{background:var(--purple-dim);border:1px solid rgba(108,84,145,.25);color:var(--purple)}
+.badge-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--purple);animation:pulse-purple 2s infinite}
+.badge-red{background:var(--red-dim);border:1px solid rgba(237,49,79,.2);color:var(--red)}
+.badge-grey{background:var(--fg-09);border:1px solid var(--border);color:var(--fg-45)}
+.kyc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kyc-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:10px;padding:14px}
+.kyc-num{font-size:24px;font-weight:800;letter-spacing:-.04em;color:var(--fg)}
+.kyc-label{font-size:10px;color:var(--fg-45);margin-top:4px}
+.kyc-bar-wrap{height:4px;background:var(--border-md);border-radius:2px;margin-top:8px;overflow:hidden}
+.kyc-bar-fill{height:100%;border-radius:2px;background:var(--purple)}
+.flow-list{display:flex;flex-direction:column;gap:10px}
+.flow-item{background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:11px 13px}
+.flow-head{display:flex;justify-content:space-between;margin-bottom:6px}
+.flow-name{font-size:11px;font-weight:600;color:var(--fg-70)}
+.flow-pct{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--red)}
+.flow-bar{height:5px;background:var(--border-md);border-radius:3px;overflow:hidden}
+.flow-fill{height:100%;border-radius:3px}
+.analy-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.analy-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:12px}
+.analy-label{font-size:9.5px;color:var(--fg-20);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.analy-val{font-size:20px;font-weight:800;letter-spacing:-.04em;color:var(--fg)}
+.analy-sub{font-size:9.5px;font-weight:600;margin-top:3px;color:var(--purple)}
+.reit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+
+/* ═══════════════════════════════════════════════
+   SOLUTIONS GRID (after scroll section)
+   Show all 6 as cards
+═══════════════════════════════════════════════ */
+.solutions-grid-section{padding:140px 0;background:var(--bg-elevated);transition:background .4s var(--ease)}
+.sol-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:64px}
+.sol-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:18px;padding:32px;
+  transition:all .35s var(--ease);position:relative;overflow:hidden;cursor:default;
+}
+.sol-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--red);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.sol-card:hover{border-color:rgba(237,49,79,.25);transform:translateY(-4px);box-shadow:var(--shadow-card)}
+.sol-card:hover::before{transform:scaleX(1)}
+.sol-card-icon{font-size:28px;margin-bottom:16px}
+.sol-card-title{font-size:17px;font-weight:700;letter-spacing:-.03em;color:var(--fg);margin-bottom:8px}
+.sol-card-desc{font-size:13.5px;color:var(--fg-45);line-height:1.6}
+.sol-card-link{
+  display:inline-flex;align-items:center;gap:6px;margin-top:20px;
+  font-size:13px;font-weight:700;color:var(--red);letter-spacing:-.01em;
+  transition:gap .2s var(--spring);
+}
+.sol-card-link:hover{gap:12px}
+
+/* ═══════════════════════════════════════════════
+   INTEGRATIONS
+═══════════════════════════════════════════════ */
+.integrations{padding:140px 0;background:var(--bg-base);transition:background .4s var(--ease)}
+.int-header{text-align:center;margin-bottom:72px}
+.int-tabs{
+  display:flex;justify-content:center;gap:0;
+  background:var(--bg-elevated);border:1px solid var(--border-md);
+  border-radius:12px;padding:5px;max-width:600px;margin:0 auto 52px;
+}
+.int-tab{
+  flex:1;padding:10px 16px;border-radius:9px;
+  font-size:13px;font-weight:600;color:var(--fg-45);
+  letter-spacing:-.01em;transition:all .25s var(--ease);text-align:center;
+}
+.int-tab.on{background:var(--red);color:#fff;box-shadow:0 4px 16px var(--red-glow)}
+.int-tab:not(.on):hover{color:var(--fg-70);background:var(--fg-09)}
+.int-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.int-item{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:12px;padding:16px 12px;text-align:center;
+  transition:all .25s var(--ease);
+}
+.int-item:hover{border-color:rgba(237,49,79,.3);transform:translateY(-3px);box-shadow:var(--shadow-card)}
+.int-item-name{font-size:11px;font-weight:600;color:var(--fg-45);margin-top:6px}
+.int-icon{font-size:20px;margin-bottom:4px}
+.int-content{display:none}
+.int-content.on{display:block;animation:up .4s var(--ease)}
+
+/* ═══════════════════════════════════════════════
+   WHY FUNDRAISINGSCRIPT
+═══════════════════════════════════════════════ */
+.why{padding:140px 0;background:var(--bg-elevated);transition:background .4s var(--ease)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.why-left{}
+.why-list{display:flex;flex-direction:column;gap:20px;margin-top:40px}
+.why-item{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:20px;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:14px;transition:all .3s var(--ease);
+}
+.why-item:hover{border-color:rgba(237,49,79,.2);transform:translateX(4px)}
+.why-item-icon{
+  width:42px;height:42px;border-radius:11px;
+  background:var(--red-dim);border:1px solid rgba(237,49,79,.2);
+  display:grid;place-items:center;font-size:18px;flex-shrink:0;
+}
+.why-item-title{font-size:15px;font-weight:700;color:var(--fg);letter-spacing:-.02em;margin-bottom:5px}
+.why-item-desc{font-size:13px;color:var(--fg-45);line-height:1.6}
+.why-right{position:relative}
+.why-visual{
+  background:var(--bg-card);border:1px solid var(--border-md);
+  border-radius:22px;overflow:hidden;box-shadow:var(--shadow-card);
+}
+.why-visual-top{
+  background:var(--surface);padding:28px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.wv-title{font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.wv-headline{font-size:26px;font-weight:800;letter-spacing:-.04em;color:#fff}
+.wv-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px}
+.wv-stat{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px}
+.wv-stat-val{font-size:18px;font-weight:800;letter-spacing:-.04em;color:#fff}
+.wv-stat-label{font-size:9.5px;color:rgba(255,255,255,0.45);margin-top:3px}
+.why-visual-bottom{padding:20px;display:flex;flex-direction:column;gap:8px}
+.wv-feat{display:flex;align-items:center;gap:10px;padding:8px 0;
+  border-bottom:1px solid var(--border);font-size:13px;color:var(--fg-70)}
+.wv-feat:last-child{border-bottom:none}
+.wv-check{width:20px;height:20px;border-radius:50%;background:var(--red-dim);
+  border:1px solid rgba(237,49,79,.2);display:grid;place-items:center;
+  font-size:10px;color:var(--red);flex-shrink:0}
+
+/* ═══════════════════════════════════════════════
+   PRICING MODELS
+═══════════════════════════════════════════════ */
+.pricing{padding:140px 0;background:var(--bg-base);transition:background .4s var(--ease)}
+.pricing-header{text-align:center;margin-bottom:64px}
+.pricing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:0}
+.pricing-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:20px;padding:36px;
+  transition:all .35s var(--ease);position:relative;overflow:hidden;
+}
+.pricing-card.featured{
+  background:var(--surface);border-color:rgba(237,49,79,.3);
+  box-shadow:0 0 60px rgba(237,49,79,.08);
+}
+.pricing-card.featured::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--red),transparent);
+}
+.pricing-card:not(.featured):hover{border-color:rgba(237,49,79,.2);transform:translateY(-4px);box-shadow:var(--shadow-card)}
+.pc-badge{
+  display:inline-block;padding:4px 12px;border-radius:100px;
+  font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.pc-badge--grey{background:var(--fg-09);color:var(--fg-45);border:1px solid var(--border-md)}
+.pc-badge--red{background:var(--red);color:#fff}
+.pc-badge--purple{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(108,84,145,.2)}
+.pc-title{font-size:24px;font-weight:800;letter-spacing:-.04em;color:var(--fg);margin-bottom:8px}
+.pricing-card.featured .pc-title{color:#fff}
+.pc-subtitle{font-size:13.5px;color:var(--fg-45);line-height:1.6;margin-bottom:28px}
+.pricing-card.featured .pc-subtitle{color:rgba(255,255,255,0.55)}
+.pc-rows{display:flex;flex-direction:column;gap:0;margin-bottom:28px}
+.pc-row{display:flex;justify-content:space-between;align-items:center;
+  padding:11px 0;border-bottom:1px solid var(--border)}
+.pc-row:last-child{border-bottom:none}
+.pc-row-label{font-size:13px;color:var(--fg-45)}
+.pricing-card.featured .pc-row-label{color:rgba(255,255,255,0.5)}
+.pc-row-val{font-size:13px;font-weight:700;color:var(--fg)}
+.pricing-card.featured .pc-row-val{color:#fff}
+.pc-row-val.good{color:var(--purple)}
+.pc-row-val.great{color:var(--red)}
+.pricing-card.featured .pc-row-val.good,.pricing-card.featured .pc-row-val.great{color:rgba(255,255,255,0.9)}
+.pc-btn{
+  display:block;width:100%;text-align:center;padding:13px;
+  border-radius:10px;font-size:14px;font-weight:700;
+  letter-spacing:-.01em;transition:all .2s var(--ease);
+}
+.pc-btn--outline{border:1px solid var(--border-lg);color:var(--fg-70);background:transparent}
+.pc-btn--outline:hover{border-color:var(--red);color:var(--red);background:var(--red-dim)}
+.pc-btn--red{background:var(--red);color:#fff;box-shadow:0 4px 16px var(--red-glow)}
+.pc-btn--red:hover{background:var(--red-bright);transform:translateY(-1px);box-shadow:var(--shadow-red)}
+
+/* ═══════════════════════════════════════════════
+   TECH STACK
+═══════════════════════════════════════════════ */
+.tech{padding:140px 0;background:var(--bg-elevated);transition:background .4s var(--ease)}
+.tech-header{text-align:center;margin-bottom:64px}
+.tech-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:32px}
+.tech-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:14px;padding:24px 16px;text-align:center;
+  transition:all .3s var(--ease);position:relative;overflow:hidden;cursor:default;
+}
+.tech-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--red);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.tech-card:hover{border-color:var(--border-md);transform:translateY(-5px);box-shadow:var(--shadow-card)}
+.tech-card:hover::after{transform:scaleX(1)}
+.tc-icon{font-size:28px;margin-bottom:10px}
+.tc-name{font-size:13.5px;font-weight:700;color:var(--fg);letter-spacing:-.02em;margin-bottom:3px}
+.tc-role{font-size:10.5px;color:var(--fg-45)}
+.tc-ver{display:inline-block;margin-top:8px;font-family:'IBM Plex Mono',monospace;
+  font-size:9px;color:var(--purple);background:var(--purple-dim);
+  padding:2px 7px;border-radius:3px;border:1px solid rgba(108,84,145,.2)}
+
+/* ═══════════════════════════════════════════════
+   TESTIMONIAL
+═══════════════════════════════════════════════ */
+.testimonials{padding:140px 0;background:var(--bg-base);transition:background .4s var(--ease)}
+.test-header{text-align:center;margin-bottom:64px}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.test-card{
+  background:var(--bg-card);border:1px solid var(--border-md);
+  border-radius:18px;padding:32px;transition:all .3s var(--ease);
+  position:relative;overflow:hidden;
+}
+.test-card:hover{border-color:rgba(237,49,79,.25);transform:translateY(-3px);box-shadow:var(--shadow-card)}
+.test-card.featured{
+  background:var(--surface);
+  border-color:rgba(237,49,79,.3);
+  box-shadow:0 0 60px rgba(237,49,79,.08);
+}
+.test-card.featured::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--red),transparent);
+}
+.test-stars{display:flex;gap:3px;margin-bottom:18px;font-size:14px;color:#f59e0b}
+.test-openquote{
+  font-family:'Cormorant Garamond',serif;font-size:56px;line-height:.6;
+  color:var(--red);opacity:.3;margin-bottom:12px;display:block;
+}
+.test-quote{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:18px;color:var(--fg-70);line-height:1.55;margin-bottom:24px;
+}
+.test-card.featured .test-quote{color:rgba(255,255,255,0.80)}
+.test-divider{height:1px;background:var(--border-md);margin-bottom:20px}
+.test-card.featured .test-divider{background:rgba(255,255,255,0.12)}
+.test-author-row{display:flex;align-items:center;gap:12px}
+.test-avatar{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--red),var(--purple));
+  display:grid;place-items:center;font-size:15px;font-weight:800;color:#fff;
+  box-shadow:0 4px 12px var(--red-glow);
+}
+.test-name{font-size:14px;font-weight:700;color:var(--fg);letter-spacing:-.02em}
+.test-card.featured .test-name{color:#fff}
+.test-role{font-size:11.5px;color:var(--fg-45);margin-top:2px}
+.test-card.featured .test-role{color:rgba(255,255,255,0.45)}
+
+/* Light mode — ensure cards have visible contrast */
+[data-theme="light"] .test-card{
+  background:#fff;
+  border-color:rgba(27,17,71,0.1);
+  box-shadow:0 2px 16px rgba(27,17,71,0.06);
+}
+[data-theme="light"] .test-card:hover{
+  box-shadow:0 8px 32px rgba(27,17,71,0.12);
+  border-color:rgba(237,49,79,0.2);
+}
+[data-theme="light"] .test-quote{color:rgba(27,17,71,0.65)}
+[data-theme="light"] .test-card.featured .test-quote{color:rgba(255,255,255,0.82)}
+
+/* ═══════════════════════════════════════════════
+   CTA FINAL
+═══════════════════════════════════════════════ */
+.cta-final{
+  padding:160px 0;text-align:center;position:relative;overflow:hidden;
+  background:var(--bg-elevated);transition:background .4s var(--ease);
+}
+.cta-final::before{
+  content:'';position:absolute;
+  width:800px;height:600px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(237,49,79,.07) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.cta-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 52px}
+.cta-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--red);
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:24px;display:block}
+.cta-h2{font-size:clamp(48px,6vw,84px);font-weight:800;letter-spacing:-.05em;
+  color:var(--fg);line-height:.98;margin-bottom:24px}
+.cta-h2 em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:var(--red)}
+.cta-sub{font-size:17px;color:var(--fg-45);line-height:1.7;margin-bottom:48px}
+.cta-actions{display:flex;align-items:center;justify-content:center;gap:14px;
+  margin-bottom:44px;flex-wrap:wrap}
+.btn-cta-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:700;color:#fff;
+  background:var(--red);padding:18px 40px;border-radius:12px;
+  letter-spacing:-.02em;transition:all .25s var(--ease);
+  box-shadow:var(--shadow-red);
+}
+.btn-cta-primary:hover{background:var(--red-bright);transform:translateY(-3px);box-shadow:0 24px 60px var(--red-glow)}
+.btn-cta-secondary{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:600;color:var(--fg-70);
+  border:1px solid var(--border-md);padding:17px 40px;border-radius:12px;
+  letter-spacing:-.02em;transition:all .2s var(--ease);background:var(--fg-09);
+}
+.btn-cta-secondary:hover{color:var(--fg);border-color:var(--border-lg);transform:translateY(-1px)}
+.cta-trust-row{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+.cta-trust-item{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--fg-45)}
+.cta-trust-check{width:18px;height:18px;border-radius:50%;
+  background:var(--purple-dim);border:1px solid rgba(108,84,145,.3);
+  display:grid;place-items:center;font-size:10px;color:var(--purple);flex-shrink:0}
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+.footer{background:var(--bg-base);border-top:1px solid var(--border-md);
+  padding:72px 0 36px;transition:background .4s var(--ease)}
+.footer-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:52px;
+  padding-bottom:52px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.fl-mark{width:28px;height:28px;background:var(--red);border-radius:7px;
+  display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff}
+.fl-wordmark{font-size:14px;font-weight:700;letter-spacing:-.03em}
+.fl-tagline{font-size:13px;color:var(--fg-45);line-height:1.65;max-width:260px;margin-bottom:20px}
+.footer-socials{display:flex;gap:8px}
+.f-soc{width:34px;height:34px;background:var(--bg-elevated);border:1px solid var(--border-md);
+  border-radius:7px;display:grid;place-items:center;font-size:12px;color:var(--fg-45);transition:all .2s}
+.f-soc:hover{background:var(--red);border-color:var(--red);color:#fff;transform:translateY(-2px)}
+.footer-col-head{font-size:11px;font-weight:700;color:var(--fg);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-link{font-size:13.5px;color:var(--fg-45);transition:color .2s}
+.footer-link:hover{color:var(--fg)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:var(--fg-20)}
+.footer-credit{font-size:12px;color:var(--fg-20)}
+.footer-credit-link{color:var(--red);font-weight:600;text-decoration:none;transition:opacity .2s}
+.footer-credit-link:hover{opacity:.75}
+.footer-legal{display:flex;gap:20px}
+.footer-legal a{font-size:12px;color:var(--fg-20);transition:color .2s}
+.footer-legal a:hover{color:var(--fg-45)}
+
+/* ═══════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════ */
+.sr{opacity:0;transform:translateY(24px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.sr.vis{opacity:1;transform:translateY(0)}
+.sr-d1{transition-delay:.1s}.sr-d2{transition-delay:.2s}
+.sr-d3{transition-delay:.3s}.sr-d4{transition-delay:.4s}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media(max-width:1100px){
+  .container{padding:0 32px}.container--wide{padding:0 32px}
+  .hero-inner{grid-template-columns:1fr}.hero-right{display:none}
+  .sol-panel{grid-template-columns:1fr;gap:40px;padding:60px 32px 80px}
+  .sol-right{display:none}
+  .why-grid{grid-template-columns:1fr}.why-right{display:none}
+  .int-grid{grid-template-columns:repeat(4,1fr)}
+  .test-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
+  .pricing-cards{gap:16px}
+  .solutions-topbar{padding:70px 32px 0}
+}
+@media(max-width:768px){
+  .nav-links{display:none}.btn-ghost-sm{display:none}
+  .container{padding:0 20px}.container--wide{padding:0 20px}
+  .cred-grid{grid-template-columns:repeat(2,1fr)}
+  .cred-cell:nth-child(2)::after{display:none}
+  .sol-cards{grid-template-columns:1fr 1fr}
+  .int-grid{grid-template-columns:repeat(3,1fr)}
+  .tech-cards{grid-template-columns:repeat(3,1fr)}
+  .test-grid{grid-template-columns:1fr}
+  .pricing-cards{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .cta-actions{flex-direction:column}
+  .solutions-topbar{padding:60px 20px 0}
+  .sol-panel{padding:60px 20px 80px}
+  .hero-trust{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<div id="scroll-bar"></div>
+
+<!-- ══════════════════
+     NAV
+══════════════════ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-row">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-box">FS</div>
+        <span class="nav-logo-text">Fundraising<em>Script</em></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#solutions">Solutions</a></li>
+        <li><a href="#integrations">Integrations</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#tech">Technology</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+        <button class="btn-ghost-sm">Sign in</button>
+        <a href="https://fundraisingscript.com/white-label-crowdfunding-software-pricing.php" class="btn-red">Get Started</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════
+     HERO
+══════════════════ -->
+<section class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-fade-bottom"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          #1 White-Label Crowdfunding Software
+        </div>
+        <h1 class="hero-h1">
+          Launch Your Own
+          <span class="hero-h1-italic">Crowdfunding Platform</span>
+        </h1>
+        <p class="hero-sub">
+          FundraisingScript is trusted by 1,000+ clients worldwide. White-label, fully customizable crowdfunding software — Reward, Donation, Equity, Real Estate, REIT, Debt & more. 100% code ownership. Zero monthly fees.
+        </p>
+        <div class="hero-actions">
+          <a href="https://fundraisingscript.com/demo.php" class="btn-hero-primary">
+            View Live Demo
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="https://fundraisingscript.com/white-label-crowdfunding-software-pricing.php" class="btn-hero-secondary">View Pricing</a>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-item">
+            <div class="trust-num"><span class="counter" data-target="1000">0</span><span>+</span></div>
+            <div class="trust-label">Clients Worldwide</div>
+          </div>
+          <div class="hero-trust-item">
+            <div class="trust-num"><span class="counter" data-target="12">0</span><span>+</span></div>
+            <div class="trust-label">Years Experience</div>
+          </div>
+          <div class="hero-trust-item">
+            <div class="trust-num"><span class="counter" data-target="40">0</span><span>+</span></div>
+            <div class="trust-label">Countries</div>
+          </div>
+          <div class="hero-trust-item">
+            <div class="trust-num"><span class="counter" data-target="10">0</span><span>+</span></div>
+            <div class="trust-label">Platform Types</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="dash-wrap">
+          <div class="dash">
+            <div class="dash-chrome">
+              <div class="d-dots"><div class="d-dot"></div><div class="d-dot"></div><div class="d-dot"></div></div>
+              <div class="d-url">app.mycrowdfundplatform.com — Admin Dashboard</div>
+            </div>
+            <div class="dash-layout">
+              <div class="dash-side">
+                <div class="ds-item active"><div class="ds-dot"></div>Overview</div>
+                <div class="ds-item"><div class="ds-dot"></div>Campaigns</div>
+                <div class="ds-item"><div class="ds-dot"></div>Investors</div>
+                <div class="ds-item"><div class="ds-dot"></div>Payments</div>
+                <div class="ds-item"><div class="ds-dot"></div>KYC / AML</div>
+                <div class="ds-item"><div class="ds-dot"></div>Analytics</div>
+                <div style="margin-top:auto"><div class="ds-item"><div class="ds-dot"></div>Settings</div></div>
+              </div>
+              <div class="dash-main">
+                <div class="d-kpis">
+                  <div class="d-kpi"><div class="d-kpi-l">Total AUM</div><div class="d-kpi-v">$4.2M</div><div class="d-kpi-s">↑ 18.4% MTD</div></div>
+                  <div class="d-kpi"><div class="d-kpi-l">Investors</div><div class="d-kpi-v">2,847</div><div class="d-kpi-s">↑ 6.2% WoW</div></div>
+                  <div class="d-kpi"><div class="d-kpi-l">Active Deals</div><div class="d-kpi-v">34</div><div class="d-kpi-s">3 closing soon</div></div>
+                </div>
+                <div class="d-chart">
+                  <div class="d-chart-top">
+                    <span class="d-chart-title">Capital Raised — Monthly</span>
+                    <span class="d-live-badge">● LIVE</span>
+                  </div>
+                  <div class="d-bars">
+                    <div class="d-b"></div><div class="d-b"></div><div class="d-b"></div>
+                    <div class="d-b"></div><div class="d-b"></div><div class="d-b"></div>
+                    <div class="d-b"></div><div class="d-b"></div>
+                  </div>
+                </div>
+                <div class="d-feed">
+                  <div class="d-feed-row">
+                    <div class="d-feed-ico" style="background:var(--purple-dim)">💰</div>
+                    <span class="d-feed-text">Sarah K. invested — PropFund Series IV</span>
+                    <span class="d-feed-amt">$25,000</span>
+                  </div>
+                  <div class="d-feed-row">
+                    <div class="d-feed-ico" style="background:var(--red-dim)">🏢</div>
+                    <span class="d-feed-text">REIT Campaign launched — Mar 15 close</span>
+                    <span class="d-feed-amt" style="color:var(--red)">Live</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-float dash-float-a">
+            <div class="fl-label">Monthly Distributions</div>
+            <div class="fl-val">$84,200</div>
+            <div class="fl-sub">↑ 23% vs last month</div>
+          </div>
+          <div class="dash-float dash-float-b">
+            <div class="fl-row">
+              <div class="fl-pulse"></div>
+              <div><div class="fl-text">KYC Verified</div><div class="fl-subtext">Investor #2,847 onboarded</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     CREDIBILITY
+══════════════════ -->
+<section class="cred-strip">
+  <div class="container">
+    <div class="cred-grid">
+      <div class="cred-cell sr"><div class="cred-num"><span class="counter" data-target="1000">0</span><span>+</span></div><div class="cred-label">Clients Worldwide</div><div class="cred-sub">Across 40+ countries</div></div>
+      <div class="cred-cell sr sr-d1"><div class="cred-num"><span class="counter" data-target="12">0</span><span>+</span></div><div class="cred-label">Years Experience</div><div class="cred-sub">Crowdfunding infrastructure</div></div>
+      <div class="cred-cell sr sr-d2"><div class="cred-num"><span class="counter" data-target="10">0</span><span>+</span></div><div class="cred-label">Platform Types</div><div class="cred-sub">Reward · Equity · RE · REIT · Debt</div></div>
+      <div class="cred-cell sr sr-d3"><div class="cred-num"><span class="counter" data-target="100">0</span><span>%</span></div><div class="cred-label">Code Ownership</div><div class="cred-sub">Zero monthly fees</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     SOLUTIONS — FULL-HEIGHT PINNED SCROLL
+══════════════════ -->
+<div class="solutions-outer" id="solutions">
+  <div class="solutions-sticky" id="solutionsSticky">
+
+    <div class="solutions-topbar">
+      <div class="solutions-label">Platform Solutions</div>
+      <div class="solutions-progress-track" id="solutionsDots">
+        <div class="solutions-progress-dot active"></div>
+        <div class="solutions-progress-dot"></div>
+        <div class="solutions-progress-dot"></div>
+        <div class="solutions-progress-dot"></div>
+        <div class="solutions-progress-dot"></div>
+        <div class="solutions-progress-dot"></div>
+        <span class="solutions-counter" id="solutionsCounter">01 / 06</span>
+      </div>
+    </div>
+
+    <div class="solutions-track-wrap">
+      <div class="solutions-track" id="solutionsTrack">
+
+        <!-- Panel 1 -->
+        <div class="sol-panel active" data-panel="0">
+          <div class="sol-left">
+            <div class="sol-step-num">01</div>
+            <div class="sol-icon-wrap">🏆</div>
+            <h2 class="sol-title">Equity Crowdfunding 2.0</h2>
+            <p class="sol-desc">Launch a full-featured equity crowdfunding platform. Manage investor onboarding, deal rooms, document signing, and regulatory compliance — all from one powerful white-label platform.</p>
+            <div class="sol-feats">
+              <div class="sol-feat">Multiple language & currency support</div>
+              <div class="sol-feat">Manage documents & contracts with e-signature</div>
+              <div class="sol-feat">Powerful back-office & personalised investor dashboards</div>
+              <div class="sol-feat">Reg CF, Reg A+, Reg D compliance workflows</div>
+            </div>
+            <a href="https://fundraisingscript.com/equity-crowdfunding-script.php" class="sol-cta">Explore Equity Platform →</a>
+          </div>
+          <div class="sol-right">
+            <div class="sol-window">
+              <div class="sol-window-bar"><div class="sw-dots"><div class="sw-d"></div><div class="sw-d"></div><div class="sw-d"></div></div><span class="sw-tab">Equity — Campaign Manager</span></div>
+              <div class="sol-window-body">
+                <table class="ui-table">
+                  <thead><tr><th>Campaign</th><th>Type</th><th>Raised</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td>TechEquity Round B</td><td>Equity</td><td>$840K</td><td><span class="badge badge-live">● Live</span></td></tr>
+                    <tr><td>GreenTech Series A</td><td>Equity</td><td>$1.2M</td><td><span class="badge badge-live">● Live</span></td></tr>
+                    <tr><td>FinStartup Seed</td><td>Equity</td><td>$320K</td><td><span class="badge badge-red">Closing</span></td></tr>
+                    <tr><td>HealthTech Pre-A</td><td>Equity</td><td>$95K</td><td><span class="badge badge-grey">Pending</span></td></tr>
+                  </tbody>
+                </table>
+                <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                  <div class="d-kpi"><div class="d-kpi-l">Total Raise</div><div class="d-kpi-v">$2.45M</div><div class="d-kpi-s">↑ 34% MoM</div></div>
+                  <div class="d-kpi"><div class="d-kpi-l">Investors</div><div class="d-kpi-v">1,284</div><div class="d-kpi-s">↑ 12% WoW</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2 -->
+        <div class="sol-panel" data-panel="1">
+          <div class="sol-left">
+            <div class="sol-step-num">02</div>
+            <div class="sol-icon-wrap">🏠</div>
+            <h2 class="sol-title">Real Estate Crowdfunding</h2>
+            <p class="sol-desc">Know what you own and why you own it. Launch a real estate investment platform with full property deal management, investor accreditation, and automated distributions.</p>
+            <div class="sol-feats">
+              <div class="sol-feat">Property listing & deal room management</div>
+              <div class="sol-feat">Fractional ownership & rental income distribution</div>
+              <div class="sol-feat">Investor accreditation & KYC/AML compliance</div>
+              <div class="sol-feat">Automated dividend & capital return calculations</div>
+            </div>
+            <a href="https://fundraisingscript.com/real-estate-crowdfunding-script.php" class="sol-cta">Explore Real Estate Platform →</a>
+          </div>
+          <div class="sol-right">
+            <div class="sol-window">
+              <div class="sol-window-bar"><div class="sw-dots"><div class="sw-d"></div><div class="sw-d"></div><div class="sw-d"></div></div><span class="sw-tab">Real Estate — Property Portfolio</span></div>
+              <div class="sol-window-body">
+                <table class="ui-table">
+                  <thead><tr><th>Property</th><th>Target</th><th>Funded</th><th>IRR</th></tr></thead>
+                  <tbody>
+                    <tr><td>PropFund Series IV</td><td>$2.5M</td><td>84%</td><td style="color:var(--purple)">9.2%</td></tr>
+                    <tr><td>Coastal RE Fund</td><td>$800K</td><td>97%</td><td style="color:var(--purple)">7.8%</td></tr>
+                    <tr><td>Urban Dev III</td><td>$1.2M</td><td>62%</td><td style="color:var(--purple)">11.4%</td></tr>
+                    <tr><td>Suburban REIT</td><td>$3.0M</td><td>31%</td><td style="color:var(--purple)">8.6%</td></tr>
+                  </tbody>
+                </table>
+                <div style="margin-top:12px" class="d-kpi"><div class="d-kpi-l">Total AUM</div><div class="d-kpi-v" style="font-size:22px">$14.8M</div><div class="d-kpi-s">Across 12 properties</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3 -->
+        <div class="sol-panel" data-panel="2">
+          <div class="sol-left">
+            <div class="sol-step-num">03</div>
+            <div class="sol-icon-wrap">📋</div>
+            <h2 class="sol-title">REIT Management Software</h2>
+            <p class="sol-desc">White-label REIT management platform. NAV calculations, shareholder register, quarterly distributions, and full IRS tax documentation — built for serious REIT operators.</p>
+            <div class="sol-feats">
+              <div class="sol-feat">NAV tracking & share price management</div>
+              <div class="sol-feat">Automated quarterly distributions & 1099-DIV</div>
+              <div class="sol-feat">Shareholder register & cap table management</div>
+              <div class="sol-feat">SEC Reg A+ and Regulation D compliance</div>
+            </div>
+            <a href="https://fundraisingscript.com/white-label-reit-crowdfunding-software.php" class="sol-cta">Explore REIT Platform →</a>
+          </div>
+          <div class="sol-right">
+            <div class="sol-window">
+              <div class="sol-window-bar"><div class="sw-dots"><div class="sw-d"></div><div class="sw-d"></div><div class="sw-d"></div></div><span class="sw-tab">REIT Engine — Distribution Dashboard</span></div>
+              <div class="sol-window-body">
+                <div class="reit-grid">
+                  <div class="d-kpi"><div class="d-kpi-l">NAV/Share</div><div class="d-kpi-v">$12.84</div><div class="d-kpi-s">↑ 3.2%</div></div>
+                  <div class="d-kpi"><div class="d-kpi-l">Total Shares</div><div class="d-kpi-v">327K</div><div class="d-kpi-s">Outstanding</div></div>
+                  <div class="d-kpi"><div class="d-kpi-l">Div. Yield</div><div class="d-kpi-v">6.8%</div><div class="d-kpi-s">Annual</div></div>
+                </div>
+                <table class="ui-table" style="margin-top:12px">
+                  <thead><tr><th>Period</th><th>Per Share</th><th>Total Paid</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td>Q4 2024</td><td>$0.218</td><td>$71,346</td><td><span class="badge badge-live">● Sent</span></td></tr>
+                    <tr><td>Q3 2024</td><td>$0.201</td><td>$65,727</td><td><span class="badge badge-live">● Sent</span></td></tr>
+                    <tr><td>Q2 2024</td><td>$0.195</td><td>$63,765</td><td><span class="badge badge-live">● Sent</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4 -->
+        <div class="sol-panel" data-panel="3">
+          <div class="sol-left">
+            <div class="sol-step-num">04</div>
+            <div class="sol-icon-wrap">🎁</div>
+            <h2 class="sol-title">Reward & Donation Crowdfunding</h2>
+            <p class="sol-desc">Launch a Kickstarter-style or GoFundMe-style platform under your own brand. Full campaign management, backer rewards system, and integrated payment processing.</p>
+            <div class="sol-feats">
+              <div class="sol-feat">Reward tier & backer management</div>
+              <div class="sol-feat">All-or-nothing & keep-it-all funding models</div>
+              <div class="sol-feat">Campaign updates, media gallery, social sharing</div>
+              <div class="sol-feat">Stripe, PayPal, and 18+ payment gateway support</div>
+            </div>
+            <a href="https://fundraisingscript.com/reward-crowdfunding-script.php" class="sol-cta">Explore Reward Platform →</a>
+          </div>
+          <div class="sol-right">
+            <div class="sol-window">
+              <div class="sol-window-bar"><div class="sw-dots"><div class="sw-d"></div><div class="sw-d"></div><div class="sw-d"></div></div><span class="sw-tab">Reward — Campaign Overview</span></div>
+              <div class="sol-window-body">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+                  <div class="d-kpi"><div class="d-kpi-l">Raised</div><div class="d-kpi-v">$127,840</div><div class="d-kpi-s">256% of goal</div></div>
+                  <div class="d-kpi"><div class="d-kpi-l">Backers</div><div class="d-kpi-v">3,412</div><div class="d-kpi-s">18 days left</div></div>
+                </div>
+                <div class="flow-list">
+                  <div class="flow-item"><div class="flow-head"><span class="flow-name">Early Bird — $29</span><span class="flow-pct">1,204 claimed</span></div><div class="flow-bar"><div class="flow-fill" style="width:100%;background:var(--red)"></div></div></div>
+                  <div class="flow-item"><div class="flow-head"><span class="flow-name">Standard — $49</span><span class="flow-pct">1,890 claimed</span></div><div class="flow-bar"><div class="flow-fill" style="width:78%;background:var(--purple)"></div></div></div>
+                  <div class="flow-item"><div class="flow-head"><span class="flow-name">Premium — $99</span><span class="flow-pct">318 claimed</span></div><div class="flow-bar"><div class="flow-fill" style="width:42%;background:var(--red)"></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 5 -->
+        <div class="sol-panel" data-panel="4">
+          <div class="sol-left">
+            <div class="sol-step-num">05</div>
+            <div class="sol-icon-wrap">🔐</div>
+            <h2 class="sol-title">Investor Onboarding & Compliance</h2>
+            <p class="sol-desc">Built-in KYC, AML, and accredited investor verification. Integrations with SumSub, Jumio, Trulioo, North Capital, and more — so you stay compliant in every jurisdiction.</p>
+            <div class="sol-feats">
+              <div class="sol-feat">SumSub, Jumio, Trulioo, Nafath KYC integrations</div>
+              <div class="sol-feat">Automated AML screening & accreditation</div>
+              <div class="sol-feat">DocuSign, HelloSign e-signature support</div>
+              <div class="sol-feat">Multi-jurisdiction regulatory compliance</div>
+            </div>
+            <a href="https://fundraisingscript.com/integrations/kyc-aml.php" class="sol-cta">View Compliance Integrations →</a>
+          </div>
+          <div class="sol-right">
+            <div class="sol-window">
+              <div class="sol-window-bar"><div class="sw-dots"><div class="sw-d"></div><div class="sw-d"></div><div class="sw-d"></div></div><span class="sw-tab">Compliance — KYC Dashboard</span></div>
+              <div class="sol-window-body">
+                <div class="kyc-grid">
+                  <div class="kyc-card"><div class="kyc-num" style="color:var(--purple)">2,612</div><div class="kyc-label">KYC Approved</div><div class="kyc-bar-wrap"><div class="kyc-bar-fill" style="width:91%"></div></div></div>
+                  <div class="kyc-card"><div class="kyc-num">183</div><div class="kyc-label">KYC Pending</div><div class="kyc-bar-wrap"><div class="kyc-bar-fill" style="width:9%;background:var(--red)"></div></div></div>
+                  <div class="kyc-card"><div class="kyc-num" style="color:var(--purple)">1,840</div><div class="kyc-label">Accredited Investors</div><div class="kyc-bar-wrap"><div class="kyc-bar-fill" style="width:70%"></div></div></div>
+                  <div class="kyc-card"><div class="kyc-num">2</div><div class="kyc-label">AML Review Flags</div><div class="kyc-bar-wrap"><div class="kyc-bar-fill" style="width:2%;background:var(--red)"></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 6 -->
+        <div class="sol-panel" data-panel="5">
+          <div class="sol-left">
+            <div class="sol-step-num">06</div>
+            <div class="sol-icon-wrap">💳</div>
+            <h2 class="sol-title">Payment Gateway Infrastructure</h2>
+            <p class="sol-desc">18+ payment gateway integrations including Stripe, PayPal, Plaid ACH, Mangopay, LemonWay, and cryptocurrency options. Escrow handling, distributions, and automated refunds built in.</p>
+            <div class="sol-feats">
+              <div class="sol-feat">Stripe, PayPal, Plaid, Mangopay, LemonWay & more</div>
+              <div class="sol-feat">Crypto: BitPay, NOWPayments, Coinbase</div>
+              <div class="sol-feat">Escrow, distributions & automated refunds</div>
+              <div class="sol-feat">Multi-currency with live exchange rates</div>
+            </div>
+            <a href="https://fundraisingscript.com/integrations/payment-gateway.php" class="sol-cta">View All Integrations →</a>
+          </div>
+          <div class="sol-right">
+            <div class="sol-window">
+              <div class="sol-window-bar"><div class="sw-dots"><div class="sw-d"></div><div class="sw-d"></div><div class="sw-d"></div></div><span class="sw-tab">Payments — Gateway Breakdown</span></div>
+              <div class="sol-window-body">
+                <div class="flow-list">
+                  <div class="flow-item"><div class="flow-head"><span class="flow-name">Stripe (Cards & Link)</span><span class="flow-pct">61%</span></div><div class="flow-bar"><div class="flow-fill" style="width:61%;background:var(--red)"></div></div></div>
+                  <div class="flow-item"><div class="flow-head"><span class="flow-name">Plaid ACH</span><span class="flow-pct">22%</span></div><div class="flow-bar"><div class="flow-fill" style="width:22%;background:var(--purple)"></div></div></div>
+                  <div class="flow-item"><div class="flow-head"><span class="flow-name">PayPal</span><span class="flow-pct">11%</span></div><div class="flow-bar"><div class="flow-fill" style="width:11%;background:#003087"></div></div></div>
+                  <div class="flow-item"><div class="flow-head"><span class="flow-name">Crypto (BitPay + NOW)</span><span class="flow-pct">6%</span></div><div class="flow-bar"><div class="flow-fill" style="width:6%;background:#f7931a"></div></div></div>
+                </div>
+                <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                  <div class="d-kpi"><div class="d-kpi-l">Total MTD</div><div class="d-kpi-v">$1.24M</div><div class="d-kpi-s">↑ 31%</div></div>
+                  <div class="d-kpi"><div class="d-kpi-l">Distributed</div><div class="d-kpi-v">$84,200</div><div class="d-kpi-s">↑ 23%</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /track -->
+    </div><!-- /wrap -->
+  </div><!-- /sticky -->
+</div><!-- /outer -->
+
+<!-- ══════════════════
+     ALL SOLUTIONS GRID
+══════════════════ -->
+<section class="solutions-grid-section" id="all-solutions">
+  <div class="container">
+    <div class="sr" style="text-align:center">
+      <div class="sec-eyebrow">All Platform Types</div>
+      <h2 class="sec-title">Pick your vertical.<br><em>We've already built it.</em></h2>
+      <p class="sec-body" style="margin-top:16px">Nine battle-tested platform types — white-labelled, fully owned, ready to launch.</p>
+    </div>
+    <div class="sol-cards">
+      <div class="sol-card sr sr-d1">
+        <div class="sol-card-icon">🏆</div>
+        <div class="sol-card-title">Equity Crowdfunding</div>
+        <div class="sol-card-desc">Launch SEC-compliant equity investment portals. Full investor management, e-signature, and deal room functionality.</div>
+        <a href="https://fundraisingscript.com/equity-crowdfunding-script.php" class="sol-card-link">Learn more →</a>
+      </div>
+      <div class="sol-card sr sr-d2">
+        <div class="sol-card-icon">🏠</div>
+        <div class="sol-card-title">Real Estate Crowdfunding</div>
+        <div class="sol-card-desc">Know what you own and why you own it. Property deals, fractional ownership, and automated distributions.</div>
+        <a href="https://fundraisingscript.com/real-estate-crowdfunding-script.php" class="sol-card-link">Learn more →</a>
+      </div>
+      <div class="sol-card sr sr-d3">
+        <div class="sol-card-icon">📈</div>
+        <div class="sol-card-title">REIT Software</div>
+        <div class="sol-card-desc">White-label REIT management with NAV tracking, shareholder register, and quarterly distribution engine.</div>
+        <a href="https://fundraisingscript.com/white-label-reit-crowdfunding-software.php" class="sol-card-link">Learn more →</a>
+      </div>
+      <div class="sol-card sr sr-d1">
+        <div class="sol-card-icon">🎁</div>
+        <div class="sol-card-title">Reward Crowdfunding</div>
+        <div class="sol-card-desc">Get rewarded with a bit of kindness. Full Kickstarter-style platform with reward tiers and backer management.</div>
+        <a href="https://fundraisingscript.com/reward-crowdfunding-script.php" class="sol-card-link">Learn more →</a>
+      </div>
+      <div class="sol-card sr sr-d2">
+        <div class="sol-card-icon">❤️</div>
+        <div class="sol-card-title">Donation Crowdfunding</div>
+        <div class="sol-card-desc">No one has become poor by giving. Build cause-based fundraising platforms with charity and NGO support.</div>
+        <a href="https://fundraisingscript.com/donation-crowdfunding-script.php" class="sol-card-link">Learn more →</a>
+      </div>
+      <div class="sol-card sr sr-d3">
+        <div class="sol-card-icon">🏦</div>
+        <div class="sol-card-title">Debt Crowdfunding</div>
+        <div class="sol-card-desc">P2P lending and debt crowdfunding with loan management, interest calculations, and repayment tracking.</div>
+        <a href="https://fundraisingscript.com/debt-crowdfunding-script.php" class="sol-card-link">Learn more →</a>
+      </div>
+      <div class="sol-card sr sr-d1">
+        <div class="sol-card-icon">🔋</div>
+        <div class="sol-card-title">Renewable Energy</div>
+        <div class="sol-card-desc">Your penny towards a better future. Green energy project funding with impact tracking and investor dashboards.</div>
+        <a href="https://fundraisingscript.com/renewable-energy-crowdfunding-script.php" class="sol-card-link">Learn more →</a>
+      </div>
+      <div class="sol-card sr sr-d2">
+        <div class="sol-card-icon">🔗</div>
+        <div class="sol-card-title">Blockchain Crowdfunding</div>
+        <div class="sol-card-desc">Raise capital with trust. Tokenized asset crowdfunding with crypto payment integration and smart contracts.</div>
+        <a href="https://fundraisingscript.com/blockchain-crowdfunding-solution.php" class="sol-card-link">Learn more →</a>
+      </div>
+      <div class="sol-card sr sr-d3">
+        <div class="sol-card-icon">💼</div>
+        <div class="sol-card-title">Private Equity Software</div>
+        <div class="sol-card-desc">Data-driven private equity software with fund management, LP portal, and capital call automation.</div>
+        <a href="https://fundraisingscript.com/white-label-private-equity-crowdfunding-software.php" class="sol-card-link">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     INTEGRATIONS
+══════════════════ -->
+<section class="integrations" id="integrations">
+  <div class="container">
+    <div class="int-header sr">
+      <div class="sec-eyebrow">Integrations</div>
+      <h2 class="sec-title">Works with everything<br><em>you already use</em></h2>
+      <p class="sec-body">18+ payment gateways · 9 KYC/AML providers · 4 e-signature tools · CRM, analytics & crypto</p>
+    </div>
+    <div class="int-tabs sr sr-d1">
+      <button class="int-tab on" data-int="payment">Payment Gateways</button>
+      <button class="int-tab" data-int="kyc">KYC & AML</button>
+      <button class="int-tab" data-int="esig">E-Signature</button>
+      <button class="int-tab" data-int="crypto">Cryptocurrency</button>
+    </div>
+    <div class="int-content on" id="int-payment">
+      <div class="int-grid">
+        <div class="int-item"><div class="int-icon">💳</div><div class="int-item-name">Stripe</div></div>
+        <div class="int-item"><div class="int-icon">🅿️</div><div class="int-item-name">PayPal</div></div>
+        <div class="int-item"><div class="int-icon">🏦</div><div class="int-item-name">Plaid ACH</div></div>
+        <div class="int-item"><div class="int-icon">🍋</div><div class="int-item-name">LemonWay</div></div>
+        <div class="int-item"><div class="int-icon">🥭</div><div class="int-item-name">Mangopay</div></div>
+        <div class="int-item"><div class="int-icon">🔷</div><div class="int-item-name">WePay</div></div>
+        <div class="int-item"><div class="int-icon">🌿</div><div class="int-item-name">Braintree</div></div>
+        <div class="int-item"><div class="int-icon">💎</div><div class="int-item-name">Dwolla</div></div>
+        <div class="int-item"><div class="int-icon">⚡</div><div class="int-item-name">Paystack</div></div>
+        <div class="int-item"><div class="int-icon">🔐</div><div class="int-item-name">Escrow</div></div>
+        <div class="int-item"><div class="int-icon">🏛️</div><div class="int-item-name">FundAmerica</div></div>
+        <div class="int-item"><div class="int-icon">🌐</div><div class="int-item-name">CC Avenue</div></div>
+      </div>
+    </div>
+    <div class="int-content" id="int-kyc">
+      <div class="int-grid">
+        <div class="int-item"><div class="int-icon">🔍</div><div class="int-item-name">SumSub</div></div>
+        <div class="int-item"><div class="int-icon">🛡️</div><div class="int-item-name">ShuftiPro</div></div>
+        <div class="int-item"><div class="int-icon">👁️</div><div class="int-item-name">Jumio</div></div>
+        <div class="int-item"><div class="int-icon">✅</div><div class="int-item-name">Trulioo</div></div>
+        <div class="int-item"><div class="int-icon">🇸🇦</div><div class="int-item-name">Nafath</div></div>
+        <div class="int-item"><div class="int-icon">📊</div><div class="int-item-name">North Capital</div></div>
+        <div class="int-item"><div class="int-icon">🟢</div><div class="int-item-name">GBG GreenID</div></div>
+        <div class="int-item"><div class="int-icon">🥭</div><div class="int-item-name">Mangopay KYC</div></div>
+        <div class="int-item"><div class="int-icon">🍋</div><div class="int-item-name">LemonWay KYC</div></div>
+      </div>
+    </div>
+    <div class="int-content" id="int-esig">
+      <div class="int-grid">
+        <div class="int-item"><div class="int-icon">✍️</div><div class="int-item-name">DocuSign</div></div>
+        <div class="int-item"><div class="int-icon">✏️</div><div class="int-item-name">HelloSign</div></div>
+        <div class="int-item"><div class="int-icon">📝</div><div class="int-item-name">GetAccept</div></div>
+        <div class="int-item"><div class="int-icon">🔏</div><div class="int-item-name">SecFly</div></div>
+      </div>
+    </div>
+    <div class="int-content" id="int-crypto">
+      <div class="int-grid">
+        <div class="int-item"><div class="int-icon">₿</div><div class="int-item-name">BitPay</div></div>
+        <div class="int-item"><div class="int-icon">💱</div><div class="int-item-name">NOWPayments</div></div>
+        <div class="int-item"><div class="int-icon">🔵</div><div class="int-item-name">Coinbase</div></div>
+        <div class="int-item"><div class="int-icon">⛓️</div><div class="int-item-name">CoinsPaid</div></div>
+        <div class="int-item"><div class="int-icon">🪙</div><div class="int-item-name">CoinGate</div></div>
+        <div class="int-item"><div class="int-icon">🌐</div><div class="int-item-name">Blockonomics</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     WHY FUNDRAISINGSCRIPT
+══════════════════ -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-left">
+        <div class="sr"><div class="sec-eyebrow">Why FundraisingScript</div>
+        <h2 class="sec-title">Built for operators.<br><em>Not just developers.</em></h2></div>
+        <div class="why-list">
+          <div class="why-item sr sr-d1">
+            <div class="why-item-icon">🏷️</div>
+            <div><div class="why-item-title">100% White Label — Zero Attribution</div><div class="why-item-desc">Your brand, your domain, your platform. No "Powered by" watermarks. Investors only ever see your brand.</div></div>
+          </div>
+          <div class="why-item sr sr-d2">
+            <div class="why-item-icon">🔒</div>
+            <div><div class="why-item-title">One-Time Payment, No Recurring Fees</div><div class="why-item-desc">No monthly SaaS fees. No commission on funds raised. Own your codebase outright and host it anywhere.</div></div>
+          </div>
+          <div class="why-item sr sr-d3">
+            <div class="why-item-icon">⚡</div>
+            <div><div class="why-item-title">Go Live in Days, Not Months</div><div class="why-item-desc">Skip 12+ months of custom development. FundraisingScript comes pre-built with every feature you need.</div></div>
+          </div>
+          <div class="why-item sr sr-d4">
+            <div class="why-item-icon">🛡️</div>
+            <div><div class="why-item-title">12-Month Dedicated Support</div><div class="why-item-desc">A dedicated account manager, ticket system, email, and Skype support. Bug fixes and technical assistance included.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="why-right sr sr-d2">
+        <div class="why-visual">
+          <div class="why-visual-top">
+            <div class="wv-title">Platform Snapshot</div>
+            <div class="wv-headline">Your Investment Platform</div>
+            <div class="wv-stat-row">
+              <div class="wv-stat"><div class="wv-stat-val">$4.2M</div><div class="wv-stat-label">Total AUM</div></div>
+              <div class="wv-stat"><div class="wv-stat-val">2,847</div><div class="wv-stat-label">Investors</div></div>
+              <div class="wv-stat"><div class="wv-stat-val">34</div><div class="wv-stat-label">Live Deals</div></div>
+            </div>
+          </div>
+          <div class="why-visual-bottom">
+            <div class="wv-feat"><div class="wv-check">✓</div>KYC & AML verification active</div>
+            <div class="wv-feat"><div class="wv-check">✓</div>18+ payment gateways connected</div>
+            <div class="wv-feat"><div class="wv-check">✓</div>E-signature workflows enabled</div>
+            <div class="wv-feat"><div class="wv-check">✓</div>Multi-language & currency</div>
+            <div class="wv-feat"><div class="wv-check">✓</div>Regulatory compliance built-in</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     PRICING
+══════════════════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-header sr">
+      <div class="sec-eyebrow">Pricing Models</div>
+      <h2 class="sec-title">One-time payment.<br><em>Yours forever.</em></h2>
+      <p class="sec-body">No monthly fees. No recurring SaaS charges. No commission on funds raised. Own it.</p>
+    </div>
+    <div class="pricing-cards">
+      <div class="pricing-card sr sr-d1">
+        <div class="pc-badge pc-badge--grey">Open Source</div>
+        <div class="pc-title">Community</div>
+        <div class="pc-subtitle">Access the open-source codebase. Clone, fork, and build your platform from scratch with community support.</div>
+        <div class="pc-rows">
+          <div class="pc-row"><div class="pc-row-label">License fee</div><div class="pc-row-val good">$0</div></div>
+          <div class="pc-row"><div class="pc-row-label">Monthly fees</div><div class="pc-row-val good">None</div></div>
+          <div class="pc-row"><div class="pc-row-label">Code ownership</div><div class="pc-row-val good">100%</div></div>
+          <div class="pc-row"><div class="pc-row-label">White label</div><div class="pc-row-val" style="color:var(--fg-20)">Not included</div></div>
+          <div class="pc-row"><div class="pc-row-label">Support</div><div class="pc-row-val">Community</div></div>
+        </div>
+        <a href="https://fundraisingscript.com/white-label-crowdfunding-software-pricing.php" class="pc-btn pc-btn--outline">Get Started Free</a>
+      </div>
+
+      <div class="pricing-card featured sr sr-d2">
+        <div class="pc-badge pc-badge--red">Most Popular</div>
+        <div class="pc-title" style="color:#fff">White Label</div>
+        <div class="pc-subtitle">Fully branded platform. Your domain, your logo, zero attribution. 12-month support included.</div>
+        <div class="pc-rows">
+          <div class="pc-row"><div class="pc-row-label">License fee</div><div class="pc-row-val great">One-time</div></div>
+          <div class="pc-row"><div class="pc-row-label">Monthly fees</div><div class="pc-row-val great">Zero</div></div>
+          <div class="pc-row"><div class="pc-row-label">Commission</div><div class="pc-row-val great">None taken</div></div>
+          <div class="pc-row"><div class="pc-row-label">Support period</div><div class="pc-row-val great">12 months</div></div>
+          <div class="pc-row"><div class="pc-row-label">Account manager</div><div class="pc-row-val great">Dedicated</div></div>
+        </div>
+        <a href="https://fundraisingscript.com/white-label-crowdfunding-software-pricing.php" class="pc-btn pc-btn--red">View Pricing →</a>
+      </div>
+
+      <div class="pricing-card sr sr-d3">
+        <div class="pc-badge pc-badge--purple">Enterprise</div>
+        <div class="pc-title">Custom Build</div>
+        <div class="pc-subtitle">Bespoke features, custom integrations, and dedicated development hours for complex platforms.</div>
+        <div class="pc-rows">
+          <div class="pc-row"><div class="pc-row-label">Monthly retainer</div><div class="pc-row-val good">$3,500 / 160hr</div></div>
+          <div class="pc-row"><div class="pc-row-label">Hourly rate</div><div class="pc-row-val">$25 / hour</div></div>
+          <div class="pc-row"><div class="pc-row-label">3rd-party APIs</div><div class="pc-row-val good">Included</div></div>
+          <div class="pc-row"><div class="pc-row-label">Custom modules</div><div class="pc-row-val good">Available</div></div>
+          <div class="pc-row"><div class="pc-row-label">Best for</div><div class="pc-row-val">Enterprise operators</div></div>
+        </div>
+        <a href="https://fundraisingscript.com/contact_us.php" class="pc-btn pc-btn--outline">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     TECH STACK
+══════════════════ -->
+<section class="tech" id="tech">
+  <div class="container">
+    <div class="tech-header sr">
+      <div class="sec-eyebrow">Technology</div>
+      <h2 class="sec-title">Built on modern,<br><em>production-proven tech</em></h2>
+    </div>
+    <div class="tech-cards sr sr-d1">
+      <div class="tech-card"><div class="tc-icon">⚛️</div><div class="tc-name">React.js</div><div class="tc-role">Frontend</div><div class="tc-ver">v18.2</div></div>
+      <div class="tech-card"><div class="tc-icon">🟢</div><div class="tc-name">Node.js</div><div class="tc-role">Backend</div><div class="tc-ver">v18.6</div></div>
+      <div class="tech-card"><div class="tc-icon">🍃</div><div class="tc-name">MongoDB</div><div class="tc-role">Database</div><div class="tc-ver">v6.0.5</div></div>
+      <div class="tech-card"><div class="tc-icon">☁️</div><div class="tc-name">Any Cloud</div><div class="tc-role">Infrastructure</div><div class="tc-ver">Self-hosted</div></div>
+      <div class="tech-card"><div class="tc-icon">🐳</div><div class="tc-name">Docker</div><div class="tc-role">Containers</div><div class="tc-ver">Ready</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     TESTIMONIALS
+══════════════════ -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="test-header sr">
+      <div class="sec-eyebrow">Client Reviews</div>
+      <h2 class="sec-title">Our clients speak highly of us.<br><em>Why not try it for yourself?</em></h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card sr sr-d1">
+        <div class="test-stars">★★★★★</div>
+        <span class="test-openquote">"</span>
+        <p class="test-quote">FundraisingScript saved us 12+ months of development. We launched our real estate crowdfunding platform in under a month, fully branded and compliant.</p>
+        <div class="test-divider"></div>
+        <div class="test-author-row"><div class="test-avatar">MR</div><div><div class="test-name">Michael R.</div><div class="test-role">CEO, PropFund Platform · USA</div></div></div>
+      </div>
+      <div class="test-card featured sr sr-d2">
+        <div class="test-stars">★★★★★</div>
+        <span class="test-openquote">"</span>
+        <p class="test-quote">The white-label solution is extraordinary. No one knows we didn't build it ourselves. The support team is responsive and genuinely knowledgeable.</p>
+        <div class="test-divider"></div>
+        <div class="test-author-row"><div class="test-avatar">SK</div><div><div class="test-name">Sarah K.</div><div class="test-role">Founder, InvestNow.io · UK</div></div></div>
+      </div>
+      <div class="test-card sr sr-d3">
+        <div class="test-stars">★★★★★</div>
+        <span class="test-openquote">"</span>
+        <p class="test-quote">The REIT module is exactly what we needed. NAV tracking, distributions, and investor reporting — all in one platform. Worth every penny.</p>
+        <div class="test-divider"></div>
+        <div class="test-author-row"><div class="test-avatar">DT</div><div><div class="test-name">David T.</div><div class="test-role">CTO, Meridian REIT · Canada</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     CTA FINAL
+══════════════════ -->
+<section class="cta-final" id="contact">
+  <div class="cta-inner">
+    <span class="cta-label sr">Ready to launch</span>
+    <h2 class="cta-h2 sr sr-d1">Launch your<br>platform <em>today.</em></h2>
+    <p class="cta-sub sr sr-d2">Join 1,000+ operators worldwide who chose FundraisingScript to power their crowdfunding business. One-time payment, zero recurring fees, host it yourself.</p>
+    <div class="cta-actions sr sr-d3">
+      <a href="https://fundraisingscript.com/demo.php" class="btn-cta-primary">
+        View Live Demo
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M3.5 9h11M9 3.5l5.5 5.5L9 14.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="https://fundraisingscript.com/contact_us.php" class="btn-cta-secondary">Contact Sales</a>
+    </div>
+    <div class="cta-trust-row sr sr-d4">
+      <div class="cta-trust-item"><div class="cta-trust-check">✓</div>No monthly fees</div>
+      <div class="cta-trust-item"><div class="cta-trust-check">✓</div>100% code ownership</div>
+      <div class="cta-trust-item"><div class="cta-trust-check">✓</div>12-month support</div>
+      <div class="cta-trust-item"><div class="cta-trust-check">✓</div>Host on your servers</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════
+     FOOTER
+══════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><div class="fl-mark">FS</div><span class="fl-wordmark">FundraisingScript</span></div>
+        <p class="fl-tagline">The #1 white-label crowdfunding software. Trusted by 1,000+ clients in 40+ countries. A product of Rockers Technologies.</p>
+        <div class="footer-socials">
+          <a href="#" class="f-soc">𝕏</a>
+          <a href="#" class="f-soc">in</a>
+          <a href="#" class="f-soc">f</a>
+          <a href="#" class="f-soc">▶</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-head">Platform</div>
+        <div class="footer-links">
+          <a href="https://fundraisingscript.com/equity-crowdfunding-script.php" class="footer-link">Equity Crowdfunding</a>
+          <a href="https://fundraisingscript.com/real-estate-crowdfunding-script.php" class="footer-link">Real Estate</a>
+          <a href="https://fundraisingscript.com/white-label-reit-crowdfunding-software.php" class="footer-link">REIT Software</a>
+          <a href="https://fundraisingscript.com/reward-crowdfunding-script.php" class="footer-link">Reward Crowdfunding</a>
+          <a href="https://fundraisingscript.com/donation-crowdfunding-script.php" class="footer-link">Donation Crowdfunding</a>
+          <a href="https://fundraisingscript.com/debt-crowdfunding-script.php" class="footer-link">Debt Crowdfunding</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-head">Company</div>
+        <div class="footer-links">
+          <a href="https://fundraisingscript.com/our_team.php" class="footer-link">Our Team</a>
+          <a href="https://fundraisingscript.com/our-works.php" class="footer-link">Our Works</a>
+          <a href="https://fundraisingscript.com/faqs.php" class="footer-link">FAQs</a>
+          <a href="https://fundraisingscript.com/white-label-crowdfunding-software-pricing.php" class="footer-link">Pricing</a>
+          <a href="https://fundraisingscript.com/schedule-meeting" class="footer-link">Schedule a Meeting</a>
+          <a href="https://rockersinfo.com" class="footer-link">Rockers Technologies</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-head">Support</div>
+        <div class="footer-links">
+          <a href="https://fundraisingscript.com/demo.php" class="footer-link">Live Demo</a>
+          <a href="https://fundraisingscript.com/virtual-tour/start-your-tour.php" class="footer-link">Virtual Tour</a>
+          <a href="https://fundraisingscript.com/integrations/payment-gateway.php" class="footer-link">Integrations</a>
+          <a href="https://fundraisingscript.com/contact_us.php" class="footer-link">Contact Us</a>
+          <a href="https://api.whatsapp.com/send?phone=+918980059555" class="footer-link">WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 FundraisingScript · A product of Rockers Technologies · All rights reserved</span>
+      <span class="footer-credit">UX Direction & Design Vision by <a href="https://behance.com/carvingdezine" target="_blank" rel="noopener" class="footer-credit-link">@CarvingDezine</a></span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════
+     JAVASCRIPT
+══════════════════ -->
+<script>
+/* ── Custom Cursor ── */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function tick(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
+
+/* ── Scroll Progress ── */
+const sb=document.getElementById('scroll-bar');
+window.addEventListener('scroll',()=>sb.style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%',{passive:true});
+
+/* ── Nav Pin ── */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('pinned',scrollY>50),{passive:true});
+
+/* ── Theme Toggle ── */
+const html=document.documentElement;
+const toggle=document.getElementById('themeToggle');
+let dark=true;
+toggle.addEventListener('click',()=>{
+  dark=!dark;
+  html.setAttribute('data-theme',dark?'dark':'light');
+  toggle.textContent=dark?'🌙':'☀️';
+});
+
+/* ── Scroll Reveal ── */
+const srObs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('vis')),{threshold:.08,rootMargin:'0px 0px -32px 0px'});
+document.querySelectorAll('.sr').forEach(el=>srObs.observe(el));
+
+/* ── Counters ── */
+const cntObs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const el=e.target,t=+el.dataset.target;let v=0;
+  const step=t/(1600/16);
+  const id=setInterval(()=>{v+=step;if(v>=t){v=t;clearInterval(id);}el.textContent=Math.floor(v).toLocaleString()},16);
+  cntObs.unobserve(el);
+}),{threshold:.7});
+document.querySelectorAll('.counter').forEach(c=>cntObs.observe(c));
+
+/* ── Hero Canvas — Capital Graph ── */
+(function(){
+  const c=document.getElementById('hero-canvas'),ctx=c.getContext('2d');
+  let W,H,nodes;
+  function resize(){
+    W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;
+    nodes=Array.from({length:32},()=>({
+      x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,
+      r:Math.random()*2+1,p:Math.random()*Math.PI*2,
+      ps:.02+Math.random()*.025,bright:Math.random()>.82,
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;n.p+=n.ps;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+    const t=Date.now()*.001;
+    const isDark=document.documentElement.getAttribute('data-theme')!=='light';
+    const edgeColor=isDark?'237,49,79':'180,20,50';
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<180){
+        const alpha=(1-d/180)*(isDark?.16:.08);
+        ctx.beginPath();ctx.strokeStyle=`rgba(${edgeColor},${alpha})`;ctx.lineWidth=.7;ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        if(d<130){const frac=(t*.3+i*.12)%1;ctx.beginPath();ctx.arc(a.x+(b.x-a.x)*frac,a.y+(b.y-a.y)*frac,1.5,0,Math.PI*2);ctx.fillStyle=`rgba(${edgeColor},${alpha*3.5})`;ctx.fill();}
+      }
+    }
+    nodes.forEach(n=>{
+      const g=.5+.5*Math.sin(n.p);
+      const alpha=isDark?.75:.5;
+      if(n.bright){const gr=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*7);gr.addColorStop(0,`rgba(${edgeColor},${.28*g})`);gr.addColorStop(1,`rgba(${edgeColor},0)`);ctx.beginPath();ctx.arc(n.x,n.y,n.r*7,0,Math.PI*2);ctx.fillStyle=gr;ctx.fill();}
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle=`rgba(${edgeColor},${n.bright?(alpha*.9+.1*g):(alpha*.3+.1*g)})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  new ResizeObserver(resize).observe(c.parentElement);
+  resize();draw();
+})();
+
+/* ── SOLUTIONS PINNED HORIZONTAL SCROLL ── */
+(function(){
+  const outer=document.querySelector('.solutions-outer');
+  const track=document.getElementById('solutionsTrack');
+  const panels=document.querySelectorAll('.sol-panel');
+  const dots=document.querySelectorAll('.solutions-progress-dot');
+  const counter=document.getElementById('solutionsCounter');
+  const TOTAL=panels.length;
+
+  function setActive(idx){
+    const panelW=window.innerWidth;
+    track.style.transform=`translateX(${-idx*panelW}px)`;
+    track.style.transition='transform 0.7s cubic-bezier(0.76,0,0.24,1)';
+    panels.forEach((p,i)=>p.classList.toggle('active',i===idx));
+    dots.forEach((d,i)=>{d.classList.toggle('active',i===idx);});
+    counter.textContent=`0${idx+1} / 0${TOTAL}`;
+  }
+
+  window.addEventListener('scroll',()=>{
+    const rect=outer.getBoundingClientRect();
+    const scrolled=-rect.top;
+    const total=outer.offsetHeight-innerHeight;
+    if(scrolled<0||scrolled>total)return;
+    const idx=Math.min(TOTAL-1,Math.floor((scrolled/total)*TOTAL));
+    setActive(idx);
+  },{passive:true});
+
+  // Mobile fallback
+  if(window.innerWidth<768){
+    outer.style.height='auto';
+    document.querySelector('.solutions-sticky').style.position='relative';
+    document.querySelector('.solutions-sticky').style.height='auto';
+    track.style.flexDirection='column';
+    track.style.transform='none';
+    panels.forEach(p=>{p.style.width='100%';p.classList.add('active');});
+  }
+})();
+
+/* ── Integration Tabs ── */
+document.querySelectorAll('.int-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.int-tab').forEach(t=>t.classList.remove('on'));
+    document.querySelectorAll('.int-content').forEach(c=>c.classList.remove('on'));
+    tab.classList.add('on');
+    document.getElementById('int-'+tab.dataset.int).classList.add('on');
+  });
+});
+
+/* ── Smooth Scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');if(id==='#')return;
+    const t=document.querySelector(id);if(!t)return;
+    e.preventDefault();
+    window.scrollTo({top:t.getBoundingClientRect().top+scrollY-80,behavior:'smooth'});
+  });
+});
+
+/* ── Parallax Hero Lights ── */
+window.addEventListener('scroll',()=>{
+  const y=scrollY;
+  const overlay=document.querySelector('.hero-grid-overlay');
+  if(overlay)overlay.style.transform=`translateY(${y*.15}px)`;
+},{passive:true});
+</script>
+</body>
+</html>
