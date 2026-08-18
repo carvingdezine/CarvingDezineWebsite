@@ -515,6 +515,15 @@ input,textarea,select{font-family:var(--f)}
   border:1px solid var(--line2);
 }
 
+/* live website / live preview affordance on Interactive Web + Design System cards */
+.pc-live{
+  display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+  font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--white);padding:6px 11px;border:1px solid rgba(255,255,255,.35);
+  background:rgba(255,42,42,.12);width:fit-content;
+}
+.pc:hover .pc-live{border-color:var(--red);background:rgba(255,42,42,.22)}
+
 /* ═══════════════════════════════════
    CARVE REVEAL
 ═══════════════════════════════════ */
@@ -1957,6 +1966,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
               <option value="deck">Presentation Design</option>
               <option value="print">Print & Marketing</option>
               <option value="web">Interactive Web</option>
+              <option value="design-system">Design System</option>
             </select>
           </div>
           <div class="adm-f"><label class="adm-l">Year</label><input class="adm-in" id="ap-y" value="2026"/></div>
@@ -2271,6 +2281,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <button class="fbtn" data-f="deck">Decks</button>
     <button class="fbtn" data-f="print">Print</button>
     <button class="fbtn" data-f="web">Interactive Web</button>
+    <button class="fbtn" data-f="design-system">Design System</button>
     <div class="fsep"></div>
     <button class="fbtn sort-btn on" data-s="new">New → Old</button>
     <button class="fbtn sort-btn" data-s="old">Old → New</button>
@@ -2798,7 +2809,7 @@ function sPj(projects){
   apiLoad(function(){renderGrid('all');renderList();});
 }());
 
-var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web'};
+var CMAP={ux:'UX / UI Design',brand:'Brand Identity',deck:'Presentation Design',print:'Print & Marketing',web:'Interactive Web','design-system':'Design System'};
 
 function getProjectCover(p){
   if(!p)return'';
@@ -3557,11 +3568,14 @@ function renderGrid(filter){
     var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
     var badge=srcLabel?'<div class="pc-badge">'+srcLabel+'</div>':'';
     var tagsH=p.tags&&p.tags.length?'<div class="pc-tags-ov">'+renderTagBadges(p.tags)+'</div>':'';
+    var isLiveCat=(p.cat==='web'||p.cat==='design-system');
+    var liveLabel=p.cat==='design-system'?'Live Preview':'Live Website';
+    var liveBadge=(isLiveCat&&p.link)?'<div class="pc-live">'+liveLabel+' <svg viewBox="0 0 12 12" width="10" height="10" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>':'';
     var overlay='<div class="pc-overlay">'
       +'<div class="pc-cat">'+(CMAP[p.cat]||p.src||'Project')+'</div>'
       +'<div class="pc-title">'+p.title+'</div>'
       +'<div class="pc-yr">'+p.year+(p.client?' \u00b7 '+p.client:'')+'</div>'
-      +tagsH+'</div>';
+      +tagsH+liveBadge+'</div>';
     var imgH=cover
       ?'<div class="pc-img"><img src="'+cover+'" alt="'+p.title+'" loading="'+(idx<2?'eager':'lazy')+'" onerror="this.classList.add(\'img-error\')"/>'
         +'<div class="img-ph"><svg class="img-ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
@@ -3569,7 +3583,7 @@ function renderGrid(filter){
         +overlay+'</div>'
       :'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(idx+1).padStart(2,'0')+'</div></div>'
         +overlay+'</div>';
-    return '<div class="pc rv" data-id="'+p.id+'" data-src="'+(p.src||'manual')+'" data-link="'+(p.link||'')+'">'
+    return '<div class="pc rv" data-id="'+p.id+'" data-src="'+(p.src||'manual')+'" data-cat="'+(p.cat||'')+'" data-link="'+(p.link||'')+'">'
       +badge+imgH+'<div class="pc-line"></div></div>';
   }).join('');
 
@@ -3577,8 +3591,11 @@ function renderGrid(filter){
     var id=card.dataset.id;
     var link=card.dataset.link;
     var src=card.dataset.src;
+    var cat=card.dataset.cat;
+    var isLiveCat=(cat==='web'||cat==='design-system');
     card.addEventListener('click',function(){
-      if(src==='manual'||!link){window.location.href='project.html?id='+id;}
+      if(isLiveCat&&link){window.open(link,'_blank');}
+      else if(src==='manual'||!link){window.location.href='project.html?id='+id;}
       else{window.open(link,'_blank');}
     });
     card.addEventListener('mouseenter',function(){document.body.classList.add('hov')});
