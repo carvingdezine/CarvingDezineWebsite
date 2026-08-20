@@ -72,6 +72,15 @@ a{color:inherit;text-decoration:none;}
 .wk-fb.on{border-color:var(--red);color:var(--red);background:rgba(255,42,42,.06);}
 .wk-fsep{width:1px;height:16px;background:var(--line);margin:0 4px;flex-shrink:0;}
 
+#wk-client-chip{padding:0 clamp(20px,4vw,44px);margin-top:14px;display:flex;align-items:center;gap:10px}
+.wk-client-chip-btn{
+  font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--red);color:var(--red);background:rgba(255,42,42,.08);
+  padding:7px 14px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+}
+.pc-client-link{cursor:pointer;text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:2px;transition:color .2s,text-decoration-color .2s}
+.pc-client-link:hover{color:var(--red);text-decoration-color:var(--red)}
+
 /* MASONRY GRID */
 .wk-masonry{
   column-count:3;column-gap:3px;
@@ -182,6 +191,7 @@ a{color:inherit;text-decoration:none;}
   <button class="wk-fb wk-sort" data-s="old">Old → New</button>
   <div id="wk-tag-filters" style="display:contents"></div>
 </div>
+<div id="wk-client-chip" style="display:none"></div>
 
 <div class="wk-masonry" id="wk-grid"></div>
 <div class="wk-empty" id="wk-empty" style="display:none">No projects yet. Add some from the admin panel.</div>
@@ -275,7 +285,36 @@ function renderTagBadges(tagIds){
   }).join('');
 }
 
-var _catFilter='all', _tagFilter='all', _wkSort='new';
+var _catFilter='all', _tagFilter='all', _wkSort='new', _clientFilter='all';
+
+function setClientFilter(name){
+  _clientFilter=name;
+  _catFilter='all';_tagFilter='all';
+  document.querySelectorAll('.wk-fb').forEach(function(b){b.classList.remove('on')});
+  var allBtn=document.querySelector('.wk-fb[data-f="all"]');
+  if(allBtn)allBtn.classList.add('on');
+  var url=new URL(window.location);
+  url.searchParams.set('client',name);
+  window.history.pushState({},'',url);
+  render();
+}
+
+function clearClientFilter(){
+  _clientFilter='all';
+  var url=new URL(window.location);
+  url.searchParams.delete('client');
+  window.history.pushState({},'',url);
+  render();
+}
+
+function renderClientChip(){
+  var chip=document.getElementById('wk-client-chip');
+  if(!chip)return;
+  if(_clientFilter==='all'){chip.style.display='none';chip.innerHTML='';return;}
+  chip.style.display='flex';
+  chip.innerHTML='<span class="wk-client-chip-btn" id="wk-clear-client">Client: '+esc(_clientFilter)+' <svg viewBox="0 0 12 12" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1L11 11M11 1L1 11"/></svg></span>';
+  document.getElementById('wk-clear-client').addEventListener('click',clearClientFilter);
+}
 
 function mkCard(p){
   var cover=getProjectCover(p);
@@ -287,7 +326,7 @@ function mkCard(p){
   var liveLabel=p.cat==='design-system'?'Live Preview':'Live Website';
   var liveBadge=(isLiveCat&&p.link)?'<div class="pc-live">'+liveLabel+' <svg viewBox="0 0 12 12" width="10" height="10" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>':'';
   var overlay='<div class="pc-overlay">'+(CMAP[p.cat]||p.cat||'Project')+'<br>'+(esc(p.title))+'<br>'+yr+tagsH+'</div>';
-  overlay='<div class="pc-overlay"><div class="pc-cat">'+(CMAP[p.cat]||p.cat||'Project')+'</div><div class="pc-title">'+esc(p.title)+'</div><div class="pc-yr">'+p.year+(p.client?' · '+p.client:'')+'</div>'+tagsH+liveBadge+'</div>';
+  overlay='<div class="pc-overlay"><div class="pc-cat">'+(CMAP[p.cat]||p.cat||'Project')+'</div><div class="pc-title">'+esc(p.title)+'</div><div class="pc-yr">'+p.year+(p.client?' · <span class="pc-client-link" data-client-filter="'+esc(p.client)+'">'+esc(p.client)+'</span>':'')+'</div>'+tagsH+liveBadge+'</div>';
   var imgH=cover?'<div class="pc-img"><img src="'+esc(cover)+'" alt="'+esc(p.title)+'" loading="lazy"/>'+overlay+'</div>':'<div class="pc-img"><div class="pc-ph"><div class="pc-ph-n">'+String(p.id||'').slice(-2).padStart(2,'0')+'</div></div>'+overlay+'</div>';
   return '<div class="pc rv" data-id="'+(p.id||'')+'" data-src="'+(p.src||'manual')+'" data-cat="'+(p.cat||'')+'" data-link="'+(p.link||'')+'">'
     +badge+imgH+'<div class="pc-line"></div></div>';
@@ -299,6 +338,9 @@ function render(){
   var filtered=all;
   if(_catFilter!=='all') filtered=filtered.filter(function(p){return p.cat===_catFilter;});
   if(_tagFilter!=='all') filtered=filtered.filter(function(p){return p.tags&&p.tags.indexOf(_tagFilter)!==-1;});
+  if(_clientFilter!=='all') filtered=filtered.filter(function(p){return p.client===_clientFilter;});
+
+  renderClientChip();
 
   var grid=document.getElementById('wk-grid');
   var empty=document.getElementById('wk-empty');
@@ -307,6 +349,12 @@ function render(){
   if(!filtered.length){grid.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
   grid.innerHTML=filtered.map(mkCard).join('');
+  grid.querySelectorAll('.pc-client-link').forEach(function(el){
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      setClientFilter(el.dataset.clientFilter);
+    });
+  });
   grid.querySelectorAll('.pc').forEach(function(card){
     var id=card.dataset.id,link=card.dataset.link,src=card.dataset.src,cat=card.dataset.cat;
     var isLiveCat=(cat==='web'||cat==='design-system');
@@ -397,6 +445,8 @@ function ghLoad(cb){
 // Initial load - fetch live data from the API then render
 ghLoad(function(){
   buildTagFilters();
+  var initClient=new URLSearchParams(window.location.search).get('client');
+  if(initClient)_clientFilter=initClient;
   render();
 });
 

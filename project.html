@@ -439,7 +439,7 @@ function renderPjBody(pj,id,projects,coverImage,root){
   // ── META ──
   var metaH='';
   if(pj.year)metaH+='<div class="pj-meta-row"><span class="pj-meta-label">Year</span><span class="pj-meta-val">'+esc(pj.year)+'</span></div>';
-  if(pj.client)metaH+='<div class="pj-meta-row"><span class="pj-meta-label">Client</span><span class="pj-meta-val">'+esc(pj.client)+'</span></div>';
+  if(pj.client)metaH+='<div class="pj-meta-row"><span class="pj-meta-label">Client</span><span class="pj-meta-val"><a href="work.html?client='+encodeURIComponent(pj.client)+'" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.3)">'+esc(pj.client)+'</a></span></div>';
   metaH+='<div class="pj-meta-row"><span class="pj-meta-label">Category</span><span class="pj-meta-val">'+catLabel+'</span></div>';
 
   var descH='';
@@ -467,6 +467,23 @@ function renderPjBody(pj,id,projects,coverImage,root){
   var nextH=next
     ?'<a class="pj-next" href="project.html?id='+next.id+'"><span class="pj-nav-dir">Next<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span><span class="pj-nav-cat">'+(CMAP[next.cat]||'')+'</span><span class="pj-nav-title">'+esc(next.title)+'</span></a>'
     :'<div></div>';
+
+  // ── MORE FROM CLIENT ──
+  var clientRelated=pj.client?projects.filter(function(p){return p.id!==id&&p.client===pj.client&&getProjectCover(p)}).slice(0,3):[];
+  var clientRelatedH=clientRelated.length
+    ?'<div class="pj-related"><div class="pj-section-label">More from '+esc(pj.client)+'</div><div class="pj-related-grid">'
+      +clientRelated.map(function(r){
+        var relatedCover=getProjectCover(r);
+        return '<a class="pj-rel-card" href="project.html?id='+r.id+'">'
+          +'<div class="pj-rel-img"><img src="'+esc(relatedCover)+'" alt="'+esc(r.title)+'" loading="lazy"/></div>'
+          +'<div class="pj-rel-cat">'+(CMAP[r.cat]||r.cat)+'</div>'
+          +'<div class="pj-rel-title">'+esc(r.title)+'</div>'
+          +'<div class="pj-rel-yr">'+r.year+(r.client?' \u00b7 '+r.client:'')+'</div></a>';
+      }).join('')
+      +'</div>'
+      +(clientRelated.length>=3?'<a href="work.html?client='+encodeURIComponent(pj.client)+'" style="display:inline-block;margin-top:16px;font-family:var(--m);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);text-decoration:underline">See all projects for '+esc(pj.client)+' \u2192</a>':'')
+      +'</div>'
+    :'';
 
   // ── RELATED ──
   var related=projects.filter(function(p){return p.id!==id&&p.cat===pj.cat&&getProjectCover(p)}).slice(0,3);
@@ -502,6 +519,7 @@ function renderPjBody(pj,id,projects,coverImage,root){
     +'</div>'
     +'<div class="pj-bottom-wrap">'
       +'<div class="pj-prevnext">'+prevH+nextH+'</div>'
+      +clientRelatedH
       +relatedH
       +'<div class="pj-cta"><div class="pj-cta-eyebrow">Like what you see?</div><div class="pj-cta-title">Let\'s work together</div><div class="pj-cta-sub">Tell me about your project and let\'s create something remarkable.</div><a class="pj-cta-btn" href="index.html#contact">Get in touch</a></div>'
       +'<footer class="sh-footer"><div class="sh-ft-main"><div class="sh-ft-col"><div class="sh-ft-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIiBhcmlhLWxhYmVsPSJDYXJ2aW5nIERlemluZSI+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIgZD0iTTI4My40Niw1NjYuOTNoMEMxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3aDBDMCwxMjYuOTEsMTI2LjkxLDAsMjgzLjQ2LDBzMjgzLjQ2LDEyNi45MSwyODMuNDYsMjgzLjQ2aDBjMCwxNTYuNTUtMTI2LjkxLDI4My40Ni0yODMuNDYsMjgzLjQ2Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTIyNS40NywzMjFjMC0zMi41NSwyNS43OS01OS4yNiw1Ny40Mi01OS41NGg2NS45MnYtNjAuNTFjLTQxLjQyLDAtNjYuMjMsMC02Ni4yOCwwLTY0LjM3LjUyLTExNi43NCw1NC4zNy0xMTYuNzQsMTIwLjA0LDAsMzIuMjksMTIuNTgsNjEuNjEsMzIuOTgsODMuMjFsLTI0LjUxLDQ5LjM0LDY0LjY1LTIxLjQ2YzEzLjc1LDUuNzYsMjguOCw4Ljk2LDQ0LjU2LDguOTYsMTQuMzIsMCwyOC4wNC0yLjYzLDQwLjc1LTcuNDN2LTcwLjMxYy0xMC40OCwxMC42NC0yNC44OCwxNy4yMy00MC43NSwxNy4yMy0zMS45OCwwLTU4LTI2LjcxLTU4LTU5LjU0Ii8+PHJlY3QgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTloMHYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg==" class="sh-ft-logo" alt="Carving Dezine"/><span class="sh-ft-name">Carving Dezine</span></div></div><div class="sh-ft-col"><span class="sh-ft-copy">&copy; 2026 Carving Dezine &middot; Mumbai &amp; Surat, India</span></div><div class="sh-ft-col"><div class="sh-ft-links"><a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">Behance</a><a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">Dribbble</a><a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">Instagram</a><a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">X</a><a href="https://threads.net/@carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">Threads</a><a href="https://reddit.com/r/CarvingDezine" target="_blank" rel="noopener" class="sh-ft-link">Reddit</a><a href="https://facebook.com/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">Facebook</a><a href="https://youtube.com/@carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">YouTube</a><a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="sh-ft-link">LinkedIn</a><a href="mailto:carvingdezine@gmail.com" class="sh-ft-link">Email</a><a href="#" onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false;" class="sh-ft-link">&#8593; Top</a></div></div></div><div class="sh-ft-btm"><span>Freelance UX/UI &amp; Brand Designer &nbsp;&middot;&nbsp; www.carvingdezine.com</span><span id="cd-last-updated" title="Timestamp of the most recently saved project, straight from the database">Last updated: -</span><a href="index.html#admin" target="_blank">Admin</a></div></footer>'

@@ -523,6 +523,8 @@ input,textarea,select{font-family:var(--f)}
   background:rgba(255,42,42,.12);width:fit-content;
 }
 .pc:hover .pc-live{border-color:var(--red);background:rgba(255,42,42,.22)}
+.pc-client-link{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:2px;transition:color .2s,text-decoration-color .2s}
+.pc-client-link:hover{color:var(--red);text-decoration-color:var(--red)}
 
 /* ═══════════════════════════════════
    CARVE REVEAL
@@ -1938,6 +1940,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
       <a class="adm-ni" data-p="testimonials">Testimonials</a>
       <a class="adm-ni" data-p="tags">Tags</a>
       <a class="adm-ni" data-p="backup">Backup & Restore</a>
+      <a class="adm-ni" data-p="clients">Clients</a>
       <a class="adm-ni" data-p="settings">Settings</a>
     </nav>
     <div class="adm-ct">
@@ -2192,6 +2195,25 @@ h2 .whu{display:inline-block;vertical-align:bottom}
         </div>
       </div>
 
+      <!-- CLIENTS -->
+      <div class="adm-pnl" id="p-clients">
+        <div class="adm-st">Client Portal</div>
+        <div class="adm-hint">
+          Add a client, then share their unique link with them - only they can see their own files. Files are stored in Google Drive - upload there first, set sharing to "Anyone with the link", then paste the link per file. Requires the backend endpoints <code style="color:var(--red);font-family:var(--m)">/api/clients</code> and <code style="color:var(--red);font-family:var(--m)">/api/client-files</code> to be deployed first (no Cloudflare storage/R2 needed).
+        </div>
+
+        <div style="border:1px solid var(--line);padding:24px;max-width:560px;margin-bottom:28px;background:var(--g1)">
+          <div style="font-size:15px;font-weight:700;margin-bottom:16px">Add New Client</div>
+          <div class="adm-f"><label class="adm-l">Client Name *</label><input class="adm-in" id="cl-name" placeholder="e.g. Ashwin Roychowdhary"/></div>
+          <div class="adm-f"><label class="adm-l">Email (optional)</label><input class="adm-in" id="cl-email" placeholder="client@example.com"/></div>
+          <div class="adm-f"><label class="adm-l">Notes (private, only you see this)</label><input class="adm-in" id="cl-notes" placeholder="e.g. Mobcast project, invoice due 15th"/></div>
+          <button class="adm-btn" id="cl-add-btn">Add Client</button>
+          <div id="cl-add-msg" style="display:none;margin-top:10px;font-family:var(--m);font-size:11px;"></div>
+        </div>
+
+        <div id="cl-list"></div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -2304,8 +2326,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   <div class="cl-hd"><span class="sec-tag">Trusted By</span><span class="sec-ct">80+ clients worldwide</span></div>
   <div style="overflow:hidden">
     <div class="cl-strip parallax-slow">
-      <span class="cl-n">Mobcast</span><span class="cl-n">ICICI Bank</span><span class="cl-n">AYIO Healthcare</span><span class="cl-n">LifeLine Hospital Consulting</span><span class="cl-n">Rubique</span><span class="cl-n">Image Redefine</span><span class="cl-n">Rockers Technology</span><span class="cl-n">Micron Group</span><span class="cl-n">Kairof Pvt. Ltd.</span><span class="cl-n">UFO Movies</span><span class="cl-n">Vraj Shyam Group</span><span class="cl-n">Avanti Technologies</span><span class="cl-n">YES Bank</span><span class="cl-n">Tupperware</span>
-      <span class="cl-n">Mobcast</span><span class="cl-n">ICICI Bank</span><span class="cl-n">Rockers Technology</span><span class="cl-n">Micron Group</span><span class="cl-n">Kairof Pvt. Ltd.</span><span class="cl-n">UFO Movies</span><span class="cl-n">Vraj Shyam Group</span><span class="cl-n">Avanti Technologies</span><span class="cl-n">The Yellow Butter</span><span class="cl-n">Impact Exchange</span><span class="cl-n">Health Scoop</span><span class="cl-n">Nutri Meter</span><span class="cl-n">Price Drop</span><span class="cl-n">30Tril.com</span><span class="cl-n">Impact Exchange</span>
+      <span class="cl-n">Mobcast</span><span class="cl-n">ICICI Bank</span><span class="cl-n">LifeLine Hospital</span><span class="cl-n">AYIO Health</span><span class="cl-n">Rockers Technology</span><span class="cl-n">Micron Group</span><span class="cl-n">Kairof Pvt. Ltd.</span><span class="cl-n">UFO Movies</span><span class="cl-n">Vraj Shyam Group</span><span class="cl-n">Avanti Technologies</span>
+      <span class="cl-n">Mobcast</span><span class="cl-n">ICICI Bank</span><span class="cl-n">LifeLine Hospital</span><span class="cl-n">AYIO Health</span><span class="cl-n">Rockers Technology</span><span class="cl-n">Micron Group</span><span class="cl-n">Kairof Pvt. Ltd.</span><span class="cl-n">UFO Movies</span><span class="cl-n">Vraj Shyam Group</span><span class="cl-n">Avanti Technologies</span>
     </div>
   </div>
 </div>
@@ -3574,7 +3596,7 @@ function renderGrid(filter){
     var overlay='<div class="pc-overlay">'
       +'<div class="pc-cat">'+(CMAP[p.cat]||p.src||'Project')+'</div>'
       +'<div class="pc-title">'+p.title+'</div>'
-      +'<div class="pc-yr">'+p.year+(p.client?' \u00b7 '+p.client:'')+'</div>'
+      +'<div class="pc-yr">'+p.year+(p.client?' \u00b7 <a href="work.html?client='+encodeURIComponent(p.client)+'" class="pc-client-link" onclick="event.stopPropagation()">'+p.client+'</a>':'')+'</div>'
       +tagsH+liveBadge+'</div>';
     var imgH=cover
       ?'<div class="pc-img"><img src="'+cover+'" alt="'+p.title+'" loading="'+(idx<2?'eager':'lazy')+'" onerror="this.classList.add(\'img-error\')"/>'
@@ -4429,6 +4451,163 @@ function renderList(){
       else{showMsg('Error: '+(res.data&&res.data.error?res.data.error:'request failed'),'#ff2a2a');}
     })
     .catch(function(e){showMsg('Connection failed: '+e.message,'#ff2a2a');});
+  });
+})();
+
+// -- CLIENT PORTAL (admin management) ----------
+(function(){
+  var listEl=document.getElementById('cl-list');
+  var addBtn=document.getElementById('cl-add-btn');
+  if(!listEl||!addBtn)return;
+
+  function authHeaders(){return {'Authorization':'Bearer '+getAdminKey(),'Content-Type':'application/json'};}
+  function showAddMsg(t,c){var m=document.getElementById('cl-add-msg');m.style.display='block';m.style.color=c;m.textContent=t;}
+
+  function clientLink(token){return window.location.origin+'/client.html?token='+token;}
+
+  function loadClients(){
+    listEl.innerHTML='<div class="adm-hint">Loading clients…</div>';
+    fetch('/api/clients',{headers:authHeaders()})
+      .then(function(r){return r.json().then(function(d){return{ok:r.ok,data:d};});})
+      .then(function(res){
+        if(!res.ok){listEl.innerHTML='<div class="adm-hint" style="color:var(--red)">Could not load clients: '+(res.data.error||'check your Admin Key in Settings')+'</div>';return;}
+        var clients=res.data.clients||[];
+        if(!clients.length){listEl.innerHTML='<div class="adm-hint">No clients yet - add one above.</div>';return;}
+        listEl.innerHTML=clients.map(renderClientCard).join('');
+        clients.forEach(function(c){wireClientCard(c);});
+      })
+      .catch(function(e){listEl.innerHTML='<div class="adm-hint" style="color:var(--red)">Request failed: '+e.message+'</div>';});
+  }
+
+  function renderClientCard(c){
+    return '<div class="cl-card" id="cl-card-'+c.id+'" style="border:1px solid var(--line);padding:20px 22px;margin-bottom:12px;background:var(--g1)">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">'
+      +'<div><div style="font-size:15px;font-weight:700">'+esc(c.name)+'</div>'
+      +(c.email?'<div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,.5);margin-top:3px">'+esc(c.email)+'</div>':'')
+      +(c.notes?'<div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,.35);margin-top:6px">'+esc(c.notes)+'</div>':'')
+      +'<div style="font-family:var(--m);font-size:12px;color:var(--red);margin-top:8px;letter-spacing:.1em">PIN: '+esc(c.pin)+'</div>'
+      +'</div>'
+      +'<div style="display:flex;gap:8px;flex-wrap:wrap">'
+      +'<button class="adm-btn" data-copy="'+c.id+'" style="font-size:10px;padding:9px 14px">Copy Link</button>'
+      +'<button class="adm-btn" data-copypin="'+c.id+'" style="font-size:10px;padding:9px 14px">Copy PIN</button>'
+      +'<button class="adm-btn" data-regenpin="'+c.id+'" style="font-size:10px;padding:9px 14px">New PIN</button>'
+      +'<button class="adm-btn" data-del="'+c.id+'" style="font-size:10px;padding:9px 14px;border-color:rgba(255,42,42,.4);color:var(--red)">Delete</button>'
+      +'</div></div>'
+      +'<div style="font-family:var(--m);font-size:9.5px;color:rgba(255,255,255,.3);margin-top:6px">Send the link and PIN to the client through two different channels (e.g. link by email, PIN by WhatsApp).</div>'
+      +'<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--line)">'
+      +'<div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,.35);margin-bottom:10px">Add a file: upload it to Google Drive first, set sharing to "Anyone with the link", then paste the link below.</div>'
+      +'<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px">'
+      +'<input class="adm-in" data-fname="'+c.id+'" placeholder="File name, e.g. Invoice #014.pdf" style="width:auto;flex:1;min-width:180px;font-size:12px"/>'
+      +'<select class="adm-sl" data-ftype="'+c.id+'" style="width:auto;font-size:11px;padding:8px 10px">'
+      +'<option value="invoice">Invoice</option><option value="sow">Scope of Work</option><option value="deliverable">Deliverable</option><option value="file">File</option>'
+      +'</select>'
+      +'</div>'
+      +'<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">'
+      +'<input class="adm-in" data-furl="'+c.id+'" placeholder="Google Drive share link (https://drive.google.com/...)" style="width:auto;flex:1;min-width:220px;font-size:12px"/>'
+      +'<button class="adm-btn" data-addfile="'+c.id+'" style="font-size:10px;padding:9px 14px">Add File</button>'
+      +'</div>'
+      +'<span data-upload-msg="'+c.id+'" style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,.5)"></span>'
+      +'<div data-files="'+c.id+'" style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,.5);margin-top:10px">Loading files…</div>'
+      +'</div></div>';
+  }
+
+  function loadFiles(clientId){
+    var el=document.querySelector('[data-files="'+clientId+'"]');
+    fetch('/api/client-files?client_id='+clientId,{headers:authHeaders()})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        var files=d.files||[];
+        if(!files.length){el.innerHTML='No files uploaded yet.';return;}
+        el.innerHTML=files.map(function(f){
+          var date=new Date(f.uploaded_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+          return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)">'
+            +'<a href="'+f.drive_url+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+esc(f.file_name)+' <span style="opacity:.5">· '+f.file_type+' · '+date+' · '+f.status+' ↗</span></a>'
+            +'<button data-delfile="'+f.id+'" style="background:none;border:none;color:var(--red);cursor:pointer;font-family:var(--m);font-size:10px">Delete</button>'
+            +'</div>';
+        }).join('');
+        el.querySelectorAll('[data-delfile]').forEach(function(btn){
+          btn.addEventListener('click',function(){
+            if(!confirm('Delete this file? This cannot be undone.'))return;
+            fetch('/api/client-files',{method:'DELETE',headers:authHeaders(),body:JSON.stringify({id:btn.dataset.delfile})})
+              .then(function(){loadFiles(clientId);});
+          });
+        });
+      })
+      .catch(function(){el.innerHTML='Could not load files.';});
+  }
+
+  function wireClientCard(c){
+    var copyBtn=document.querySelector('[data-copy="'+c.id+'"]');
+    if(copyBtn)copyBtn.addEventListener('click',function(){
+      navigator.clipboard.writeText(clientLink(c.access_token));
+      copyBtn.textContent='Copied!';setTimeout(function(){copyBtn.textContent='Copy Link';},1500);
+    });
+    var copyPinBtn=document.querySelector('[data-copypin="'+c.id+'"]');
+    if(copyPinBtn)copyPinBtn.addEventListener('click',function(){
+      navigator.clipboard.writeText(c.pin);
+      copyPinBtn.textContent='Copied!';setTimeout(function(){copyPinBtn.textContent='Copy PIN';},1500);
+    });
+    var regenBtn=document.querySelector('[data-regenpin="'+c.id+'"]');
+    if(regenBtn)regenBtn.addEventListener('click',function(){
+      if(!confirm('Generate a new PIN for "'+c.name+'"? Their old PIN will stop working immediately - you\'ll need to send them the new one.'))return;
+      fetch('/api/clients',{method:'PATCH',headers:authHeaders(),body:JSON.stringify({id:c.id})})
+        .then(function(r){return r.json();})
+        .then(function(d){if(d.client)loadClients();});
+    });
+    var delBtn=document.querySelector('[data-del="'+c.id+'"]');
+    if(delBtn)delBtn.addEventListener('click',function(){
+      if(!confirm('Delete client "'+c.name+'"? This also removes their file access.'))return;
+      fetch('/api/clients',{method:'DELETE',headers:authHeaders(),body:JSON.stringify({id:c.id})})
+        .then(function(){loadClients();});
+    });
+    var addFileBtn=document.querySelector('[data-addfile="'+c.id+'"]');
+    if(addFileBtn)addFileBtn.addEventListener('click',function(){
+      var nameEl=document.querySelector('[data-fname="'+c.id+'"]');
+      var urlEl=document.querySelector('[data-furl="'+c.id+'"]');
+      var typeSel=document.querySelector('[data-ftype="'+c.id+'"]');
+      var msgEl=document.querySelector('[data-upload-msg="'+c.id+'"]');
+      var fname=nameEl.value.trim();
+      var furl=urlEl.value.trim();
+      if(!fname||!furl){msgEl.style.color='var(--red)';msgEl.textContent='File name and Drive link are both required.';return;}
+      if(!/^https:\/\/(drive|docs)\.google\.com\//.test(furl)){msgEl.style.color='var(--red)';msgEl.textContent='That doesn\'t look like a Google Drive/Docs link.';return;}
+      msgEl.style.color='rgba(255,255,255,.5)';msgEl.textContent='Adding…';
+      fetch('/api/client-files',{method:'POST',headers:authHeaders(),body:JSON.stringify({client_id:c.id,file_name:fname,file_type:typeSel.value,drive_url:furl})})
+        .then(function(r){return r.json().then(function(d){return{ok:r.ok,data:d};});})
+        .then(function(res){
+          if(!res.ok){msgEl.style.color='var(--red)';msgEl.textContent='Failed: '+(res.data.error||'');return;}
+          msgEl.style.color='#22c55e';msgEl.textContent='Added.';
+          nameEl.value='';urlEl.value='';
+          loadFiles(c.id);
+        })
+        .catch(function(e){msgEl.style.color='var(--red)';msgEl.textContent='Failed: '+e.message;});
+    });
+    loadFiles(c.id);
+  }
+
+  addBtn.addEventListener('click',function(){
+    var name=document.getElementById('cl-name').value.trim();
+    var email=document.getElementById('cl-email').value.trim();
+    var notes=document.getElementById('cl-notes').value.trim();
+    if(!name){showAddMsg('Client name is required.','var(--red)');return;}
+    showAddMsg('Adding…','rgba(255,255,255,.5)');
+    fetch('/api/clients',{method:'POST',headers:authHeaders(),body:JSON.stringify({name:name,email:email,notes:notes})})
+      .then(function(r){return r.json().then(function(d){return{ok:r.ok,data:d};});})
+      .then(function(res){
+        if(!res.ok){showAddMsg('Failed: '+(res.data.error||'check your Admin Key'),'var(--red)');return;}
+        showAddMsg('Client added. PIN: '+res.data.client.pin+' — copy it now and send via a separate channel from the link.','#22c55e');
+        document.getElementById('cl-name').value='';
+        document.getElementById('cl-email').value='';
+        document.getElementById('cl-notes').value='';
+        loadClients();
+      })
+      .catch(function(e){showAddMsg('Failed: '+e.message,'var(--red)');});
+  });
+
+  function esc(s){var d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+
+  // Load the client list whenever this panel is opened
+  document.querySelectorAll('.adm-ni').forEach(function(it){
+    if(it.dataset.p==='clients')it.addEventListener('click',loadClients);
   });
 })();
 

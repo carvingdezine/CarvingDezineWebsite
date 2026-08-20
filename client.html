@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Client Portal — Carving Dezine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+  :root{--black:#000;--white:#fff;--red:#ff2a2a;--g1:#0d0d0d;--g2:#161616;--muted:rgba(255,255,255,.6);--muted2:rgba(255,255,255,.4);--line:rgba(255,255,255,.12);--f:'Outfit',sans-serif;--m:'DM Mono',monospace;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--black);color:var(--white);font-family:var(--f);min-height:100vh;display:flex;flex-direction:column}
+  .top{padding:28px clamp(20px,4vw,52px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .logo{font-weight:800;letter-spacing:-.02em;font-size:18px;text-transform:uppercase}
+  .logo em{color:var(--red);font-style:normal}
+  .tag{font-family:var(--m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
+  .wrap{max-width:720px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,4vw,32px);flex:1;width:100%}
+  .eyebrow{font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+  .h{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:40px}
+  .file-row{display:flex;align-items:center;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+  .file-row:first-of-type{border-top:1px solid var(--line)}
+  .file-icon{width:40px;height:40px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--m);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  .file-main{flex:1;min-width:0}
+  .file-name{font-size:15px;font-weight:600;margin-bottom:4px;word-break:break-word}
+  .file-meta{font-family:var(--m);font-size:10.5px;letter-spacing:.04em;color:var(--muted2)}
+  .dl-btn{font-family:var(--m);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);border:1px solid var(--line);padding:10px 16px;white-space:nowrap;transition:background .25s,border-color .25s;text-decoration:none;flex-shrink:0}
+  .dl-btn:hover{background:var(--red);border-color:var(--red)}
+  .empty,.err{font-family:var(--m);font-size:12px;color:var(--muted2);padding:40px 0}
+  .err{color:var(--red)}
+  .foot{padding:24px clamp(20px,4vw,52px);border-top:1px solid var(--line);font-family:var(--m);font-size:10px;letter-spacing:.06em;color:var(--muted2);text-align:center}
+
+  .pin-box{max-width:340px}
+  .pin-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--line);padding:14px 2px;color:var(--white);font-family:var(--m);font-size:22px;letter-spacing:.5em;text-align:center;margin-bottom:8px}
+  .pin-input:focus{outline:none;border-color:var(--red)}
+  .pin-input::placeholder{letter-spacing:normal;font-size:13px}
+  .pin-btn{margin-top:18px;width:100%;background:var(--white);color:var(--black);font-family:var(--f);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:14px 20px;border:none;cursor:pointer;transition:background .25s}
+  .pin-btn:hover{background:var(--red);color:var(--white)}
+  .pin-err{font-family:var(--m);font-size:11px;color:var(--red);margin-top:12px;display:none}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="logo">CARVING <em>DEZINE</em></div>
+  <div class="tag">Client Portal</div>
+</div>
+
+<div class="wrap">
+  <div id="gate">
+    <div class="eyebrow">Private &amp; confidential</div>
+    <h1 class="h">Enter your PIN</h1>
+    <p class="sub">This link is unique to you. You were sent a separate 6-digit PIN to unlock it.</p>
+    <div class="pin-box">
+      <input class="pin-input" id="pin-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="_ _ _ _ _ _" autofocus/>
+      <button class="pin-btn" id="pin-btn">Unlock</button>
+      <div class="pin-err" id="pin-err"></div>
+    </div>
+  </div>
+
+  <div id="portal" style="display:none">
+    <div class="eyebrow">Private &amp; confidential</div>
+    <h1 class="h" id="client-name">Loading…</h1>
+    <p class="sub">Files shared with you directly. Please don't forward this link or PIN.</p>
+    <div id="file-list"></div>
+  </div>
+</div>
+
+<div class="foot">If this link isn't working, contact Carving Dezine directly to have it resent.</div>
+
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('token');
+  var gateEl = document.getElementById('gate');
+  var portalEl = document.getElementById('portal');
+  var nameEl = document.getElementById('client-name');
+  var listEl = document.getElementById('file-list');
+  var pinInput = document.getElementById('pin-input');
+  var pinBtn = document.getElementById('pin-btn');
+  var pinErr = document.getElementById('pin-err');
+
+  if(!token){
+    gateEl.innerHTML = '<div class="err">This link is incomplete. Please use the exact link that was shared with you.</div>';
+    return;
+  }
+
+  var sessionKey = 'cd_client_pin_' + token;
+
+  function tryLoad(pin){
+    return fetch('/api/client-portal?token=' + encodeURIComponent(token) + '&pin=' + encodeURIComponent(pin))
+      .then(function(r){ return r.json().then(function(data){ return {ok:r.ok, data:data}; }); });
+  }
+
+  function showPortal(data){
+    gateEl.style.display = 'none';
+    portalEl.style.display = 'block';
+    nameEl.textContent = 'Hi ' + data.client.name;
+    if(!data.files.length){
+      listEl.innerHTML = '<div class="empty">No files yet — check back soon.</div>';
+      return;
+    }
+    listEl.innerHTML = data.files.map(function(f){
+      var typeLabel = ({invoice:'Invoice', sow:'Scope', deliverable:'File', file:'File'})[f.file_type] || 'File';
+      var date = new Date(f.uploaded_at).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'});
+      return '<div class="file-row">'
+        + '<div class="file-icon">' + typeLabel + '</div>'
+        + '<div class="file-main"><div class="file-name">' + escapeHtml(f.file_name) + '</div>'
+        + '<div class="file-meta">' + date + '</div></div>'
+        + '<a class="dl-btn" href="' + f.drive_url + '" target="_blank" rel="noopener">Open</a>'
+        + '</div>';
+    }).join('');
+  }
+
+  function attempt(pin){
+    pinErr.style.display = 'none';
+    tryLoad(pin).then(function(res){
+      if(res.ok){
+        sessionStorage.setItem(sessionKey, pin); // session-only, cleared when the tab closes
+        showPortal(res.data);
+      }else{
+        sessionStorage.removeItem(sessionKey);
+        pinErr.textContent = res.data.error || 'Incorrect PIN — please check and try again.';
+        pinErr.style.display = 'block';
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    }).catch(function(){
+      pinErr.textContent = 'Something went wrong. Please try again.';
+      pinErr.style.display = 'block';
+    });
+  }
+
+  // If this tab already unlocked it this session, skip straight to the portal
+  var cachedPin = sessionStorage.getItem(sessionKey);
+  if(cachedPin){
+    tryLoad(cachedPin).then(function(res){
+      if(res.ok){ showPortal(res.data); }
+      else{ sessionStorage.removeItem(sessionKey); }
+    });
+  }
+
+  pinBtn.addEventListener('click', function(){
+    var pin = pinInput.value.trim();
+    if(pin.length !== 6){
+      pinErr.textContent = 'Enter the 6-digit PIN you were sent.';
+      pinErr.style.display = 'block';
+      return;
+    }
+    attempt(pin);
+  });
+  pinInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') pinBtn.click();
+  });
+
+  function escapeHtml(s){
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+})();
+</script>
+
+</body>
+</html>
