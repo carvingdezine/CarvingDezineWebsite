@@ -57,8 +57,8 @@ body::before{
 }
 
 /* ── NAV ── */
-#nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:1000;display:flex;align-items:center;background:var(--p-nav);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.45);border-radius:100px;padding:8px 8px 8px 22px;box-shadow:0 4px 32px var(--p-sh),inset 0 1px 0 rgba(255,255,255,.5);transition:all .4s var(--ease);white-space:nowrap;gap:2px;}
-#nav.gone{transform:translateX(-50%) translateY(-120%);opacity:0;}
+#nav{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateZ(0);z-index:1000;display:flex;align-items:center;background:var(--p-nav);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.45);border-radius:100px;padding:8px 8px 8px 22px;box-shadow:0 4px 32px var(--p-sh),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .4s var(--ease),background .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease),opacity .4s var(--ease);white-space:nowrap;gap:2px;will-change:transform;backface-visibility:hidden;}
+#nav.gone{transform:translateX(-50%) translateY(-120%) translateZ(0);opacity:0;}
 .nlogo{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;margin-right:12px;}
 .logo-real svg .cls-1,.logo-real svg .cls-13{fill:var(--ink) !important;}
 .mobcast-logo-svg{width:auto;height:28px;}
@@ -719,9 +719,7 @@ body.font-c{ --fd:'Fraunces',serif; --fb:'Outfit',sans-serif; }
 .ac-title { font-family:var(--fd); font-size:clamp(32px,4vw,52px); font-weight:700; letter-spacing:-1.5px; color:var(--ink); line-height:1; margin-bottom:12px; }
 .ac-sub { font-size:16px; color:var(--i60); font-weight:400; max-width:520px; margin:0 auto; line-height:1.65; }
 .ac-video-wrap {
-  max-width:820px; margin:0 auto 8px; border-radius:20px; overflow:hidden;
-  border:1px solid var(--bd); box-shadow:0 20px 50px rgba(20,20,40,.08);
-  background:#000;
+  max-width:820px; margin:0 auto 8px;
 }
 .ac-video { display:block; width:100%; height:auto; max-width:100%; }
 .ac-diagram { position:relative; display:flex; align-items:center; justify-content:center; min-height:380px; }
@@ -747,7 +745,8 @@ body.font-c{ --fd:'Fraunces',serif; --fb:'Outfit',sans-serif; }
   display:flex; align-items:center; gap:10px; white-space:nowrap; transition:all .3s;
 }
 .ac-module:hover { transform:scale(1.04); box-shadow:0 12px 40px rgba(249,115,22,.14); }
-.ac-module-ic { font-size:18px; flex-shrink:0; }
+.ac-module-ic { flex-shrink:0; display:inline-flex; }
+.ac-module-ic svg { width:18px; height:18px; display:block; }
 .ac-module-name { font-size:12px; font-weight:700; color:var(--ink); }
 .ac-module-sub { font-size:10px; color:var(--i40); margin-top:1px; }
 .ac-m0 { top:10px; left:20px; }
@@ -964,22 +963,23 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; h
 
 /* ── FEATURE TABS ── */
 .feat-tabs { border:1px solid var(--bd, rgba(26,16,37,.1)); border-radius:20px; overflow:hidden; background:#fff; box-shadow:0 8px 28px rgba(26,16,37,.06); }
-.ft-tabbar { display:flex; width:100%; gap:6px; padding:10px; background:var(--i04, rgba(26,16,37,.035)); border-bottom:1px solid var(--bd, rgba(26,16,37,.08)); }
+.ft-tabbar { display:flex; width:100%; gap:6px; padding:10px; background:var(--i04, rgba(26,16,37,.035)); border-bottom:1px solid var(--bd, rgba(26,16,37,.08)); position:relative; }
+.ft-slider { position:absolute; top:10px; left:10px; height:calc(100% - 20px); width:0; background:var(--gv); border-radius:12px; box-shadow:0 6px 16px rgba(249,115,22,.32); z-index:0; will-change:transform,width; }
 .ft-tab {
   flex:1 1 0; min-width:0; display:flex; align-items:center; justify-content:center; gap:8px;
   background:transparent; border:none; cursor:pointer; padding:15px 12px; border-radius:12px;
   font-family:var(--fb); font-size:13px; font-weight:700; color:var(--i50, rgba(26,16,37,.5));
-  transition:all .25s var(--ease); white-space:nowrap;
+  transition:color .3s var(--ease); white-space:nowrap; position:relative; z-index:1;
 }
-.ft-tab-ic { font-size:16px; flex-shrink:0; opacity:.7; }
-.ft-tab:hover { color:var(--ink); background:rgba(255,255,255,.6); }
-.ft-tab.active { color:#fff; background:var(--gv); box-shadow:0 6px 16px rgba(249,115,22,.3); }
+.ft-tab-ic { flex-shrink:0; opacity:.7; transition:opacity .3s var(--ease); display:inline-flex; }
+.ft-tab-ic svg { width:16px; height:16px; display:block; }
+.ft-tab:hover { color:var(--ink); }
+.ft-tab.active { color:#fff; }
 .ft-tab.active .ft-tab-ic { opacity:1; }
-.ft-panels { position:relative; min-height:300px; }
-.ft-panel { display:none; grid-template-columns:1.3fr 1fr; align-items:stretch; animation:ftFade .4s var(--ease); }
+.ft-panels { position:relative; overflow:hidden; }
+.ft-panel { display:none; grid-template-columns:1.3fr 1fr; align-items:stretch; }
 .ft-panel.active { display:grid; }
-@keyframes ftFade { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:none;} }
-@media(max-width:820px){ .ft-tabbar{flex-wrap:wrap;} .ft-tab{flex:1 1 calc(50% - 6px);} }
+@media(max-width:820px){ .ft-tabbar{flex-wrap:wrap;} .ft-tab{flex:1 1 calc(50% - 6px);} .ft-slider{display:none;} .ft-tab.active{background:var(--gv);box-shadow:0 6px 16px rgba(249,115,22,.32);} }
 @media(max-width:480px){ .ft-tab span:last-child{display:none;} .ft-tab{padding:14px 8px;} }
 @media(max-width:640px){ .ft-tab{font-size:11px;padding:16px 6px;} .ft-tab span:last-child{display:none;} }
 .ft-panel-left { padding:44px 44px; }
@@ -991,7 +991,8 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; h
 .ft-panel-points li { font-size:13px; color:var(--i50); padding-left:22px; position:relative; }
 .ft-panel-points li::before { content:'\2713'; position:absolute; left:0; color:#F97316; font-weight:700; }
 .ft-panel-right { display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-.ft-panel-ic { font-size:64px; opacity:.85; filter:drop-shadow(0 8px 30px rgba(249,115,22,.35)); }
+.ft-panel-ic { opacity:.9; filter:drop-shadow(0 8px 30px rgba(249,115,22,.35)); display:inline-flex; }
+.ft-panel-ic svg { width:64px; height:64px; display:block; stroke-width:1.5; }
 .ft-panel-video-wrap { background:#000; }
 .ft-panel-video { display:block; width:100%; height:100%; max-width:100%; object-fit:cover; }
 @media(max-width:820px){ .ft-panel{grid-template-columns:1fr;} .ft-panel-right{min-height:220px;} .ft-panel-video{max-height:260px;} .ft-panel-left{padding:32px 24px;} .ft-tab{min-width:0;font-size:12px;padding:16px 10px;} }
@@ -2023,7 +2024,20 @@ body.layout-boxed #problem::before, body.layout-boxed #impact::before, body.layo
   
 </div>
 <span class="btn-spin btn-spin-pill"><button class="ncta" data-scroll-target="final">Book a demo →</button></span>
+<button id="mobile-nav-toggle" aria-label="Open menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
 </nav>
+<div id="mobile-nav-backdrop"></div>
+<div id="mobile-nav-panel">
+  <a href="#products">Products</a>
+  <a href="#ai-core">Solutions</a>
+  <a href="#testimonials">Customers</a>
+  <a href="#">Pricing</a>
+  <a href="#">Resources</a>
+  <a href="#">Company</a>
+  <button class="ncta" data-scroll-target="final" style="margin:20px 0 0;width:100%;justify-content:center;display:flex;">Book a demo →</button>
+</div>
 <section id="hero">
   <!-- sticky viewport that pins during scroll -->
   <div id="hero-sticky">
@@ -2046,11 +2060,6 @@ body.layout-boxed #problem::before, body.layout-boxed #impact::before, body.layo
 
       <!-- RIGHT — stacked expandable cards -->
       <div class="hs-right" id="hs-cards"><span id="products" style="position:relative;top:-100px;display:block"></span>
-        <div class="hero-video-wrap">
-          <video class="hero-video" autoplay muted loop playsinline preload="auto">
-            <source src="hero.mp4" type="video/mp4">
-          </video>
-        </div>
         <div class="prd-label">
           <span>Mobcast Products</span>
           <div class="prd-label-line"></div>
@@ -2363,7 +2372,8 @@ viewBox="0 0 4960.64 1853.89"
   display:flex; align-items:center; gap:10px; white-space:nowrap; transition:all .3s;
 }
 .ac-module:hover { transform:scale(1.04); box-shadow:0 12px 40px rgba(249,115,22,.14); }
-.ac-module-ic { font-size:18px; flex-shrink:0; }
+.ac-module-ic { flex-shrink:0; display:inline-flex; }
+.ac-module-ic svg { width:18px; height:18px; display:block; }
 .ac-module-name { font-size:12px; font-weight:700; color:var(--ink); }
 .ac-module-sub { font-size:10px; color:var(--i40); margin-top:1px; }
 .ac-m0 { top:10px; left:20px; }
@@ -3117,7 +3127,8 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
   display:flex; align-items:center; gap:10px; white-space:nowrap; transition:all .3s;
 }
 .ac-module:hover { transform:scale(1.04); box-shadow:0 12px 40px rgba(249,115,22,.14); }
-.ac-module-ic { font-size:18px; flex-shrink:0; }
+.ac-module-ic { flex-shrink:0; display:inline-flex; }
+.ac-module-ic svg { width:18px; height:18px; display:block; }
 .ac-module-name { font-size:12px; font-weight:700; color:var(--ink); }
 .ac-module-sub { font-size:10px; color:var(--i40); margin-top:1px; }
 .ac-m0 { top:10px; left:20px; }
@@ -3678,7 +3689,8 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
   display:flex; align-items:center; gap:10px; white-space:nowrap; transition:all .3s;
 }
 .ac-module:hover { transform:scale(1.04); box-shadow:0 12px 40px rgba(249,115,22,.14); }
-.ac-module-ic { font-size:18px; flex-shrink:0; }
+.ac-module-ic { flex-shrink:0; display:inline-flex; }
+.ac-module-ic svg { width:18px; height:18px; display:block; }
 .ac-module-name { font-size:12px; font-weight:700; color:var(--ink); }
 .ac-module-sub { font-size:10px; color:var(--i40); margin-top:1px; }
 .ac-m0 { top:10px; left:20px; }
@@ -4705,17 +4717,18 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
 
     <div class="feat-tabs sr">
       <div class="ft-tabbar" role="tablist">
+        <div class="ft-slider" aria-hidden="true"></div>
         <button class="ft-tab active" data-tab="0" role="tab" aria-selected="true">
-          <span class="ft-tab-ic">📈</span><span>Sales Copilot</span>
+          <span class="ft-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></span><span>Sales Copilot</span>
         </button>
         <button class="ft-tab" data-tab="1" role="tab" aria-selected="false">
-          <span class="ft-tab-ic">📱</span><span>Frontline LMS</span>
+          <span class="ft-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span><span>Frontline LMS</span>
         </button>
         <button class="ft-tab" data-tab="2" role="tab" aria-selected="false">
-          <span class="ft-tab-ic">⚡</span><span>Content Studio</span>
+          <span class="ft-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span><span>Content Studio</span>
         </button>
         <button class="ft-tab" data-tab="3" role="tab" aria-selected="false">
-          <span class="ft-tab-ic">💬</span><span>Flow ComplAI</span>
+          <span class="ft-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span><span>Flow ComplAI</span>
         </button>
       </div>
 
@@ -4730,11 +4743,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
               <li>Call scoring and feedback</li>
             </ul>
           </div>
-          <div class="ft-panel-right ft-panel-video-wrap">
-            <video class="ft-panel-video" autoplay muted loop playsinline preload="auto">
-              <source src="sales-copilot.mp4" type="video/mp4">
-            </video>
-          </div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(0,71,179,.10), rgba(0,71,179,.02) 70%)"><span class="ft-panel-ic" style="color:#0047b3;filter:drop-shadow(0 8px 30px rgba(0,71,179,.28))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></span></div>
         </div>
 
         <div class="ft-panel" data-panel="1">
@@ -4747,11 +4756,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
               <li>Works on any phone</li>
             </ul>
           </div>
-          <div class="ft-panel-right ft-panel-video-wrap">
-            <video class="ft-panel-video" autoplay muted loop playsinline preload="auto">
-              <source src="frontline-lms.mp4" type="video/mp4">
-            </video>
-          </div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(5,122,48,.10), rgba(5,122,48,.02) 70%)"><span class="ft-panel-ic" style="color:#057a30;filter:drop-shadow(0 8px 30px rgba(5,122,48,.28))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span></div>
         </div>
 
         <div class="ft-panel" data-panel="2">
@@ -4764,11 +4769,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
               <li>Hindi, English, +20 languages</li>
             </ul>
           </div>
-          <div class="ft-panel-right ft-panel-video-wrap">
-            <video class="ft-panel-video" autoplay muted loop playsinline preload="auto">
-              <source src="content-studio.mp4" type="video/mp4">
-            </video>
-          </div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(179,0,16,.10), rgba(179,0,16,.02) 70%)"><span class="ft-panel-ic" style="color:#b30010;filter:drop-shadow(0 8px 30px rgba(179,0,16,.28))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span></div>
         </div>
 
         <div class="ft-panel" data-panel="3">
@@ -4781,11 +4782,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
               <li>Auto-generated audit reports</li>
             </ul>
           </div>
-          <div class="ft-panel-right ft-panel-video-wrap">
-            <video class="ft-panel-video" autoplay muted loop playsinline preload="auto">
-              <source src="flow-complai.mp4" type="video/mp4">
-            </video>
-          </div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(90,15,179,.10), rgba(90,15,179,.02) 70%)"><span class="ft-panel-ic" style="color:#5a0fb3;filter:drop-shadow(0 8px 30px rgba(90,15,179,.28))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span></div>
         </div>
       </div>
     </div>
@@ -4806,9 +4803,21 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
         <div class="ac-pill" data-pill="2"><span class="ac-pill-dot"></span>Content</div>
         <div class="ac-pill" data-pill="3"><span class="ac-pill-dot"></span>Compliance</div>
       </div>
-      <video class="ac-video" autoplay muted loop playsinline preload="auto">
-        <source src="connected-intelligence.mp4" type="video/mp4">
-      </video>
+      <div class="ac-diagram">
+        <div class="ac-modules">
+          <div class="ac-module ac-m0" id="acm0"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></span><div><div class="ac-module-name">Sales Copilot</div><div class="ac-module-sub">Live coaching</div></div></div>
+          <div class="ac-module ac-m1" id="acm1"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span><div><div class="ac-module-name">Frontline LMS</div><div class="ac-module-sub">Micro-learning</div></div></div>
+          <div class="ac-module ac-m2" id="acm2"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span><div><div class="ac-module-name">Content Studio</div><div class="ac-module-sub">Course generation</div></div></div>
+          <div class="ac-module ac-m3" id="acm3"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span><div><div class="ac-module-name">Flow ComplAI</div><div class="ac-module-sub">WhatsApp compliance</div></div></div>
+          <div class="ac-module ac-m4" id="acm4"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span><div><div class="ac-module-name">CRM Sync</div><div class="ac-module-sub">Two-way data flow</div></div></div>
+          <div class="ac-module ac-m5" id="acm5"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></span><div><div class="ac-module-name">Manager Alerts</div><div class="ac-module-sub">Real-time escalation</div></div></div>
+          <svg class="ac-svg"></svg>
+          <div class="ac-core" id="ac-core-node">
+            <div class="ac-core-label">AI Core</div>
+            <div class="ac-core-sub">Real-time signals</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="ac-metrics sr d1">
       <div class="ac-metric"><div class="ac-metric-n gw" data-count-up="847">847</div><div class="ac-metric-l">Reps active now</div></div>
@@ -4887,11 +4896,6 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
         <div style="margin-bottom:28px">
           <div class="snap-co-badge">Niva Bupa Insurance</div>
           <div class="snap-co-meta">600 branches · 12,000 frontline staff · BFSI</div>
-        </div>
-        <div class="snap-video-wrap">
-          <video class="snap-video" autoplay muted loop playsinline preload="auto">
-            <source src="niva-bupa.mp4" type="video/mp4">
-          </video>
         </div>
         <div class="snap-block">
           <span class="snap-block-label snap-label-challenge">Challenge</span>
@@ -5651,19 +5655,9 @@ setCards(2);  // Card Color 3
     pgObs.observe(document.getElementById('perfgap'));
   }
 
-  /* ── FEATURE TABS ── */
-  const ftTabs = document.querySelectorAll('.ft-tab');
-  const ftPanels = document.querySelectorAll('.ft-panel');
-  ftTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const idx = tab.getAttribute('data-tab');
-      ftTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      ftPanels.forEach(p => p.classList.remove('active'));
-      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
-      const panel = document.querySelector('.ft-panel[data-panel="' + idx + '"]');
-      if (panel) panel.classList.add('active');
-    });
-  });
+  /* Feature tabs click handling now lives in the immersive sliding-indicator
+     tab system (see the cinematic scroll interactions script below), which
+     also handles the panel content and height animation. */
 
 })();
 
@@ -6020,34 +6014,195 @@ function recalc(v) {
       });
     }
 
-    /* ── TABBED PRODUCT SECTION: auto-rotate tabs while section is in view (no pin) ──
-       Content is never hidden: panel 0 is visible by default in plain HTML/CSS,
-       clicking a tab always works, and this just adds gentle automatic cycling. */
+    /* ── TABBED PRODUCT SECTION: immersive sliding-indicator tabs ──
+       A colored pill glides (with a small bounce) beneath whichever tab
+       is active, the content panel smoothly morphs height between tabs
+       instead of snapping, and each tab's content staggers in rather
+       than appearing instantly. Falls back to an instant, fully
+       functional swap if GSAP isn't available for any reason. */
     (function(){
+      const ftTabbar = document.querySelector('.ft-tabbar');
+      const ftSlider = document.querySelector('.ft-slider');
       const ftTabs = Array.prototype.slice.call(document.querySelectorAll('.ft-tab'));
+      const ftPanelsWrap = document.querySelector('.ft-panels');
       const ftPanels = Array.prototype.slice.call(document.querySelectorAll('.ft-panel'));
       if (ftTabs.length !== 4 || ftPanels.length !== 4) return;
-      function activateFeatureTab(idx){
-        ftTabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-        ftPanels.forEach(function(p){ p.classList.remove('active'); });
-        if (ftTabs[idx]) { ftTabs[idx].classList.add('active'); ftTabs[idx].setAttribute('aria-selected','true'); }
-        if (ftPanels[idx]) ftPanels[idx].classList.add('active');
+
+      function moveSlider(tab, animate){
+        if (!ftSlider || !ftTabbar) return;
+        const barRect = ftTabbar.getBoundingClientRect();
+        const tabRect = tab.getBoundingClientRect();
+        const x = tabRect.left - barRect.left - 10;
+        const w = tabRect.width;
+        if (!animate || !window.gsap) {
+          if (window.gsap) {
+            gsap.set(ftSlider, { x: x, width: w });
+          } else {
+            ftSlider.style.transform = 'translateX(' + x + 'px)';
+            ftSlider.style.width = w + 'px';
+          }
+          return;
+        }
+        gsap.timeline()
+          .to(ftSlider, { y: 5, scaleY: .88, duration: .16, ease: 'power1.in' }, 0)
+          .to(ftSlider, { x: x, width: w, duration: .38, ease: 'back.out(1.6)' }, .08)
+          .to(ftSlider, { y: 0, scaleY: 1, duration: .3, ease: 'back.out(2)' }, .22);
       }
+
+      function revealPanelContent(panel){
+        if (!window.gsap) return;
+        const stat = panel.querySelector('.ft-panel-stat');
+        const desc = panel.querySelector('.ft-panel-desc');
+        const items = Array.prototype.slice.call(panel.querySelectorAll('.ft-panel-points li'));
+        const video = panel.querySelector('.ft-panel-right');
+        const allTargets = [stat, desc, video].concat(items).filter(Boolean);
+        if (allTargets.length) gsap.set(allTargets, { clearProps: 'all' });
+        const tl = gsap.timeline();
+        if (stat) tl.from(stat, { opacity: 0, y: 14, duration: .4, ease: 'power2.out' }, 0);
+        if (desc) tl.from(desc, { opacity: 0, y: 10, duration: .4, ease: 'power2.out' }, .06);
+        if (items.length) tl.from(items, { opacity: 0, x: -10, duration: .35, stagger: .06, ease: 'power2.out' }, .12);
+        if (video) tl.from(video, { opacity: 0, scale: .97, duration: .5, ease: 'power2.out' }, 0);
+      }
+
+      let switching = false;
+      function activateFeatureTab(idx, opts){
+        opts = opts || {};
+        const targetTab = ftTabs[idx], targetPanel = ftPanels[idx];
+        const currentPanel = ftPanelsWrap ? ftPanelsWrap.querySelector('.ft-panel.active') : null;
+        if (!targetTab || !targetPanel || switching || targetPanel === currentPanel) {
+          // Still keep tab/aria state correct even if we bail on animation.
+          ftTabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+          targetTab && targetTab.classList.add('active');
+          targetTab && targetTab.setAttribute('aria-selected','true');
+          return;
+        }
+        ftTabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        targetTab.classList.add('active');
+        targetTab.setAttribute('aria-selected','true');
+        moveSlider(targetTab, !opts.skipAnim);
+
+        if (!window.gsap || !ftPanelsWrap || opts.skipAnim) {
+          ftPanels.forEach(function(p){ p.classList.remove('active'); });
+          targetPanel.classList.add('active');
+          revealPanelContent(targetPanel);
+          return;
+        }
+
+        try {
+          switching = true;
+          // Measure target panel's natural height without disturbing layout.
+          targetPanel.style.display = 'grid';
+          targetPanel.style.visibility = 'hidden';
+          targetPanel.style.position = 'absolute';
+          const targetHeight = targetPanel.offsetHeight;
+          targetPanel.style.visibility = '';
+
+          const startHeight = currentPanel ? currentPanel.offsetHeight : targetHeight;
+          gsap.set(ftPanelsWrap, { height: startHeight });
+
+          // Bring the incoming panel into the flow immediately (stacked on
+          // top of the outgoing one) so there is never a frame with zero
+          // visible panels — even if this timeline's callback gets delayed
+          // by main-thread jank (heavy scroll, background-tab throttling,
+          // etc). The crossfade below is a visual layer on top of a state
+          // that is already correct.
+          targetPanel.classList.add('active');
+          targetPanel.style.position = 'absolute';
+          targetPanel.style.top = '0';
+          targetPanel.style.left = '0';
+          targetPanel.style.width = '100%';
+          targetPanel.style.zIndex = '2';
+          gsap.set(targetPanel, { opacity: 0, y: 8 });
+          revealPanelContent(targetPanel);
+
+          gsap.timeline({
+            onComplete: function(){
+              if (currentPanel) {
+                currentPanel.classList.remove('active');
+                // Fully clear every inline style this transition touched
+                // (display/opacity/transform) so the stylesheet's
+                // .ft-panel{display:none} rule governs it again. Leaving
+                // display:grid stuck inline (from the measurement step
+                // above) was letting inactive panels keep occupying layout
+                // height forever, stacking up as a growing blank gap under
+                // whichever panel was actually active.
+                gsap.set(currentPanel, { clearProps: 'display,opacity,transform,translate,rotate,scale' });
+              }
+              gsap.set(targetPanel, { clearProps: 'opacity,transform,translate,rotate,scale' });
+              targetPanel.style.position = '';
+              targetPanel.style.top = '';
+              targetPanel.style.left = '';
+              targetPanel.style.width = '';
+              targetPanel.style.zIndex = '';
+              ftPanelsWrap.style.height = '';
+              switching = false;
+            }
+          })
+          .to(currentPanel, { opacity: 0, y: -8, duration: .22, ease: 'power2.in' }, 0)
+          .to(targetPanel, { opacity: 1, y: 0, duration: .3, ease: 'power2.out' }, .08)
+          .to(ftPanelsWrap, { height: targetHeight, duration: .4, ease: 'power2.inOut' }, 0);
+        } catch (err) {
+          // Guaranteed recovery: never let one failed transition permanently
+          // freeze the tab system for every click after it.
+          console.error('Tab transition error, recovering:', err);
+          switching = false;
+          ftPanelsWrap.style.height = '';
+          ftPanels.forEach(function(p){
+            p.classList.remove('active');
+            p.style.position=''; p.style.top=''; p.style.left=''; p.style.width=''; p.style.zIndex='';
+            if (window.gsap) gsap.set(p, { clearProps: 'display,opacity,transform,translate,rotate,scale' });
+            else { p.style.display=''; p.style.opacity=''; }
+          });
+          targetPanel.classList.add('active');
+          targetPanel.style.display = '';
+          targetPanel.style.opacity = '';
+          targetPanel.style.visibility = '';
+          targetPanel.style.position = '';
+        }
+      }
+
+      // Position the slider correctly on load and on resize.
+      window.addEventListener('load', function(){ moveSlider(ftTabs[0], false); });
+      moveSlider(ftTabs[0], false);
+      let resizeT;
+      window.addEventListener('resize', function(){
+        clearTimeout(resizeT);
+        resizeT = setTimeout(function(){
+          const active = document.querySelector('.ft-tab.active');
+          if (active) moveSlider(active, false);
+        }, 120);
+      });
+
       let autoTimer = null, userInteracted = false, currentIdx = 0;
       function stopAuto(){ userInteracted = true; if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
-      ftTabs.forEach(function(tab){ tab.addEventListener('click', stopAuto); });
+      function pauseAuto(){ if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+      function startAuto(){
+        if (userInteracted || autoTimer || document.hidden) return;
+        autoTimer = setInterval(function(){
+          currentIdx = (currentIdx + 1) % 4;
+          activateFeatureTab(currentIdx);
+        }, 4200);
+      }
+      ftTabs.forEach(function(tab, i){
+        tab.addEventListener('click', function(){ stopAuto(); currentIdx = i; activateFeatureTab(i); });
+      });
       if (isDesktop || isTablet) {
+        let inPlatformView = false;
         ScrollTrigger.create({
           trigger: '#platform', start: 'top 65%', end: 'bottom 35%',
-          onEnter: function(){
-            if (userInteracted || autoTimer) return;
-            autoTimer = setInterval(function(){
-              currentIdx = (currentIdx + 1) % 4;
-              activateFeatureTab(currentIdx);
-            }, 3200);
-          },
-          onLeaveBack: stopAuto,
-          onLeave: stopAuto
+          onEnter: function(){ inPlatformView = true; startAuto(); },
+          onLeaveBack: function(){ inPlatformView = false; stopAuto(); },
+          onLeave: function(){ inPlatformView = false; stopAuto(); }
+        });
+        // A backgrounded browser tab can throttle/coalesce setInterval and
+        // release several queued ticks at once when it regains focus, which
+        // used to fire activateFeatureTab() in a rapid burst. Pause (not
+        // permanently stop) the cycle while hidden, and only resume it if
+        // the section is still in view and the person never manually
+        // clicked a tab.
+        document.addEventListener('visibilitychange', function(){
+          if (document.hidden) pauseAuto();
+          else if (inPlatformView) startAuto();
         });
       }
     })();
@@ -6079,7 +6234,16 @@ function recalc(v) {
       const viewport = ptlTrack.parentElement;
       const maxScroll = ptlTrack.scrollWidth - viewport.clientWidth;
       if (maxScroll > 40) {
-        const pinLen = isDesktop ? '+=220%' : '+=140%';
+        /* Pin length is derived from the actual horizontal distance the
+           track needs to travel (plus a small dwell buffer), not a fixed
+           percentage of viewport height — a fixed percentage doesn't
+           track content width and left a dead scroll stretch on wide/short
+           viewports where the horizontal scroll finished long before the
+           pin released. */
+        const pinLen = function(){
+          const ms = ptlTrack.scrollWidth - viewport.clientWidth;
+          return '+=' + (Math.max(0, ms) + window.innerHeight * 0.25);
+        };
         ScrollTrigger.create({
           trigger: '#pred-timeline', start: 'top top', end: pinLen, pin: true, pinSpacing: true,
           invalidateOnRefresh: true,
@@ -6350,7 +6514,127 @@ video { background: linear-gradient(135deg, rgba(249,115,22,.12), rgba(124,58,23
 /* ── TABBED PRODUCT SECTION ── styling lives in the main .ft-tab
    block above; redesigned there directly as a full-width, equal-width
    pill-tab strip with clear active/inactive states. */
+
+/* ── BUTTON CONSISTENCY PASS ──
+   Every CTA button now shares the same orange-gradient pill language
+   as "Book My Enterprise Demo" — previously the nav button and
+   floating button were dark/black, and the hero button used a
+   rounded-rect instead of a full pill, so the site felt like it had
+   three different button systems. */
+.ncta {
+  background: var(--gv) !important;
+  box-shadow: 0 4px 16px rgba(249,115,22,.28);
+}
+.ncta:hover { box-shadow: 0 6px 22px rgba(249,115,22,.4); transform: translateY(-1px); }
+.hfb { border-radius: 100px !important; }
+#float-demo-btn {
+  background: var(--gv) !important;
+  box-shadow: 0 10px 30px rgba(249,115,22,.32) !important;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE PASS
+   The site had no mobile navigation at all (the full desktop link
+   row just overflowed the viewport) and a few sections weren't
+   reliably stacking on narrow screens due to conflicting duplicate
+   rules elsewhere in this file. Fixed decisively here, last in the
+   cascade, so these rules always win regardless of what appears
+   earlier in the document. ══════════════════════════════════════════════ */
+
+/* Prevent ANY element from ever creating horizontal scroll. */
+body { max-width: 100%; overflow-x: hidden !important; }
+
+@media (max-width: 900px) {
+  /* Hide the desktop link row; show the hamburger instead. */
+  .nlinks { display: none !important; }
+  #mobile-nav-toggle {
+    display: flex !important; flex-direction: column; justify-content: center; gap: 5px;
+    width: 40px; height: 40px; padding: 0; margin-left: 8px;
+    background: transparent; border: none; cursor: pointer; flex-shrink: 0;
+  }
+  #mobile-nav-toggle span {
+    display: block; width: 100%; height: 2px; background: var(--ink); border-radius: 2px;
+    transition: transform .25s var(--ease), opacity .25s var(--ease);
+  }
+  #mobile-nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #mobile-nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+  #mobile-nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  #nav { flex-wrap: nowrap; padding: 10px 14px; gap: 8px; }
+  .nlogo img { height: 22px !important; }
+  .ncta { font-size: 12px; padding: 8px 14px; }
+
+  #mobile-nav-panel {
+    position: fixed; top: 0; right: 0; height: 100vh; width: min(78vw, 320px);
+    background: #fff; z-index: 1200; padding: 90px 28px 28px;
+    display: flex; flex-direction: column; gap: 4px;
+    box-shadow: -20px 0 50px rgba(0,0,0,.18);
+    transform: translateX(100%); transition: transform .35s var(--ease);
+  }
+  #mobile-nav-panel.is-open { transform: translateX(0); }
+  #mobile-nav-panel a {
+    font-family: var(--fb); font-size: 16px; font-weight: 600; color: var(--ink);
+    text-decoration: none; padding: 14px 4px; border-bottom: 1px solid var(--i08, rgba(26,16,37,.08));
+  }
+  #mobile-nav-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(10,5,15,.4); z-index: 1100;
+  }
+  #mobile-nav-backdrop.is-open { display: block; }
+}
+@media (min-width: 901px) {
+  #mobile-nav-toggle, #mobile-nav-panel, #mobile-nav-backdrop { display: none !important; }
+}
+
+/* Before/After comparison: force stacking on mobile regardless of any
+   competing duplicate rule elsewhere in the stylesheet. */
+@media (max-width: 780px) {
+  .ba-grid { grid-template-columns: 1fr !important; }
+  .ba-card { width: 100% !important; }
+}
+
+/* Hero product-card stack: keep readable widths on very narrow phones. */
+@media (max-width: 480px) {
+  .hs-inner { grid-template-columns: 1fr !important; }
+  .hh1 { font-size: clamp(32px, 10vw, 44px) !important; }
+}
 </style>
+
+<!-- ══════════════════════════════════════════════
+     MOBILE NAV toggle
+     ══════════════════════════════════════════════ -->
+<script>
+(function(){
+  const toggle = document.getElementById('mobile-nav-toggle');
+  const panel = document.getElementById('mobile-nav-panel');
+  const backdrop = document.getElementById('mobile-nav-backdrop');
+  if (!toggle || !panel || !backdrop) return;
+
+  function openMenu(){
+    toggle.classList.add('is-open');
+    panel.classList.add('is-open');
+    backdrop.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu(){
+    toggle.classList.remove('is-open');
+    panel.classList.remove('is-open');
+    backdrop.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  toggle.addEventListener('click', function(){
+    if (panel.classList.contains('is-open')) closeMenu(); else openMenu();
+  });
+  backdrop.addEventListener('click', closeMenu);
+  panel.querySelectorAll('a, button').forEach(function(el){
+    el.addEventListener('click', closeMenu);
+  });
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 900) closeMenu();
+  });
+})();
+</script>
 
 <!-- ══════════════════════════════════════════════
      GO TO TOP button
