@@ -1,1 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CarvingDezine — Brand Guide 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --red: #E8001D;
+  --red-light: #FF2A2A;
+  --red-dark: #B20016;
+  --grey-900: #0a0a0a;
+  --grey-800: #111111;
+  --grey-700: #1a1a1a;
+  --grey-600: #222222;
+  --grey-400: #555555;
+  --grey-300: #888888;
+  --grey-200: #bbbbbb;
+  --grey-100: #e5e5e5;
+  --f: 'Outfit', sans-serif;
+  --m: 'DM Mono', monospace;
+  --display: 'Outfit', sans-serif;
+}
 
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--f);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+section { padding: 100px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+/* ── COVER ── */
+#cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 60px 40px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: none;
+}
+#cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(255,255,255,0.03) 72px),
+    repeating-linear-gradient(90deg, transparent, transparent 71px, rgba(255,255,255,0.03) 72px);
+  pointer-events: none;
+  z-index: 0;
+}
+.cover-red-stripe {
+  position: absolute;
+  top: 0; right: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--red);
+}
+.cover-year {
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--red);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 32px;
+}
+.cover-title {
+  font-family: var(--display);
+  font-size: clamp(96px, 16vw, 220px);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  font-weight: 900;
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+}
+.cover-title span { color: var(--red); }
+.cover-subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 28px;
+  font-family: var(--m);
+  position: relative;
+  z-index: 1;
+}
+.cover-meta {
+  position: absolute;
+  top: 60px; right: 60px;
+  text-align: right;
+  z-index: 1;
+}
+.cover-meta p {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  line-height: 2;
+}
+
+/* ── NAV SIDEBAR ── */
+.toc {
+  position: fixed;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+.toc a {
+  display: block;
+  width: 4px;
+  height: 28px;
+  background: rgba(255,255,255,0.12);
+  transition: all 0.3s;
+  text-decoration: none;
+  position: relative;
+}
+.toc a:hover, .toc a.active {
+  background: var(--red);
+  height: 40px;
+}
+.toc a::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--m);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.toc a:hover::after { opacity: 1; }
+
+/* ── SECTION LABELS ── */
+.section-label {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--red);
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin-bottom: 56px;
+}
+
+/* ── COLORS ── */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 2px;
+}
+.color-swatch {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.color-swatch .swatch-name {
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.color-swatch .swatch-hex {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  margin-top: 4px;
+}
+.color-swatch .swatch-use {
+  font-size: 11px;
+  opacity: 0.5;
+  margin-top: 8px;
+  font-weight: 300;
+}
+.sw-black { background: #000; color: #fff; }
+.sw-white { background: #fff; color: #000; border: 1px solid #e0e0e0; }
+.sw-red { background: #E8001D; color: #fff; }
+.sw-g900 { background: #0a0a0a; color: #fff; }
+.sw-g700 { background: #1a1a1a; color: #fff; }
+.sw-g300 { background: #888; color: #fff; }
+.sw-g100 { background: #e5e5e5; color: #000; }
+.sw-red-dark { background: #B20016; color: #fff; }
+
+/* ── TYPOGRAPHY ── */
+.type-specimen {
+  margin-bottom: 64px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.type-specimen:last-child { border-bottom: none; margin-bottom: 0; }
+.type-label {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 24px;
+}
+.type-display { font-family: var(--display); font-size: 88px; font-weight: 900; line-height: 1; letter-spacing: -0.04em; }
+.type-h1 { font-family: var(--f); font-size: 64px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; }
+.type-h2 { font-family: var(--f); font-size: 40px; font-weight: 700; line-height: 1.1; }
+.type-h3 { font-family: var(--f); font-size: 24px; font-weight: 600; }
+.type-body { font-size: 16px; font-weight: 400; line-height: 1.75; color: rgba(255,255,255,0.72); max-width: 640px; }
+.type-small { font-family: var(--m); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+.type-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+.type-meta p { font-family: var(--m); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); line-height: 1.8; }
+.type-meta strong { color: rgba(255,255,255,0.7); display: block; font-size: 11px; }
+
+/* ── LOGO SECTION ── */
+.logo-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 40px;
+}
+.logo-box {
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+.logo-box-label {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.35;
+}
+.lb-black { background: #000; }
+.lb-white { background: #fff; }
+.lb-red { background: #E8001D; }
+.lb-grey { background: #1a1a1a; }
+
+/* SVG LOGOS embedded */
+.logo-svg {
+  width: 90px;
+  height: 90px;
+}
+
+/* redesigned logo concept */
+.logo-redesign-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 48px;
+}
+.logo-concept {
+  padding: 48px;
+  background: var(--grey-900);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.logo-concept-title {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.concept-svg-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: #000;
+}
+.concept-note {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+}
+
+/* ── GRID / SPACING ── */
+.spacing-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+  margin-bottom: 40px;
+}
+.spacing-block {
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 12px;
+  gap: 8px;
+}
+.spacing-block .sp-bar { background: var(--red); width: 100%; }
+.spacing-block .sp-val { font-family: var(--m); font-size: 9px; letter-spacing: 0.15em; color: rgba(255,255,255,0.35); }
+
+/* ── COMPONENTS ── */
+.comp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.comp-label {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 20px;
+}
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  background: var(--red);
+  color: #fff;
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  background: transparent;
+  color: #fff;
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  background: transparent;
+  color: #fff;
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  border-bottom: 1px solid var(--red);
+  transition: color 0.2s;
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+
+/* Tag / badges */
+.tag {
+  display: inline-block;
+  padding: 5px 14px;
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.tag-red { background: var(--red); color: #fff; }
+.tag-outline { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); }
+.tag-filled { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+
+/* Cards */
+.card {
+  background: var(--grey-900);
+  padding: 32px;
+  border: 1px solid rgba(255,255,255,0.04);
+  position: relative;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--red);
+}
+.card-title { font-weight: 700; font-size: 18px; margin-bottom: 12px; }
+.card-body { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.55); font-weight: 300; }
+
+/* ── ICONOGRAPHY / MARKS ── */
+.marks-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+}
+.mark-cell {
+  aspect-ratio: 1;
+  background: var(--grey-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mark-cell svg { width: 32px; height: 32px; }
+
+/* ── SOCIAL TEMPLATES ── */
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.social-post {
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+}
+.sp-label {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: var(--m);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+.sp-title { font-size: 22px; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+.sp-sub { font-family: var(--m); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.5; }
+
+.sp-1 { background: #000; }
+.sp-1::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--red);
+}
+.sp-2 { background: var(--red); }
+.sp-3 { background: var(--grey-900); }
+.sp-3::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle at bottom right, rgba(232,0,29,0.15), transparent 70%);
+}
+.sp-4 { background: #fff; color: #000; }
+.sp-5 { background: #0a0a0a; }
+.sp-5::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(255,255,255,0.025) 24px);
+}
+.sp-6 { background: var(--red); }
+
+/* ── VOICE / TONE ── */
+.voice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.voice-card {
+  padding: 48px 40px;
+  position: relative;
+}
+.vc-do { background: var(--grey-900); }
+.vc-dont { background: #0d0000; border: 1px solid rgba(232,0,29,0.12); }
+.vc-badge {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.vc-badge::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+}
+.vc-do .vc-badge { color: #22c55e; }
+.vc-do .vc-badge::before { background: #22c55e; }
+.vc-dont .vc-badge { color: var(--red); }
+.vc-dont .vc-badge::before { background: var(--red); }
+.voice-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.voice-list li {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.65);
+  padding-left: 20px;
+  position: relative;
+}
+.voice-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ── PHOTOGRAPHY ── */
+.photo-rule {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 40px;
+}
+.photo-rule-item {
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.ph-1 { background: linear-gradient(160deg, #1a1a1a 0%, #000 100%); }
+.ph-2 { background: linear-gradient(160deg, #2a0005 0%, #000 100%); }
+.ph-3 { background: linear-gradient(160deg, #0f0f0f 0%, #1a1a1a 100%); }
+.ph-label {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  z-index: 1;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  width: 40px;
+  height: 2px;
+  background: var(--red);
+  margin: 32px 0;
+}
+
+/* ── DO/DON'T LOGO ── */
+.logo-rules {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+.logo-rule-box {
+  aspect-ratio: 1;
+  background: var(--grey-900);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 24px;
+  position: relative;
+}
+.rule-status {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-family: var(--m);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.rs-ok { color: #22c55e; }
+.rs-no { color: var(--red); }
+.rule-desc { font-family: var(--m); font-size: 10px; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); text-align: center; line-height: 1.6; }
+
+/* ── MOTION ── */
+.motion-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+.motion-card {
+  flex: 1;
+  background: var(--grey-900);
+  padding: 32px;
+}
+.mc-title { font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+.mc-body { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.7; font-weight: 300; }
+.easing-demo {
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.easing-bar {
+  height: 100%;
+  width: 40px;
+  background: var(--red);
+  animation: slidebar 2.5s cubic-bezier(0.19,1,0.22,1) infinite;
+}
+@keyframes slidebar {
+  0% { transform: translateX(0); }
+  60% { transform: translateX(calc(100% + 100px)); }
+  100% { transform: translateX(calc(100% + 100px)); }
+}
+.easing-bar2 {
+  height: 100%;
+  width: 40px;
+  background: var(--red);
+  animation: slidebar2 2.5s cubic-bezier(0.77,0,0.175,1) infinite;
+  animation-delay: 0.5s;
+}
+@keyframes slidebar2 {
+  0% { transform: translateX(0); }
+  60% { transform: translateX(calc(100% + 100px)); }
+  100% { transform: translateX(calc(100% + 100px)); }
+}
+
+/* ── FOOTER ── */
+#brand-footer {
+  padding: 80px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.bf-mark {
+  font-family: var(--display);
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+.bf-mark span { color: var(--red); }
+.bf-meta {
+  text-align: right;
+}
+.bf-meta p {
+  font-family: var(--m);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  line-height: 2;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .page-wrap { padding: 0 24px; }
+  section { padding: 64px 0; }
+  .toc { display: none; }
+  .cover-title { font-size: clamp(64px, 18vw, 130px); }
+  .logo-showcase, .comp-grid, .voice-grid { grid-template-columns: 1fr; }
+  .social-grid { grid-template-columns: 1fr 1fr; }
+  .logo-redesign-wrap { grid-template-columns: 1fr; }
+  .marks-grid { grid-template-columns: repeat(3, 1fr); }
+  .logo-rules { grid-template-columns: repeat(2, 1fr); }
+  .type-meta { grid-template-columns: 1fr; }
+  .motion-row { flex-direction: column; }
+  .photo-rule { grid-template-columns: 1fr; }
+  .cover-meta { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR NAV -->
+<nav class="toc">
+  <a href="#cover" data-label="Cover"></a>
+  <a href="#colors" data-label="Colors"></a>
+  <a href="#typography" data-label="Type"></a>
+  <a href="#logo" data-label="Logo"></a>
+  <a href="#components" data-label="UI"></a>
+  <a href="#social" data-label="Social"></a>
+  <a href="#voice" data-label="Voice"></a>
+  <a href="#motion" data-label="Motion"></a>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-red-stripe"></div>
+  <div class="cover-meta">
+    <p>Prepared by</p>
+    <p style="color:rgba(255,255,255,0.55)">Tanvi Shah</p>
+    <p style="margin-top:8px">Studio</p>
+    <p style="color:rgba(255,255,255,0.55)">CarvingDezine</p>
+    <p style="margin-top:8px">Year</p>
+    <p style="color:rgba(255,255,255,0.55)">2026</p>
+  </div>
+  <div class="cover-year">Brand Identity Guide — 2026</div>
+  <div class="cover-title">
+    CARVING<br><span>DEZINE</span>
+  </div>
+  <div class="cover-subtitle">Black · White · Red — Visual Identity System</div>
+</section>
+
+<!-- COLORS -->
+<section id="colors">
+  <div class="page-wrap">
+    <div class="section-label">01 — Colour System</div>
+    <div class="section-title">THE PALETTE</div>
+
+    <div class="color-grid">
+      <div class="color-swatch sw-black">
+        <div class="swatch-name">Pure Black</div>
+        <div class="swatch-hex">#000000</div>
+        <div class="swatch-use">Primary background</div>
+      </div>
+      <div class="color-swatch sw-red">
+        <div class="swatch-name">Brand Red</div>
+        <div class="swatch-hex">#E8001D</div>
+        <div class="swatch-use">Accent & CTA</div>
+      </div>
+      <div class="color-swatch sw-white">
+        <div class="swatch-name">Pure White</div>
+        <div class="swatch-hex">#FFFFFF</div>
+        <div class="swatch-use">Primary text</div>
+      </div>
+      <div class="color-swatch sw-red-dark">
+        <div class="swatch-name">Red Dark</div>
+        <div class="swatch-hex">#B20016</div>
+        <div class="swatch-use">Hover / pressed states</div>
+      </div>
+      <div class="color-swatch sw-g900">
+        <div class="swatch-name">Surface 900</div>
+        <div class="swatch-hex">#0A0A0A</div>
+        <div class="swatch-use">Cards & panels</div>
+      </div>
+      <div class="color-swatch sw-g700">
+        <div class="swatch-name">Surface 700</div>
+        <div class="swatch-hex">#1A1A1A</div>
+        <div class="swatch-use">Elevated surfaces</div>
+      </div>
+      <div class="color-swatch sw-g300">
+        <div class="swatch-name">Muted Text</div>
+        <div class="swatch-hex">#888888</div>
+        <div class="swatch-use">Body / secondary text</div>
+      </div>
+      <div class="color-swatch sw-g100">
+        <div class="swatch-name">Light Surface</div>
+        <div class="swatch-hex">#E5E5E5</div>
+        <div class="swatch-use">Light-mode backgrounds</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p style="font-size:14px;color:rgba(255,255,255,0.45);line-height:1.8;max-width:600px;font-weight:300;">
+      The palette is built on absolute contrast. Black and white create the structural tension; red is the blade — it cuts, punctuates, and commands attention. Never dilute red with transparency in primary contexts. Never add new colours without explicit brand approval.
+    </p>
+
+    <!-- Usage ratio visual -->
+    <div style="margin-top:48px;">
+      <div class="section-label" style="font-size:9px;margin-bottom:16px;">Colour usage ratio</div>
+      <div style="display:flex;height:40px;overflow:hidden;border-radius:0;">
+        <div style="background:#000;flex:0 0 60%;border-right:2px solid #1a1a1a;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.35)">BLACK 60%</span>
+        </div>
+        <div style="background:#fff;flex:0 0 25%;border-right:2px solid #ddd;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.2em;color:rgba(0,0,0,0.4)">WHITE 25%</span>
+        </div>
+        <div style="background:#E8001D;flex:1;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.9)">RED 15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section id="typography">
+  <div class="page-wrap">
+    <div class="section-label">02 — Typography</div>
+    <div class="section-title">TYPE SYSTEM</div>
+
+    <div class="type-specimen">
+      <div class="type-label">Display — Outfit Black 900</div>
+      <div class="type-display">Carving Dezine</div>
+      <div class="type-meta">
+        <p><strong>Outfit 900</strong>Use</p>
+        <p><strong>Headlines, display, covers, poster</strong>When</p>
+        <p><strong>Tracking -0.04em · Uppercase</strong>Style</p>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">H1 — Outfit ExtraBold 800</div>
+      <div class="type-h1">We carve<br>meaning into design.</div>
+      <div class="type-meta">
+        <p><strong>Outfit 800</strong>Use</p>
+        <p><strong>Page headings, hero text</strong>When</p>
+        <p><strong>Tracking -0.03em</strong>Style</p>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">H2 — Outfit Bold 700</div>
+      <div class="type-h2">Brand Identity · UX/UI · Print · Interactive Web</div>
+      <div class="type-meta">
+        <p><strong>Outfit 700</strong>Use</p>
+        <p><strong>Section titles</strong>When</p>
+        <p><strong>Normal tracking</strong>Style</p>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Body — Outfit Regular 400</div>
+      <div class="type-body">A boutique design studio led by Tanvi Shah. We don't just make things look beautiful — we carve meaning into every pixel, every curve, and every decision. Based in Mumbai & Surat, working globally.</div>
+      <div class="type-meta">
+        <p><strong>Outfit 400</strong>Use</p>
+        <p><strong>Long-form body copy</strong>When</p>
+        <p><strong>16px / line-height 1.75</strong>Style</p>
+      </div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Mono / Label — DM Mono</div>
+      <div class="type-small">Brand Identity · UX/UI Design · Interactive Web · 2026 · Mumbai · Surat</div>
+      <div class="type-meta">
+        <p><strong>DM Mono 400</strong>Use</p>
+        <p><strong>Labels, captions, tags, nav</strong>When</p>
+        <p><strong>All caps · tracking 0.2–0.35em</strong>Style</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LOGO -->
+<section id="logo">
+  <div class="page-wrap">
+    <div class="section-label">03 — Logo & Mark</div>
+    <div class="section-title">THE MARK</div>
+
+    <!-- Existing logo on different backgrounds -->
+    <div style="font-family:var(--m);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:20px;">Current logo — on brand backgrounds</div>
+    <div class="logo-showcase">
+      <div class="logo-box lb-black">
+        <!-- Current Black version logo recreation -->
+        <svg class="logo-svg" viewBox="0 0 566.93 566.93" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/>
+          <path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/>
+          <rect x="324.22" y="200.95" width="17.24" height="60.48" fill="rgba(255,255,255,0.6)"/>
+          <path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/>
+        </svg>
+        <div class="logo-box-label">On Red (hero use)</div>
+      </div>
+      <div class="logo-box lb-white">
+        <svg class="logo-svg" viewBox="0 0 566.93 566.93" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="283.46" cy="283.46" r="283.46" fill="#000"/>
+          <path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/>
+          <rect x="324.22" y="200.95" width="17.24" height="60.48" fill="rgba(255,255,255,0.5)"/>
+          <path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/>
+        </svg>
+        <div class="logo-box-label">On White</div>
+      </div>
+      <div class="logo-box lb-grey">
+        <svg class="logo-svg" viewBox="0 0 566.93 566.93" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="283.46" cy="283.46" r="283.46" fill="#000"/>
+          <path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/>
+          <rect x="324.22" y="200.95" width="17.24" height="60.48" fill="rgba(255,255,255,0.5)"/>
+          <path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/>
+        </svg>
+        <div class="logo-box-label">On Dark Surface</div>
+      </div>
+      <div class="logo-box lb-red">
+        <svg class="logo-svg" viewBox="0 0 566.93 566.93" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="283.46" cy="283.46" r="283.46" fill="#000"/>
+          <path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/>
+          <rect x="324.22" y="200.95" width="17.24" height="60.48" fill="rgba(255,255,255,0.6)"/>
+          <path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/>
+        </svg>
+        <div class="logo-box-label">On Black (standard)</div>
+      </div>
+    </div>
+
+    <!-- Logo rules -->
+    <div class="logo-rules">
+      <div class="logo-rule-box">
+        <div class="rule-status rs-ok">✓ Do</div>
+        <svg width="56" height="56" viewBox="0 0 566.93 566.93" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/>
+          <path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/>
+          <rect x="324.22" y="200.95" width="17.24" height="60.48" fill="rgba(255,255,255,0.5)"/>
+          <path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/>
+        </svg>
+        <div class="rule-desc">Use on approved backgrounds only</div>
+      </div>
+      <div class="logo-rule-box">
+        <div class="rule-status rs-no">✗ Don't</div>
+        <svg width="56" height="56" viewBox="0 0 566.93 566.93" xmlns="http://www.w3.org/2000/svg" style="opacity:0.35;filter:blur(1px)">
+          <circle cx="283.46" cy="283.46" r="283.46" fill="#7a3a00"/>
+          <path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#ffcc00"/>
+        </svg>
+        <div class="rule-desc">No recolouring to off-brand colours</div>
+      </div>
+      <div class="logo-rule-box">
+        <div class="rule-status rs-no">✗ Don't</div>
+        <svg width="56" height="56" viewBox="0 0 566.93 566.93" xmlns="http://www.w3.org/2000/svg" style="transform:skewX(-15deg);opacity:0.6">
+          <circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/>
+          <path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/>
+        </svg>
+        <div class="rule-desc">No distortion or skewing</div>
+      </div>
+      <div class="logo-rule-box">
+        <div class="rule-status rs-no">✗ Don't</div>
+        <div style="position:relative">
+          <svg width="56" height="56" viewBox="0 0 566.93 566.93" xmlns="http://www.w3.org/2000/svg" style="opacity:0.5">
+            <circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/>
+            <path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/>
+          </svg>
+          <!-- shadow fake -->
+          <div style="position:absolute;inset:4px;border-radius:50%;background:rgba(255,0,0,0.5);filter:blur(8px);z-index:-1;transform:translate(6px,6px)"></div>
+        </div>
+        <div class="rule-desc">No drop shadows or glows on the mark</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section id="components">
+  <div class="page-wrap">
+    <div class="section-label">04 — UI Components</div>
+    <div class="section-title">ELEMENTS</div>
+
+    <div class="comp-grid">
+      <div>
+        <div class="comp-label">Buttons</div>
+        <div class="btn-row" style="flex-direction:column;align-items:flex-start;gap:16px;">
+          <button class="btn-primary">Start a Project →</button>
+          <button class="btn-outline">View Work</button>
+          <button class="btn-ghost">Learn More</button>
+        </div>
+      </div>
+      <div>
+        <div class="comp-label">Tags & Badges</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <span class="tag tag-red">Brand Identity</span>
+          <span class="tag tag-outline">UX/UI</span>
+          <span class="tag tag-filled">Print</span>
+          <span class="tag tag-outline">Interactive Web</span>
+          <span class="tag tag-red">Available</span>
+          <span class="tag tag-outline">2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;">
+      <div class="comp-label">Cards</div>
+      <div class="comp-grid">
+        <div class="card">
+          <div class="card-title">Brand Identity</div>
+          <div class="card-body">We craft visual identities that are memorable, distinctive, and built for longevity. From logos to full systems.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">UX/UI Design</div>
+          <div class="card-body">User experiences that are intuitive without sacrificing beauty. Every interaction considered, every pixel intentional.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Interactive Web Experience</div>
+          <div class="card-body">Websites and digital experiences that move, respond, and engage. Motion, micro-interactions, and storytelling — built for the web.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Presentation & Print</div>
+          <div class="card-body">Decks that persuade and printed materials that leave a mark. Designed to communicate with precision and visual impact.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spacing -->
+    <div style="margin-top:64px;">
+      <div class="comp-label">Spacing Scale</div>
+      <div class="spacing-grid">
+        <div class="spacing-block"><div class="sp-bar" style="height:4px;"></div><div class="sp-val">4</div></div>
+        <div class="spacing-block"><div class="sp-bar" style="height:8px;"></div><div class="sp-val">8</div></div>
+        <div class="spacing-block"><div class="sp-bar" style="height:12px;"></div><div class="sp-val">12</div></div>
+        <div class="spacing-block"><div class="sp-bar" style="height:16px;"></div><div class="sp-val">16</div></div>
+        <div class="spacing-block"><div class="sp-bar" style="height:24px;"></div><div class="sp-val">24</div></div>
+        <div class="spacing-block"><div class="sp-bar" style="height:32px;"></div><div class="sp-val">32</div></div>
+        <div class="spacing-block"><div class="sp-bar" style="height:48px;"></div><div class="sp-val">48</div></div>
+        <div class="spacing-block"><div class="sp-bar" style="height:64px;"></div><div class="sp-val">64</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA KIT -->
+<section id="social">
+  <div class="page-wrap">
+    <div class="section-label">05 — Social Media Kit</div>
+    <div class="section-title">SOCIAL KIT</div>
+
+    <p style="font-size:14px;color:rgba(255,255,255,0.45);line-height:1.8;max-width:660px;font-weight:300;margin-bottom:64px;">
+      Every platform has its own format, but all posts must feel like they came from the same studio. These specs, templates, and content pillars are your complete briefing doc — hand this directly to your designer or use it yourself in Canva / Figma.
+    </p>
+
+    <!-- ── PLATFORM SPECS ── -->
+    <div class="section-label" style="font-size:9px;margin-bottom:28px;">Platform format specs</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px;margin-bottom:64px;">
+      <!-- Instagram -->
+      <div style="background:var(--grey-900);padding:28px 24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#E8001D" stroke="none"/></svg>
+          <span style="font-family:var(--m);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--white)">Instagram</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="border-left:2px solid var(--red);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Feed Post</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1080 × 1080 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Square · 1:1</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Portrait Feed</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1080 × 1350 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">4:5 ratio</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Story / Reel</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1080 × 1920 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">9:16 vertical</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Profile Photo</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">320 × 320 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Shown at 110px</div>
+          </div>
+        </div>
+      </div>
+      <!-- LinkedIn -->
+      <div style="background:var(--grey-900);padding:28px 24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+          <span style="font-family:var(--m);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--white)">LinkedIn</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="border-left:2px solid var(--red);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Post Image</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1200 × 627 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">1.91:1 landscape</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Cover / Banner</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1584 × 396 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">4:1 ratio</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Profile Photo</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">400 × 400 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Square, shown round</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Document / Carousel</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1080 × 1080 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Per slide, PDF upload</div>
+          </div>
+        </div>
+      </div>
+      <!-- Behance -->
+      <div style="background:var(--grey-900);padding:28px 24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h6a4 4 0 0 1 0 8H2V7z"/><path d="M8 11h4"/><path d="M14 7h6"/><path d="M16 11a3 3 0 1 0 0 4"/></svg>
+          <span style="font-family:var(--m);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--white)">Behance</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="border-left:2px solid var(--red);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Project Cover</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1400 × 1050 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">4:3 or 16:9</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Project Modules</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">Max 1400 px wide</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Any height, 72 dpi</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Profile Cover</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1400 × 527 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Banner header</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Avatar</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">200 × 200 px min</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Shown round</div>
+          </div>
+        </div>
+      </div>
+      <!-- WhatsApp -->
+      <div style="background:var(--grey-900);padding:28px 24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span style="font-family:var(--m);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--white)">WhatsApp Business</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="border-left:2px solid var(--red);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Profile Photo</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">640 × 640 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Square, shown round</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Status Image</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">1080 × 1920 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">9:16 vertical</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Shared Image</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">800 × 800 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Square preferred</div>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:12px;">
+            <div style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Catalogue Cover</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px;">640 × 640 px</div>
+            <div style="font-family:var(--m);font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Product/service image</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BANNER / HEADER DESIGNS ── -->
+    <div class="section-label" style="font-size:9px;margin-bottom:28px;">Banner &amp; header designs — platform by platform</div>
+
+    <!-- LinkedIn Banner -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.5);">LinkedIn</span>
+        </div>
+        <span style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25);">1584 × 396 px · 4:1</span>
+      </div>
+      <!-- LinkedIn banner mockup -->
+      <div style="width:100%;aspect-ratio:4/1;background:#000;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+        <!-- grid overlay -->
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;"></div>
+        <!-- red accent bar left -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--red);"></div>
+        <!-- red glow -->
+        <div style="position:absolute;right:0;top:0;bottom:0;width:40%;background:radial-gradient(ellipse at right center,rgba(232,0,29,0.08) 0%,transparent 70%);pointer-events:none;"></div>
+        <!-- content -->
+        <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 48px 0 40px;gap:40px;">
+          <!-- logo -->
+          <svg width="56" height="56" viewBox="0 0 566.93 566.93" style="flex-shrink:0"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+          <!-- divider -->
+          <div style="width:1px;height:48px;background:rgba(255,255,255,0.12);flex-shrink:0;"></div>
+          <!-- text block -->
+          <div style="flex:1;">
+            <div style="font-size:clamp(18px,2.2vw,28px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;">Carving Dezine</div>
+            <div style="font-family:var(--m);font-size:clamp(8px,0.9vw,11px);letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:6px;">Brand Identity · UX/UI · Interactive Web · Print</div>
+          </div>
+          <!-- right side tags -->
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:5px;height:5px;border-radius:50%;background:#22c55e;"></div>
+              <span style="font-family:var(--m);font-size:clamp(7px,0.8vw,10px);letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Available for projects</span>
+            </div>
+            <div style="font-family:var(--m);font-size:clamp(7px,0.8vw,10px);letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);">Mumbai · Surat · Global</div>
+            <div style="font-family:var(--m);font-size:clamp(7px,0.8vw,10px);letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);">carvingdezine.com</div>
+          </div>
+        </div>
+        <!-- bottom red line -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),transparent);"></div>
+      </div>
+      <!-- profile overlap preview -->
+      <div style="background:var(--grey-900);border:1px solid rgba(255,255,255,0.05);padding:20px 24px;display:flex;align-items:center;gap:16px;margin-top:2px;">
+        <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--red);flex-shrink:0;"></div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;font-weight:300;font-family:var(--m);letter-spacing:0.05em;">Note: LinkedIn crops the bottom ~15% of the banner behind the profile photo. Keep all critical content in the upper 85% — don't place the logo or text in the bottom strip.</p>
+      </div>
+    </div>
+
+    <!-- X / Twitter Banner -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg>
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.5);">X (Twitter)</span>
+        </div>
+        <span style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25);">1500 × 500 px · 3:1</span>
+      </div>
+      <div style="width:100%;aspect-ratio:3/1;background:#000;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+        <!-- diagonal red slash -->
+        <div style="position:absolute;top:-20%;right:18%;width:3px;height:140%;background:var(--red);transform:rotate(15deg);opacity:0.7;"></div>
+        <div style="position:absolute;top:-20%;right:22%;width:1px;height:140%;background:rgba(232,0,29,0.25);transform:rotate(15deg);"></div>
+        <!-- subtle dot grid -->
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
+        <!-- left content -->
+        <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 clamp(20px,4%,56px);gap:clamp(16px,3%,32px);">
+          <svg width="48" height="48" viewBox="0 0 566.93 566.93" style="flex-shrink:0"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+          <div>
+            <div style="font-size:clamp(16px,2.5vw,32px);font-weight:900;letter-spacing:-0.04em;line-height:1;">CARVING DEZINE</div>
+            <div style="font-family:var(--m);font-size:clamp(7px,0.9vw,11px);letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-top:5px;">We carve meaning into design.</div>
+          </div>
+        </div>
+        <!-- bottom-right wordmark ghost -->
+        <div style="position:absolute;bottom:12px;right:20px;font-size:clamp(8px,1vw,12px);font-weight:900;letter-spacing:-0.03em;color:rgba(255,255,255,0.06);">CARVINGDEZINE</div>
+      </div>
+      <div style="background:var(--grey-900);border:1px solid rgba(255,255,255,0.05);padding:20px 24px;display:flex;align-items:center;gap:16px;margin-top:2px;">
+        <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--red);flex-shrink:0;"></div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;font-weight:300;font-family:var(--m);letter-spacing:0.05em;">X crops the banner heavily on mobile — profile photo overlaps bottom-left. Keep logo and name centred or right-aligned to stay visible across devices.</p>
+      </div>
+    </div>
+
+    <!-- Reddit Banner -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16.5 12a1.5 1.5 0 1 0-2.5-1.1M7.5 12a1.5 1.5 0 1 1 2.5-1.1"/><path d="M9 15.5s1 1 3 1 3-1 3-1"/><circle cx="16" cy="6" r="1.5" fill="#E8001D" stroke="none"/><path d="M14.5 6.5L12 8"/></svg>
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Reddit (Subreddit Banner)</span>
+        </div>
+        <span style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25);">1920 × 384 px · 5:1</span>
+      </div>
+      <div style="width:100%;aspect-ratio:5/1;background:var(--grey-900);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+        <!-- tile pattern -->
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(232,0,29,0.04) 0px,rgba(232,0,29,0.04) 1px,transparent 1px,transparent 20px),repeating-linear-gradient(-45deg,rgba(232,0,29,0.04) 0px,rgba(232,0,29,0.04) 1px,transparent 1px,transparent 20px);pointer-events:none;"></div>
+        <!-- bold wordmark fills the space -->
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,3%,48px);">
+          <div style="display:flex;align-items:center;gap:clamp(10px,2%,24px);">
+            <svg width="40" height="40" viewBox="0 0 566.93 566.93" style="flex-shrink:0"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+            <div>
+              <div style="font-size:clamp(14px,2vw,22px);font-weight:800;letter-spacing:-0.03em;">r/CarvingDezine</div>
+              <div style="font-family:var(--m);font-size:clamp(7px,0.8vw,10px);letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:3px;">Design · Branding · Process</div>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:clamp(8px,1vw,12px);font-weight:700;color:var(--red);">carvingdezine.com</div>
+            <div style="font-family:var(--m);font-size:clamp(7px,0.7vw,9px);letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-top:3px;">Mumbai · Surat</div>
+          </div>
+        </div>
+        <!-- bottom bar -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--red);"></div>
+      </div>
+      <div style="background:var(--grey-900);border:1px solid rgba(255,255,255,0.05);padding:20px 24px;display:flex;align-items:center;gap:16px;margin-top:2px;">
+        <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--red);flex-shrink:0;"></div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;font-weight:300;font-family:var(--m);letter-spacing:0.05em;">Reddit banner applies to your subreddit page. On mobile, it displays as a short strip — ensure the logo is visible even when the banner is cropped to ~100px tall in compact view.</p>
+      </div>
+    </div>
+
+    <!-- Behance Banner -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h6a4 4 0 0 1 0 8H2V7z"/><path d="M8 11h4"/><path d="M14 7h6"/><path d="M16 11a3 3 0 1 0 0 4"/></svg>
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Behance</span>
+        </div>
+        <span style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25);">1400 × 527 px · ~2.7:1</span>
+      </div>
+      <div style="width:100%;aspect-ratio:2.65/1;background:#fff;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+        <!-- white background — Behance is light UI -->
+        <!-- large red block left third -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:36%;background:#000;"></div>
+        <div style="position:absolute;left:36%;top:0;bottom:0;width:4px;background:var(--red);"></div>
+        <!-- left: logo on dark -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:36%;display:flex;align-items:center;justify-content:center;">
+          <svg width="52" height="52" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+        </div>
+        <!-- right: text on white -->
+        <div style="position:absolute;left:calc(36% + 24px);top:0;bottom:0;right:0;display:flex;flex-direction:column;justify-content:center;padding-right:clamp(16px,3%,40px);">
+          <div style="font-size:clamp(16px,2.2vw,28px);font-weight:900;letter-spacing:-0.04em;color:#000;line-height:1;">Carving Dezine</div>
+          <div style="font-family:var(--m);font-size:clamp(7px,0.85vw,11px);letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-top:6px;">Brand · UX/UI · Interactive Web · Print</div>
+          <div style="width:32px;height:2px;background:var(--red);margin-top:12px;"></div>
+          <div style="font-family:var(--m);font-size:clamp(7px,0.75vw,10px);letter-spacing:0.15em;text-transform:uppercase;color:#bbb;margin-top:10px;">Mumbai · Surat · Global</div>
+        </div>
+      </div>
+      <div style="background:var(--grey-900);border:1px solid rgba(255,255,255,0.05);padding:20px 24px;display:flex;align-items:center;gap:16px;margin-top:2px;">
+        <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--red);flex-shrink:0;"></div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;font-weight:300;font-family:var(--m);letter-spacing:0.05em;">Behance has a light UI — the split black/white design keeps brand identity bold while respecting the platform's white environment. The red divider line carries the brand accent.</p>
+      </div>
+    </div>
+
+    <!-- YouTube Banner -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><polygon points="10,9 16,12 10,15" fill="#E8001D" stroke="none"/></svg>
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.5);">YouTube</span>
+        </div>
+        <span style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25);">2560 × 1440 px · Safe zone 1546 × 423 px</span>
+      </div>
+      <div style="width:100%;aspect-ratio:16/9;background:#000;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+        <!-- outer area (TV only) -->
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.01) 1px,transparent 2px);pointer-events:none;"></div>
+        <!-- safe zone indicator lines (dashed) -->
+        <div style="position:absolute;top:14%;left:14%;right:14%;bottom:14%;border:1px dashed rgba(255,255,255,0.06);pointer-events:none;display:flex;align-items:center;justify-content:center;">
+          <!-- actual safe zone content -->
+          <div style="display:flex;align-items:center;gap:clamp(12px,2.5%,32px);width:100%;justify-content:center;">
+            <svg width="52" height="52" viewBox="0 0 566.93 566.93" style="flex-shrink:0"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+            <div>
+              <div style="font-size:clamp(14px,2.2vw,32px);font-weight:900;letter-spacing:-0.04em;line-height:1.05;">CARVING DEZINE</div>
+              <div style="font-family:var(--m);font-size:clamp(7px,0.9vw,12px);letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-top:5px;">Design Studio · Mumbai &amp; Surat</div>
+            </div>
+          </div>
+        </div>
+        <!-- corner marks -->
+        <div style="position:absolute;top:0;left:0;width:24px;height:24px;border-top:2px solid rgba(232,0,29,0.3);border-left:2px solid rgba(232,0,29,0.3);"></div>
+        <div style="position:absolute;top:0;right:0;width:24px;height:24px;border-top:2px solid rgba(232,0,29,0.3);border-right:2px solid rgba(232,0,29,0.3);"></div>
+        <div style="position:absolute;bottom:0;left:0;width:24px;height:24px;border-bottom:2px solid rgba(232,0,29,0.3);border-left:2px solid rgba(232,0,29,0.3);"></div>
+        <div style="position:absolute;bottom:0;right:0;width:24px;height:24px;border-bottom:2px solid rgba(232,0,29,0.3);border-right:2px solid rgba(232,0,29,0.3);"></div>
+      </div>
+      <div style="background:var(--grey-900);border:1px solid rgba(255,255,255,0.05);padding:20px 24px;display:flex;align-items:center;gap:16px;margin-top:2px;">
+        <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--red);flex-shrink:0;"></div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;font-weight:300;font-family:var(--m);letter-spacing:0.05em;">YouTube banner displays differently across TV (full 2560px), desktop (cropped to centre), tablet, and mobile (very tight crop). The dashed box = safe zone. Put everything inside it.</p>
+      </div>
+    </div>
+
+    <!-- WhatsApp Channel / Instagram Bio Link Banner note -->
+    <div style="margin-bottom:64px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8001D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/></svg>
+          <span style="font-family:var(--m);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Instagram · Highlight Cover Kit</span>
+        </div>
+        <span style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25);">1080 × 1920 px → displayed 161 × 161 px circle</span>
+      </div>
+      <!-- Highlight covers row -->
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">
+        <!-- Work -->
+        <div style="aspect-ratio:1;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;border-radius:0;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          <span style="font-family:var(--m);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Work</span>
+          <div style="width:16px;height:2px;background:var(--red);"></div>
+        </div>
+        <!-- Process -->
+        <div style="aspect-ratio:1;background:var(--red);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          <span style="font-family:var(--m);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Process</span>
+        </div>
+        <!-- Clients -->
+        <div style="aspect-ratio:1;background:#0a0a0a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span style="font-family:var(--m);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Clients</span>
+          <div style="width:16px;height:2px;background:var(--red);"></div>
+        </div>
+        <!-- Services -->
+        <div style="aspect-ratio:1;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span style="font-family:var(--m);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Services</span>
+        </div>
+        <!-- About -->
+        <div style="aspect-ratio:1;background:var(--red);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+          <span style="font-family:var(--m);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.7);">About</span>
+        </div>
+        <!-- Tips -->
+        <div style="aspect-ratio:1;background:#0a0a0a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <span style="font-family:var(--m);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Tips</span>
+          <div style="width:16px;height:2px;background:var(--red);"></div>
+        </div>
+        <!-- Contact -->
+        <div style="aspect-ratio:1;background:#000;border:1px solid rgba(232,0,29,0.3);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.18 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.57a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span style="font-family:var(--m);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Contact</span>
+        </div>
+      </div>
+      <div style="background:var(--grey-900);border:1px solid rgba(255,255,255,0.05);padding:20px 24px;display:flex;align-items:center;gap:16px;margin-top:2px;">
+        <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--red);flex-shrink:0;"></div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;font-weight:300;font-family:var(--m);letter-spacing:0.05em;">Highlight covers are shown as small circles on your profile. Use black or red backgrounds with a single centred icon. Alternate black and red for a rhythmic, branded row. The icon should be white on black and white on red — never red-on-red.</p>
+      </div>
+    </div>
+
+    <!-- ── TEMPLATE LAYOUTS ── -->
+    <div class="section-label" style="font-size:9px;margin-bottom:28px;">Post template anatomy — what every post needs</div>
+
+    <!-- 3-col template anatomy -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:64px;">
+
+      <!-- Template 1: Work Showcase -->
+      <div style="background:#000;aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);"></div>
+        <!-- mock image zone -->
+        <div style="flex:1;background:var(--grey-700);display:flex;align-items:center;justify-content:center;margin:16px 16px 0;">
+          <span style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2)">Project Visual</span>
+        </div>
+        <div style="padding:16px;">
+          <div style="font-family:var(--m);font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:6px;">Brand Identity</div>
+          <div style="font-size:14px;font-weight:700;line-height:1.2;margin-bottom:8px;">Project Name</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);">@carvingdezine</div>
+            <svg width="20" height="20" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+          </div>
+        </div>
+        <div style="position:absolute;top:18px;right:16px;font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);">Type A — Work</div>
+      </div>
+
+      <!-- Template 2: Quote / Thought -->
+      <div style="background:var(--red);aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:24px;">
+        <div style="font-family:var(--m);font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.6);">@carvingdezine</div>
+        <div>
+          <div style="font-family:var(--display);font-size:28px;font-weight:900;line-height:0.95;letter-spacing:-0.03em;margin-bottom:16px;">"Design is<br>never<br>neutral."</div>
+          <div style="width:28px;height:2px;background:rgba(255,255,255,0.5);"></div>
+        </div>
+        <div style="font-family:var(--m);font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Tanvi Shah · CarvingDezine</div>
+        <div style="position:absolute;top:18px;right:16px;font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Type B — Quote</div>
+      </div>
+
+      <!-- Template 3: Process / Behind the scenes -->
+      <div style="background:var(--grey-900);aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;padding:20px;">
+        <div style="font-family:var(--m);font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:16px;">Behind the Work</div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
+          <div style="background:rgba(255,255,255,0.04);flex:2;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:var(--m);font-size:8px;color:rgba(255,255,255,0.2);letter-spacing:0.15em;text-transform:uppercase;">Process Photo</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);flex:1;padding:10px;">
+            <div style="font-size:11px;font-weight:600;margin-bottom:4px;">Step 01 — Research</div>
+            <div style="font-family:var(--m);font-size:8px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;">Every design starts with a question.</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);">@carvingdezine</div>
+          <svg width="16" height="16" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+        </div>
+        <div style="position:absolute;top:18px;right:16px;font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Type C — Process</div>
+      </div>
+
+      <!-- Template 4: Service/Offer -->
+      <div style="background:#fff;aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;padding:22px;">
+        <div style="width:32px;height:3px;background:var(--red);margin-bottom:16px;"></div>
+        <div style="font-family:var(--display);font-size:32px;font-weight:900;line-height:0.9;letter-spacing:-0.04em;color:#000;flex:1;">INTERACTIVE<br>WEB &amp;<br>BRANDING</div>
+        <div style="border-top:1px solid #e0e0e0;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(0,0,0,0.4);">From</div>
+            <div style="font-size:13px;font-weight:800;color:#000;">₹ 25,000</div>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#000"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+        </div>
+        <div style="position:absolute;top:18px;right:16px;font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(0,0,0,0.2);">Type D — Service</div>
+      </div>
+
+      <!-- Template 5: Testimonial -->
+      <div style="background:var(--grey-900);border:1px solid rgba(255,255,255,0.05);aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:22px;">
+        <div style="font-family:var(--display);font-size:48px;line-height:1;color:var(--red);opacity:0.6;">"</div>
+        <div>
+          <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.75);font-weight:300;font-style:italic;margin-bottom:20px;">Tanvi's work completely transformed how our brand communicates. Every detail was considered.</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
+            <div>
+              <div style="font-size:11px;font-weight:600;">Client Name</div>
+              <div style="font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Company</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;">
+          <svg width="16" height="16" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+        </div>
+        <div style="position:absolute;top:18px;right:16px;font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Type E — Testimonial</div>
+      </div>
+
+      <!-- Template 6: Story end card / Reel outro -->
+      <div style="background:var(--red);aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;">
+        <svg width="52" height="52" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#000"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+        <div style="text-align:center;">
+          <div style="font-family:var(--display);font-size:22px;font-weight:900;letter-spacing:-0.04em;line-height:1;">CARVING DEZINE</div>
+          <div style="font-family:var(--m);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:6px;">@carvingdezine</div>
+        </div>
+        <div style="font-family:var(--m);font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.6);position:absolute;bottom:18px;">carvingdezine.com</div>
+        <div style="position:absolute;top:18px;right:16px;font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Type F — End Card</div>
+      </div>
+
+    </div>
+
+    <!-- ── CONTENT PILLARS ── -->
+    <div class="section-label" style="font-size:9px;margin-bottom:28px;">Content pillars — what to post</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px;margin-bottom:64px;">
+      <div style="background:var(--grey-900);padding:28px 24px;border-top:3px solid var(--red);">
+        <div style="font-family:var(--display);font-size:32px;font-weight:900;letter-spacing:-0.03em;margin-bottom:12px;">01</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:10px;">Portfolio Work</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;">Finished projects, mockups, before/afters. Use Type A template. Caption: short project context + 3–5 relevant hashtags.</div>
+        <div style="margin-top:16px;font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);">3× per week</div>
+      </div>
+      <div style="background:var(--grey-900);padding:28px 24px;border-top:3px solid rgba(255,255,255,0.12);">
+        <div style="font-family:var(--display);font-size:32px;font-weight:900;letter-spacing:-0.03em;margin-bottom:12px;">02</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:10px;">Process & BTS</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;">Sketches, Figma screens, moodboards, client calls. Use Type C. Builds trust and shows depth. Reels work best here.</div>
+        <div style="margin-top:16px;font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">2× per week</div>
+      </div>
+      <div style="background:var(--grey-900);padding:28px 24px;border-top:3px solid rgba(255,255,255,0.12);">
+        <div style="font-family:var(--display);font-size:32px;font-weight:900;letter-spacing:-0.03em;margin-bottom:12px;">03</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:10px;">Thoughts & POV</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;">Design opinions, industry takes, lessons learnt. Use Type B (red quote card). Positions you as a thinker, not just a maker.</div>
+        <div style="margin-top:16px;font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">1× per week</div>
+      </div>
+      <div style="background:var(--grey-900);padding:28px 24px;border-top:3px solid rgba(255,255,255,0.12);">
+        <div style="font-family:var(--display);font-size:32px;font-weight:900;letter-spacing:-0.03em;margin-bottom:12px;">04</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:10px;">Client Results</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;">Testimonials, results, impact stats. Use Type E. Social proof. Share client wins — make them the hero, not you.</div>
+        <div style="margin-top:16px;font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">1× per week</div>
+      </div>
+      <div style="background:var(--grey-900);padding:28px 24px;border-top:3px solid rgba(255,255,255,0.12);">
+        <div style="font-family:var(--display);font-size:32px;font-weight:900;letter-spacing:-0.03em;margin-bottom:12px;">05</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:10px;">Services & Offers</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;">What you do, how to hire you. Use Type D (white card). Keep it clean and direct — no walls of text.</div>
+        <div style="margin-top:16px;font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">1× biweekly</div>
+      </div>
+    </div>
+
+    <!-- ── PROFILE PICTURE ── -->
+    <div class="section-label" style="font-size:9px;margin-bottom:28px;">Profile picture — all platforms</div>
+    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;padding:40px;background:var(--grey-900);">
+      <div style="display:flex;gap:20px;align-items:flex-end;">
+        <div style="text-align:center;">
+          <svg width="80" height="80" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+          <div style="font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:8px;">80px</div>
+        </div>
+        <div style="text-align:center;">
+          <svg width="48" height="48" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+          <div style="font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:8px;">48px</div>
+        </div>
+        <div style="text-align:center;">
+          <svg width="28" height="28" viewBox="0 0 566.93 566.93"><circle cx="283.46" cy="283.46" r="283.46" fill="#E8001D"/><path d="M225.47,321c0-32.55,25.79-59.26,57.42-59.54h65.92v-60.51c-41.42,0-66.23,0-66.28,0-64.37.52-116.74,54.37-116.74,120.04,0,32.29,12.58,61.61,32.98,83.21l-24.51,49.34,64.65-21.46c13.75,5.76,28.8,8.96,44.56,8.96,14.32,0,28.04-2.63,40.75-7.43v-70.31c-10.48,10.64-24.88,17.23-40.75,17.23-31.98,0-58-26.71-58-59.54" fill="#fff"/><path d="M400.47,113.39c-32.59,0-59.01,26.42-59.01,59h0v148.61c0,1.09-.1,2.16-.16,3.24h.16v101.15c35.61-20.66,59.69-59.7,59.69-104.39V113.41c-.23,0-.46-.02-.68-.02" fill="#fff"/></svg>
+          <div style="font-family:var(--m);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:8px;">28px</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-weight:600;font-size:15px;margin-bottom:8px;">Always use the red-circle version</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;">The circular mark reads perfectly at all sizes down to 28px. Upload as 640×640px minimum for all platforms. Never use the light/beige logo version as your profile photo — it lacks contrast at small sizes and breaks brand recognition.</p>
+      </div>
+    </div>
+
+    <!-- ── HASHTAG STRATEGY ── -->
+    <div style="margin-top:64px;">
+      <div class="section-label" style="font-size:9px;margin-bottom:28px;">Hashtag strategy</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;">
+        <div style="padding:28px 24px;background:var(--grey-900);">
+          <div style="font-family:var(--m);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:16px;">Brand Tags (always use)</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.6);">#CarvingDezine</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.6);">#CarveMeaning</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.6);">#DesignByTanvi</div>
+          </div>
+        </div>
+        <div style="padding:28px 24px;background:var(--grey-900);">
+          <div style="font-family:var(--m);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:16px;">Niche Tags (rotate)</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#BrandIdentityDesign</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#LogoDesigner</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#UXUIDesign</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#PresentationDesign</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#GraphicDesignIndia</div>
+          </div>
+        </div>
+        <div style="padding:28px 24px;background:var(--grey-900);">
+          <div style="font-family:var(--m);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:16px;">Location Tags</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#MumbaiDesigner</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#SuratDesigner</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#IndianDesigner</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#FreelanceDesigner</div>
+            <div style="font-family:var(--m);font-size:11px;color:rgba(255,255,255,0.4);">#DesignStudioIndia</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:20px 24px;background:rgba(232,0,29,0.06);border:1px solid rgba(232,0,29,0.15);margin-top:2px;">
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;"><span style="color:var(--red);font-weight:600;">Rule:</span> Use 8–12 hashtags per post on Instagram. Always include your 3 brand tags + 5–7 niche/location tags. Place them in the first comment, not the caption — keeps your copy clean.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VOICE -->
+<section id="voice">
+  <div class="page-wrap">
+    <div class="section-label">06 — Voice & Tone</div>
+    <div class="section-title">HOW WE SPEAK</div>
+    <div class="voice-grid">
+      <div class="voice-card vc-do">
+        <div class="vc-badge">✓ Do say</div>
+        <ul class="voice-list">
+          <li>Short, declarative sentences. Every word earns its place.</li>
+          <li>Confident, never arrogant. Precision without coldness.</li>
+          <li>Lead with the work, not the credentials.</li>
+          <li>"We carve meaning into design." — active, visual language.</li>
+          <li>Specificity over superlatives. Show, don't tell.</li>
+          <li>Write like a craftsperson — deliberate, skilled, considered.</li>
+        </ul>
+      </div>
+      <div class="voice-card vc-dont">
+        <div class="vc-badge">✗ Avoid</div>
+        <ul class="voice-list">
+          <li>"Passionate", "innovative", "disrupting" — hollow buzzwords.</li>
+          <li>Exclamation marks in professional contexts!!</li>
+          <li>Overly casual language that undermines expertise.</li>
+          <li>Lengthy paragraphs when a sentence will do.</li>
+          <li>Vague claims: "We create amazing designs" → meaningless.</li>
+          <li>Emoji in brand copy (only in community/casual social).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;padding:40px;background:var(--grey-900);border-left:3px solid var(--red);">
+      <div class="comp-label" style="margin-bottom:16px;">Brand Tagline</div>
+      <div style="font-family:var(--display);font-size:clamp(32px,5vw,64px);font-weight:900;line-height:1;letter-spacing:-0.04em;">"We carve meaning<br>into design."</div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTION -->
+<section id="motion">
+  <div class="page-wrap">
+    <div class="section-label">07 — Motion & Animation</div>
+    <div class="section-title">IN MOTION</div>
+
+    <div class="motion-row">
+      <div class="motion-card">
+        <div class="mc-title">Ease: Expressive</div>
+        <div class="mc-body">cubic-bezier(0.19, 1, 0.22, 1) — Fast in, slow settle. Use for content reveals and page transitions.</div>
+        <div class="easing-demo"><div class="easing-bar"></div></div>
+      </div>
+      <div class="motion-card">
+        <div class="mc-title">Ease: Sharp</div>
+        <div class="mc-body">cubic-bezier(0.77, 0, 0.175, 1) — Snappy, mechanical. Use for UI state changes and menu open/close.</div>
+        <div class="easing-demo"><div class="easing-bar2"></div></div>
+      </div>
+      <div class="motion-card">
+        <div class="mc-title">Duration Scale</div>
+        <div class="mc-body">Micro: 150ms · Component: 300ms · Page: 650–950ms · Loader: Up to 1200ms. Never animate beyond 1.2s.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px;">
+          <div style="height:3px;background:var(--red);width:15%;"></div>
+          <div style="height:3px;background:rgba(255,255,255,0.3);width:30%;"></div>
+          <div style="height:3px;background:rgba(255,255,255,0.15);width:65%;"></div>
+          <div style="height:3px;background:rgba(255,255,255,0.08);width:95%;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div id="brand-footer" class="page-wrap">
+  <div>
+    <div class="bf-mark">CARVING<span>DEZINE</span></div>
+    <div style="font-family:var(--m);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-top:8px;">Brand Identity Guide · Version 1.0 · 2026</div>
+  </div>
+  <div class="bf-meta">
+    <p>Studio</p>
+    <p style="color:rgba(255,255,255,0.45)">CarvingDezine</p>
+    <p style="margin-top:8px">Founder</p>
+    <p style="color:rgba(255,255,255,0.45)">Tanvi Shah</p>
+    <p style="margin-top:8px">carvingdezine.com</p>
+  </div>
+</div>
+<div style="border-top:1px solid rgba(255,255,255,0.04);padding:20px 40px;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+  <p style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.18);">© 2026 CarvingDezine. All rights reserved. Tanvi Shah.</p>
+  <p style="font-family:var(--m);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.12);">This document is confidential and for internal brand use only. Unauthorised reproduction or distribution is prohibited.</p>
+</div>
+
+<script>
+// TOC active state
+const sections = document.querySelectorAll('section[id], div[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector('.toc a[href="#' + e.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
