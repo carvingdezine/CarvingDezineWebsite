@@ -905,6 +905,9 @@ section { padding: 100px 0; border-bottom: 1px solid var(--tc-06); }
   .theme-toggle .tt-track { width: 28px; height: 15px; }
   .theme-toggle .tt-thumb { width: 11px; height: 11px; }
   :root[data-theme="light"] .theme-toggle .tt-thumb { transform: translateX(13px); }
+  .top-toolbar { top: 16px; right: 16px; gap: 7px; }
+  .snd-btn { width: 30px; height: 30px; }
+  .snd-btn svg { width: 14px; height: 14px; }
   .grid-7 { grid-template-columns: repeat(4, 1fr) !important; }
   .grid-3 { grid-template-columns: 1fr 1fr !important; }
   .cd-fab-group { right: 16px; bottom: 16px; }
@@ -933,12 +936,36 @@ section { padding: 100px 0; border-bottom: 1px solid var(--tc-06); }
   .parallax-slow, .parallax-med { transform: none !important; }
 }
 
-/* ── THEME TOGGLE ── */
-.theme-toggle {
+/* ── TOP TOOLBAR (theme + sound) ── */
+.top-toolbar {
   position: fixed;
   top: 24px;
   right: 24px;
   z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.snd-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--tc-10);
+  background: var(--grey-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tc-40);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.snd-btn:hover { color: var(--white); border-color: var(--tc-20); }
+.snd-btn.on { color: var(--white); border-color: var(--red); background: var(--tc-08); }
+.snd-btn svg { width: 16px; height: 16px; }
+
+/* ── THEME TOGGLE ── */
+.theme-toggle {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1040,11 +1067,16 @@ section { padding: 100px 0; border-bottom: 1px solid var(--tc-06); }
 </head>
 <body>
 
-<!-- THEME TOGGLE -->
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light/dark mode">
-  <span class="tt-track"><span class="tt-thumb"></span></span>
-  <span id="themeToggleLabel">Dark mode</span>
-</button>
+<!-- TOP TOOLBAR: SOUND + THEME -->
+<div class="top-toolbar">
+  <button class="snd-btn" id="snd-btn" type="button" title="Toggle sound" aria-label="Toggle sound">
+    <svg viewBox="0 0 20 20" fill="none"><path id="snd-icon-on" d="M3 7H1v6h2l4 4V3L3 7zm8.5 3a3.5 3.5 0 00-3-3.46V13.46A3.5 3.5 0 0011.5 10zm2.5 0a6 6 0 00-5-5.92v1.84A4 4 0 0114 10a4 4 0 01-2.5 3.7v1.84A6 6 0 0014 10z" fill="currentColor"/><path id="snd-icon-off" style="display:none" d="M3 7H1v6h2l4 4V3L3 7zm13.06 3l1.64-1.64-1.42-1.42L14.64 8.6l-1.64-1.64-1.42 1.42L13.22 10l-1.64 1.64 1.42 1.42 1.64-1.64 1.64 1.64 1.42-1.42L16.06 10z" fill="currentColor"/></svg>
+  </button>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light/dark mode">
+    <span class="tt-track"><span class="tt-thumb"></span></span>
+    <span id="themeToggleLabel">Dark mode</span>
+  </button>
+</div>
 
 <!-- FLOATING SCROLL CONTROLS -->
 <div class="cd-fab-group">
@@ -2094,9 +2126,37 @@ section { padding: 100px 0; border-bottom: 1px solid var(--tc-06); }
         <div class="spec-note">Live example: this page's cover, at the very top.</div>
       </div>
 
+      <!-- HOVER SOUND -->
+      <div class="spec-card">
+        <div class="mc-title">Hover Sound</div>
+        <div class="mc-body">Every button, tag, card, and heading plays a short synthesized tone on hover — pentatonic notes that cycle each time, so nothing repeats twice in a row. Muted until the sound toggle (top right) is switched on.</div>
+        <div class="spec-demo" style="gap:16px;">
+          <button class="spec-replay" type="button" onclick="window._hoverSound.setEnabled(true);window._hoverSound.play('default')">Default tone</button>
+          <button class="spec-replay" type="button" onclick="window._hoverSound.setEnabled(true);window._hoverSound.play('big')">Heading tone</button>
+        </div>
+        <div>
+          <span class="spec-code">window._hoverSound.play('default'|'link'|'big')</span>
+        </div>
+        <div class="spec-note">Also drives a soft cursor-tracking tone while moving over the cover's particle network above.</div>
+      </div>
+
+      <!-- AMBIENT PAD -->
+      <div class="spec-card">
+        <div class="mc-title">Ambient Pad</div>
+        <div class="mc-body">A quiet, fixed-volume background drone that starts on the first click or key press anywhere on the page (browsers block audio before a gesture), and stops instantly with the sound toggle.</div>
+        <div class="spec-demo" style="gap:16px;">
+          <button class="spec-replay" type="button" onclick="window._ambientPad.start()">Start pad</button>
+          <button class="spec-replay" type="button" onclick="window._ambientPad.stop()">Stop pad</button>
+        </div>
+        <div>
+          <span class="spec-code">window._ambientPad.start()</span><span class="spec-code">.stop()</span>
+        </div>
+        <div class="spec-note">The source page loops a recorded piano track here; that audio file wasn't supplied, so this is a synthesized substitute (four soft detuned sine tones) — swap in a real <span class="spec-code">Audio()</span> loop later using the same start()/stop() interface.</div>
+      </div>
+
     </div>
 
-    <div class="spec-note rv" style="margin-top:32px;">All five patterns automatically disable themselves for visitors with "reduce motion" set at the OS level, and work identically in light and dark mode — they're built on the same CSS variables as everything else in this document. Full source for each is inline in this file's &lt;style&gt; and &lt;script&gt; blocks, ready to copy into any other project.</div>
+    <div class="spec-note rv" style="margin-top:32px;">All seven patterns automatically disable themselves for visitors with "reduce motion" set at the OS level (sound is separately opt-in via the toggle, off by default until a gesture), and work identically in light and dark mode — they're built on the same CSS variables as everything else in this document. Full source for each is inline in this file's &lt;style&gt; and &lt;script&gt; blocks, ready to copy into any other project.</div>
 
   </div>
 </section>
@@ -2153,6 +2213,207 @@ sections.forEach(s => obs.observe(s));
     const current = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
     applyTheme(current);
   });
+})();
+
+// ── AMBIENT BACKGROUND PAD ──
+// Note: the source page loads a real recorded piano loop (audio/ambient-piano.mp3).
+// That file wasn't provided, so this is a synthesized substitute (a few soft detuned
+// sine tones through a lowpass filter) that needs no external asset to work. Swap in
+// a real Audio() loop here if/when you have one — same start()/stop() interface.
+window._ambientPad = (function() {
+  var PREF_KEY = 'cd_sound_pref';
+  function wanted() { try { return localStorage.getItem(PREF_KEY) !== 'off'; } catch (e) { return true; } }
+  var actx = null, nodes = [], started = false;
+  function start() {
+    if (started || !wanted()) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === 'suspended') actx.resume();
+      started = true;
+      var freqs = [130.81, 164.81, 196.00, 261.63]; // C3, E3, G3, C4 — soft major triad + octave
+      var master = actx.createGain();
+      master.gain.setValueAtTime(0, actx.currentTime);
+      master.gain.linearRampToValueAtTime(0.05, actx.currentTime + 3); // fixed low volume, slow fade-in
+      master.connect(actx.destination);
+      freqs.forEach(function(f, i) {
+        var osc = actx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = f;
+        var lfo = actx.createOscillator();
+        lfo.frequency.value = 0.045 + i * 0.011;
+        var lfoGain = actx.createGain();
+        lfoGain.gain.value = 0.4;
+        var g = actx.createGain();
+        g.gain.value = 0.55;
+        var lp = actx.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.value = 900;
+        lfo.connect(lfoGain); lfoGain.connect(g.gain);
+        osc.connect(lp); lp.connect(g); g.connect(master);
+        osc.start(); lfo.start();
+        nodes.push(osc, lfo);
+      });
+      nodes.push(master);
+    } catch (e) { started = false; }
+  }
+  function stop() {
+    nodes.forEach(function(n) { try { n.stop && n.stop(); n.disconnect && n.disconnect(); } catch (e) {} });
+    nodes = [];
+    started = false;
+  }
+  function armOnGesture() { if (wanted()) start(); }
+  if (wanted()) start(); // try right away; browsers will just leave the context suspended until a gesture
+  document.addEventListener('pointerdown', armOnGesture, { once: true });
+  document.addEventListener('keydown', armOnGesture, { once: true });
+  return { start: start, stop: stop, isWanted: wanted };
+})();
+
+// ── HOVER SOUND — plays a soft tone on hover of interactive elements ──
+window._hoverSound = (function() {
+  var actx = null, enabled = false, ready = false;
+  var SCALE = [261.63, 329.63, 392.00, 493.88, 523.25, 659.25, 783.99, 1046.50]; // pentatonic-ish, C-rooted
+  var noteIdx = 0;
+
+  function init() {
+    if (ready) return;
+    try {
+      actx = new (window.AudioContext || window.webkitAudioContext)();
+      ready = true;
+    } catch (e) {}
+  }
+
+  function play(type) {
+    if (!ready || !enabled || !actx) return;
+    if (actx.state === 'suspended') actx.resume();
+    var now = actx.currentTime;
+    var freq = SCALE[noteIdx % SCALE.length];
+    noteIdx++;
+
+    var osc = actx.createOscillator();
+    var gain = actx.createGain();
+    var lp = actx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.setValueAtTime(3000, now);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, now);
+    osc.frequency.exponentialRampToValueAtTime(freq * 0.995, now + 0.25);
+
+    if (type === 'big') {
+      freq = freq * 0.5;
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.10, now + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+    } else if (type === 'link') {
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.06, now + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+    } else {
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.08, now + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
+    }
+
+    var osc2 = actx.createOscillator();
+    var gain2 = actx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(freq * 2, now);
+    gain2.gain.setValueAtTime(0, now);
+    gain2.gain.linearRampToValueAtTime(0.018, now + 0.01);
+    gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
+
+    osc.connect(lp); lp.connect(gain); gain.connect(actx.destination);
+    osc2.connect(gain2); gain2.connect(actx.destination);
+
+    var dur = type === 'big' ? 0.6 : type === 'link' ? 0.22 : 0.36;
+    osc.start(now); osc.stop(now + dur);
+    osc2.start(now); osc2.stop(now + dur);
+  }
+
+  function setEnabled(v) {
+    enabled = v;
+    if (!ready && v) init();
+    if (actx) { if (v) actx.resume(); else actx.suspend(); }
+  }
+
+  var _lastMoveTone = 0, _lastMx = -1, _lastMy = -1;
+  function onMove(mx, my, w, h) {
+    if (!ready || !enabled || !actx) return;
+    var dx = mx - _lastMx, dy = my - _lastMy;
+    var speed = Math.sqrt(dx * dx + dy * dy);
+    if (speed < 3) return;
+    _lastMx = mx; _lastMy = my;
+    var now = actx.currentTime;
+    if (now - _lastMoveTone < 0.07) return;
+    _lastMoveTone = now;
+    if (actx.state === 'suspended') actx.resume();
+    var ni = Math.floor((mx / w) * SCALE.length);
+    ni = Math.max(0, Math.min(SCALE.length - 1, ni));
+    var freq = SCALE[ni] * ((my / h) > 0.5 ? 0.5 : 1);
+    var vel = Math.min(speed / 10, 1);
+    var osc = actx.createOscillator(), gain = actx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, now);
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(vel * 0.04, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
+    osc.connect(gain); gain.connect(actx.destination);
+    osc.start(now); osc.stop(now + 0.22);
+  }
+  return { init: init, play: play, onMove: onMove, setEnabled: setEnabled, isEnabled: function() { return enabled; } };
+})();
+
+// Bind hover tones to this document's own interactive elements
+function CD_bindHoverSound() {
+  document.querySelectorAll('.section-title, .cover-title').forEach(function(el) {
+    if (el.dataset.sndBound) return; el.dataset.sndBound = '1';
+    el.addEventListener('mouseenter', function() { window._hoverSound.play('big'); });
+  });
+  document.querySelectorAll('.toc a, .theme-toggle, .snd-btn, .cd-fab, .spec-replay').forEach(function(el) {
+    if (el.dataset.sndBound) return; el.dataset.sndBound = '1';
+    el.addEventListener('mouseenter', function() { window._hoverSound.play('link'); });
+  });
+  document.querySelectorAll('.btn-primary, .btn-outline, .btn-ghost, .card, .tag-outline, .tag-filled, .tag-red, .logo-box, .logo-rule-box, .motion-card, .spec-card').forEach(function(el) {
+    if (el.dataset.sndBound) return; el.dataset.sndBound = '1';
+    el.addEventListener('mouseenter', function() { window._hoverSound.play('default'); });
+  });
+}
+CD_bindHoverSound();
+
+// SOUND TOGGLE BUTTON
+(function() {
+  var PREF_KEY = 'cd_sound_pref';
+  var btn = document.getElementById('snd-btn');
+  var iconOn = document.getElementById('snd-icon-on');
+  var iconOff = document.getElementById('snd-icon-off');
+  function wanted() { try { return localStorage.getItem(PREF_KEY) !== 'off'; } catch (e) { return true; } } // on by default
+
+  function updateUI() {
+    var on = wanted();
+    if (!btn) return;
+    btn.classList.toggle('on', on);
+    if (iconOn) iconOn.style.display = on ? '' : 'none';
+    if (iconOff) iconOff.style.display = on ? 'none' : '';
+    btn.title = on ? 'Sound on — click to mute' : 'Sound off — click to enable';
+  }
+
+  function armOnGesture() {
+    if (!wanted()) return;
+    window._hoverSound.setEnabled(true);
+  }
+  document.addEventListener('pointerdown', armOnGesture, { once: true });
+  document.addEventListener('keydown', armOnGesture, { once: true });
+
+  if (btn) {
+    btn.addEventListener('click', function() {
+      var next = !wanted();
+      try { localStorage.setItem(PREF_KEY, next ? 'on' : 'off'); } catch (e) {}
+      window._hoverSound.setEnabled(next);
+      if (window._ambientPad) { if (next) window._ambientPad.start(); else window._ambientPad.stop(); }
+      updateUI();
+    });
+  }
+  updateUI();
 })();
 </script>
 
@@ -2354,6 +2615,7 @@ function CD_createParticleNetwork(canvas, opts) {
     mouse.tx = e.clientX - r.left;
     mouse.ty = e.clientY - r.top;
     mouse.inside = (mouse.tx >= 0 && mouse.tx <= canvas.width && mouse.ty >= 0 && mouse.ty <= canvas.height);
+    if (mouse.inside && opts.onMove) opts.onMove(mouse.tx, mouse.ty, canvas.width, canvas.height);
   }
   document.addEventListener('mousemove', onMove, { passive: true });
   document.addEventListener('mouseleave', function() { mouse.inside = false; }, { passive: true });
@@ -2369,7 +2631,9 @@ function CD_createParticleNetwork(canvas, opts) {
   };
 }
 (function() {
-  var hero = CD_createParticleNetwork(document.getElementById('hero-canvas'));
+  var hero = CD_createParticleNetwork(document.getElementById('hero-canvas'), {
+    onMove: function(mx, my, w, h) { if (window._hoverSound) window._hoverSound.onMove(mx, my, w, h); }
+  });
   setTimeout(function() { hero.start(); }, 50);
   var demoCanvas = document.getElementById('specNetworkDemo');
   if (demoCanvas) {
