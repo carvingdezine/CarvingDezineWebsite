@@ -128,6 +128,15 @@ section { padding: 100px 0; border-bottom: 1px solid var(--tc-06); }
   width: 6px;
   height: 100%;
   background: var(--red);
+  z-index: 1;
+}
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 .cover-year {
   font-family: var(--m);
@@ -833,6 +842,21 @@ section { padding: 100px 0; border-bottom: 1px solid var(--tc-06); }
   color: var(--tc-40);
   line-height: 1.6;
 }
+.spec-card-wide { grid-column: 1 / -1; }
+.spec-canvas-wrap {
+  position: relative;
+  height: 180px;
+  border: 1px dashed var(--tc-15);
+  border-radius: 6px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+.spec-canvas-wrap canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.spec-canvas-wrap .scw-hint {
+  position: absolute; bottom: 10px; left: 0; right: 0; text-align: center;
+  font-family: var(--m); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--tc-30); pointer-events: none;
+}
 
 /* ── FOOTER ── */
 #brand-footer {
@@ -1046,6 +1070,7 @@ section { padding: 100px 0; border-bottom: 1px solid var(--tc-06); }
 
 <!-- COVER -->
 <section id="cover">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div class="cover-red-stripe parallax-slow"></div>
   <div class="cover-meta">
     <p>Prepared by</p>
@@ -2055,9 +2080,23 @@ section { padding: 100px 0; border-bottom: 1px solid var(--tc-06); }
         <div class="spec-note">Live example: bottom-right of this page.</div>
       </div>
 
+      <!-- PARTICLE NETWORK -->
+      <div class="spec-card spec-card-wide">
+        <div class="mc-title">Particle Network</div>
+        <div class="mc-body">A canvas of drifting nodes that link when close together, repelled and re-attracted by the cursor — used as the cover's background. Density scales with canvas area; pauses automatically when off-screen to save GPU. Move your cursor over the box below.</div>
+        <div class="spec-canvas-wrap">
+          <canvas id="specNetworkDemo" aria-hidden="true"></canvas>
+          <div class="scw-hint">Move cursor here</div>
+        </div>
+        <div>
+          <span class="spec-code">#hero-canvas</span><span class="spec-code">CD_createParticleNetwork(canvas, opts)</span>
+        </div>
+        <div class="spec-note">Live example: this page's cover, at the very top.</div>
+      </div>
+
     </div>
 
-    <div class="spec-note rv" style="margin-top:32px;">All four patterns automatically disable themselves for visitors with "reduce motion" set at the OS level, and work identically in light and dark mode — they're built on the same CSS variables as everything else in this document. Full source for each is inline in this file's &lt;style&gt; and &lt;script&gt; blocks, ready to copy into any other project.</div>
+    <div class="spec-note rv" style="margin-top:32px;">All five patterns automatically disable themselves for visitors with "reduce motion" set at the OS level, and work identically in light and dark mode — they're built on the same CSS variables as everything else in this document. Full source for each is inline in this file's &lt;style&gt; and &lt;script&gt; blocks, ready to copy into any other project.</div>
 
   </div>
 </section>
@@ -2187,6 +2226,161 @@ sections.forEach(s => obs.observe(s));
     scrambleTargets.forEach(function(el) { scrambleObserver.observe(el); });
   } else {
     scrambleTargets.forEach(runScramble);
+  }
+})();
+
+// PARTICLE NETWORK — reusable node/link canvas background (used in header + demo specimen below)
+function CD_createParticleNetwork(canvas, opts) {
+  if (!canvas) return { start: function() {}, stop: function() {} };
+  opts = opts || {};
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ctx = canvas.getContext('2d'), pts = [], running = false;
+  var LINK = opts.link || 180, REPEL = opts.repel || 100, ATTRACT = opts.attract || 240, FORCE = opts.force || 2.6;
+  var maxPts = opts.maxPts || 220, minPts = opts.minPts || 120, density = opts.density || 9000;
+  var mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, inside: false };
+
+  function resize() {
+    var w = canvas.parentElement.offsetWidth || window.innerWidth;
+    var h = canvas.parentElement.offsetHeight || window.innerHeight;
+    if (w < 10) w = window.innerWidth;
+    if (h < 10) h = window.innerHeight;
+    canvas.width = w; canvas.height = h;
+    init();
+  }
+  function init() {
+    pts = [];
+    var n = Math.min(maxPts, Math.max(minPts, Math.floor((canvas.width * canvas.height) / density)));
+    for (var i = 0; i < n; i++) {
+      pts.push({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random() - .5) * .8, vy: (Math.random() - .5) * .8,
+        r: Math.random() * 2 + .6, phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * .012 + .01, bright: Math.random() > .72
+      });
+    }
+  }
+
+  var frame = 0;
+  var vis = true;
+  var pauseObs = new IntersectionObserver(function(e) { vis = e[0].isIntersecting; }, { threshold: 0 });
+  pauseObs.observe(canvas);
+
+  function draw() {
+    if (!running) return;
+    if (!vis) { requestAnimationFrame(draw); return; }
+    frame++;
+    mouse.x += (mouse.tx - mouse.x) * .18;
+    mouse.y += (mouse.ty - mouse.y) * .18;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var linkBoost = mouse.inside ? 0 : (Math.sin(frame * .012) * .07 + .07);
+
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      p.phase += p.speed;
+      p._pv = Math.sin(p.phase) * .28 + .72;
+      if (mouse.inside) {
+        var mdx = p.x - mouse.x, mdy = p.y - mouse.y;
+        var md2 = mdx * mdx + mdy * mdy, md = Math.sqrt(md2);
+        p._distC = md;
+        if (md < REPEL && md > 0) {
+          var rs = FORCE * (1 - md / REPEL);
+          p.vx += (mdx / md) * rs; p.vy += (mdy / md) * rs;
+        } else if (md < ATTRACT) {
+          var as = 0.12 * (1 - (md - REPEL) / (ATTRACT - REPEL));
+          p.vx -= (mdx / md) * as; p.vy -= (mdy / md) * as;
+        }
+      } else { p._distC = 9999; }
+      var damp = mouse.inside ? .92 : .94;
+      p.vx *= damp; p.vy *= damp;
+      var minD = mouse.inside ? .18 : .32;
+      if (Math.abs(p.vx) < minD) p.vx += (Math.random() - .5) * .4;
+      if (Math.abs(p.vy) < minD) p.vy += (Math.random() - .5) * .4;
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) { p.x = 0; p.vx = Math.abs(p.vx); }
+      if (p.x > canvas.width) { p.x = canvas.width; p.vx = -Math.abs(p.vx); }
+      if (p.y < 0) { p.y = 0; p.vy = Math.abs(p.vy); }
+      if (p.y > canvas.height) { p.y = canvas.height; p.vy = -Math.abs(p.vy); }
+    }
+
+    ctx.lineWidth = .7;
+    for (var i = 0; i < pts.length; i++) {
+      for (var j = i + 1; j < pts.length; j++) {
+        var dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        var d2 = dx * dx + dy * dy;
+        if (d2 < LINK * LINK) {
+          var d = Math.sqrt(d2);
+          var alpha = (0.65 + linkBoost) * (1 - d / LINK);
+          ctx.strokeStyle = 'rgba(255,42,42,' + alpha.toFixed(2) + ')';
+          ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
+        }
+      }
+    }
+    if (mouse.inside) {
+      ctx.lineWidth = .5;
+      for (var i = 0; i < pts.length; i++) {
+        var cd = pts[i]._distC;
+        if (cd < ATTRACT) {
+          var ca = (0.75 * (1 - cd / ATTRACT)).toFixed(2);
+          ctx.strokeStyle = 'rgba(255,42,42,' + ca + ')';
+          ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+        }
+      }
+    }
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      var glow = p._distC < ATTRACT ? (1 - p._distC / ATTRACT) * .9 : 0;
+      var breath = mouse.inside ? 0 : (Math.sin(frame * .018 + p.x * .008) * .09 + .09);
+      var alpha = (.72 + glow + breath) * p._pv;
+      if (p.bright || glow > 0.2) {
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (p.bright ? 5 : 3), 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,42,42,' + (alpha * (p.bright ? .4 : .5)).toFixed(2) + ')';
+        ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r + (glow * 2), 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,42,42,' + Math.min(alpha, 0.95).toFixed(2) + ')';
+      ctx.fill();
+    }
+    if (mouse.inside) {
+      ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,42,42,.9)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 14, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,42,42,.12)'; ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+
+  function onMove(e) {
+    var r = canvas.getBoundingClientRect();
+    mouse.tx = e.clientX - r.left;
+    mouse.ty = e.clientY - r.top;
+    mouse.inside = (mouse.tx >= 0 && mouse.tx <= canvas.width && mouse.ty >= 0 && mouse.ty <= canvas.height);
+  }
+  document.addEventListener('mousemove', onMove, { passive: true });
+  document.addEventListener('mouseleave', function() { mouse.inside = false; }, { passive: true });
+  window.addEventListener('resize', function() { setTimeout(resize, 60); }, { passive: true });
+
+  return {
+    start: function() {
+      if (reduceMotion) return;
+      resize();
+      if (!running) { running = true; draw(); }
+    },
+    stop: function() { running = false; }
+  };
+}
+(function() {
+  var hero = CD_createParticleNetwork(document.getElementById('hero-canvas'));
+  setTimeout(function() { hero.start(); }, 50);
+  var demoCanvas = document.getElementById('specNetworkDemo');
+  if (demoCanvas) {
+    var demo = CD_createParticleNetwork(demoCanvas, { maxPts: 70, minPts: 40, density: 5500, link: 90, repel: 60, attract: 130 });
+    var startedDemo = false;
+    var demoObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(en) {
+        if (en.isIntersecting && !startedDemo) { startedDemo = true; demo.start(); }
+      });
+    }, { threshold: 0.3 });
+    demoObs.observe(demoCanvas);
   }
 })();
 
