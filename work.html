@@ -25,7 +25,7 @@
   --line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.13);
   --ease:cubic-bezier(.19,1,.22,1);
   --f:'Outfit',sans-serif;--m:'DM Mono',monospace;
-  --nav-h:56px;
+  --nav-h:64px;
 }
 html{overflow-x:hidden;font-size:16px;scroll-behavior:smooth;}
 body{background:var(--black);color:var(--white);font-family:var(--f);-webkit-font-smoothing:antialiased;}
@@ -34,19 +34,45 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-size:200px 200px;opacity:.5;}
 a{color:inherit;text-decoration:none;}
 
-/* NAV */
-#wk-nav{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);
+/* NAV — shared across all pages */
+#nav{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 clamp(20px,4vw,44px);
-  background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
-.wk-logo{display:flex;align-items:center;gap:11px;}
-.wk-logo img{width:28px;height:28px;object-fit:contain;}
-.wk-logo span{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;}
-.wk-nav-links{display:flex;gap:clamp(16px,2.5vw,36px);list-style:none;}
-.wk-nav-links a{font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:color .2s;}
-.wk-nav-links a:hover,.wk-nav-links a.active{color:#fff;}
-.wk-nav-cta{font-family:var(--m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.2);padding:7px 16px;transition:border-color .2s,background .2s;}
-.wk-nav-cta:hover{border-color:var(--red);background:rgba(255,42,42,.08);}
+  padding:0 clamp(20px,4vw,52px);border-bottom:1px solid transparent;
+  transition:background .4s,border-color .4s;}
+#nav.solid{background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-color:var(--line);}
+.nav-logo{display:flex;align-items:center;gap:11px;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;}
+.nav-logo img{width:28px;height:28px;object-fit:contain;}
+.nav-logo span{color:#fff;}
+.nav-links{display:flex;gap:clamp(16px,2.5vw,36px);list-style:none;}
+.nav-links a{font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);position:relative;padding-bottom:3px;transition:color .25s;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);}
+.nav-links a:hover{color:#fff;}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-links a.active{color:#fff;}
+.nav-links a.active::after{transform:scaleX(1);}
+.nav-r{display:flex;align-items:center;gap:16px;}
+.nav-cta{font-family:var(--m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.2);padding:9px 22px;transition:border-color .2s,background .2s;}
+.nav-cta:hover{border-color:var(--red);background:rgba(255,42,42,.08);}
+.avail-badge{display:flex;align-items:center;gap:7px;font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.62);}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pdot 2.5s ease infinite;}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
+.burger{display:none;flex-direction:column;gap:5px;padding:4px;background:transparent;border:none;cursor:pointer;}
+.burger span{display:block;width:22px;height:1.5px;background:#fff;transition:transform .35s var(--ease),opacity .3s;}
+.burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+#mob-nav{display:none;position:fixed;inset:0;z-index:6500;background:rgba(0,0,0,.97);backdrop-filter:blur(20px);flex-direction:column;padding:80px 32px 40px;gap:0;}
+#mob-nav.open{display:flex;}
+.mob-ni{display:block;font-size:clamp(28px,8vw,44px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.55);transition:color .2s;}
+.mob-ni:hover{color:#fff;}
+.mob-ni.active{color:#fff;}
+.mob-ni.red{color:var(--red);}
+.mob-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:#fff;background:transparent;}
+@media(max-width:768px){
+  #nav{padding:0 20px;}
+  .nav-links,.avail-badge,.nav-cta{display:none;}
+  .burger{display:flex;}
+}
 
 /* PAGE HEADER */
 .wk-hd{padding:calc(var(--nav-h) + 52px) clamp(20px,4vw,44px) 32px;border-bottom:1px solid var(--line);}
@@ -140,7 +166,7 @@ a{color:inherit;text-decoration:none;}
 .wk-ft-btm a{color:rgba(255,255,255,.25);transition:color .2s;}
 .wk-ft-btm a:hover{color:#fff;}
 
-@media(max-width:900px){.wk-masonry{column-count:2;}.wk-nav-links{display:none;}.wk-ft-main{grid-template-columns:1fr;}.wk-ft-col{border-right:none;border-top:1px solid var(--line);justify-content:center;text-align:center;}.wk-ft-col:first-child{border-top:none;}.wk-ft-links{justify-content:center;}.wk-ft-btm{flex-direction:column;gap:8px;text-align:center;justify-content:center;}}
+@media(max-width:900px){.wk-masonry{column-count:2;}.wk-ft-main{grid-template-columns:1fr;}.wk-ft-col{border-right:none;border-top:1px solid var(--line);justify-content:center;text-align:center;}.wk-ft-col:first-child{border-top:none;}.wk-ft-links{justify-content:center;}.wk-ft-btm{flex-direction:column;gap:8px;text-align:center;justify-content:center;}}
 @media(max-width:560px){.wk-masonry{column-count:1;}}
 </style>
 <script type="application/ld+json">
@@ -157,21 +183,36 @@ a{color:inherit;text-decoration:none;}
 </head>
 <body>
 
-<nav id="wk-nav">
-  <a class="wk-logo" href="index.html">
+<nav id="nav" class="solid">
+  <a class="nav-logo" href="index.html">
     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDcpIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTl2MTQ4LjYxYzAsMS4wOS0uMSwyLjE2LS4xNiwzLjI0aC4xNnYxMDEuMTVjMzUuNjEtMjAuNjYsNTkuNjktNTkuNyw1OS42OS0xMDQuMzlWMTEzLjQxYy0uMjMsMC0uNDYtLjAyLS42OC0uMDIiLz48L3N2Zz4=" alt="Carving Dezine"/>
     <span>Carving Dezine</span>
   </a>
-  <ul class="wk-nav-links">
-    <li><a href="index.html#services">Services</a></li>
+  <ul class="nav-links">
     <li><a href="work.html" class="active">Work</a></li>
-    <li><a href="index.html#testimonials">Testimonials</a></li>
+    <li><a href="index.html#audit">Audit Studio</a></li>
+    <li><a href="index.html#services">Services</a></li>
     <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#testimonials">Testimonials</a></li>
     <li><a href="index.html#faq">FAQ</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
-  <a href="index.html#contact" class="wk-nav-cta">Start a Project</a>
+  <div class="nav-r">
+    <div class="avail-badge"><span class="avail-dot"></span>Available</div>
+    <a href="index.html#contact" class="nav-cta">Start a Project</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
 </nav>
+
+<div id="mob-nav">
+  <button class="mob-close" id="mob-close">✕</button>
+  <a href="work.html" class="mob-ni active">Work</a>
+  <a href="index.html#audit" class="mob-ni">Audit Studio</a>
+  <a href="index.html#services" class="mob-ni">Services</a>
+  <a href="index.html#about" class="mob-ni">About</a>
+  <a href="index.html#testimonials" class="mob-ni">Testimonials</a>
+  <a href="index.html#contact" class="mob-ni red">Start a Project ↗</a>
+</div>
 
 <div class="wk-hd">
   <div class="wk-title rv">All Work</div>
@@ -215,9 +256,9 @@ a{color:inherit;text-decoration:none;}
     </div></div>
   </div>
   <div class="wk-ft-btm">
-    <span>Freelance UX/UI &amp; Brand Designer &nbsp;&middot;&nbsp; www.carvingdezine.com</span>
+    <span>A part of <a href="https://www.microngroup.in" target="_blank" rel="noopener">Micron Group</a> &nbsp;·&nbsp; www.carvingdezine.com</span>
     <span id="cd-last-updated" title="Timestamp of the most recently saved project, straight from the database - use this to check you're not looking at a cached/old version.">Last updated: -</span>
-    <a href="index.html#admin" target="_blank">Admin</a>
+    <span>Designed with intention &nbsp;·&nbsp; <a href="index.html#admin" target="_blank">Studio Admin</a></span>
   </div>
 </footer>
 
@@ -316,6 +357,13 @@ function renderClientChip(){
   document.getElementById('wk-clear-client').addEventListener('click',clearClientFilter);
 }
 
+// Extracts the add-timestamp from auto-generated ids (id:'u'+Date.now()) so that
+// projects sharing the same "year" value still sort by true recency, newest first/last.
+function projectTS(p){
+  var m=/^u(\d{9,})/.exec((p&&p.id)||'');
+  return m?parseInt(m[1],10):0;
+}
+
 function mkCard(p){
   var cover=getProjectCover(p);
   var srcLabel=p.src==='behance'?'Behance':p.src==='dribbble'?'Dribbble':'';
@@ -334,7 +382,12 @@ function mkCard(p){
 
 function render(){
   var all=getAllProjects();
-  all.sort(function(a,b){var ya=parseInt(a.year)||0,yb=parseInt(b.year)||0;return _wkSort==='old'?ya-yb:yb-ya;});
+  all.sort(function(a,b){
+    var ya=parseInt(a.year)||0,yb=parseInt(b.year)||0;
+    if(ya!==yb) return _wkSort==='old'?ya-yb:yb-ya;
+    var ta=projectTS(a),tb=projectTS(b);
+    return _wkSort==='old'?ta-tb:tb-ta;
+  });
   var filtered=all;
   if(_catFilter!=='all') filtered=filtered.filter(function(p){return p.cat===_catFilter;});
   if(_tagFilter!=='all') filtered=filtered.filter(function(p){return p.tags&&p.tags.indexOf(_tagFilter)!==-1;});
@@ -584,6 +637,20 @@ window._ambientPad=(function(){
 })();
 </script>
 
+
+<script>
+(function(){
+  var burger=document.getElementById('burger');
+  var mobNav=document.getElementById('mob-nav');
+  var mobClose=document.getElementById('mob-close');
+  if(!burger||!mobNav)return;
+  function openNav(){mobNav.classList.add('open');burger.classList.add('open');document.body.style.overflow='hidden';}
+  function closeNav(){mobNav.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';}
+  burger.addEventListener('click',function(){mobNav.classList.contains('open')?closeNav():openNav();});
+  if(mobClose)mobClose.addEventListener('click',closeNav);
+  mobNav.querySelectorAll('.mob-ni').forEach(function(a){a.addEventListener('click',closeNav);});
+})();
+</script>
 
 <style>
 #cd-scroll-btn{position:fixed;right:28px;bottom:24px;z-index:590;width:46px;height:46px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:.85;transition:opacity .2s,transform .15s}

@@ -225,7 +225,7 @@ a{color:inherit;text-decoration:none}
 button{font-family:var(--f);cursor:pointer;border:none;background:none}
 img{display:block;max-width:100%}
 input,textarea,select{font-family:var(--f)}
-::-webkit-scrollbar{display:none}html{scrollbar-width:none;-ms-overflow-style:none}
+::-webkit-scrollbar{width:12px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:6px;border:3px solid var(--black);background-clip:padding-box}::-webkit-scrollbar-thumb:hover{background:#ff5252;background-clip:padding-box}html{scrollbar-width:auto;scrollbar-color:var(--red) var(--black)}
 
 /* Cursor: system default */
 
@@ -289,25 +289,6 @@ input,textarea,select{font-family:var(--f)}
 .burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .burger.open span:nth-child(2){opacity:0}
 .burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-#mob{
-  position:fixed;inset:0;z-index:490;background:var(--black);
-  display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(40px,8vw,80px);
-  transform:translateY(-100%);transition:transform .65s var(--ease);
-}
-#mob.open{transform:none}
-#mob a{
-  display:block;font-size:clamp(42px,10vw,90px);font-weight:800;letter-spacing:-.04em;line-height:1.1;
-  color:var(--white);border-bottom:1px solid var(--line);padding:14px 0;
-  transition:color .2s,padding-left .3s var(--ease);position:relative;
-}
-/* Word hover underline on mobile menu links */
-#mob a::after{
-  content:'';position:absolute;bottom:0;left:0;width:0;height:2px;
-  background:var(--red);transition:width .35s var(--ease);
-}
-#mob a:hover{color:var(--red);padding-left:14px}
-#mob a:hover::after{width:80px}
-
 /* ═══════════════════════════════════
    HERO
 ═══════════════════════════════════ */
@@ -2218,14 +2199,6 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   </div>
 </div>
 
-<!-- MOBILE MENU -->
-<div id="mob">
-  <a href="work.html">Work</a>
-  <a href="#services">Services</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
-</div>
-
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-logo">
@@ -3329,13 +3302,6 @@ function startHero(){
 window.addEventListener('scroll',function(){
   document.getElementById('nav').classList.toggle('solid',scrollY>60);
 },{passive:true});
-var mopen=false;
-document.getElementById('burger').addEventListener('click',function(){
-  mopen=!mopen;this.classList.toggle('open',mopen);document.getElementById('mob').classList.toggle('open',mopen);
-});
-document.querySelectorAll('#mob a').forEach(function(a){
-  a.addEventListener('click',function(){mopen=false;document.getElementById('burger').classList.remove('open');document.getElementById('mob').classList.remove('open')});
-});
 
 // INTERSECTION OBSERVER - all reveal types
 var ioOpts={threshold:.07,rootMargin:'0px 0px -28px 0px'};
@@ -3414,6 +3380,14 @@ function getAllProjects(){
   var hidden=gHi();
   var seeds=SEEDS.filter(function(s){return userIds.indexOf(s.id)===-1&&hidden.indexOf(s.id)===-1});
   return user.concat(seeds).concat(allPlatformProjects);
+}
+
+// Extracts the add-timestamp from auto-generated ids (id:'u'+Date.now()) so that
+// projects sharing the same "year" value still sort by true recency, not just
+// their incidental position in the underlying array.
+function projectTS(p){
+  var m=/^u(\d{9,})/.exec((p&&p.id)||'');
+  return m?parseInt(m[1],10):0;
 }
 
 function mkCard(p,idx){
@@ -3609,8 +3583,14 @@ function renderGrid(filter){
   var filtered=all.filter(function(p){return p.title&&(p.src==='manual'||(p.src&&getProjectCover(p)));});
   // Apply category filter
   if(filter&&filter!=='all'){filtered=filtered.filter(function(p){return p.cat===filter;});}
-  // Sort by year
-  filtered.sort(function(a,b){var ya=parseInt(a.year)||0,yb=parseInt(b.year)||0;return _curSort==='old'?ya-yb:yb-ya;});
+  // Sort by year, then by true add-order within the same year so newly added
+  // projects never get buried behind older ones that merely share a year.
+  filtered.sort(function(a,b){
+    var ya=parseInt(a.year)||0,yb=parseInt(b.year)||0;
+    if(ya!==yb) return _curSort==='old'?ya-yb:yb-ya;
+    var ta=projectTS(a),tb=projectTS(b);
+    return _curSort==='old'?ta-tb:tb-ta;
+  });
   // Take 8 most recent
   var display=filtered.slice(0,8);
 
@@ -4909,8 +4889,9 @@ updateBackupStatus();
   var mobNav=document.getElementById('mob-nav');
   var mobClose=document.getElementById('mob-close');
   if(!burger||!mobNav)return;
-  burger.addEventListener('click',function(){mobNav.classList.add('open');document.body.style.overflow='hidden'});
-  function close(){mobNav.classList.remove('open');document.body.style.overflow=''}
+  function open(){mobNav.classList.add('open');burger.classList.add('open');document.body.style.overflow='hidden'}
+  function close(){mobNav.classList.remove('open');burger.classList.remove('open');document.body.style.overflow=''}
+  burger.addEventListener('click',function(){mobNav.classList.contains('open')?close():open()});
   if(mobClose)mobClose.addEventListener('click',close);
   mobNav.querySelectorAll('.mob-ni').forEach(function(a){a.addEventListener('click',close)});
 })();
