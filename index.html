@@ -172,7 +172,37 @@
         {
           "@type": "Question",
           "name": "Can I hire you on a retainer basis?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Yes - I work with a few select clients on a monthly retainer for ongoing design needs. This works well for brands that regularly need decks, marketing materials, or UI updates. Get in touch to discuss."}
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes - the Retainer plan is built exactly for this: one flat monthly rate, unlimited requests, one at a time, pause or cancel anytime. Works well for brands that regularly need decks, marketing materials, or UI updates."}
+        },
+        {
+          "@type": "Question",
+          "name": "What's included in the Retainer?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Anything I do as a discipline - UX/UI, brand identity, presentation decks, or print collateral. Submit a request, I work on it until it's done, then move to the next one in your queue."}
+        },
+        {
+          "@type": "Question",
+          "name": "How many requests can I send at once?",
+          "acceptedAnswer": {"@type": "Answer", "text": "As many as you like - they just queue up. I work one at a time so nothing gets rushed or split across five things at once."}
+        },
+        {
+          "@type": "Question",
+          "name": "Can I pause or cancel the Retainer?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Anytime, no lock-in. Pause when things go quiet, resume when they pick back up. You're only billed for active months."}
+        },
+        {
+          "@type": "Question",
+          "name": "I only need one thing done - do I need the Retainer?",
+          "acceptedAnswer": {"@type": "Answer", "text": "No - that's exactly what the Project plan is for. Fixed scope, fixed price, one deliverable, done properly. The Retainer only makes sense if you expect a steady stream of requests."}
+        },
+        {
+          "@type": "Question",
+          "name": "Do you build the website, or just design it?",
+          "acceptedAnswer": {"@type": "Answer", "text": "I design it - and for interactive/front-end work I hand-code it myself, the way this site is built. I don't work in Webflow or Framer, so if you specifically need a page-builder site, that's outside what I offer."}
+        },
+        {
+          "@type": "Question",
+          "name": "How does payment work?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Invoiced directly - Wise for international clients, UPI for India. No card details, no third-party checkout."}
         }
       ]
     }
@@ -625,7 +655,10 @@ input,textarea,select{font-family:var(--f)}
 /* ═══════════════════════════════════
    AUDIT STUDIO — kept light: one intro, tag list, inline CTA
 ═══════════════════════════════════ */
-#audit{border-bottom:1px solid var(--line);padding:clamp(48px,6vw,80px) 0}
+#audit{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0}
+.aud2-wrap{display:grid;grid-template-columns:1fr 1fr}
+.aud2-left{padding:clamp(48px,6vw,80px) clamp(20px,4vw,52px);border-right:1px solid var(--line)}
+.aud2-right{padding:clamp(48px,6vw,80px) clamp(20px,4vw,52px)}
 .aud-wrap{max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,52px)}
 .aud-h{font-size:clamp(26px,3.6vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1.15;text-transform:uppercase;margin-bottom:18px;max-width:760px}
 .aud-h em{font-style:normal;color:var(--red)}
@@ -644,6 +677,31 @@ input,textarea,select{font-family:var(--f)}
 .aud-note{font-family:var(--m);font-size:10.5px;letter-spacing:.05em;color:var(--muted2)}
 .aud-err{display:none;font-family:var(--m);font-size:10px;letter-spacing:.05em;color:var(--red);width:100%}
 .aud-ok{display:none;font-family:var(--m);font-size:11px;letter-spacing:.05em;color:#22c55e;line-height:1.7;width:100%}
+
+/* ── PRICING CARDS (right half of #audit) ─────────────────── */
+.pr-cards{display:flex;flex-direction:column;gap:18px;margin-top:24px}
+.pr-card{border:1px solid var(--line2);padding:clamp(24px,2.6vw,30px);position:relative;transition:border-color .3s}
+.pr-card:hover{border-color:rgba(255,255,255,.28)}
+.pr-card.featured{border-color:var(--red);background:rgba(255,42,42,.045)}
+.pr-featured-tag{position:absolute;top:-11px;right:22px;background:var(--red);color:#fff;font-family:var(--m);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px}
+.pr-tag{font-family:var(--m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px}
+.pr-title{font-size:clamp(19px,2vw,24px);font-weight:800;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:10px}
+.pr-price{font-family:var(--m);font-size:clamp(21px,2.2vw,27px);font-weight:700;color:var(--white);line-height:1}
+.pr-price small{font-size:12px;font-weight:400;color:var(--muted2)}
+.pr-price-sub{font-family:var(--m);font-size:11px;color:var(--muted2);margin:6px 0 16px}
+.pr-desc{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:18px}
+.pr-list{list-style:none;margin-bottom:22px;display:flex;flex-direction:column;gap:9px}
+.pr-list li{font-size:13px;line-height:1.6;color:rgba(255,255,255,.65);padding-left:18px;position:relative}
+.pr-list li::before{content:'—';position:absolute;left:0;color:var(--red)}
+.pr-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font-family:var(--m);font-size:11px;letter-spacing:.13em;text-transform:uppercase;padding:13px 20px;border:1px solid rgba(255,255,255,.2);color:var(--white);transition:border-color .2s,background .2s}
+.pr-cta:hover{border-color:var(--red);background:rgba(255,42,42,.08)}
+.pr-card.featured .pr-cta{background:var(--red);border-color:var(--red)}
+.pr-card.featured .pr-cta:hover{background:#ff5252;border-color:#ff5252}
+.pr-pay-note{font-family:var(--m);font-size:10px;letter-spacing:.05em;color:var(--muted2);text-align:center;margin-top:18px}
+@media(max-width:900px){
+  .aud2-wrap{grid-template-columns:1fr}
+  .aud2-left{border-right:none;border-bottom:1px solid var(--line)}
+}
 @media(max-width:640px){.aud-cta-row{flex-direction:column;align-items:stretch}.aud-fi{max-width:none}.aud-sub{width:100%}}
 
 /* ═══════════════════════════════════
@@ -1482,7 +1540,6 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 
 
 /* ── FAQ ───────────────────────────────────────────────── */
-#faq{border-top:1px solid var(--line);}
 .faq-wrap{
   display:grid;grid-template-columns:1fr 2fr;
   gap:0;
@@ -2306,26 +2363,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 </div>
 
 
-<!-- ═══════════════════ AUDIT STUDIO (light intro + CTA, not a standalone product page) ═══════════════════ -->
-<section id="audit">
-  <div class="aud-wrap">
-    <div class="s-hd rv"><span class="sec-tag">Audit Studio</span><span class="sec-ct">A Carving Dezine service</span></div>
-    <h2 class="aud-h rv">BEFORE WE DESIGN, WE FIND OUT <em data-scramble>WHAT'S NOT WORKING.</em></h2>
-    <p class="aud-lede rv">A quick, plain-English look at your site and brand - what's working, what needs improvement, and what to do next. It's how most Carving Dezine projects now start.</p>
-    <p class="aud-lede2 rv">Submit your URL below and I'll personally reply within 1 business day with what I found.</p>
-    <div class="aud-tags rv-children">
-      <span class="svc-tag">Website Health</span><span class="svc-tag">Brand Health</span><span class="svc-tag">UX / Product</span><span class="svc-tag">Conversion</span><span class="svc-tag">Mobile Experience</span><span class="svc-tag">Social Presence</span><span class="svc-tag">AI Readiness</span><span class="svc-tag">AI Search Visibility</span>
-    </div>
-    <div class="aud-cta-row rv">
-      <input class="aud-fi" type="text" id="aud-url" placeholder="Your website URL"/>
-      <input class="aud-fi" type="email" id="aud-email" placeholder="Your email" required/>
-      <button class="aud-sub" id="aud-sub">Get My Free Digital Health Check <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-      <span class="aud-note">This check is completely free. Want a deeper, paid audit instead? Pricing on request.</span>
-      <div class="aud-err" id="aud-err">Please enter a valid website URL.</div>
-      <div class="aud-ok" id="aud-ok">✓ Got it - I'll take a look and get back to you shortly. Want to talk it through sooner? <a href="#contact" style="color:#22c55e;text-decoration:underline">Get in touch</a>.</div>
-    </div>
-  </div>
-</section>
+<!-- ═══════════════════ AUDIT STUDIO now lives combined with Pricing, just above FAQ ═══════════════════ -->
 
 <!-- ═══════════════════ CARVE REVEAL + CTA ═══════════════════ -->
 <div id="carve" class="parallax-med">
@@ -2454,6 +2492,69 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 </section>
 
 <!-- ═══════════════════ FAQ ═══════════════════ -->
+<!-- ═══════════════════ AUDIT + PRICING (combined, sits directly above FAQ) ═══════════════════ -->
+<section id="audit">
+  <div class="aud2-wrap">
+
+    <div class="aud2-left">
+      <div class="s-hd rv"><span class="sec-tag">Audit Studio</span><span class="sec-ct">A Carving Dezine service</span></div>
+      <h2 class="aud-h rv">BEFORE WE DESIGN, WE FIND OUT <em data-scramble>WHAT'S NOT WORKING.</em></h2>
+      <p class="aud-lede rv">A quick, plain-English look at your site and brand - what's working, what needs improvement, and what to do next. It's how most Carving Dezine projects now start.</p>
+      <p class="aud-lede2 rv">Submit your URL below and I'll personally reply within 1 business day with what I found.</p>
+      <div class="aud-tags rv-children">
+        <span class="svc-tag">Website Health</span><span class="svc-tag">Brand Health</span><span class="svc-tag">UX / Product</span><span class="svc-tag">Conversion</span><span class="svc-tag">Mobile Experience</span><span class="svc-tag">Social Presence</span><span class="svc-tag">AI Readiness</span><span class="svc-tag">AI Search Visibility</span>
+      </div>
+      <div class="aud-cta-row rv">
+        <input class="aud-fi" type="text" id="aud-url" placeholder="Your website URL"/>
+        <input class="aud-fi" type="email" id="aud-email" placeholder="Your email" required/>
+        <button class="aud-sub" id="aud-sub">Get My Free Digital Health Check <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <span class="aud-note">This check is completely free. Want a deeper, paid audit instead? Pricing on request.</span>
+        <div class="aud-err" id="aud-err">Please enter a valid website URL.</div>
+        <div class="aud-ok" id="aud-ok">✓ Got it - I'll take a look and get back to you shortly. Want to talk it through sooner? <a href="#contact" style="color:#22c55e;text-decoration:underline">Get in touch</a>.</div>
+      </div>
+    </div>
+
+    <div class="aud2-right">
+      <div class="s-hd rv"><span class="sec-tag">Ways To Work Together</span><span class="sec-ct">2 plans</span></div>
+      <h2 class="aud-h rv" style="max-width:none">READY TO SKIP AHEAD? <em data-scramble>PICK A LANE.</em></h2>
+
+      <div class="pr-cards rv-children">
+        <div class="pr-card">
+          <div class="pr-tag">For a single deliverable</div>
+          <div class="pr-title">Project</div>
+          <div class="pr-price">Custom Quote</div>
+          <div class="pr-price-sub">Scoped per brief</div>
+          <p class="pr-desc">One brief. One fixed price. Delivered end-to-end - no hourly surprises.</p>
+          <ul class="pr-list">
+            <li>Fixed scope &amp; timeline</li>
+            <li>2-3 structured revision rounds</li>
+            <li>Any discipline - UX/UI, brand, decks, print</li>
+          </ul>
+          <a href="#contact" class="pr-cta">Get a Quote</a>
+        </div>
+
+        <div class="pr-card featured">
+          <div class="pr-featured-tag">Most Popular</div>
+          <div class="pr-tag">For ongoing design needs</div>
+          <div class="pr-title">Retainer</div>
+          <div class="pr-price">$2,200<small>/mo</small></div>
+          <div class="pr-price-sub">or ₹1,25,000/mo domestic &middot; billed via Wise or UPI</div>
+          <p class="pr-desc">Unlimited requests, one at a time. Pause or cancel anytime.</p>
+          <ul class="pr-list">
+            <li>One active request at a time - queue as many as you like</li>
+            <li>Any discipline - UX/UI, brand, decks, print</li>
+            <li>Avg. 2-3 day turnaround</li>
+            <li>Pause or cancel anytime, no lock-in</li>
+          </ul>
+          <a href="#contact" class="pr-cta">Start a Retainer</a>
+        </div>
+      </div>
+      <div class="pr-pay-note rv">No card required - invoiced via Wise for international clients, UPI for India.</div>
+    </div>
+
+  </div>
+</section>
+
 <section id="faq">
   <div class="faq-wrap">
     <div class="faq-left rv">
@@ -2517,7 +2618,55 @@ h2 .whu{display:inline-block;vertical-align:bottom}
           <span class="faq-q-text">Can I hire you on a retainer basis?</span>
           <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Yes - I work with a few select clients on a monthly retainer for ongoing design needs. This works well for brands that regularly need decks, marketing materials, or UI updates. Get in touch to discuss.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes - the <a href="#audit" style="color:var(--red);text-decoration:underline">Retainer plan</a> is built exactly for this: one flat monthly rate, unlimited requests, one at a time, pause or cancel anytime. Works well for brands that regularly need decks, marketing materials, or UI updates.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">What's included in the Retainer?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Anything I do as a discipline - UX/UI, brand identity, presentation decks, or print collateral. Submit a request, I work on it until it's done, then move to the next one in your queue.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">How many requests can I send at once?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">As many as you like - they just queue up. I work one at a time so nothing gets rushed or split across five things at once.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">Can I pause or cancel the Retainer?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Anytime, no lock-in. Pause when things go quiet, resume when they pick back up. You're only billed for active months.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">I only need one thing done - do I need the Retainer?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">No - that's exactly what the Project plan is for. Fixed scope, fixed price, one deliverable, done properly. The Retainer only makes sense if you expect a steady stream of requests.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">Do you build the website, or just design it?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">I design it - and for interactive/front-end work I hand-code it myself, the way this site is built. I don't work in Webflow or Framer, so if you specifically need a page-builder site, that's outside what I offer.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">How does payment work?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Invoiced directly - Wise for international clients, UPI for India. No card details, no third-party checkout.</div></div>
       </div>
 
     </div>
