@@ -9,35 +9,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --v:#4F46E5;--vm:#7C3AED;--g:#059669;--gl:#10B981;--o:#EA580C;--r:#DC2626;
+  /* Brand palette — sampled directly from the Mobcast pinwheel mark */
+  --v:#6D4AE8;--vm:#7D46A8;--g:#2FA84F;--gl:#38C172;--o:#EA580C;--r:#E8442B;--y:#F5B400;--b:#3B82F6;
   --ink:#1A1025;
-  --i50:rgba(26,16,37,.5);--i20:rgba(26,16,37,.2);--i08:rgba(26,16,37,.08);--i04:rgba(26,16,37,.04);
+  --i70:rgba(26,16,37,.7);--i60:rgba(26,16,37,.6);--i50:rgba(26,16,37,.5);--i40:rgba(26,16,37,.4);
+  --i20:rgba(26,16,37,.2);--i10:rgba(26,16,37,.1);--i08:rgba(26,16,37,.08);--i06:rgba(26,16,37,.06);
+  --i04:rgba(26,16,37,.04);--i03:rgba(26,16,37,.03);
   --off:#F7F3F9;
   --gv:linear-gradient(135deg,var(--v),var(--vm));
   --fd:'Playfair Display',serif;
   --fb:'Manrope',sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.34,1.56,.64,1);
   --px:clamp(24px,5.5vw,96px);--mw:1240px;
-  /* palette tokens */
-  --p-bg:#EAE4F2;
-  --p-g1:var(--p-g1);--p-g2:var(--p-g2);--p-g3:var(--p-g3);
-  --p-g4:var(--p-g4);--p-g5:var(--p-g5);
-  --p-nav:var(--p-nav);
-  --p-sh:var(--p-sh);
-  --p-v25:var(--p-v25);--p-v2:var(--p-v2);--p-v08:var(--p-v08);
-  --p-v1:var(--p-v1);--p-v3:var(--p-v3);--p-v5:var(--p-v5);
-  --p-vm08:var(--p-vm08);--p-vm1:var(--p-sh);
 
-  /* palette tokens */
-  --p-bg:#EAE4F2;
-  --p-g1:rgba(228,175,195,.6);--p-g2:rgba(175,155,225,.5);--p-g3:rgba(200,170,235,.35);
-  --p-g4:rgba(235,195,210,.4);--p-g5:rgba(160,140,210,.3);
-  --p-nav:rgba(245,240,255,.18);--p-sh:rgba(124,58,237,.1);
-  --p-v25:rgba(79,70,229,.25);--p-v2:rgba(79,70,229,.2);--p-v08:rgba(79,70,229,.08);
-  --p-v1:rgba(79,70,229,.1);--p-v3:rgba(79,70,229,.3);--p-v5:rgba(79,70,229,.5);
-  --p-vm08:rgba(124,58,237,.08);
-  --rip1:'rgba(124,58,237,COL)';--rip2:'rgba(79,70,229,COL)';
-  --rip3:'rgba(192,132,252,COL)';--rip4:'rgba(228,175,195,COL)';--rip5:'rgba(167,139,250,COL)';
+  /* palette tokens — brightened, multi-hue wash drawn from the five
+     pinwheel colors instead of a single dull violet tint */
+  --p-bg:#F4F0FB;
+  --p-g1:rgba(109,74,232,.30);--p-g2:rgba(59,130,246,.26);--p-g3:rgba(47,168,79,.22);
+  --p-g4:rgba(245,180,0,.24);--p-g5:rgba(232,68,43,.18);
+  --p-nav:rgba(255,255,255,.4);--p-sh:rgba(109,74,232,.14);
+  --p-v25:rgba(109,74,232,.25);--p-v2:rgba(109,74,232,.2);--p-v08:rgba(109,74,232,.08);
+  --p-v1:rgba(109,74,232,.1);--p-v3:rgba(109,74,232,.3);--p-v5:rgba(109,74,232,.5);
+  --p-vm08:rgba(125,70,168,.08);--p-vm1:rgba(109,74,232,.14);
+  --rip1:'rgba(109,74,232,COL)';--rip2:'rgba(59,130,246,COL)';
+  --rip3:'rgba(245,180,0,COL)';--rip4:'rgba(232,68,43,COL)';--rip5:'rgba(47,168,79,COL)';
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -2016,7 +2011,7 @@ body.layout-boxed #problem::before, body.layout-boxed #impact::before, body.layo
 <nav id="nav">
   <a href="#" class="nlogo" style="display:flex;align-items:center;text-decoration:none;"><img src="data:image/webp;base64,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" alt="Mobcast" style="height:28px;width:auto;display:block;"></a>
   <div class="nlinks">
-    <a href="#products">Products</a><a href="#ai-core">Solutions</a>
+    <a href="#products">Products</a><a href="#platform">Solutions</a>
     <a href="#testimonials">Customers</a><a href="#">Pricing</a><a href="#">Resources</a><a href="#">Company</a>
   </div>
   <div class="dm-toggle" id="dm-toggle" title="Toggle theme" onclick="toggleTheme()">
@@ -2031,7 +2026,7 @@ body.layout-boxed #problem::before, body.layout-boxed #impact::before, body.layo
 <div id="mobile-nav-backdrop"></div>
 <div id="mobile-nav-panel">
   <a href="#products">Products</a>
-  <a href="#ai-core">Solutions</a>
+  <a href="#platform">Solutions</a>
   <a href="#testimonials">Customers</a>
   <a href="#">Pricing</a>
   <a href="#">Resources</a>
@@ -2051,7 +2046,7 @@ body.layout-boxed #problem::before, body.layout-boxed #impact::before, body.layo
         <p class="hsub">Real-time coaching before, during and after every frontline conversation — so everyone performs like your top 5%.</p>
         <div class="hero-btns">
           <span class="btn-spin"><button class="hfb" data-scroll-target="products">Try Sales Copilot</button></span>
-          <button class="hero-learn" data-scroll-target="ai-core">Learn more <span class="cta-arrow">→</span></button>
+          <button class="hero-learn" data-scroll-target="platform">Learn more <span class="cta-arrow">→</span></button>
         </div>
         <div class="htrust"><span>Multilingual</span><span>No credit card</span><span>Setup in 2 min</span><span>ISO 27001 compliant</span></div>
 
@@ -4618,6 +4613,38 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
 
 </style></defs><title>Asset 1</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M24.37,224.68H42.5l-9.12-25.33Zm28-33.38v8.77H43.7L60,244.36h7.09v8.76H40.46v-8.64h9.12l-4.08-11.4H21.37l-4.08,11.4h9.12v8.64H0v-8.76H7.21l16.2-44.29H14.77V191.3Z"/><polygon class="cls-1" points="134.35 233.08 134.35 200.07 124.63 200.07 124.63 191.3 154.16 191.3 154.16 200.07 144.19 200.07 144.19 253.48 137.35 253.48 103.38 208.83 103.38 244.37 112.86 244.37 112.86 253.13 83.57 253.13 83.57 244.37 93.41 244.37 93.41 200.07 83.57 200.07 83.57 191.3 102.3 191.3 134.35 233.08"/><polygon class="cls-1" points="170.44 253.12 170.44 244.37 180.64 244.37 180.64 200.07 170.44 200.07 170.44 191.31 201.16 191.31 201.16 200.07 190.97 200.07 190.97 244.37 201.16 244.37 201.16 253.12 170.44 253.12"/><polygon class="cls-1" points="230.68 244.36 240.88 244.36 240.88 199.83 227.08 199.83 227.08 211.84 217.47 211.84 217.47 191.3 274.61 191.3 274.61 211.84 265.01 211.84 265.01 199.83 251.2 199.83 251.2 244.36 261.41 244.36 261.41 253.12 230.68 253.12 230.68 244.36"/><path class="cls-1" d="M300.92,224.68H319l-9.12-25.33Zm28-33.38v8.77h-8.64l16.32,44.29h7.08v8.76H317v-8.64h9.13L322,233.08H297.91l-4.08,11.4H303v8.64H276.55v-8.76h7.2L300,200.07h-8.64V191.3Z"/><path class="cls-1" d="M421,244.37c16.33,0,24.49-9.13,24.49-22.7s-9.61-21.6-25.22-21.6h-6.83v44.3Zm-27.73,8.75v-8.75h9.84v-44.3h-9.84v-8.76h27c22.09,0,35.65,11.64,35.65,30.25,0,18.84-12.71,31.56-36.36,31.56Z"/><path class="cls-1" d="M523.34,222c0-12.88-8.67-21.78-20.42-21.78S482.51,209,482.51,222c0,13.23,8.67,21.91,20.3,21.91,11.86,0,20.53-8.68,20.53-21.91m10-.11c0,17.34-12.09,30.92-30.57,30.92s-30.46-13.58-30.46-30.92c0-17,12.21-30.68,30.57-30.68s30.46,13.69,30.46,30.68"/><polygon class="cls-1" points="590.91 233.08 590.91 200.07 581.19 200.07 581.19 191.3 610.72 191.3 610.72 200.07 600.75 200.07 600.75 253.48 593.91 253.48 559.95 208.83 559.95 244.37 569.43 244.37 569.43 253.13 540.13 253.13 540.13 244.37 549.98 244.37 549.98 200.07 540.13 200.07 540.13 191.3 558.86 191.3 590.91 233.08"/><path class="cls-1" d="M627.47,222.16c0,13.68,9.73,23.29,21.37,23.29a26.55,26.55,0,0,0,15.61-4.57v-11h-16v-8.41h26v31.69h-9.84v-4.44a28.76,28.76,0,0,1-17.76,5.77c-15.61,0-30.14-12.13-30.14-32.18,0-19.56,14.53-32.64,33.13-32.64,14.65,0,24.37,8.16,24.37,15.72,0,4.68-2.88,7.81-7.08,7.81s-7.08-2.65-7.08-6.6a6.55,6.55,0,0,1,1.43-4c-2.15-1.8-6.35-3.73-12.23-3.73-12.85,0-21.86,9.73-21.86,23.3"/><path class="cls-1" d="M710.78,200.07v20.52c1.8.13,5,.36,8.16.36,8.64,0,14.28-4.07,14.28-10.8,0-6.48-5.52-10.08-14.52-10.08Zm0,44.29h9.48v8.76H690.61v-8.76h9.84V200.07h-9.84V191.3H719.3c14.4,0,24.37,6.37,24.37,18.73,0,7.92-4.93,13.93-11.88,16.8l9.72,17.53h8.88v8.76H733.94L721.7,229.36a37.79,37.79,0,0,1-4.44.23c-1.8,0-4.57,0-6.48-.11Z"/><polygon class="cls-1" points="764.24 253.48 764.24 244.72 774.08 244.72 774.08 200.43 764.24 200.43 764.24 191.66 814.9 191.66 814.9 211.35 805.3 211.35 805.3 200.19 784.41 200.19 784.41 218.3 803.5 218.3 803.5 226.72 784.41 226.72 784.41 244.83 805.3 244.83 805.3 234.03 814.9 234.03 814.9 253.48 764.24 253.48"/><path d="M493.52,46.74C471.34,13.8,476.53,20,468.35,13.8,456.29,6,455.92,10.12,439.84,6.28c-8.19-2-25.58-10.75-31.29-3.4-6.17,8-10.4,42,5,51.52,1.85,1.15,2.93,1.6,3.86,3.53-4.89-.73-12.4-3-15.69-9.79-9-18.57-.91-31.46-4.69-31-17.76,2.33-28.58,4.16-51.73,12.15-5.44,1.87-24.26,7.43-26.71,28-1.9,15.9,14.43,22.7,20.46,30,5.12,5.5,9.37,11.7,5.28,18.1-1.8,2.88-4.07,3.71-7.87,3.36-5-.49-6.57-4.27-6.63-5.43a2.1,2.1,0,0,1,3.29-1.9c.85.78-.55,2.62,1.6,4.37s8.36.34,7-6.5S333.3,90.39,327.9,86a135.84,135.84,0,0,1-11-10.19s1.1,9.7,7.28,27.32,5.68,31.72,5.68,31.72a77.31,77.31,0,0,0,15.81,2.57c8,.34,11.52-2.4,11.52-2.4s-.09-17.64,7.16-24.39c4.56-4.25,31.77-11.55,39-5.46,5.54,4.64,7.09,16.76,8.5,30.32,8.27,5,19.79,2.62,21.5,1.66,3.54.19,4.83-9.23,9.6-40.3,2.5-16.26,2.21-30.56,2.43-36.29,2.41-1.13,3-2,7.93-1.59A9.15,9.15,0,0,1,457,60c13.41,4.71,24.23,1.78,30.52-4.19,1.55-1.47,2.32,1,.85,2.51-3.7,3.91-8.11,8-14,9l.16,0c5.44,11.42-2.51,22.75-13,16.17-8.2-5.13,1.23-16.2,9-8.4,0,0,4.71-5.43-4.2-8.4-12.61-4.21-21.13,11.78-13.51,20.76,8.73,10.29,22.84,8.21,32.4-.79C496.43,76.12,502.75,60.45,493.52,46.74Z"/></g></g></svg></div>
   </div>
+
+  <style>
+  /* Trusted-by belt — logos above, quotes + outcomes below, Clay-style mix of proof */
+  .proof-belt{max-width:var(--mw);margin:60px auto 0;display:grid;grid-template-columns:1fr 1fr 1.05fr;gap:20px;padding:0 var(--px, 24px);box-sizing:border-box;}
+  .pb-card{background:#fff;border-radius:22px;padding:28px 26px;box-shadow:0 20px 50px rgba(26,16,37,.07);border:1px solid rgba(26,16,37,.06);}
+  .pb-quote{font-size:15px;line-height:1.65;color:var(--i70);margin:0 0 18px;font-weight:500;}
+  .pb-by{display:flex;align-items:center;gap:12px;}
+  .pb-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12.5px;flex-shrink:0;}
+  .pb-name{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .pb-role{font-size:12px;color:var(--i50);}
+  .pb-stats{display:flex;flex-direction:column;justify-content:center;gap:16px;background:linear-gradient(135deg,var(--v),var(--vm));border-radius:22px;padding:26px 26px;box-shadow:0 20px 50px var(--p-v2);}
+  .pb-stat{display:flex;align-items:baseline;gap:10px;}
+  .pb-num{font-family:var(--fd);font-size:28px;font-weight:700;color:#fff;line-height:1;}
+  .pb-lbl{font-size:12.5px;color:rgba(255,255,255,.85);font-weight:600;}
+  @media(max-width:900px){.proof-belt{grid-template-columns:1fr;}}
+  </style>
+
+  <div class="proof-belt sr">
+    <div class="pb-card">
+      <p class="pb-quote">&ldquo;Sales Copilot feels like having a senior manager sitting next to every one of our 500 reps.&rdquo;</p>
+      <div class="pb-by"><div class="pb-avatar" style="background:linear-gradient(135deg,#EA580C,#F5B400)">VP</div><div><div class="pb-name">VP Sales</div><div class="pb-role">Global Retail</div></div></div>
+    </div>
+    <div class="pb-card">
+      <p class="pb-quote">&ldquo;Agents who never opened an email were completing training in 48 hours. IRDAI audit — zero findings.&rdquo;</p>
+      <div class="pb-by"><div class="pb-avatar" style="background:linear-gradient(135deg,#3B82F6,#6D4AE8)">CC</div><div><div class="pb-name">Chief Compliance Officer</div><div class="pb-role">Niva Bupa Insurance</div></div></div>
+    </div>
+    <div class="pb-stats">
+      <div class="pb-stat"><span class="pb-num">50%</span><span class="pb-lbl">Faster onboarding</span></div>
+      <div class="pb-stat"><span class="pb-num">+25%</span><span class="pb-lbl">Higher win rate</span></div>
+      <div class="pb-stat"><span class="pb-num">48hrs</span><span class="pb-lbl">Full compliance rollout</span></div>
+    </div>
+  </div>
 </section>
 
 <section id="perfgap">
@@ -4661,7 +4688,8 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
     <div class="sec-eye sr">Why Teams Stall</div>
     <h2 class="prob-h sr reveal-title">Revenue slips when only<br><span class="dim">your top 10% perform.</span></h2>
     <div class="ba-grid">
-      <div class="ba-card before sr cinema-enter">
+      <div class="ba-card before sr cinema-enter" style="position:relative">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fca5a5" stroke-opacity=".18" stroke-width="1.4" style="position:absolute;top:14px;right:14px;width:64px;height:64px;pointer-events:none" xmlns="http://www.w3.org/2000/svg"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         <div class="ba-badge bad">⚠ Before Mobcast</div>
         <div class="ba-headline">The cost of doing nothing</div>
         <div class="ba-sub">Three gaps compounding every quarter. Most teams don't see it until it's too late.</div>
@@ -4678,10 +4706,11 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
           <div class="ba-desc">70% of training budget wasted. Nobody finishes the course.</div>
         </div>
       </div>
-      <div class="ba-card after sr d1 cinema-enter">
+      <div class="ba-card after sr d1 cinema-enter" style="position:relative">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#86efac" stroke-opacity=".2" stroke-width="1.4" style="position:absolute;top:14px;right:14px;width:64px;height:64px;pointer-events:none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/><path d="M9 12l2 2 4-4"/></svg>
         <div class="ba-badge good">✓ After Mobcast</div>
         <div class="ba-headline">Every gap, closed.</div>
-        <div class="ba-sub">Four AI tools. One platform. Deployed in days — not months.</div>
+        <div class="ba-sub">Five AI tools. One platform. Deployed in days — not months.</div>
         <div class="ba-row">
           <div><div class="ba-num good-num">+25%</div><div class="ba-lbl">Win Rate</div></div>
           <div class="ba-desc">AI coaches every rep with the behaviours of your top performers.</div>
@@ -4706,11 +4735,17 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
 </section>
 
 <section id="platform">
+  <style>
+  .ft-phone{display:flex;align-items:center;justify-content:center;animation:ftPhoneFloat 5s ease-in-out infinite;}
+  .ft-phone svg{display:block;filter:drop-shadow(0 24px 50px rgba(26,16,37,.22));}
+  @keyframes ftPhoneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media(max-width:820px){.ft-phone svg{width:150px;height:300px;}}
+  </style>
   <div class="plat-inner">
     <div class="plat-top">
       <div class="sr">
-        <span class="plat-eye">One Platform. Four Ways.</span>
-        <h2 class="plat-h sr reveal-title">One platform. Four ways<br><span class="accent">to close the gap.</span></h2>
+        <span class="plat-eye">One Platform. Five Ways.</span>
+        <h2 class="plat-h sr reveal-title">One platform. Five ways<br><span class="accent">to close the gap.</span></h2>
       </div>
       <p class="plat-sub sr reveal-sub">Switch between the tools your frontline runs on every day.</p>
     </div>
@@ -4730,20 +4765,44 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
         <button class="ft-tab" data-tab="3" role="tab" aria-selected="false">
           <span class="ft-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span><span>Flow ComplAI</span>
         </button>
+        <button class="ft-tab" data-tab="4" role="tab" aria-selected="false">
+          <span class="ft-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg></span><span>Role Play</span>
+        </button>
       </div>
 
       <div class="ft-panels">
         <div class="ft-panel active" data-panel="0">
           <div class="ft-panel-left">
             <div class="ft-panel-stat"><span class="ft-panel-n">+25%</span><span class="ft-panel-l">Win rate</span></div>
-            <p class="ft-panel-desc">AI role-play, battlecards, and live pitch coaching at the moment of conversation.</p>
+            <p class="ft-panel-desc">Live pitch coaching, battlecards, and next-best-action nudges at the moment of conversation.</p>
             <ul class="ft-panel-points">
               <li>Real-time objection handling</li>
               <li>Personalised battlecards</li>
               <li>Call scoring and feedback</li>
             </ul>
           </div>
-          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(0,71,179,.10), rgba(0,71,179,.02) 70%)"><span class="ft-panel-ic" style="color:#0047b3;filter:drop-shadow(0 8px 30px rgba(0,71,179,.28))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></span></div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(0,71,179,.10), rgba(0,71,179,.02) 70%)"><div class="ft-phone"><svg viewBox="0 0 220 440" width="190" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="208" height="428" rx="34" fill="#161616"/>
+            <rect x="14" y="14" width="192" height="412" rx="26" fill="#fff"/>
+            <rect x="82" y="20" width="56" height="7" rx="3.5" fill="#161616"/>
+            <rect x="14" y="40" width="192" height="52" fill="#0047b3"/>
+            <circle cx="34" cy="66" r="11" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="58" width="86" height="8" rx="4" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="71" width="56" height="6" rx="3" fill="#fff" fill-opacity=".6"/>
+            <rect x="26" y="106" width="120" height="26" rx="13" fill="#f0f1f5"/>
+            <rect x="38" y="115" width="90" height="7" rx="3.5" fill="#c7c9d4"/>
+            <rect x="54" y="144" width="140" height="64" rx="16" fill="#0047b3" fill-opacity=".1"/>
+            <rect x="66" y="154" width="46" height="9" rx="4.5" fill="#0047b3"/>
+            <rect x="66" y="170" width="112" height="7" rx="3.5" fill="#0047b3" fill-opacity=".55"/>
+            <rect x="66" y="182" width="96" height="7" rx="3.5" fill="#0047b3" fill-opacity=".35"/>
+            <g fill="#0047b3">
+              <rect x="30" y="330" width="6" height="18" rx="3"/><rect x="42" y="316" width="6" height="32" rx="3"/>
+              <rect x="54" y="324" width="6" height="24" rx="3"/><rect x="66" y="308" width="6" height="40" rx="3"/>
+              <rect x="78" y="320" width="6" height="28" rx="3"/><rect x="90" y="330" width="6" height="18" rx="3"/>
+            </g>
+            <rect x="26" y="368" width="168" height="34" rx="17" fill="#0047b3"/>
+            <rect x="46" y="381" width="90" height="8" rx="4" fill="#fff" fill-opacity=".9"/>
+          </svg></div></div>
         </div>
 
         <div class="ft-panel" data-panel="1">
@@ -4756,7 +4815,26 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
               <li>Works on any phone</li>
             </ul>
           </div>
-          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(5,122,48,.10), rgba(5,122,48,.02) 70%)"><span class="ft-panel-ic" style="color:#057a30;filter:drop-shadow(0 8px 30px rgba(5,122,48,.28))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span></div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(5,122,48,.10), rgba(5,122,48,.02) 70%)"><div class="ft-phone"><svg viewBox="0 0 220 440" width="190" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="208" height="428" rx="34" fill="#161616"/>
+            <rect x="14" y="14" width="192" height="412" rx="26" fill="#fff"/>
+            <rect x="82" y="20" width="56" height="7" rx="3.5" fill="#161616"/>
+            <rect x="14" y="40" width="192" height="52" fill="#057a30"/>
+            <circle cx="34" cy="66" r="11" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="58" width="86" height="8" rx="4" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="71" width="56" height="6" rx="3" fill="#fff" fill-opacity=".6"/>
+            <circle cx="110" cy="152" r="46" fill="none" stroke="#eef1ee" stroke-width="10"/>
+            <circle cx="110" cy="152" r="46" fill="none" stroke="#057a30" stroke-width="10" stroke-linecap="round" stroke-dasharray="217 289" transform="rotate(-90 110 152)"/>
+            <text x="110" y="159" text-anchor="middle" font-family="Arial" font-size="26" font-weight="700" fill="#057a30">75%</text>
+            <circle cx="34" cy="232" r="9" fill="#057a30"/><path d="M30 232l3 3 6-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="52" y="227" width="130" height="8" rx="4" fill="#e3e7e3"/>
+            <circle cx="34" cy="266" r="9" fill="#057a30"/><path d="M30 266l3 3 6-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="52" y="261" width="110" height="8" rx="4" fill="#e3e7e3"/>
+            <circle cx="34" cy="300" r="9" fill="none" stroke="#c9d2c9" stroke-width="2"/>
+            <rect x="52" y="295" width="140" height="8" rx="4" fill="#e3e7e3"/>
+            <rect x="26" y="368" width="168" height="34" rx="17" fill="#057a30"/>
+            <rect x="46" y="381" width="90" height="8" rx="4" fill="#fff" fill-opacity=".9"/>
+          </svg></div></div>
         </div>
 
         <div class="ft-panel" data-panel="2">
@@ -4769,7 +4847,27 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
               <li>Hindi, English, +20 languages</li>
             </ul>
           </div>
-          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(179,0,16,.10), rgba(179,0,16,.02) 70%)"><span class="ft-panel-ic" style="color:#b30010;filter:drop-shadow(0 8px 30px rgba(179,0,16,.28))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span></div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(179,0,16,.10), rgba(179,0,16,.02) 70%)"><div class="ft-phone"><svg viewBox="0 0 220 440" width="190" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="208" height="428" rx="34" fill="#161616"/>
+            <rect x="14" y="14" width="192" height="412" rx="26" fill="#fff"/>
+            <rect x="82" y="20" width="56" height="7" rx="3.5" fill="#161616"/>
+            <rect x="14" y="40" width="192" height="52" fill="#b30010"/>
+            <circle cx="34" cy="66" r="11" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="58" width="86" height="8" rx="4" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="71" width="56" height="6" rx="3" fill="#fff" fill-opacity=".6"/>
+            <rect x="26" y="108" width="76" height="60" rx="10" fill="#b30010" fill-opacity=".12"/>
+            <rect x="110" y="108" width="76" height="60" rx="10" fill="#b30010" fill-opacity=".08"/>
+            <rect x="26" y="178" width="76" height="60" rx="10" fill="#b30010" fill-opacity=".08"/>
+            <rect x="110" y="178" width="76" height="60" rx="10" fill="#b30010" fill-opacity=".12"/>
+            <polygon points="60,128 60,148 78,138" fill="#b30010"/>
+            <rect x="30" y="256" width="60" height="26" rx="13" fill="#b30010" fill-opacity=".12"/>
+            <text x="60" y="273" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#b30010">PDF</text>
+            <line x1="96" y1="269" x2="126" y2="269" stroke="#b30010" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="130" y="256" width="66" height="26" rx="13" fill="#b30010"/>
+            <text x="163" y="273" text-anchor="middle" font-family="Arial" font-size="10" font-weight="700" fill="#fff">COURSE</text>
+            <rect x="26" y="368" width="168" height="34" rx="17" fill="#b30010"/>
+            <rect x="46" y="381" width="90" height="8" rx="4" fill="#fff" fill-opacity=".9"/>
+          </svg></div></div>
         </div>
 
         <div class="ft-panel" data-panel="3">
@@ -4782,107 +4880,71 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
               <li>Auto-generated audit reports</li>
             </ul>
           </div>
-          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(90,15,179,.10), rgba(90,15,179,.02) 70%)"><span class="ft-panel-ic" style="color:#5a0fb3;filter:drop-shadow(0 8px 30px rgba(90,15,179,.28))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span></div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(90,15,179,.10), rgba(90,15,179,.02) 70%)"><div class="ft-phone"><svg viewBox="0 0 220 440" width="190" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="208" height="428" rx="34" fill="#161616"/>
+            <rect x="14" y="14" width="192" height="412" rx="26" fill="#fff"/>
+            <rect x="82" y="20" width="56" height="7" rx="3.5" fill="#161616"/>
+            <rect x="14" y="40" width="192" height="52" fill="#5a0fb3"/>
+            <circle cx="34" cy="66" r="11" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="58" width="86" height="8" rx="4" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="71" width="56" height="6" rx="3" fill="#fff" fill-opacity=".6"/>
+            <rect x="26" y="106" width="150" height="30" rx="15" fill="#5a0fb3" fill-opacity=".1"/>
+            <rect x="38" y="116" width="100" height="7" rx="3.5" fill="#5a0fb3" fill-opacity=".6"/>
+            <rect x="44" y="146" width="140" height="30" rx="15" fill="#5a0fb3"/>
+            <rect x="56" y="156" width="90" height="7" rx="3.5" fill="#fff" fill-opacity=".9"/>
+            <path d="M158 162l4 4 8-8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="26" y="200" width="18" height="18" rx="5" fill="#5a0fb3"/>
+            <path d="M30 209l4 4 8-8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="52" y="204" width="130" height="8" rx="4" fill="#e9e3f2"/>
+            <rect x="26" y="230" width="18" height="18" rx="5" fill="#5a0fb3"/>
+            <path d="M30 239l4 4 8-8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="52" y="234" width="110" height="8" rx="4" fill="#e9e3f2"/>
+            <rect x="26" y="368" width="168" height="34" rx="17" fill="#5a0fb3"/>
+            <rect x="46" y="381" width="90" height="8" rx="4" fill="#fff" fill-opacity=".9"/>
+          </svg></div></div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section id="ai-core">
-  <div class="section-box light"><div class="ac-in">
-    <div class="ac-header">
-      <div class="section-eye sr">Connected Intelligence</div>
-      <h2 class="ac-title sr reveal-title">One <span class="gw">AI Core.</span><br>Every frontline workflow connected.</h2>
-      <p class="ac-sub sr reveal-sub">Mobcast's intelligence layer runs across sales, learning, content, and compliance so every team gets the same signals, context, and next-best action in real time.</p>
-    </div>
-    <div class="ac-video-wrap sr" id="ac-video-pin">
-      <div class="ac-pills" id="ac-pills">
-        <div class="ac-pill is-live" data-pill="0"><span class="ac-pill-dot"></span>Sales</div>
-        <div class="ac-pill" data-pill="1"><span class="ac-pill-dot"></span>Learning</div>
-        <div class="ac-pill" data-pill="2"><span class="ac-pill-dot"></span>Content</div>
-        <div class="ac-pill" data-pill="3"><span class="ac-pill-dot"></span>Compliance</div>
-      </div>
-      <div class="ac-diagram">
-        <div class="ac-modules">
-          <div class="ac-module ac-m0" id="acm0"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></span><div><div class="ac-module-name">Sales Copilot</div><div class="ac-module-sub">Live coaching</div></div></div>
-          <div class="ac-module ac-m1" id="acm1"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span><div><div class="ac-module-name">Frontline LMS</div><div class="ac-module-sub">Micro-learning</div></div></div>
-          <div class="ac-module ac-m2" id="acm2"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span><div><div class="ac-module-name">Content Studio</div><div class="ac-module-sub">Course generation</div></div></div>
-          <div class="ac-module ac-m3" id="acm3"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span><div><div class="ac-module-name">Flow ComplAI</div><div class="ac-module-sub">WhatsApp compliance</div></div></div>
-          <div class="ac-module ac-m4" id="acm4"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span><div><div class="ac-module-name">CRM Sync</div><div class="ac-module-sub">Two-way data flow</div></div></div>
-          <div class="ac-module ac-m5" id="acm5"><span class="ac-module-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></span><div><div class="ac-module-name">Manager Alerts</div><div class="ac-module-sub">Real-time escalation</div></div></div>
-          <svg class="ac-svg"></svg>
-          <div class="ac-core" id="ac-core-node">
-            <div class="ac-core-label">AI Core</div>
-            <div class="ac-core-sub">Real-time signals</div>
+        <div class="ft-panel" data-panel="4">
+          <div class="ft-panel-left">
+            <div class="ft-panel-stat"><span class="ft-panel-n" style="color:#EA580C">3×</span><span class="ft-panel-l">Faster skill mastery</span></div>
+            <p class="ft-panel-desc">Reps rehearse real customer conversations against a lifelike AI buyer — voice, objections, tone — before ever picking up the phone.</p>
+            <ul class="ft-panel-points">
+              <li>Realistic AI-voice roleplay scenarios</li>
+              <li>Instant scoring on tone &amp; objection handling</li>
+              <li>Unlimited practice, zero live-call risk</li>
+            </ul>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="ac-metrics sr d1">
-      <div class="ac-metric"><div class="ac-metric-n gw" data-count-up="847">847</div><div class="ac-metric-l">Reps active now</div></div>
-      <div class="ac-metric"><div class="ac-metric-n" style="color:var(--gl)">1.2M+</div><div class="ac-metric-l">Workers on platform</div></div>
-      <div class="ac-metric"><div class="ac-metric-n" style="color:var(--v)" data-count-up="94" data-count-suffix="%">94%</div><div class="ac-metric-l">AI prediction accuracy</div></div>
-      <div class="ac-metric"><div class="ac-metric-n">23ms</div><div class="ac-metric-l">Avg response time</div></div>
-    </div>
-  </div>
-</div><!-- /section-box -->
-</section>
-
-<section id="impact">
-  <div class="section-box warm"><div class="imp-in">
-    <div class="imp-top" id="imp-sticky-header">
-      <div class="sr">
-        <div class="section-eye">Business Impact</div>
-        <h2 class="ih sr reveal-title">Model the revenue, productivity,<br>and <span class="accent">compliance upside.</span></h2>
-      </div>
-      <div class="calc-side sr d1">
-        <div class="calc-lbl">Your frontline team size</div>
-        <div class="calc-team" id="teamDisplay">500 <em>reps</em></div>
-        <input type="range" id="slider" min="100" max="5000" value="500" step="100" oninput="recalc(this.value)">
-        <div class="sticks"><span>100</span><span>1,000</span><span>2,500</span><span>5,000</span></div>
-      </div>
-    </div>
-    <div class="igrid">
-      <div class="icell sr"><span class="inum" id="i1">200</span><div class="ilbl">Reps trained faster</div><div class="isub">50% onboarding reduction</div></div>
-      <div class="icell sr d1"><span class="inum" id="i2">125</span><div class="ilbl">More deals won monthly</div><div class="isub">25% win rate improvement</div></div>
-      <div class="icell sr d2"><span class="inum" id="i3">494</span><div class="ilbl">Employees compliant</div><div class="isub">in 48 hours</div></div>
-      <div class="icell sr d3"><span class="inum" id="i4">₹25L</span><div class="ilbl">Content cost saved/yr</div><div class="isub">10× vs agencies</div></div>
-    </div>
-    <div class="inline-cta sr d2">
-      <div class="inline-cta-copy">Model the revenue, productivity, and compliance upside for your own team.</div>
-      <button class="bfv" data-scroll-target="final">Get My Impact Walkthrough <span class="cta-arrow">→</span></button>
-    </div>
-  </div>
-</div><!-- /section-box -->
-</section>
-
-<section id="pred-timeline">
-  <div class="section-box dark"><div class="ptl-in">
-    <div class="ptl-eyebrow sr">Predictive Intelligence</div>
-    <h2 class="ptl-headline sr reveal-title">See risk earlier.<br><span>Intervene before</span> the drop.</h2>
-    <div class="ptl-hscroll-viewport">
-      <div class="ptl-hscroll-track" id="ptl-track">
-        <div class="ptl-hcard sr" style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18)">
-          <div class="ptl-hcard-daylabel" style="color:#F87171"><span class="dotmark" style="background:#EF4444"></span>Day 1 — Anomaly detected</div>
-          <div class="ptl-hcard-title">Mobcast flags an unusual pattern in a rep cluster.</div>
-        </div>
-        <div class="ptl-hcard sr" style="background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.18)">
-          <div class="ptl-hcard-daylabel" style="color:#FB923C"><span class="dotmark" style="background:#F97316"></span>Day 2 — AI alert issued</div>
-          <div class="ptl-hcard-title">127 reps flagged, manager notified automatically (94% confidence).</div>
-        </div>
-        <div class="ptl-hcard sr" style="background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18)">
-          <div class="ptl-hcard-daylabel" style="color:#FBBF24"><span class="dotmark" style="background:#FBBF24"></span>Day 7 — Intervention deployed</div>
-          <div class="ptl-hcard-title">Targeted modules assigned, AI coach activated.</div>
-        </div>
-        <div class="ptl-hcard sr" style="background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.18)">
-          <div class="ptl-hcard-daylabel" style="color:#34D399"><span class="dotmark" style="background:#10B981"></span>Day 21 — Revenue protected</div>
-          <div class="ptl-hcard-title">Quarter target met, ₹48L projected loss averted.</div>
+          <div class="ft-panel-right" style="background:radial-gradient(circle at 50% 50%, rgba(234,88,12,.10), rgba(234,88,12,.02) 70%)"><div class="ft-phone"><svg viewBox="0 0 220 440" width="190" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="208" height="428" rx="34" fill="#161616"/>
+            <rect x="14" y="14" width="192" height="412" rx="26" fill="#fff"/>
+            <rect x="82" y="20" width="56" height="7" rx="3.5" fill="#161616"/>
+            <rect x="14" y="40" width="192" height="52" fill="#EA580C"/>
+            <circle cx="34" cy="66" r="11" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="58" width="86" height="8" rx="4" fill="#fff" fill-opacity=".95"/>
+            <rect x="53" y="71" width="56" height="6" rx="3" fill="#fff" fill-opacity=".6"/>
+            <circle cx="100" cy="172" r="52" fill="#EA580C" fill-opacity=".1"/>
+            <circle cx="100" cy="172" r="34" fill="#EA580C"/>
+            <rect x="92" y="154" width="16" height="26" rx="8" fill="#fff"/>
+            <path d="M82 174a18 18 0 0 0 36 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <line x1="100" y1="192" x2="100" y2="202" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            <rect x="140" y="120" width="58" height="26" rx="13" fill="#fff" stroke="#EA580C" stroke-width="2"/>
+            <text x="169" y="137" text-anchor="middle" font-family="Arial" font-size="10" font-weight="700" fill="#EA580C">92 / 100</text>
+            <g fill="#EA580C" fill-opacity=".8">
+              <rect x="30" y="250" width="6" height="18" rx="3"/><rect x="42" y="236" width="6" height="32" rx="3"/>
+              <rect x="54" y="226" width="6" height="42" rx="3"/><rect x="66" y="240" width="6" height="28" rx="3"/>
+              <rect x="78" y="230" width="6" height="38" rx="3"/><rect x="90" y="246" width="6" height="22" rx="3"/>
+              <rect x="102" y="232" width="6" height="36" rx="3"/><rect x="114" y="242" width="6" height="26" rx="3"/>
+              <rect x="126" y="236" width="6" height="32" rx="3"/><rect x="138" y="250" width="6" height="18" rx="3"/>
+              <rect x="150" y="240" width="6" height="28" rx="3"/><rect x="162" y="232" width="6" height="36" rx="3"/>
+              <rect x="174" y="246" width="6" height="22" rx="3"/>
+            </g>
+            <rect x="26" y="368" width="168" height="34" rx="17" fill="#EA580C"/>
+            <rect x="46" y="381" width="90" height="8" rx="4" fill="#fff" fill-opacity=".9"/>
+          </svg></div></div>
         </div>
       </div>
     </div>
   </div>
-</div><!-- /section-box -->
 </section>
 
 <section id="testimonials">
@@ -4956,6 +5018,34 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
         <p class="tw-quote">We rolled Mobcast out to 1,200 reps and saw win rates climb within the first quarter — the AI coaching genuinely changes behaviour, not just scores.</p>
         <div class="tw-by"><div class="tw-avatar" style="background:linear-gradient(135deg,#3B82F6,#1D4ED8)">VP</div><div><div class="tw-name">VP Sales</div><div class="tw-role">Telecom</div></div></div>
       </div>
+    </div>
+  </div>
+</div><!-- /section-box -->
+</section>
+
+<section id="impact">
+  <div class="section-box warm"><div class="imp-in">
+    <div class="imp-top" id="imp-sticky-header">
+      <div class="sr">
+        <div class="section-eye">Business Impact</div>
+        <h2 class="ih sr reveal-title">Model the revenue, productivity,<br>and <span class="accent">compliance upside.</span></h2>
+      </div>
+      <div class="calc-side sr d1">
+        <div class="calc-lbl">Your frontline team size</div>
+        <div class="calc-team" id="teamDisplay">500 <em>reps</em></div>
+        <input type="range" id="slider" min="100" max="5000" value="500" step="100" oninput="recalc(this.value)">
+        <div class="sticks"><span>100</span><span>1,000</span><span>2,500</span><span>5,000</span></div>
+      </div>
+    </div>
+    <div class="igrid">
+      <div class="icell sr"><span class="inum" id="i1">200</span><div class="ilbl">Reps trained faster</div><div class="isub">50% onboarding reduction</div></div>
+      <div class="icell sr d1"><span class="inum" id="i2">125</span><div class="ilbl">More deals won monthly</div><div class="isub">25% win rate improvement</div></div>
+      <div class="icell sr d2"><span class="inum" id="i3">494</span><div class="ilbl">Employees compliant</div><div class="isub">in 48 hours</div></div>
+      <div class="icell sr d3"><span class="inum" id="i4">₹25L</span><div class="ilbl">Content cost saved/yr</div><div class="isub">10× vs agencies</div></div>
+    </div>
+    <div class="inline-cta sr d2">
+      <div class="inline-cta-copy">Model the revenue, productivity, and compliance upside for your own team.</div>
+      <button class="bfv" data-scroll-target="final">Get My Impact Walkthrough <span class="cta-arrow">→</span></button>
     </div>
   </div>
 </div><!-- /section-box -->
@@ -5471,13 +5561,12 @@ setCards(2);  // Card Color 3
   const dots  = document.getElementById('section-dots');
   const hint  = document.getElementById('scroll-hint');
 
-  const SECTION_IDS = ['hero','proof','perfgap','problem','platform','ai-core','impact','pred-timeline','testimonials','testi-wall','final'];
+  const SECTION_IDS = ['hero','proof','perfgap','problem','platform','testimonials','testi-wall','impact','final'];
   const SECTION_NAMES = {
     hero:'Upgrade Your Frontline', proof:'Trusted by Leaders',
     perfgap:'The Performance Gap',
     problem:'The Reality', platform:'Enterprise Platform',
-    'ai-core':'Platform Architecture',
-    impact:'Impact Calculator', 'pred-timeline':'Predictive Intelligence',
+    impact:'Impact Calculator',
     testimonials:'Customer Results', 'testi-wall':'What Teams Say', final:'Get Started'
   };
 
@@ -6033,7 +6122,7 @@ function recalc(v) {
       const ftTabs = Array.prototype.slice.call(document.querySelectorAll('.ft-tab'));
       const ftPanelsWrap = document.querySelector('.ft-panels');
       const ftPanels = Array.prototype.slice.call(document.querySelectorAll('.ft-panel'));
-      if (ftTabs.length !== 4 || ftPanels.length !== 4) return;
+      if (!ftTabs.length || ftTabs.length !== ftPanels.length) return;
 
       function moveSlider(tab, animate){
         if (!ftSlider || !ftTabbar) return;
@@ -6186,7 +6275,7 @@ function recalc(v) {
       function startAuto(){
         if (userInteracted || autoTimer || document.hidden) return;
         autoTimer = setInterval(function(){
-          currentIdx = (currentIdx + 1) % 4;
+          currentIdx = (currentIdx + 1) % ftTabs.length;
           activateFeatureTab(currentIdx);
         }, 4200);
       }
@@ -6338,6 +6427,17 @@ function recalc(v) {
 #perfgap, #problem, #ai-core, #pred-timeline, #testimonials, #final, #impact, #testi-wall {
   overflow: visible !important;
 }
+/* Client feedback: testimonial wall needs a lighter, more readable
+   background — give it its own clean white surface instead of sitting
+   directly on the busy multi-hue page wash. */
+#testi-wall {
+  background: #FFFFFF;
+  border-radius: 40px;
+  margin: 0 clamp(12px, 2vw, 28px);
+  box-shadow: 0 40px 90px rgba(26,16,37,.07);
+}
+#testi-wall .tw-quote { color: var(--i70); font-weight: 500; }
+#testi-wall .sec-eye { color: var(--v); }
 /* The horizontal predictive-timeline track still needs its own clip. */
 #pred-timeline .ptl-hscroll-viewport { overflow: hidden !important; }
 
@@ -6701,6 +6801,202 @@ body { max-width: 100%; overflow-x: hidden !important; }
   toggleBtn();
   btn.addEventListener('click', function(){
     window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+  });
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════
+     CINEMATIC ENHANCEMENT LAYER
+     Ambient depth blobs, cursor reactivity, magnetic CTAs —
+     additive only, isolated from existing systems above.
+     ══════════════════════════════════════════════ -->
+<style>
+@media (min-width: 901px){
+  #cursor-orb{transition:opacity .4s, width .55s var(--ease), height .55s var(--ease), background .55s var(--ease);}
+  #cursor-orb.orb-active{
+    width:64px; height:64px;
+    background:radial-gradient(circle, rgba(124,58,237,.4) 0%, rgba(79,70,229,.18) 55%, transparent 75%);
+    mix-blend-mode:normal;
+  }
+}
+.cine-blob{position:fixed; top:0; left:0; border-radius:50%; pointer-events:none; z-index:-1; filter:blur(70px); opacity:.5; will-change:transform;}
+.cine-blob-a{width:520px; height:520px; background:radial-gradient(circle, rgba(124,58,237,.26), transparent 70%);}
+.cine-blob-b{width:440px; height:440px; background:radial-gradient(circle, rgba(79,70,229,.2), transparent 70%);}
+.cine-blob-c{width:380px; height:380px; background:radial-gradient(circle, rgba(236,72,153,.16), transparent 70%);}
+@keyframes cineDrift{0%,100%{margin-top:0px;} 50%{margin-top:-44px;}}
+.cine-blob-a{animation:cineDrift 15s ease-in-out infinite;}
+.cine-blob-b{animation:cineDrift 19s ease-in-out infinite; animation-delay:-4s;}
+.cine-blob-c{animation:cineDrift 23s ease-in-out infinite; animation-delay:-9s;}
+.magnetic-btn{transition:transform .4s var(--spring) !important;}
+@media (prefers-reduced-motion: reduce), (max-width: 900px){
+  .cine-blob{display:none !important;}
+}
+</style>
+<script>
+(function CINEMATIC_LAYER(){
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isDesktop = window.innerWidth > 900;
+
+  /* ── Ambient parallax depth blobs (drift + scroll-linked motion) ── */
+  if (!reduced && isDesktop) {
+    var holder = document.createElement('div');
+    holder.setAttribute('aria-hidden', 'true');
+    holder.innerHTML =
+      '<div class="cine-blob cine-blob-a" style="left:4%;top:10%;" data-speed="0.12"></div>' +
+      '<div class="cine-blob cine-blob-b" style="right:2%;top:34%;" data-speed="0.08"></div>' +
+      '<div class="cine-blob cine-blob-c" style="left:30%;bottom:4%;" data-speed="0.16"></div>';
+    while (holder.firstChild) document.body.insertBefore(holder.firstChild, document.body.firstChild);
+
+    var blobs = Array.prototype.slice.call(document.querySelectorAll('.cine-blob'));
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        var y = window.scrollY;
+        blobs.forEach(function(b){
+          var speed = parseFloat(b.dataset.speed) || 0.1;
+          b.style.transform = 'translate3d(0,' + (y * speed) + 'px,0)';
+        });
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  /* ── Cursor orb reacts to interactive elements ── */
+  var orb = document.getElementById('cursor-orb');
+  if (orb && isDesktop && !reduced) {
+    var interactiveSel = 'a, button, .hsc, .tw-card, .prd-card, [role="button"]';
+    document.addEventListener('mouseover', function(e){
+      if (e.target.closest && e.target.closest(interactiveSel)) orb.classList.add('orb-active');
+    }, { passive: true });
+    document.addEventListener('mouseout', function(e){
+      if (e.target.closest && e.target.closest(interactiveSel)) orb.classList.remove('orb-active');
+    }, { passive: true });
+  }
+
+  /* ── Magnetic pull on primary CTAs ── */
+  if (!reduced && isDesktop) {
+    document.querySelectorAll('.hfb, .ncta').forEach(function(btn){
+      btn.classList.add('magnetic-btn');
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        var x = (e.clientX - (r.left + r.width / 2)) * 0.25;
+        var y = (e.clientY - (r.top + r.height / 2)) * 0.35;
+        btn.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+      });
+      btn.addEventListener('mouseleave', function(){
+        btn.style.transform = '';
+      });
+    });
+  }
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════
+     DESIGN 2 — flat, no-gradient variant (Clay.com-style)
+     Purely additive: nothing above is modified. Default view
+     (design 1) renders exactly as before. Toggled via a class
+     on <body>, flipped by the floating button below.
+     Same copy throughout — rendering only.
+     ══════════════════════════════════════════════ -->
+<style id="design-2-theme">
+body.design-2 { --gv: var(--v); }
+
+/* Ambient background wash + floating blobs -> flat neutral */
+body.design-2::before { background: var(--off) !important; opacity: 1 !important; }
+body.design-2 .cine-blob { display: none !important; }
+
+/* Shimmer / hardcoded gradient text accents -> flat solid */
+body.design-2 .gw-shimmer { background: var(--v) !important; animation: none !important; background-size: auto !important; }
+body.design-2 .gw-green, body.design-2 .ih .accent, body.design-2 #impact .gw {
+  background: var(--g) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important;
+}
+body.design-2 .icell::before { background: var(--g) !important; }
+body.design-2 .gw, body.design-2 .pop, body.design-2 .accent,
+body.design-2 .hh1-grad, body.design-2 .pg-stat-accent, body.design-2 .ptl-headline span,
+body.design-2 .aih span, body.design-2 .plat-h .accent, body.design-2 .fh .pop {
+  background: var(--v) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important;
+}
+
+/* Performance-gap chart bars -> flat brand colors */
+body.design-2 .pg-fill-1 { background: var(--o) !important; }
+body.design-2 .pg-fill-2 { background: rgba(234,88,12,.55) !important; }
+body.design-2 .pg-fill-3 { background: rgba(255,255,255,.25) !important; }
+body.design-2 .pg-fill-4 { background: rgba(255,255,255,.14) !important; }
+
+/* Scroll progress bar -> flat */
+body.design-2 #scroll-bar { background: var(--v) !important; }
+
+/* Hero product cards -> flat brand panels instead of dark gradients
+   (colors matched to each product's real accent: blue / green / red / purple) */
+body.design-2 .prd-card[data-product="0"] { background: #0047b3 !important; }
+body.design-2 .prd-card[data-product="1"] { background: #057a30 !important; }
+body.design-2 .prd-card[data-product="2"] { background: #b30010 !important; }
+body.design-2 .prd-card[data-product="3"] { background: #5a0fb3 !important; }
+
+/* Dark-section ambient glow overlays -> removed entirely (this was the
+   remaining "gradient" — an orange glow blending into the dark purple-black
+   base, which is also what was reading as a muddy brown tone) */
+body.design-2 #perfgap::before,
+body.design-2 #problem::before,
+body.design-2 #impact::before,
+body.design-2 #final::before,
+body.design-2 #platform::before {
+  background: none !important;
+}
+body.design-2 #perfgap,
+body.design-2 #problem,
+body.design-2 #platform { background: var(--ink) !important; }
+/* Impact section has its own hardcoded dark-green gradient (!important) —
+   flatten it to match the other dark sections */
+body.design-2 #impact { background: var(--ink) !important; }
+
+/* Proof belt -> flat */
+body.design-2 .pb-stats { background: var(--v) !important; }
+body.design-2 .pb-avatar { background: var(--v) !important; }
+
+/* Platform tab phone-mockup accent panels -> flat tints, per-tab hue kept */
+body.design-2 [style*="rgba(0,71,179"] { background: rgba(0,71,179,.07) !important; }
+body.design-2 [style*="rgba(5,122,48"] { background: rgba(5,122,48,.07) !important; }
+body.design-2 [style*="rgba(179,0,16"] { background: rgba(179,0,16,.07) !important; }
+body.design-2 [style*="rgba(90,15,179"] { background: rgba(90,15,179,.07) !important; }
+body.design-2 [style*="rgba(234,88,12"] { background: rgba(234,88,12,.07) !important; }
+body.design-2 .ft-tab.active { background: var(--v) !important; box-shadow: none !important; }
+body.design-2 .ft-slider { background: var(--v) !important; box-shadow: none !important; }
+
+/* Cursor orb -> flat, no blurred glow */
+body.design-2 #cursor-orb { background: var(--v) !important; opacity: .12 !important; }
+
+/* Toggle button */
+#design2-toggle {
+  position: fixed; bottom: 22px; right: 22px; z-index: 3000;
+  background: var(--ink); color: #fff; border: none; border-radius: 100px;
+  padding: 12px 20px; font-family: var(--fb); font-size: 13px; font-weight: 700;
+  cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  transition: transform .2s var(--spring), background .3s var(--ease);
+}
+#design2-toggle:hover { transform: translateY(-2px); }
+body.design-2 #design2-toggle { background: var(--v); }
+@media (max-width: 640px) {
+  #design2-toggle { bottom: 14px; right: 14px; padding: 10px 16px; font-size: 12px; }
+}
+</style>
+<button id="design2-toggle" type="button">🎨 Try Design 2 (Flat)</button>
+<script>
+(function(){
+  var btn = document.getElementById('design2-toggle');
+  if (!btn) return;
+  function setLabel(){
+    btn.textContent = document.body.classList.contains('design-2') ? '🎨 Back to Design 1' : '🎨 Try Design 2 (Flat)';
+  }
+  if (localStorage.getItem('mobcast-design') === '2') { document.body.classList.add('design-2'); }
+  setLabel();
+  btn.addEventListener('click', function(){
+    document.body.classList.toggle('design-2');
+    localStorage.setItem('mobcast-design', document.body.classList.contains('design-2') ? '2' : '1');
+    setLabel();
   });
 })();
 </script>
