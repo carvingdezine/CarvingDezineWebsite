@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>Mobcast - Design System v8</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════════════
+   ██████╗ ██████╗ ██████╗ ██████╗ ██╗   ██╗ ██████╗ ████████╗
+   ██╔══██╗██╔══██╗██╔═══██╗██╔══██╗██║   ██║██╔════╝ ╚══██╔══╝
+   ██████╔╝██████╔╝██║   ██║██║  ██║██║   ██║██║         ██║
+   ██╔═══╝ ██╔══██╗██║   ██║██║  ██║██║   ██║██║         ██║
+   ██║     ██║  ██║╚██████╔╝██████╔╝╚██████╔╝╚██████╗    ██║
+   ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝  ╚═════╝   ╚═╝
+   MOBCAST DESIGN SYSTEM v8 - Production Source Tokens
+   ═══════════════════════════════════════════════════════ */
+
+/* ── PRODUCTION :root (verbatim from homepage source) ─────── */
+:root {
+  /* Brand colors */
+  --v:#4F46E5; --vm:#7C3AED; --g:#059669; --gl:#10B981; --o:#EA580C; --r:#DC2626;
+  /* Ink scale */
+  --ink:#08091A; --i50:rgba(8,9,26,.5); --i20:rgba(8,9,26,.2); --i08:rgba(8,9,26,.08); --i04:rgba(8,9,26,.04);
+  /* Surface */
+  --off:#F5F5F3;
+  /* Gradients */
+  --gv:linear-gradient(135deg,#4F46E5,#7C3AED);
+  --gc:linear-gradient(135deg,#059669,#4F46E5);
+  --gw:linear-gradient(135deg,#EA580C,#FBBF24);
+  /* Typography */
+  --fd:'Playfair Display',sans-serif; --fb:'DM Sans',sans-serif;
+  /* Motion */
+  --ease:cubic-bezier(.16,1,.3,1); --spring:cubic-bezier(.34,1.56,.64,1);
+  /* Layout */
+  --px:clamp(24px,5.5vw,96px); --mw:1240px;
+}
+
+/* ── LIGHT THEME (data-theme="light") ────────────────────── */
+[data-theme="light"] {
+  --page-bg:#F0F0EE; --card-bg:#ffffff; --card-border:rgba(8,9,26,.08);
+  --body-text:#08091A; --body-sub:rgba(8,9,26,.5); --body-faint:rgba(8,9,26,.18);
+  --surface:rgba(8,9,26,.03); --nav-bg:rgba(255,255,255,.9);
+}
+
+/* ── DARK THEME (data-theme="dark") ─────────────────────── */
+[data-theme="dark"] {
+  --page-bg:#09090F; --card-bg:#111118; --card-border:rgba(255,255,255,.07);
+  --body-text:#F0F0F5; --body-sub:rgba(240,240,245,.5); --body-faint:rgba(240,240,245,.2);
+  --surface:rgba(255,255,255,.04); --nav-bg:rgba(14,14,22,.92); --nav-border:rgba(255,255,255,.08);
+  --ink:#F0F0F5; --off:#111118;
+  --i50:rgba(240,240,245,.5); --i20:rgba(240,240,245,.2); --i08:rgba(255,255,255,.07); --i04:rgba(255,255,255,.04);
+}
+
+/* ── KEYFRAMES (verbatim) ────────────────────────────────── */
+@keyframes lp{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}60%{box-shadow:0 0 0 7px rgba(16,185,129,0)}}
+@keyframes cardfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes tickr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes typ{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+@keyframes signal-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes bar-grow{from{width:0}to{width:var(--w,60%)}}
+@keyframes core-pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes dash-flow{to{stroke-dashoffset:-20}}
+@keyframes dot-pulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.4);opacity:1}}
+
+
+/* ══════════════════════════════════════════════════════════
+   PRODUCTION COMPONENT CLASSES (verbatim)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────── */
+.hh1{font-family:var(--fd);font-size:clamp(52px,6vw,88px);font-weight:800;line-height:.92;letter-spacing:-3px;color:var(--ink);margin-bottom:22px;}
+.hsub{font-size:18px;color:var(--i50);line-height:1.7;max-width:420px;margin-bottom:32px;font-weight:300;}
+.ph2{font-family:var(--fd);font-size:clamp(36px,5vw,64px);font-weight:800;color:#fff;line-height:1.0;letter-spacing:-2px;margin-bottom:48px;}
+.ih{font-family:var(--fd);font-size:clamp(32px,4vw,52px);font-weight:800;color:#fff;line-height:1.05;letter-spacing:-1.5px;}
+.aih{font-family:var(--fd);font-size:clamp(32px,4vw,52px);font-weight:800;color:#fff;line-height:1.0;letter-spacing:-2px;margin-bottom:10px;}
+.fh{font-family:var(--fd);font-size:clamp(46px,7vw,84px);font-weight:800;color:#fff;line-height:.95;letter-spacing:-3px;margin-bottom:18px;}
+.wsh{font-family:var(--fd);font-size:clamp(24px,4vw,40px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:12px;}
+.pih{font-family:var(--fd);font-size:clamp(32px,4.5vw,56px);font-weight:800;letter-spacing:-2px;color:var(--ink);line-height:1.0;}
+.plat-h{font-family:var(--fd);font-size:clamp(32px,4vw,50px);font-weight:800;letter-spacing:-1.5px;color:#fff;line-height:1.0;}
+.ptl-headline{font-family:var(--fd);font-size:clamp(32px,4vw,52px);font-weight:800;color:#fff;letter-spacing:-2px;line-height:1;}
+.ac-title{font-family:var(--fd);font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;color:var(--ink);line-height:1;}
+.testh{font-family:var(--fd);font-size:clamp(32px,4vw,50px);font-weight:800;letter-spacing:-1.5px;color:var(--ink);line-height:1.0;}
+
+/* ── EYEBROWS ────────────────────────────────────────────── */
+.pey{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(129,140,248,.7);display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.iey{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(129,140,248,.7);display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.aiey{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(129,140,248,.7);margin-bottom:18px;display:block;}
+.arch-eye{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(129,140,248,.6);display:block;margin-bottom:14px;}
+.ptl-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(129,140,248,.7);margin-bottom:16px;}
+.plat-eye{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(129,140,248,.7);display:block;margin-bottom:14px;}
+.ac-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--v);margin-bottom:14px;}
+.piey{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--v);margin-bottom:12px;display:block;}
+
+/* ── GRADIENT TEXT CLASSES ───────────────────────────────── */
+.lg{display:block;background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;}
+.gw{background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.gw-light{background:linear-gradient(135deg,#818CF8,#C4B5FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.gw-warm{background:linear-gradient(135deg,#F97316,#FBBF24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.gw-green{background:linear-gradient(135deg,#059669,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.grad-word{background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.pop{background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ── BUTTONS ─────────────────────────────────────────────── */
+.bw{background:#fff;color:var(--v);border:none;border-radius:100px;padding:13px 28px;font-size:14px;font-weight:600;font-family:var(--fb);box-shadow:0 8px 28px rgba(0,0,0,.2);transition:all .2s var(--ease);display:inline-flex;align-items:center;gap:8px;cursor:pointer;}
+.bdk{background:var(--ink);color:#fff;border:none;border-radius:100px;padding:12px 24px;font-size:14px;font-weight:600;font-family:var(--fb);box-shadow:0 4px 14px rgba(8,9,26,.15);transition:all .2s var(--ease);cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
+.blnk{font-size:14px;font-weight:500;color:var(--v);background:none;border:none;font-family:var(--fb);display:inline-flex;align-items:center;gap:4px;transition:gap .2s;cursor:pointer;}
+.blnk:hover{gap:12px;}
+.bfv{background:var(--gv);color:#fff;border:none;border-radius:100px;padding:15px 38px;font-size:16px;font-weight:600;font-family:var(--fb);box-shadow:0 8px 32px rgba(79,70,229,.4);transition:all .2s var(--ease);cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
+.bfg{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:15px 28px;font-size:16px;font-weight:500;font-family:var(--fb);transition:all .2s;cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
+.ncta{font-size:13px;font-weight:600;color:#fff;background:var(--ink);border:none;border-radius:100px;padding:9px 22px;margin-left:8px;font-family:var(--fb);transition:all .2s;cursor:pointer;}
+.hfb{background:var(--gv);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-size:13px;font-weight:600;font-family:var(--fb);white-space:nowrap;transition:all .2s;box-shadow:0 4px 14px rgba(79,70,229,.3);cursor:pointer;}
+
+/* ── CARDS ───────────────────────────────────────────────── */
+.vcard{background:#fff;border:1px solid var(--i08);border-radius:20px;overflow:hidden;box-shadow:0 20px 56px rgba(8,9,26,.08);transition:transform .4s var(--ease),box-shadow .4s;}
+.tcard{background:#fff;border:1px solid rgba(8,9,26,.06);border-radius:20px;padding:28px;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s,border-color .3s;}
+.icell{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:26px 20px;text-align:center;transition:all .3s var(--ease);position:relative;overflow:hidden;}
+.snap-card{display:grid;grid-template-columns:1fr auto 1fr;border:1px solid rgba(8,9,26,.07);border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 2px 40px rgba(8,9,26,.04);}
+.bcell{background:rgba(255,255,255,.05);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:26px;position:relative;overflow:hidden;transition:all .3s var(--ease);display:flex;flex-direction:column;}
+.pbc{background:#fff;border:1px solid var(--i08);border-radius:19px;padding:28px;transition:all .3s var(--ease);position:relative;overflow:hidden;}
+.ai-alert{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px 18px;display:flex;align-items:flex-start;gap:14px;}
+.hero-card{background:#fff;border-radius:22px;border:1px solid rgba(79,70,229,.1);box-shadow:0 32px 80px rgba(79,70,229,.14),0 8px 24px rgba(8,9,26,.06);overflow:hidden;animation:cardfloat 6s ease-in-out infinite;}
+
+/* ── BADGES & CHIPS ──────────────────────────────────────── */
+.arch-signal{font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--c,rgba(255,255,255,.4));border-color:var(--c,rgba(255,255,255,.08));}
+.ai-alert-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:6px;}
+.bctag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.5px;padding:4px 10px;border-radius:100px;width:fit-content;}
+.sec-badge{font-size:11px;font-weight:700;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);letter-spacing:.5px;}
+.ca-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:4px;}
+.hkick{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.75);border:1px solid rgba(79,70,229,.15);border-radius:100px;padding:5px 14px 5px 8px;font-size:12px;font-weight:600;}
+/* semantic status classes */
+.bad-badge{background:rgba(220,38,38,.12);color:#FCA5A5;border:1px solid rgba(220,38,38,.2);}
+.good-badge{background:rgba(16,185,129,.1);color:#6EE7B7;border:1px solid rgba(16,185,129,.18);}
+.ok{background:rgba(16,185,129,.12);color:#6EE7B7;border:1px solid rgba(16,185,129,.2);}
+.bad{background:rgba(220,38,38,.08);color:#FCA5A5;border:1px solid rgba(220,38,38,.12);}
+.warn{background:rgba(234,88,12,.08);color:#FED7AA;border:1px solid rgba(234,88,12,.12);}
+.neutral{background:rgba(79,70,229,.08);color:#A5B4FC;border:1px solid rgba(79,70,229,.12);}
+.good{background:rgba(5,150,105,.08);color:#6EE7B7;border:1px solid rgba(5,150,105,.12);}
+.verified{background:rgba(5,150,105,.06);color:var(--g);border-color:rgba(5,150,105,.2);}
+.pending{background:rgba(234,88,12,.06);color:var(--o);border-color:rgba(234,88,12,.2);}
+.high{background:rgba(220,38,38,.15);color:#FCA5A5;}
+.med{background:rgba(234,88,12,.12);color:#FED7AA;}
+
+/* ── STATS ───────────────────────────────────────────────── */
+.ppst{flex:1;background:var(--off);border:1px solid var(--i08);border-radius:12px;padding:14px;}
+.ppst-n{font-family:var(--fd);font-size:24px;font-weight:800;letter-spacing:-1px;}
+.ppst-l{font-size:11px;color:var(--i50);margin-top:2px;}
+.inum{font-family:var(--fd);font-size:clamp(36px,5vw,60px);font-weight:800;letter-spacing:-2px;color:#fff;line-height:1;display:block;margin-bottom:10px;}
+.ilbl{font-size:13px;color:rgba(255,255,255,.4);}
+.bcnum{font-family:var(--fd);font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:8px;background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.trsn{font-family:var(--fd);font-size:48px;font-weight:800;letter-spacing:-2px;line-height:1;background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.trsl{font-size:13px;color:var(--i50);}
+
+/* ── PROGRESS ────────────────────────────────────────────── */
+.crb{flex:1;height:5px;background:var(--i08);border-radius:100px;overflow:hidden;}
+.crbf{height:100%;border-radius:100px;transition:width .8s var(--ease);}
+.lms-mod-bar{height:3px;background:rgba(8,9,26,.06);border-radius:2px;overflow:hidden;}
+.lms-mod-fill{height:100%;border-radius:2px;}
+.prog-wrap{height:5px;background:var(--i08);border-radius:100px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:100px;background:var(--gv);transition:width .8s var(--ease);}
+
+/* ── PULSE DOT ───────────────────────────────────────────── */
+.pulse-dot{display:inline-block;width:6px;height:6px;border-radius:50%;animation:pulse 1.8s ease-in-out infinite;}
+.hkd{width:6px;height:6px;background:var(--gl);border-radius:50%;animation:lp 2s infinite;}
+.rmd{width:5px;height:5px;border-radius:50%;animation:lp 2s infinite;}
+.tl-pulse{width:10px;height:10px;border-radius:50%;background:#10B981;box-shadow:0 0 0 0 rgba(16,185,129,.4);animation:lp 2s infinite;flex-shrink:0;}
+
+/* ── NAVIGATION ──────────────────────────────────────────── */
+/* #nav: position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:1000;
+   display:flex;align-items:center;background:rgba(255,255,255,.88);
+   backdrop-filter:blur(28px);border:1px solid var(--i08);border-radius:100px;
+   padding:8px 8px 8px 22px;box-shadow:0 4px 28px rgba(8,9,26,.07);
+   transition:all .4s var(--ease);white-space:nowrap;gap:2px; */
+.nlogo{font-family:var(--fd);font-size:17px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.5px;display:flex;align-items:center;gap:10px;margin-right:12px;}
+.nm{width:26px;height:26px;background:var(--gv);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900;}
+.ncta{font-size:13px;font-weight:600;color:#fff;background:var(--ink);border:none;border-radius:100px;padding:9px 22px;margin-left:8px;font-family:var(--fb);transition:all .2s;cursor:pointer;}
+
+/* ── FEATURE WALL ────────────────────────────────────────── */
+.feat-wall{border:1px solid rgba(255,255,255,.07);border-radius:24px;overflow:hidden;background:rgba(255,255,255,.02);}
+.fw-row{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:28px 32px;transition:background .25s;align-items:center;}
+.fw-divider{height:1px;background:rgba(255,255,255,.05);margin:0;}
+.fw-title{font-family:var(--fd);font-size:16px;font-weight:700;color:#fff;margin-bottom:5px;}
+.fw-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.6;}
+.fw-ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid transparent;}
+.fw-badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;background:rgba(79,70,229,.12);color:#A5B4FC;border:1px solid rgba(79,70,229,.2);}
+
+/* ── SCROLL REVEAL ───────────────────────────────────────── */
+.sr{opacity:0;transform:translateY(26px);transition:opacity .65s var(--ease),transform .65s var(--ease);}
+.sr.in{opacity:1;transform:none;}
+.d1{transition-delay:.08s;} .d2{transition-delay:.16s;} .d3{transition-delay:.24s;}
+.cinema-enter{opacity:0;transform:translateY(48px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.cinema-enter.visible{opacity:1;transform:none;}
+.headline-line{overflow:hidden;display:block;}
+.line-inner{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.16,1,.3,1);}
+.line-inner.visible{transform:translateY(0);}
+
+/* ── SCROLL BAR ──────────────────────────────────────────── */
+/* #scroll-bar: position:fixed;top:0;left:0;height:3px;width:0%;
+   background:linear-gradient(90deg,#4F46E5 0%,#7C3AED 50%,#10B981 100%);
+   z-index:9999;transition:width .08s linear; */
+
+/* ── MOMENTUM STRIP CARDS ────────────────────────────────── */
+.ms-card{flex-shrink:0;width:260px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:26px 22px;position:relative;overflow:hidden;}
+.ms-num{font-family:var(--fd);font-size:44px;font-weight:800;letter-spacing:-2px;color:#fff;margin-bottom:4px;line-height:1;}
+.ms-desc{font-size:12px;color:rgba(255,255,255,.35);line-height:1.55;margin-bottom:14px;}
+.ms-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:100px;}
+
+/* ── TICKER ──────────────────────────────────────────────── */
+.ti{display:flex;gap:6px;animation:tickr 20s linear infinite;width:max-content;}
+.chip{display:flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--i08);border-radius:100px;padding:5px 11px;font-size:10px;font-weight:500;color:var(--i50);}
+.chn{font-weight:800;font-family:var(--fd);color:var(--v);}
+
+/* ── TESTIMONIAL STAT ────────────────────────────────────── */
+.tcard-stat{font-family:var(--fd);font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--ink);}
+.tcard-quote{font-family:var(--fd);font-size:72px;font-weight:800;color:rgba(8,9,26,.04);line-height:1;margin-bottom:-18px;}
+.tcard-text{font-size:14px;color:var(--i50);line-height:1.7;margin-bottom:20px;font-weight:400;}
+
+/* ── HERO CHIP ───────────────────────────────────────────── */
+.hero-chip{position:absolute;background:#fff;border:1px solid var(--i08);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:9px;box-shadow:0 8px 28px rgba(8,9,26,.1);animation:bob 5s ease-in-out infinite;}
+.hc-n{font-family:var(--fd);font-size:14px;font-weight:800;}
+.hc-l{font-size:10px;color:var(--i50);}
+
+/* ── GRID TEXTURES (ambient backgrounds) ─────────────────── */
+.sys-grid{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(79,70,229,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(79,70,229,.04) 1px,transparent 1px);
+  background-size:28px 28px;}
+.sys-grid-dark{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(129,140,248,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(129,140,248,.06) 1px,transparent 1px);
+  background-size:28px 28px;}
+
+/* ═══════════════════════════════════════════════════════════
+   DOC SHELL
+   ═══════════════════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--off);scroll-behavior:smooth;}
+body{font-family:var(--fb);color:var(--ink);width:1440px;-webkit-font-smoothing:antialiased;}
+
+/* layout */
+.ds-layout{display:grid;grid-template-columns:232px 1fr;min-height:100vh;}
+
+/* sidebar */
+.ds-side{
+  background:#08091A;position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:0 0 28px;scrollbar-width:none;
+}
+.ds-side::-webkit-scrollbar{display:none;}
+.ds-side-logo{
+  display:flex;align-items:center;gap:9px;
+  padding:22px 18px 18px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:8px;
+}
+.ds-logo-m{width:28px;height:28px;background:var(--gv);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;font-weight:900;color:#fff;}
+.ds-logo-t{font-family:var(--fd);font-size:14px;font-weight:800;color:#fff;letter-spacing:-.3px;}
+.ds-logo-v{font-size:9px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.2);text-transform:uppercase;margin-left:auto;}
+.ds-nav-group{padding:12px 10px 4px;}
+.ds-ng-label{font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.18);padding:6px 8px 2px;}
+.ds-nl{
+  display:flex;align-items:center;gap:7px;
+  padding:6px 8px;border-radius:7px;margin-bottom:1px;
+  font-size:12px;font-weight:500;color:rgba(255,255,255,.38);
+  text-decoration:none;transition:all .15s;cursor:pointer;
+}
+.ds-nl:hover,.ds-nl.on{background:rgba(79,70,229,.14);color:rgba(255,255,255,.85);}
+.ds-nl-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+
+/* main */
+.ds-main{min-height:100vh;}
+
+/* page header */
+.ds-header{
+  background:#06050F;padding:56px 60px 52px;position:relative;overflow:hidden;
+}
+.ds-header::before{content:'';position:absolute;top:-80px;left:-60px;width:380px;height:380px;
+  background:radial-gradient(ellipse,rgba(79,70,229,.18),transparent 65%);pointer-events:none;}
+.ds-header::after{content:'';position:absolute;bottom:-50px;right:-40px;width:280px;height:280px;
+  background:radial-gradient(ellipse,rgba(124,58,237,.12),transparent 65%);pointer-events:none;}
+.ds-hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.ds-hi{position:relative;z-index:1;}
+.ds-h-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(79,70,229,.14);border:1px solid rgba(79,70,229,.22);border-radius:100px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#818CF8;margin-bottom:16px;}
+.ds-h-title{font-family:var(--fd);font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;color:#fff;margin-bottom:10px;}
+.ds-h-title span{background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ds-h-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,.38);line-height:1.65;max-width:540px;margin-bottom:36px;}
+.ds-h-meta{display:flex;gap:0;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;width:fit-content;}
+.ds-hm-item{padding:12px 22px;border-right:1px solid rgba(255,255,255,.07);}
+.ds-hm-item:last-child{border-right:none;}
+.ds-hm-label{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:4px;}
+.ds-hm-val{font-family:var(--fd);font-size:14px;font-weight:700;color:rgba(255,255,255,.72);}
+
+/* sections */
+.ds-sec{padding:56px 60px 64px;border-bottom:1px solid var(--i08);}
+.ds-sec:nth-child(odd){background:var(--off);}
+.ds-sec:nth-child(even){background:#fff;}
+.ds-sec-id{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(129,140,248,.6);margin-bottom:8px;display:block;}
+.ds-sec-title{font-family:var(--fd);font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--ink);margin-bottom:6px;}
+.ds-sec-desc{font-size:14px;color:var(--i50);line-height:1.6;margin-bottom:40px;max-width:640px;}
+.ds-sec-desc code{font-size:11px;background:var(--i04);border:1px solid var(--i08);border-radius:4px;padding:1px 5px;font-family:monospace;}
+
+/* sub-labels */
+.sub{font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--i20);padding-bottom:10px;border-bottom:1px solid var(--i08);margin:32px 0 14px;}
+.sub:first-child{margin-top:0;}
+
+/* token grids */
+.tg{display:grid;gap:8px;}
+.tg-7{grid-template-columns:repeat(7,1fr);}
+.tg-6{grid-template-columns:repeat(6,1fr);}
+.tg-5{grid-template-columns:repeat(5,1fr);}
+.tg-4{grid-template-columns:repeat(4,1fr);}
+.tg-3{grid-template-columns:repeat(3,1fr);}
+.tg-2{grid-template-columns:repeat(2,1fr);}
+
+/* token card */
+.tc-card{background:#fff;border:1px solid var(--i08);border-radius:12px;overflow:hidden;}
+.tc-card.dk{background:#08091A;border-color:rgba(255,255,255,.08);}
+.tc-sw{height:64px;width:100%;}
+.tc-sw.sm{height:44px;}
+.tc-sw.lg{height:96px;}
+.tc-body{padding:10px 12px;}
+.tc-name{font-size:11px;font-weight:700;color:var(--ink);font-family:monospace;margin-bottom:2px;}
+.tc-name.lt{color:rgba(255,255,255,.75);}
+.tc-val{font-size:9px;color:var(--i20);font-family:monospace;line-height:1.5;}
+.tc-val.lt{color:rgba(255,255,255,.25);}
+.tc-use{font-size:9px;color:var(--i50);margin-top:2px;}
+.tc-use.lt{color:rgba(255,255,255,.3);}
+
+/* gradient preview */
+.gp{border-radius:12px;overflow:hidden;border:1px solid var(--i08);}
+.gp-sw{height:80px;}
+.gp-body{padding:12px 14px;background:#fff;}
+.gp-name{font-size:12px;font-weight:700;color:var(--ink);font-family:monospace;margin-bottom:3px;}
+.gp-val{font-size:9px;color:var(--i50);font-family:monospace;line-height:1.6;}
+.gp-use{font-size:9px;color:var(--i20);margin-top:3px;}
+
+/* type specimen */
+.spec{background:#fff;border:1px solid var(--i08);border-radius:12px;padding:18px 22px;display:flex;align-items:baseline;gap:20px;}
+.spec.dk{background:#08091A;border-color:rgba(255,255,255,.08);}
+.spec-meta{width:190px;flex-shrink:0;}
+.spec-label{font-size:10px;font-weight:700;color:var(--i50);margin-bottom:2px;}
+.spec-label.lt{color:rgba(255,255,255,.3);}
+.spec-val{font-size:9px;color:var(--i20);font-family:monospace;line-height:1.5;}
+.spec-val.lt{color:rgba(255,255,255,.2);}
+.spec-div{width:1px;background:var(--i08);align-self:stretch;flex-shrink:0;}
+.spec-div.lt{background:rgba(255,255,255,.07);}
+
+/* shadow card */
+.sh-card{background:#fff;border:1px solid var(--i08);border-radius:12px;padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.sh-box{width:48px;height:48px;border-radius:10px;background:#fff;}
+.sh-name{font-size:11px;font-weight:600;color:var(--i50);text-align:center;}
+.sh-val{font-size:9px;color:var(--i20);font-family:monospace;text-align:center;line-height:1.5;}
+
+/* motion card */
+.mo-card{background:#fff;border:1px solid var(--i08);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;}
+.mo-ball{width:32px;height:32px;border-radius:50%;background:var(--gv);flex-shrink:0;}
+.mo-card:hover .mo-ball{animation:var(--anim);}
+.mo-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.mo-val{font-size:10px;color:var(--i50);font-family:monospace;margin-bottom:2px;}
+.mo-desc{font-size:10px;color:var(--i20);}
+
+/* code block */
+.code{background:#06050F;border-radius:10px;padding:16px 20px;font-size:11px;font-family:monospace;color:rgba(255,255,255,.55);line-height:1.75;overflow-x:auto;}
+.kw{color:#818CF8;} .v{color:#6EE7B7;} .p{color:#FDBA74;} .cm{color:rgba(255,255,255,.22);}
+
+/* preview block */
+.pv{background:#fff;border:1px solid var(--i08);border-radius:12px;padding:22px 24px;}
+.pv.dk{background:#06050F;border-color:rgba(255,255,255,.07);}
+.pv.dk2{background:linear-gradient(160deg,#0F0A2E,#1a0f4e,#0e1a3d);border-color:rgba(255,255,255,.07);}
+.pv.off{background:var(--off);}
+.pv-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--i20);margin-bottom:14px;}
+.pv-label.lt{color:rgba(255,255,255,.2);}
+.pv-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+
+/* section bg card */
+.sbg{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.07);}
+.sbg-sw{height:72px;display:flex;align-items:center;justify-content:center;}
+.sbg-label{font-family:var(--fd);font-size:13px;font-weight:700;color:rgba(255,255,255,.7);}
+.sbg-label.dk-text{color:rgba(8,9,26,.55);}
+.sbg-body{padding:10px 14px;background:#fff;border-top:1px solid var(--i08);}
+.sbg-id{font-size:11px;font-weight:700;font-family:monospace;color:var(--ink);margin-bottom:2px;}
+.sbg-val{font-size:9px;color:var(--i50);font-family:monospace;line-height:1.5;}
+
+/* kf live demo */
+.kf-demo{background:#fff;border:1px solid var(--i08);border-radius:12px;padding:16px 16px 12px;}
+.kf-preview{height:48px;display:flex;align-items:center;justify-content:flex-start;margin-bottom:8px;}
+.kf-name{font-size:10px;font-weight:700;font-family:monospace;color:var(--v);margin-bottom:2px;}
+.kf-use{font-size:9px;color:var(--i20);}
+.kf-dot{width:18px;height:18px;border-radius:50%;background:var(--gv);}
+
+/* radius demo */
+.rd-card{background:#fff;border:1px solid var(--i08);border-radius:12px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.rd-box{width:48px;height:48px;background:var(--gv);}
+.rd-label{font-size:11px;font-weight:700;color:var(--i50);}
+.rd-use{font-size:9px;color:var(--i20);text-align:center;}
+
+/* easing demo */
+@keyframes ease-demo{from{transform:translateX(-10px);opacity:0}to{transform:none;opacity:1}}
+@keyframes spring-demo{from{transform:scale(.5)}to{transform:scale(1)}}
+</style>
+</head>
+<body>
+
+<div class="ds-layout">
+
+<!-- ═════════════ SIDEBAR ═════════════ -->
+<aside class="ds-side">
+  <div class="ds-side-logo">
+    <div class="ds-logo-m">M</div>
+    <span class="ds-logo-t">Mobcast</span>
+    <span class="ds-logo-v">v8</span>
+  </div>
+
+  <div class="ds-nav-group">
+    <div class="ds-ng-label">Tokens</div>
+    <a class="ds-nl on" href="#colors"><span class="ds-nl-dot" style="background:#4F46E5"></span>Colors</a>
+    <a class="ds-nl" href="#gradients"><span class="ds-nl-dot" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:50%"></span>Gradients</a>
+    <a class="ds-nl" href="#typography"><span class="ds-nl-dot" style="background:#fff"></span>Typography</a>
+    <a class="ds-nl" href="#spacing"><span class="ds-nl-dot" style="background:#818CF8"></span>Spacing &amp; Radius</a>
+    <a class="ds-nl" href="#shadows"><span class="ds-nl-dot" style="background:#C4B5FD"></span>Shadows</a>
+    <a class="ds-nl" href="#motion"><span class="ds-nl-dot" style="background:#6EE7B7"></span>Motion</a>
+    <a class="ds-nl" href="#keyframes"><span class="ds-nl-dot" style="background:#FDBA74"></span>Keyframes</a>
+  </div>
+
+  <div class="ds-nav-group">
+    <div class="ds-ng-label">Components</div>
+    <a class="ds-nl" href="#nav-comp"><span class="ds-nl-dot" style="background:#818CF8"></span>Navigation</a>
+    <a class="ds-nl" href="#eyebrows"><span class="ds-nl-dot" style="background:#818CF8"></span>Eyebrows</a>
+    <a class="ds-nl" href="#buttons"><span class="ds-nl-dot" style="background:#4F46E5"></span>Buttons</a>
+    <a class="ds-nl" href="#badges"><span class="ds-nl-dot" style="background:#10B981"></span>Badges &amp; Chips</a>
+    <a class="ds-nl" href="#cards"><span class="ds-nl-dot" style="background:#fff"></span>Cards</a>
+    <a class="ds-nl" href="#stats"><span class="ds-nl-dot" style="background:#EA580C"></span>Stats &amp; Progress</a>
+    <a class="ds-nl" href="#feat-wall"><span class="ds-nl-dot" style="background:#7C3AED"></span>Feature Wall</a>
+    <a class="ds-nl" href="#reveals"><span class="ds-nl-dot" style="background:#34D399"></span>Scroll Reveals</a>
+  </div>
+
+  <div class="ds-nav-group">
+    <div class="ds-ng-label">Layout</div>
+    <a class="ds-nl" href="#section-bgs"><span class="ds-nl-dot" style="background:#7C3AED"></span>Section Backgrounds</a>
+    <a class="ds-nl" href="#themes"><span class="ds-nl-dot" style="background:#F5F5F3"></span>Light / Dark Themes</a>
+  </div>
+
+  <div style="padding:24px 18px 0;margin-top:12px;border-top:1px solid rgba(255,255,255,.05);">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.16);margin-bottom:8px;">Fonts</div>
+    <div style="font-family:'Playfair Display',sans-serif;font-size:13px;font-weight:800;color:rgba(255,255,255,.5);margin-bottom:3px;">Playfair Display</div>
+    <div style="font-size:12px;font-weight:400;color:rgba(255,255,255,.3);">DM Sans</div>
+    <div style="font-size:8px;color:rgba(255,255,255,.15);margin-top:8px">Source: Google Fonts</div>
+  </div>
+</aside>
+
+<!-- ═════════════ MAIN ═════════════ -->
+<main class="ds-main">
+
+<!-- PAGE HEADER -->
+<div class="ds-header">
+  <div class="ds-hgrid"></div>
+  <div class="ds-hi">
+    <div class="ds-h-badge">
+      <span style="width:5px;height:5px;border-radius:50%;background:#818CF8;animation:pulse 2s ease-in-out infinite;display:inline-block;"></span>
+      Design System
+    </div>
+    <div class="ds-h-title">Mobcast <span>Design System</span></div>
+    <p class="ds-h-sub">All CSS tokens, component classes, gradients, animations and layout patterns extracted verbatim from the v8 production homepage. Single source of truth for the admin dashboard, mobile app, and all future surfaces.</p>
+    <div class="ds-h-meta">
+      <div class="ds-hm-item"><div class="ds-hm-label">Source</div><div class="ds-hm-val">Homepage v8</div></div>
+      <div class="ds-hm-item"><div class="ds-hm-label">Fonts</div><div class="ds-hm-val">Playfair Display + DM Sans</div></div>
+      <div class="ds-hm-item"><div class="ds-hm-label">CSS vars</div><div class="ds-hm-val">32 in production</div></div>
+      <div class="ds-hm-item"><div class="ds-hm-label">Keyframes</div><div class="ds-hm-val">13 animations</div></div>
+      <div class="ds-hm-item"><div class="ds-hm-label">Components</div><div class="ds-hm-val">836 classes</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     01  COLORS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="colors">
+  <span class="ds-sec-id">01 - Colors</span>
+  <div class="ds-sec-title">Color Tokens</div>
+  <p class="ds-sec-desc">32 CSS custom properties in production. The shorthand aliases (<code>--v</code>, <code>--vm</code>, <code>--g</code> etc.) are used throughout the source - use them verbatim in any new surface.</p>
+
+  <div class="sub">Brand - primary interactive colors</div>
+  <div class="tg tg-6" style="margin-bottom:8px;">
+    <div class="tc-card"><div class="tc-sw" style="background:#4F46E5"></div><div class="tc-body"><div class="tc-name">--v</div><div class="tc-val">#4F46E5</div><div class="tc-use">Buttons, links, active, focus</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:#7C3AED"></div><div class="tc-body"><div class="tc-name">--vm</div><div class="tc-val">#7C3AED</div><div class="tc-use">Violet - gradient partner to --v</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:#059669"></div><div class="tc-body"><div class="tc-name">--g</div><div class="tc-val">#059669</div><div class="tc-use">Success, LMS, completion</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:#10B981"></div><div class="tc-body"><div class="tc-name">--gl</div><div class="tc-val">#10B981</div><div class="tc-use">Pulse dots, progress fills, live</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:#EA580C"></div><div class="tc-body"><div class="tc-name">--o</div><div class="tc-val">#EA580C</div><div class="tc-use">Orange - Content Studio, warm CTAs</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:#DC2626"></div><div class="tc-body"><div class="tc-name">--r</div><div class="tc-val">#DC2626</div><div class="tc-use">Danger, at-risk, error states</div></div></div>
+  </div>
+
+  <div class="sub">Ink - text, borders, fills</div>
+  <div class="tg tg-5" style="margin-bottom:8px;">
+    <div class="tc-card"><div class="tc-sw" style="background:#08091A"></div><div class="tc-body"><div class="tc-name">--ink</div><div class="tc-val">#08091A</div><div class="tc-use">Primary text + final section bg</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:rgba(8,9,26,.5)"></div><div class="tc-body"><div class="tc-name">--i50</div><div class="tc-val">rgba(8,9,26,.5)</div><div class="tc-use">Secondary text, subheads</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:rgba(8,9,26,.2)"></div><div class="tc-body"><div class="tc-name">--i20</div><div class="tc-val">rgba(8,9,26,.2)</div><div class="tc-use">Muted, placeholder</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:rgba(8,9,26,.08)"></div><div class="tc-body"><div class="tc-name">--i08</div><div class="tc-val">rgba(8,9,26,.08)</div><div class="tc-use">Borders, dividers</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:rgba(8,9,26,.04)"></div><div class="tc-body"><div class="tc-name">--i04</div><div class="tc-val">rgba(8,9,26,.04)</div><div class="tc-use">Subtle fills, inner bg</div></div></div>
+  </div>
+
+  <div class="sub">Surface backgrounds</div>
+  <div class="tg tg-5" style="margin-bottom:8px;">
+    <div class="tc-card"><div class="tc-sw" style="background:#fff;border-bottom:1px solid var(--i08)"></div><div class="tc-body"><div class="tc-name">#ffffff</div><div class="tc-val">white</div><div class="tc-use">Cards, proof, products, testimonials</div></div></div>
+    <div class="tc-card"><div class="tc-sw" style="background:#F5F5F3"></div><div class="tc-body"><div class="tc-name">--off</div><div class="tc-val">#F5F5F3</div><div class="tc-use">Page bg, platform, workshop sections</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw" style="background:#06050F"></div><div class="tc-body"><div class="tc-name lt">--dark-1</div><div class="tc-val lt">#06050F</div><div class="tc-use lt">Darkest bg - aichat left col, sidebar</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw" style="background:#0F0A2E"></div><div class="tc-body"><div class="tc-name lt">--dark-2</div><div class="tc-val lt">#0F0A2E</div><div class="tc-use lt">Problem section gradient start</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw" style="background:#09090F"></div><div class="tc-body"><div class="tc-name lt">dark-theme bg</div><div class="tc-val lt">#09090F</div><div class="tc-use lt">--page-bg in dark mode</div></div></div>
+  </div>
+
+  <div class="sub">On-dark accent palette (text on dark sections)</div>
+  <div class="tg tg-7">
+    <div class="tc-card dk"><div class="tc-sw sm" style="background:#818CF8"></div><div class="tc-body"><div class="tc-name lt">indigo-l</div><div class="tc-val lt">#818CF8</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw sm" style="background:#A5B4FC"></div><div class="tc-body"><div class="tc-name lt">indigo-xl</div><div class="tc-val lt">#A5B4FC</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw sm" style="background:#C4B5FD"></div><div class="tc-body"><div class="tc-name lt">violet-l</div><div class="tc-val lt">#C4B5FD</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw sm" style="background:#6EE7B7"></div><div class="tc-body"><div class="tc-name lt">green-xl</div><div class="tc-val lt">#6EE7B7</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw sm" style="background:#34D399"></div><div class="tc-body"><div class="tc-name lt">green-m</div><div class="tc-val lt">#34D399</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw sm" style="background:#FDBA74"></div><div class="tc-body"><div class="tc-name lt">orange-l</div><div class="tc-val lt">#FDBA74</div></div></div>
+    <div class="tc-card dk"><div class="tc-sw sm" style="background:#FCA5A5"></div><div class="tc-body"><div class="tc-name lt">red-l</div><div class="tc-val lt">#FCA5A5</div></div></div>
+  </div>
+
+  <div class="sub" style="margin-top:32px;">Copy-paste :root block</div>
+  <div class="code"><span class="cm">/* Production :root - paste verbatim into any new surface */</span>
+<span class="kw">:root</span> {
+  <span class="cm">/* brand */</span>
+  <span class="p">--v</span>:<span class="v">#4F46E5</span>; <span class="p">--vm</span>:<span class="v">#7C3AED</span>; <span class="p">--g</span>:<span class="v">#059669</span>; <span class="p">--gl</span>:<span class="v">#10B981</span>; <span class="p">--o</span>:<span class="v">#EA580C</span>; <span class="p">--r</span>:<span class="v">#DC2626</span>;
+  <span class="cm">/* ink */</span>
+  <span class="p">--ink</span>:<span class="v">#08091A</span>; <span class="p">--i50</span>:<span class="v">rgba(8,9,26,.5)</span>; <span class="p">--i20</span>:<span class="v">rgba(8,9,26,.2)</span>; <span class="p">--i08</span>:<span class="v">rgba(8,9,26,.08)</span>; <span class="p">--i04</span>:<span class="v">rgba(8,9,26,.04)</span>;
+  <span class="cm">/* surface */</span>
+  <span class="p">--off</span>:<span class="v">#F5F5F3</span>;
+  <span class="cm">/* gradients */</span>
+  <span class="p">--gv</span>:<span class="v">linear-gradient(135deg,#4F46E5,#7C3AED)</span>;
+  <span class="p">--gc</span>:<span class="v">linear-gradient(135deg,#059669,#4F46E5)</span>;
+  <span class="p">--gw</span>:<span class="v">linear-gradient(135deg,#EA580C,#FBBF24)</span>;
+  <span class="cm">/* typography */</span>
+  <span class="p">--fd</span>:<span class="v">'Playfair Display',sans-serif</span>; <span class="p">--fb</span>:<span class="v">'DM Sans',sans-serif</span>;
+  <span class="cm">/* motion */</span>
+  <span class="p">--ease</span>:<span class="v">cubic-bezier(.16,1,.3,1)</span>; <span class="p">--spring</span>:<span class="v">cubic-bezier(.34,1.56,.64,1)</span>;
+  <span class="cm">/* layout */</span>
+  <span class="p">--px</span>:<span class="v">clamp(24px,5.5vw,96px)</span>; <span class="p">--mw</span>:<span class="v">1240px</span>;
+}</div>
+</section>
+
+<!-- ═══════════════════════════════════
+     02  GRADIENTS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="gradients">
+  <span class="ds-sec-id">02 - Gradients</span>
+  <div class="ds-sec-title">Gradients</div>
+  <p class="ds-sec-desc">Three named gradient variables drive the entire system. Used on backgrounds, as <code>background-clip:text</code> for coloured headings, and on buttons, progress bars, and CTAs.</p>
+
+  <div class="tg tg-3" style="margin-bottom:12px;">
+    <div class="gp"><div class="gp-sw" style="background:linear-gradient(135deg,#4F46E5,#7C3AED)"></div><div class="gp-body"><div class="gp-name">--gv · Brand</div><div class="gp-val">linear-gradient(135deg, #4F46E5, #7C3AED)</div><div class="gp-use">Buttons · hero heading · progress bars · nav CTA · scroll bar</div></div></div>
+    <div class="gp"><div class="gp-sw" style="background:linear-gradient(135deg,#059669,#4F46E5)"></div><div class="gp-body"><div class="gp-name">--gc · Brand Green</div><div class="gp-val">linear-gradient(135deg, #059669, #4F46E5)</div><div class="gp-use">Frontline LMS · learning · completion states</div></div></div>
+    <div class="gp"><div class="gp-sw" style="background:linear-gradient(135deg,#EA580C,#FBBF24)"></div><div class="gp-body"><div class="gp-name">--gw · Warm</div><div class="gp-val">linear-gradient(135deg, #EA580C, #FBBF24)</div><div class="gp-use">Content Studio · workshop CTA · onboarding</div></div></div>
+  </div>
+
+  <div class="sub">Gradient text classes (background-clip: text)</div>
+  <div class="tg tg-3" style="margin-bottom:16px;">
+    <div class="pv dk">
+      <div class="pv-label lt">.gw / .lg / .grad-word / .pop - --gv text</div>
+      <div style="font-family:var(--fd);font-size:40px;font-weight:800;letter-spacing:-2px;background:linear-gradient(135deg,#4F46E5,#7C3AED);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">AI Core.</div>
+    </div>
+    <div class="pv dk">
+      <div class="pv-label lt">.gw-green - --gc text</div>
+      <div style="font-family:var(--fd);font-size:40px;font-weight:800;letter-spacing:-2px;background:linear-gradient(135deg,#059669,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">94%</div>
+    </div>
+    <div class="pv dk">
+      <div class="pv-label lt">.gw-warm - --gw text</div>
+      <div style="font-family:var(--fd);font-size:40px;font-weight:800;letter-spacing:-2px;background:linear-gradient(135deg,#F97316,#FBBF24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Studio</div>
+    </div>
+  </div>
+
+  <div class="sub">Section background gradients (not vars - used inline)</div>
+  <div class="tg tg-4">
+    <div class="gp"><div class="gp-sw" style="background:linear-gradient(140deg,#EEF2FF 0%,#F0EEFF 30%,#EDE9FE 60%,#E8E4FF 100%)"></div><div class="gp-body"><div class="gp-name">Hero bg</div><div class="gp-val">140deg, #EEF2FF → #E8E4FF</div><div class="gp-use">#hero only</div></div></div>
+    <div class="gp"><div class="gp-sw" style="background:linear-gradient(160deg,#0F0A2E,#1a0f4e,#0e1a3d)"></div><div class="gp-body"><div class="gp-name">Dark indigo</div><div class="gp-val">160deg, #0F0A2E → #0e1a3d</div><div class="gp-use">#problem section</div></div></div>
+    <div class="gp"><div class="gp-sw" style="background:linear-gradient(160deg,#1a1040,#0d1a3a,#1a0d2e)"></div><div class="gp-body"><div class="gp-name">Dark impact</div><div class="gp-val">160deg, #1a1040 → #1a0d2e</div><div class="gp-use">#impact section</div></div></div>
+    <div class="gp"><div class="gp-sw" style="background:linear-gradient(160deg,#06070F,#0D0A1E,#06101A)"></div><div class="gp-body"><div class="gp-name">Near-black</div><div class="gp-val">160deg, #06070F → #06101A</div><div class="gp-use">#pred-timeline section</div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     03  TYPOGRAPHY
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="typography">
+  <span class="ds-sec-id">03 - Typography</span>
+  <div class="ds-sec-title">Typography</div>
+  <p class="ds-sec-desc"><strong>Playfair Display</strong> weight 800 for all headings, display and large numbers. <strong>DM Sans</strong> weight 300–700 for all body, UI and labels. No other fonts anywhere.</p>
+
+  <div class="sub">Display headings - Playfair Display (--fd)</div>
+  <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:24px;">
+    <div class="spec dk">
+      <div class="spec-meta"><div class="spec-label lt">.hh1 - Hero display</div><div class="spec-val lt">clamp(52px,6vw,88px) / 800<br>lh:.92 / ls:-3px</div></div>
+      <div class="spec-div lt"></div>
+      <div class="hh1" style="font-size:clamp(40px,4vw,64px);margin-bottom:0;color:#fff">Upgrade Your Frontline.</div>
+    </div>
+    <div class="spec dk">
+      <div class="spec-meta"><div class="spec-label lt">.fh - Final CTA display</div><div class="spec-val lt">clamp(46px,7vw,84px) / 800<br>lh:.95 / ls:-3px</div></div>
+      <div class="spec-div lt"></div>
+      <div style="font-family:var(--fd);font-size:clamp(38px,5vw,64px);font-weight:800;color:#fff;line-height:.95;letter-spacing:-3px">Ready to upgrade?</div>
+    </div>
+    <div class="spec dk">
+      <div class="spec-meta"><div class="spec-label lt">.ph2 / .ih / .aih / .ptl-headline - Section H2</div><div class="spec-val lt">clamp(32px,4–5vw,52–64px) / 800<br>lh:1.0 / ls:-2px</div></div>
+      <div class="spec-div lt"></div>
+      <div style="font-family:var(--fd);font-size:40px;font-weight:800;color:#fff;line-height:1;letter-spacing:-2px">One AI Core. Every module connected.</div>
+    </div>
+    <div class="spec">
+      <div class="spec-meta"><div class="spec-label">.pih - Product section H2</div><div class="spec-val">clamp(32px,4.5vw,56px) / 800<br>lh:1.0 / ls:-2px / color:var(--ink)</div></div>
+      <div class="spec-div"></div>
+      <div style="font-family:var(--fd);font-size:40px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-2px">Four AI tools. Each closes a specific gap.</div>
+    </div>
+    <div class="spec">
+      <div class="spec-meta"><div class="spec-label">Card heading</div><div class="spec-val">17–20px / 700 / ls:-.5px</div></div>
+      <div class="spec-div"></div>
+      <div style="font-family:var(--fd);font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--ink)">Sales Copilot - Win Rate Intelligence</div>
+    </div>
+    <div class="spec dk">
+      <div class="spec-meta"><div class="spec-label lt">Gradient heading</div><div class="spec-val lt">background-clip: text<br>use .gw / .lg / .pop class</div></div>
+      <div class="spec-div lt"></div>
+      <div style="font-family:var(--fd);font-size:44px;font-weight:800;letter-spacing:-2px;background:linear-gradient(135deg,#4F46E5,#7C3AED);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">AI Core.</div>
+    </div>
+  </div>
+
+  <div class="sub">Body / UI - DM Sans (--fb)</div>
+  <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:24px;">
+    <div class="spec"><div class="spec-meta"><div class="spec-label">.hsub - Hero subhead</div><div class="spec-val">18px / 300 / lh:1.7 / max-w:420px</div></div><div class="spec-div"></div><div style="font-size:18px;font-weight:300;line-height:1.7;color:var(--i50);max-width:420px">While your competitors' tools wait for problems to surface, Mobcast flags 127 at-risk reps three weeks before Q1 drops.</div></div>
+    <div class="spec"><div class="spec-meta"><div class="spec-label">Body default</div><div class="spec-val">14px / 400 / lh:1.65</div></div><div class="spec-div"></div><div style="font-size:14px;font-weight:400;line-height:1.65;color:var(--i50)">Mobcast's intelligence layer doesn't bolt on to modules - it runs through all of them, sharing signals and predictions in real time.</div></div>
+    <div class="spec"><div class="spec-meta"><div class="spec-label">UI label</div><div class="spec-val">12–13px / 500–600</div></div><div class="spec-div"></div><div style="font-size:12px;font-weight:600;color:var(--ink)">+25% win rate lift · 94% AI accuracy · 1.2M+ workers</div></div>
+  </div>
+
+  <div class="sub">Font size scale</div>
+  <div class="tg tg-7">
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:12px;"><div style="font-size:10px;color:var(--ink);margin-bottom:4px">Aa</div><div style="font-size:10px;font-weight:700;color:var(--i50)">10px</div><div style="font-size:9px;color:var(--i20)">eyebrows, arch-eye</div></div>
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:12px;"><div style="font-size:11px;color:var(--ink);margin-bottom:4px">Aa</div><div style="font-size:10px;font-weight:700;color:var(--i50)">11px</div><div style="font-size:9px;color:var(--i20)">pey, iey, aiey, labels</div></div>
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:12px;"><div style="font-size:12px;color:var(--ink);margin-bottom:4px">Aa</div><div style="font-size:10px;font-weight:700;color:var(--i50)">12px</div><div style="font-size:9px;color:var(--i20)">nav links, meta</div></div>
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:12px;"><div style="font-size:13px;color:var(--ink);margin-bottom:4px">Aa</div><div style="font-size:10px;font-weight:700;color:var(--i50)">13px</div><div style="font-size:9px;color:var(--i20)">nav items, ncta</div></div>
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:12px;"><div style="font-size:14px;color:var(--ink);margin-bottom:4px">Aa</div><div style="font-size:10px;font-weight:700;color:var(--i50)">14px</div><div style="font-size:9px;color:var(--i20)">body default, bw/bdk</div></div>
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:12px;"><div style="font-size:18px;color:var(--ink);margin-bottom:4px">Aa</div><div style="font-size:10px;font-weight:700;color:var(--i50)">18px</div><div style="font-size:9px;color:var(--i20)">.hsub subheads</div></div>
+    <div style="background:#08091A;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px;"><div style="font-family:var(--fd);font-size:36px;font-weight:800;letter-spacing:-2px;line-height:.9;background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px">Aa</div><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35)">32–88px</div><div style="font-size:9px;color:rgba(255,255,255,.2)">.hh1 / .fh / .ph2</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     04  SPACING & RADIUS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="spacing">
+  <span class="ds-sec-id">04 - Spacing &amp; Radius</span>
+  <div class="ds-sec-title">Spacing &amp; Border Radius</div>
+  <p class="ds-sec-desc">4px base unit. Section padding uses <code>--px: clamp(24px,5.5vw,96px)</code>. Border radii: 4px micro → 100px full pill.</p>
+
+  <div class="sub">Border radius scale</div>
+  <div class="tg tg-6" style="margin-bottom:24px;">
+    <div class="rd-card"><div class="rd-box" style="border-radius:4px"></div><div class="rd-label">4px</div><div class="rd-use">Micro chips, tab pills</div></div>
+    <div class="rd-card"><div class="rd-box" style="border-radius:8px"></div><div class="rd-label">8–10px</div><div class="rd-use">Icon tiles, small inputs</div></div>
+    <div class="rd-card"><div class="rd-box" style="border-radius:12px"></div><div class="rd-label">12px</div><div class="rd-use">.ppst stat blocks</div></div>
+    <div class="rd-card"><div class="rd-box" style="border-radius:17px"></div><div class="rd-label">17px</div><div class="rd-use">.icell dark glass card</div></div>
+    <div class="rd-card"><div class="rd-box" style="border-radius:20px"></div><div class="rd-label">20px</div><div class="rd-use">.vcard .tcard .bcell</div></div>
+    <div class="rd-card"><div class="rd-box" style="border-radius:100px"></div><div class="rd-label">100px</div><div class="rd-use">All buttons, badges, nav</div></div>
+  </div>
+
+  <div class="sub">Spacing scale (4px base)</div>
+  <div style="background:#fff;border:1px solid var(--i08);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;align-items:center;gap:16px;"><div style="width:56px;font-size:10px;font-weight:700;color:var(--i50);text-align:right">4px</div><div style="height:16px;background:var(--gv);border-radius:3px;width:4px"></div><div style="font-size:9px;color:var(--i20)">icon inner margin, gap-1</div></div>
+    <div style="display:flex;align-items:center;gap:16px;"><div style="width:56px;font-size:10px;font-weight:700;color:var(--i50);text-align:right">8px</div><div style="height:16px;background:var(--gv);border-radius:3px;width:8px"></div><div style="font-size:9px;color:var(--i20)">button icon gap, badge padding</div></div>
+    <div style="display:flex;align-items:center;gap:16px;"><div style="width:56px;font-size:10px;font-weight:700;color:var(--i50);text-align:right">12px</div><div style="height:16px;background:var(--gv);border-radius:3px;width:12px"></div><div style="font-size:9px;color:var(--i20)">nav item gap, inner chip row gap</div></div>
+    <div style="display:flex;align-items:center;gap:16px;"><div style="width:56px;font-size:10px;font-weight:700;color:var(--i50);text-align:right">16px</div><div style="height:16px;background:var(--gv);border-radius:3px;width:16px"></div><div style="font-size:9px;color:var(--i20)">card inner row gap</div></div>
+    <div style="display:flex;align-items:center;gap:16px;"><div style="width:56px;font-size:10px;font-weight:700;color:var(--i50);text-align:right">24–28px</div><div style="height:16px;background:var(--gv);border-radius:3px;width:28px"></div><div style="font-size:9px;color:var(--i20)">card padding, grid gap</div></div>
+    <div style="display:flex;align-items:center;gap:16px;"><div style="width:56px;font-size:10px;font-weight:700;color:var(--i50);text-align:right">--px fluid</div><div style="height:16px;background:var(--gv);border-radius:3px;width:96px"></div><div style="font-size:9px;color:var(--i20)">clamp(24px,5.5vw,96px) - section horizontal padding</div></div>
+    <div style="display:flex;align-items:center;gap:16px;"><div style="width:56px;font-size:10px;font-weight:700;color:var(--i50);text-align:right">section-y</div><div style="height:16px;background:var(--gc);border-radius:3px;width:130px"></div><div style="font-size:9px;color:var(--i20)">clamp(80px,12vh,130px) - section vertical padding</div></div>
+    <div style="display:flex;align-items:center;gap:16px;"><div style="width:56px;font-size:10px;font-weight:700;color:var(--i50);text-align:right">--mw</div><div style="height:16px;background:var(--gw);border-radius:3px;width:120px"></div><div style="font-size:9px;color:var(--i20)">1240px - max-width of all inner containers</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     05  SHADOWS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="shadows">
+  <span class="ds-sec-id">05 - Shadows</span>
+  <div class="ds-sec-title">Shadows</div>
+  <p class="ds-sec-desc">Always <code>rgba(8,9,26,…)</code> base - never pure black. Indigo glow variants used for interactive hover states on brand elements.</p>
+  <div class="tg tg-5">
+    <div class="sh-card"><div class="sh-box" style="box-shadow:0 2px 8px rgba(8,9,26,.04)"></div><div class="sh-name">Micro card</div><div class="sh-val">0 2px 8px rgba(8,9,26,.04)</div><div class="sh-val" style="color:var(--i50);font-family:sans-serif">repm, hero-chip inner</div></div>
+    <div class="sh-card"><div class="sh-box" style="box-shadow:0 4px 28px rgba(8,9,26,.07)"></div><div class="sh-name">Nav float</div><div class="sh-val">0 4px 28px rgba(8,9,26,.07)</div><div class="sh-val" style="color:var(--i50);font-family:sans-serif">floating #nav pill</div></div>
+    <div class="sh-card"><div class="sh-box" style="box-shadow:0 4px 14px rgba(8,9,26,.15)"></div><div class="sh-name">Button .bdk</div><div class="sh-val">0 4px 14px rgba(8,9,26,.15)</div><div class="sh-val" style="color:var(--i50);font-family:sans-serif">dark ink button</div></div>
+    <div class="sh-card"><div class="sh-box" style="box-shadow:0 20px 56px rgba(8,9,26,.08)"></div><div class="sh-name">Card .vcard</div><div class="sh-val">0 20px 56px rgba(8,9,26,.08)</div><div class="sh-val" style="color:var(--i50);font-family:sans-serif">product / vcard</div></div>
+    <div class="sh-card"><div class="sh-box" style="background:var(--gv);box-shadow:0 8px 32px rgba(79,70,229,.4)"></div><div class="sh-name">Indigo glow</div><div class="sh-val">0 8px 32px rgba(79,70,229,.4)</div><div class="sh-val" style="color:var(--i50);font-family:sans-serif">.bfv CTA / hero card</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     06  MOTION
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="motion">
+  <span class="ds-sec-id">06 - Motion</span>
+  <div class="ds-sec-title">Motion</div>
+  <p class="ds-sec-desc">Two easing curves. <code>--ease</code> on 90% of everything. <code>--spring</code> only for bounce CTAs and magnetic interactions. Hover cards to preview.</p>
+  <div class="tg tg-2" style="margin-bottom:12px;">
+    <div class="mo-card" style="--anim:ease-demo .6s var(--ease) both"><div class="mo-ball"></div><div><div class="mo-name">--ease · Primary</div><div class="mo-val">cubic-bezier(.16, 1, .3, 1)</div><div class="mo-desc">All hover transitions, scroll reveals, card lifts, nav, modals. Expo-out: fast start, smooth deceleration.</div></div></div>
+    <div class="mo-card" style="--anim:spring-demo .5s var(--spring) both"><div class="mo-ball" style="background:var(--gw)"></div><div><div class="mo-name">--spring · Bounce</div><div class="mo-val">cubic-bezier(.34, 1.56, .64, 1)</div><div class="mo-desc">CTA buttons only (.bw:hover, .bfv:hover), magnetic elements, logo hover. Overshoots then snaps back.</div></div></div>
+  </div>
+  <div class="tg tg-4">
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:14px 16px;"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--i20);margin-bottom:5px">Fast</div><div style="font-size:20px;font-weight:800;font-family:var(--fd);color:var(--v);margin-bottom:3px">150ms</div><div style="font-size:11px;color:var(--i50)">Hover states, icon buttons, status chips</div></div>
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:14px 16px;"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--i20);margin-bottom:5px">Base</div><div style="font-size:20px;font-weight:800;font-family:var(--fd);color:var(--v);margin-bottom:3px">200ms</div><div style="font-size:11px;color:var(--i50)">Button transitions, link gap, badge reveals</div></div>
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:14px 16px;"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--i20);margin-bottom:5px">Panel</div><div style="font-size:20px;font-weight:800;font-family:var(--fd);color:var(--v);margin-bottom:3px">300–400ms</div><div style="font-size:11px;color:var(--i50)">Card lifts, panel open/close, tab switch</div></div>
+    <div style="background:#fff;border:1px solid var(--i08);border-radius:10px;padding:14px 16px;"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--i20);margin-bottom:5px">Reveal</div><div style="font-size:20px;font-weight:800;font-family:var(--fd);color:var(--v);margin-bottom:3px">650–900ms</div><div style="font-size:11px;color:var(--i50)">Scroll reveals (.sr), cinema-enter, wipe-in</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     07  KEYFRAMES
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="keyframes">
+  <span class="ds-sec-id">07 - Keyframes</span>
+  <div class="ds-sec-title">Keyframes</div>
+  <p class="ds-sec-desc">13 named animations in production. All verbatim. Copy the full block below into any new surface.</p>
+  <div class="code" style="margin-bottom:16px;"><span class="kw">@keyframes</span> <span class="p">lp</span>      { <span class="v">0%,100%</span>{box-shadow:0 0 0 0 rgba(16,185,129,.5)} <span class="v">60%</span>{box-shadow:0 0 0 7px rgba(16,185,129,0)} }
+<span class="kw">@keyframes</span> <span class="p">cardfloat</span>{ <span class="v">0%,100%</span>{transform:translateY(0)} <span class="v">50%</span>{transform:translateY(-10px)} }
+<span class="kw">@keyframes</span> <span class="p">blink</span>    { <span class="v">0%,100%</span>{opacity:1} <span class="v">50%</span>{opacity:.3} }
+<span class="kw">@keyframes</span> <span class="p">fadeIn</span>   { <span class="v">from</span>{opacity:0;transform:translateY(6px)} <span class="v">to</span>{opacity:1;transform:none} }
+<span class="kw">@keyframes</span> <span class="p">tickr</span>    { <span class="v">from</span>{transform:translateX(0)} <span class="v">to</span>{transform:translateX(-50%)} }
+<span class="kw">@keyframes</span> <span class="p">marquee</span>  { <span class="v">from</span>{transform:translateX(0)} <span class="v">to</span>{transform:translateX(-50%)} }
+<span class="kw">@keyframes</span> <span class="p">typ</span>      { <span class="v">0%,60%,100%</span>{transform:translateY(0);opacity:.5} <span class="v">30%</span>{transform:translateY(-4px);opacity:1} }
+<span class="kw">@keyframes</span> <span class="p">bob</span>      { <span class="v">0%,100%</span>{transform:translateY(0)} <span class="v">50%</span>{transform:translateY(-7px)} }
+<span class="kw">@keyframes</span> <span class="p">pulse</span>    { <span class="v">0%,100%</span>{opacity:1;transform:scale(1)} <span class="v">50%</span>{opacity:.4;transform:scale(1.5)} }
+<span class="kw">@keyframes</span> <span class="p">signal-in</span>{ <span class="v">from</span>{opacity:0;transform:translateY(8px)} <span class="v">to</span>{opacity:1;transform:none} }
+<span class="kw">@keyframes</span> <span class="p">bar-grow</span> { <span class="v">from</span>{width:0} <span class="v">to</span>{width:var(--w,60%)} }
+<span class="kw">@keyframes</span> <span class="p">core-pulse</span>{ <span class="v">0%,100%</span>{opacity:.6;transform:scale(1)} <span class="v">50%</span>{opacity:1;transform:scale(1.04)} }
+<span class="kw">@keyframes</span> <span class="p">dash-flow</span> { <span class="v">to</span>{stroke-dashoffset:-20} }</div>
+
+  <div class="tg tg-4">
+    <div class="kf-demo"><div class="kf-preview"><div class="kf-dot" style="animation:lp 2s infinite;background:var(--gl)"></div></div><div class="kf-name">lp</div><div class="kf-use">Pulse glow ring - live indicators, hkd, rmd</div></div>
+    <div class="kf-demo"><div class="kf-preview"><div class="kf-dot" style="animation:cardfloat 3s ease-in-out infinite;width:48px;border-radius:8px;height:20px;background:var(--gv)"></div></div><div class="kf-name">cardfloat</div><div class="kf-use">Hero card float - .hero-card</div></div>
+    <div class="kf-demo"><div class="kf-preview"><div class="kf-dot" style="animation:bob 3s ease-in-out infinite;width:32px;border-radius:8px;height:20px;background:var(--gc)"></div></div><div class="kf-name">bob</div><div class="kf-use">Slower float - secondary hero chips</div></div>
+    <div class="kf-demo"><div class="kf-preview"><div class="kf-dot" style="animation:fadeIn 1.5s var(--ease) infinite alternate;width:32px;border-radius:8px;height:20px;background:var(--gw)"></div></div><div class="kf-name">fadeIn</div><div class="kf-use">Scroll reveal - .fstate dropdowns</div></div>
+    <div class="kf-demo"><div class="kf-preview"><div class="kf-dot" style="animation:blink 1s infinite;background:var(--r)"></div></div><div class="kf-name">blink</div><div class="kf-use">Cursor blink in chat demo</div></div>
+    <div class="kf-demo"><div class="kf-preview"><div class="kf-dot" style="animation:pulse 1.8s ease-in-out infinite;background:var(--gl)"></div></div><div class="kf-name">pulse</div><div class="kf-use">NEW badge, live status, pulse-dot class</div></div>
+    <div class="kf-demo"><div class="kf-preview"><div class="kf-dot" style="animation:core-pulse 2.5s ease-in-out infinite;width:28px;height:28px;background:var(--gv)"></div></div><div class="kf-name">core-pulse</div><div class="kf-use">AI core node in architecture diagram</div></div>
+    <div class="kf-demo"><div class="kf-preview" style="overflow:hidden"><div style="font-size:10px;font-weight:600;color:var(--i50);white-space:nowrap;animation:tickr 4s linear infinite;">Kotak · HDFC · Niva Bupa · Kotak ·</div></div><div class="kf-name">tickr / marquee</div><div class="kf-use">Momentum strip, logo track (.ti, .tltrack)</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     08  NAVIGATION
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="nav-comp">
+  <span class="ds-sec-id">08 - Navigation</span>
+  <div class="ds-sec-title">Navigation</div>
+  <p class="ds-sec-desc">Floating pill <code>#nav</code>, <code>position:fixed</code>, centred with <code>left:50%;transform:translateX(-50%)</code>. Glassmorphism background. Scroll progress bar spans full viewport width at top.</p>
+
+  <div class="pv off" style="margin-bottom:12px;">
+    <div class="pv-label">Static preview - actual production CSS</div>
+    <div style="display:flex;align-items:center;background:rgba(255,255,255,.88);backdrop-filter:blur(28px);border:1px solid var(--i08);border-radius:100px;padding:8px 8px 8px 22px;box-shadow:0 4px 28px rgba(8,9,26,.07);width:fit-content;gap:2px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-right:12px;">
+        <div class="nm">M</div>
+        <span style="font-family:var(--fd);font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.5px">Mobcast</span>
+      </div>
+      <span style="font-size:13px;font-weight:500;color:var(--i50);padding:6px 14px;border-radius:100px">Products</span>
+      <span style="font-size:13px;font-weight:500;color:var(--i50);padding:6px 14px;border-radius:100px">Platform</span>
+      <span style="font-size:13px;font-weight:500;color:var(--i50);padding:6px 14px;border-radius:100px">Case Studies</span>
+      <span class="ncta" style="margin-left:4px">Get Demo</span>
+    </div>
+  </div>
+
+  <div class="code"><span class="cm">/* #nav - verbatim */</span>
+<span class="kw">#nav</span> {
+  position:<span class="v">fixed</span>; top:<span class="v">18px</span>; left:<span class="v">50%</span>; transform:<span class="v">translateX(-50%)</span>;
+  z-index:<span class="v">1000</span>; display:<span class="v">flex</span>; align-items:<span class="v">center</span>;
+  background:<span class="v">rgba(255,255,255,.88)</span>; backdrop-filter:<span class="v">blur(28px)</span>;
+  border:<span class="v">1px solid var(--i08)</span>; border-radius:<span class="v">100px</span>;
+  padding:<span class="v">8px 8px 8px 22px</span>; box-shadow:<span class="v">0 4px 28px rgba(8,9,26,.07)</span>;
+  transition:<span class="v">all .4s var(--ease)</span>; white-space:<span class="v">nowrap</span>; gap:<span class="v">2px</span>;
+}
+<span class="cm">/* Scroll progress bar */</span>
+<span class="kw">#scroll-bar</span> {
+  position:<span class="v">fixed</span>; top:<span class="v">0</span>; left:<span class="v">0</span>; height:<span class="v">3px</span>; width:<span class="v">0%</span>;
+  background:<span class="v">linear-gradient(90deg,#4F46E5 0%,#7C3AED 50%,#10B981 100%)</span>;
+  z-index:<span class="v">9999</span>; transition:<span class="v">width .08s linear</span>;
+}</div>
+</section>
+
+<!-- ═══════════════════════════════════
+     09  EYEBROWS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="eyebrows">
+  <span class="ds-sec-id">09 - Eyebrows</span>
+  <div class="ds-sec-title">Eyebrow Labels</div>
+  <p class="ds-sec-desc">Multiple eyebrow classes used in different sections - all share the same visual style but are defined separately. All: uppercase, weight 700, letter-spacing 2–3px, indigo-light color.</p>
+
+  <div class="pv dk" style="margin-bottom:12px;">
+    <div class="pv-label lt">On dark sections (.pey / .iey / .aiey / .ptl-eyebrow / .plat-eye)</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="iey" style="margin-bottom:0">Predictive Intelligence Layer</div>
+      <div class="arch-eye" style="margin-bottom:0">Platform Architecture</div>
+      <div class="plat-eye" style="margin-bottom:0">Frontline Platform</div>
+    </div>
+  </div>
+  <div class="pv" style="margin-bottom:12px;">
+    <div class="pv-label">On light sections (.ac-eyebrow / .piey)</div>
+    <div class="ac-eyebrow" style="margin-bottom:0">AI Core - Connected Intelligence</div>
+  </div>
+
+  <div class="code"><span class="cm">/* All eyebrow classes share this pattern */</span>
+<span class="kw">.iey, .pey, .aiey, .ptl-eyebrow, .plat-eye</span> {
+  font-size:<span class="v">11px</span>; font-weight:<span class="v">700</span>; letter-spacing:<span class="v">2px</span>; text-transform:<span class="v">uppercase</span>;
+  color:<span class="v">rgba(129,140,248,.7)</span>; <span class="cm">/* indigo-light at 70% opacity */</span>
+  margin-bottom:<span class="v">14–18px</span>;
+}
+<span class="kw">.arch-eye</span> { font-size:<span class="v">10px</span>; letter-spacing:<span class="v">3px</span>; color:<span class="v">rgba(129,140,248,.6)</span>; }
+<span class="kw">.ac-eyebrow, .piey</span> { color:<span class="v">var(--v)</span>; <span class="cm">/* brand indigo on light sections */</span> }</div>
+</section>
+
+<!-- ═══════════════════════════════════
+     10  BUTTONS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="buttons">
+  <span class="ds-sec-id">10 - Buttons</span>
+  <div class="ds-sec-title">Buttons</div>
+  <p class="ds-sec-desc">Six button classes. All: <code>border-radius:100px</code>, DM Sans 600, <code>--ease</code> transition. Hover: <code>translateY(-1px)</code> + shadow escalation.</p>
+
+  <div class="tg tg-2" style="margin-bottom:12px;">
+    <div class="pv dk">
+      <div class="pv-label lt">On dark sections</div>
+      <div class="pv-row">
+        <button class="bfv">Get Demo →</button>
+        <button class="bw">See Intelligence Demo →</button>
+        <button class="bfg">Watch Overview</button>
+        <button class="blnk" style="color:rgba(255,255,255,.5)">Learn more →</button>
+      </div>
+    </div>
+    <div class="pv">
+      <div class="pv-label">On light sections</div>
+      <div class="pv-row">
+        <button class="bdk">See Intelligence Demo</button>
+        <button class="blnk">Learn more →</button>
+        <button class="hfb">Book a Demo</button>
+        <span class="ncta">Get Demo</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="code"><span class="cm">/* Verbatim button CSS */</span>
+<span class="kw">.bfv</span> { background:<span class="v">var(--gv)</span>; color:<span class="v">#fff</span>; border-radius:<span class="v">100px</span>; padding:<span class="v">15px 38px</span>; font-size:<span class="v">16px</span>; font-weight:<span class="v">600</span>;
+  box-shadow:<span class="v">0 8px 32px rgba(79,70,229,.4)</span>; transition:<span class="v">all .2s var(--ease)</span>; } <span class="cm">/* gradient CTA - final/hero */</span>
+
+<span class="kw">.bw</span>  { background:<span class="v">#fff</span>; color:<span class="v">var(--v)</span>; border-radius:<span class="v">100px</span>; padding:<span class="v">13px 28px</span>; font-size:<span class="v">14px</span>; font-weight:<span class="v">600</span>;
+  box-shadow:<span class="v">0 8px 28px rgba(0,0,0,.2)</span>; transition:<span class="v">all .2s var(--ease)</span>; } <span class="cm">/* white ghost - dark sections */</span>
+
+<span class="kw">.bdk</span> { background:<span class="v">var(--ink)</span>; color:<span class="v">#fff</span>; border-radius:<span class="v">100px</span>; padding:<span class="v">12px 24px</span>; font-size:<span class="v">14px</span>; font-weight:<span class="v">600</span>;
+  box-shadow:<span class="v">0 4px 14px rgba(8,9,26,.15)</span>; transition:<span class="v">all .2s var(--ease)</span>; } <span class="cm">/* ink - light sections */</span>
+
+<span class="kw">.bfg</span> { background:<span class="v">rgba(255,255,255,.06)</span>; color:<span class="v">#fff</span>; border:<span class="v">1px solid rgba(255,255,255,.1)</span>;
+  border-radius:<span class="v">100px</span>; padding:<span class="v">15px 28px</span>; font-size:<span class="v">16px</span>; font-weight:<span class="v">500</span>; } <span class="cm">/* ghost on dark */</span>
+
+<span class="kw">.blnk</span>{ background:<span class="v">none</span>; color:<span class="v">var(--v)</span>; font-size:<span class="v">14px</span>; font-weight:<span class="v">500</span>; gap:<span class="v">4px</span>;
+  transition:<span class="v">gap .2s</span>; } <span class="cm">/* text link - gap animates on hover */</span>
+<span class="kw">.blnk:hover</span> { gap:<span class="v">12px</span>; }</div>
+</section>
+
+<!-- ═══════════════════════════════════
+     11  BADGES & CHIPS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="badges">
+  <span class="ds-sec-id">11 - Badges &amp; Chips</span>
+  <div class="ds-sec-title">Badges &amp; Chips</div>
+  <p class="ds-sec-desc">All: <code>border-radius:100px</code>, 10px weight 700. <code>.arch-signal</code> uses CSS custom property <code>--c</code> for dynamic color. Semantic state classes (<code>.bad</code>, <code>.good</code>, <code>.warn</code>, <code>.neutral</code>) are reused across many contexts.</p>
+
+  <div class="tg tg-2" style="margin-bottom:12px;">
+    <div class="pv">
+      <div class="pv-label">Type badges - light sections</div>
+      <div class="pv-row">
+        <span style="background:rgba(79,70,229,.1);color:var(--v);font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;">Announcement</span>
+        <span style="background:rgba(5,150,105,.1);color:var(--g);font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;">Course</span>
+        <span style="background:rgba(234,88,12,.1);color:var(--o);font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;">Onboarding</span>
+        <span style="background:rgba(124,58,237,.1);color:var(--vm);font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;">Compliance</span>
+        <span style="background:rgba(220,38,38,.1);color:var(--r);font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;">At Risk</span>
+      </div>
+    </div>
+    <div class="pv dk">
+      <div class="pv-label lt">.arch-signal - dynamic --c var, dark sections</div>
+      <div class="pv-row">
+        <span class="arch-signal" style="--c:#818CF8">Pattern detection</span>
+        <span class="arch-signal" style="--c:#6EE7B7">Risk scoring</span>
+        <span class="arch-signal" style="--c:#FBBF24">Content gen</span>
+        <span class="arch-signal" style="--c:#FCA5A5">Compliance</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tg tg-2" style="margin-bottom:12px;">
+    <div class="pv">
+      <div class="pv-label">Semantic state classes (used across timeline, alerts, reps)</div>
+      <div class="pv-row">
+        <span class="bad" style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700">bad · .bad</span>
+        <span class="good" style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700">good · .good</span>
+        <span class="warn" style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700">warn · .warn</span>
+        <span class="neutral" style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700">neutral · .neutral</span>
+        <span class="ok" style="padding:4px 10px;border-radius:100px;font-size:10px;font-weight:700">.ok · chip</span>
+        <span class="verified" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:8px;font-size:10px;font-weight:700;border:1px solid">✓ verified</span>
+        <span class="pending" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:8px;font-size:10px;font-weight:700;border:1px solid">⏳ pending</span>
+      </div>
+    </div>
+    <div class="pv dk">
+      <div class="pv-label lt">.sec-badge - dark section chip, .bad-badge / .good-badge - alerts</div>
+      <div class="pv-row">
+        <span class="sec-badge">Enterprise Security</span>
+        <span class="sec-badge">White-Labeled</span>
+        <span class="bad-badge ai-alert-badge">⚠ At-risk · 127 reps</span>
+        <span class="good-badge ai-alert-badge">✓ Compliant</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="code"><span class="cm">/* .arch-signal - uses CSS custom property for color */</span>
+<span class="kw">.arch-signal</span> {
+  font-size:<span class="v">11px</span>; font-weight:<span class="v">600</span>; padding:<span class="v">5px 12px</span>; border-radius:<span class="v">100px</span>;
+  background:<span class="v">rgba(255,255,255,.04)</span>; border:<span class="v">1px solid rgba(255,255,255,.08)</span>;
+  color:<span class="v">var(--c, rgba(255,255,255,.4))</span>; border-color:<span class="v">var(--c, rgba(255,255,255,.08))</span>;
+}
+<span class="cm">/* Usage: */</span> &lt;span class="arch-signal" style="--c:#818CF8"&gt;Pattern detection&lt;/span&gt;</div>
+</section>
+
+<!-- ═══════════════════════════════════
+     12  CARDS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="cards">
+  <span class="ds-sec-id">12 - Cards</span>
+  <div class="ds-sec-title">Cards</div>
+  <p class="ds-sec-desc">Six card patterns. Hover: <code>translateY(-2px)</code> + shadow escalation on all. Dark glass cards use <code>backdrop-filter:blur()</code>.</p>
+
+  <div class="tg tg-3" style="margin-bottom:16px;">
+    <div>
+      <div class="sub" style="margin-top:0">.vcard - Product card (light)</div>
+      <div class="vcard" style="padding:24px;">
+        <div style="font-family:var(--fd);font-size:18px;font-weight:800;color:var(--ink);margin-bottom:8px">Sales Copilot</div>
+        <div style="font-size:13px;color:var(--i50);line-height:1.6;margin-bottom:16px">Win rate intelligence for your frontline sales team.</div>
+        <span style="background:rgba(79,70,229,.1);color:var(--v);font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px">+25% win rate</span>
+      </div>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0">.tcard - Testimonial card</div>
+      <div class="tcard">
+        <div class="tcard-quote">"</div>
+        <div class="tcard-text">"The WhatsApp compliance module alone changed everything. Agents who never completed training now finish in 48 hours."</div>
+        <div class="tcard-stat">94%</div>
+        <div style="font-size:11px;color:var(--i50);margin-top:3px">Course completion rate</div>
+      </div>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0">.icell - Dark glass card</div>
+      <div style="background:linear-gradient(160deg,#1a1040,#0d1a3a,#1a0d2e);padding:20px;border-radius:14px;">
+        <div class="icell">
+          <div style="font-family:var(--fd);font-size:28px;font-weight:800;letter-spacing:-1px;background:var(--gc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px">94%</div>
+          <div class="ilbl">AI prediction accuracy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tg tg-3">
+    <div>
+      <div class="sub" style="margin-top:0">.bcell - Problem section glass card</div>
+      <div style="background:linear-gradient(160deg,#0F0A2E,#1a0f4e,#0e1a3d);padding:20px;border-radius:14px;">
+        <div class="bcell">
+          <span class="bclbl" style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px;display:block">Before</span>
+          <div class="bcnum">127</div>
+          <div style="font-size:15px;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:7px">At-risk reps missed</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.38);line-height:1.6;font-weight:300">No early signal. No intervention. Q1 misses.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0">.pbc - Platform bento card</div>
+      <div class="pbc">
+        <div style="width:42px;height:42px;border-radius:12px;background:var(--off);border:1px solid var(--i08);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px">🔒</div>
+        <div style="font-family:var(--fd);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:7px">Enterprise Security</div>
+        <div style="font-size:13px;color:var(--i50);line-height:1.65">SOC2 Type II, GDPR, ISO 27001 compliant. Zero trust architecture.</div>
+      </div>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0">.ai-alert - AI intelligence alert (dark)</div>
+      <div style="background:#06050F;padding:20px;border-radius:14px;">
+        <div class="ai-alert">
+          <div style="width:36px;height:36px;border-radius:9px;background:rgba(220,38,38,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">⚠️</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:3px">127 reps flagged at-risk · 3 weeks early</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5">Pattern: Declining call duration + objection rate spike.</div>
+            <span class="ai-alert-badge bad-badge">Predictive · Sales Copilot</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     13  STATS & PROGRESS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="stats">
+  <span class="ds-sec-id">13 - Stats &amp; Progress</span>
+  <div class="ds-sec-title">Stats &amp; Progress</div>
+  <p class="ds-sec-desc">All stat numbers: Playfair Display 800 with negative letter-spacing. Progress bars always use gradient fills matching section color context.</p>
+
+  <div class="tg tg-3" style="margin-bottom:16px;">
+    <div class="pv">
+      <div class="pv-label">.ppst - stat block (light sections)</div>
+      <div style="display:flex;gap:10px;">
+        <div class="ppst"><div class="ppst-n" style="background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">1.2M+</div><div class="ppst-l">Workers on platform</div></div>
+        <div class="ppst"><div class="ppst-n" style="color:var(--g)">94%</div><div class="ppst-l">AI accuracy</div></div>
+      </div>
+    </div>
+    <div class="pv dk">
+      <div class="pv-label lt">.inum - impact numbers (dark sections)</div>
+      <div style="display:flex;gap:20px">
+        <div><div class="inum" style="background:var(--gc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:48px">200</div><div class="ilbl">Reps trained faster</div></div>
+        <div><div class="inum" style="background:var(--gv);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:48px">125</div><div class="ilbl">Deals won / month</div></div>
+      </div>
+    </div>
+    <div class="pv">
+      <div class="pv-label">Progress bars (.crb / .crbf / .prog-wrap / .prog-fill)</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div><div style="font-size:10px;color:var(--i20);margin-bottom:4px">--gv · 68%</div><div class="prog-wrap"><div class="prog-fill" style="width:68%"></div></div></div>
+        <div><div style="font-size:10px;color:var(--i20);margin-bottom:4px">--gc · 90%</div><div class="prog-wrap"><div class="prog-fill" style="width:90%;background:var(--gc)"></div></div></div>
+        <div><div style="font-size:10px;color:var(--i20);margin-bottom:4px">--gw · 100%</div><div class="prog-wrap"><div class="prog-fill" style="width:100%;background:var(--gw)"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pv" style="margin-bottom:12px;">
+    <div class="pv-label">Pulse dots (.pulse-dot / .hkd / .tl-pulse / animated glows)</div>
+    <div style="display:flex;gap:24px;align-items:center;">
+      <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-dot" style="background:var(--gl)"></span><span style="font-size:12px;color:var(--i50)">Live · pulse</span></div>
+      <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-dot" style="background:var(--v)"></span><span style="font-size:12px;color:var(--i50)">Active · indigo</span></div>
+      <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-dot" style="background:var(--r)"></span><span style="font-size:12px;color:var(--i50)">Alert · red</span></div>
+      <div style="display:flex;align-items:center;gap:8px;"><span class="hkd"></span><span style="font-size:12px;color:var(--i50)">.hkd - green ring glow (lp animation)</span></div>
+      <div style="display:flex;align-items:center;gap:8px;"><span class="tl-pulse"></span><span style="font-size:12px;color:var(--i50)">.tl-pulse - testimonial live badge</span></div>
+    </div>
+  </div>
+
+  <div class="pv">
+    <div class="pv-label">.trsn - testimonials stat number</div>
+    <div style="display:flex;gap:32px;align-items:baseline;">
+      <div><div class="trsn">94%</div><div class="trsl">Course completion (Kotak)</div></div>
+      <div><div class="trsn">0</div><div class="trsl">Audit findings</div></div>
+      <div><div class="trsn">48hr</div><div class="trsl">Training turnaround</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     14  FEATURE WALL
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="feat-wall">
+  <span class="ds-sec-id">14 - Feature Wall</span>
+  <div class="ds-sec-title">Feature Wall</div>
+  <p class="ds-sec-desc">The platform section uses a banded feature wall. Each <code>.fw-row</code> is a full-width grid row with left info + right stats/chips. Hover lightens the row.</p>
+
+  <div style="background:linear-gradient(160deg,#06070F,#0D0A1E,#06101A);border-radius:16px;padding:24px;margin-bottom:16px;">
+    <div class="feat-wall">
+      <div class="fw-row" style="border-radius:24px 24px 0 0;">
+        <div style="display:flex;align-items:flex-start;gap:18px;">
+          <div class="fw-ic" style="background:rgba(79,70,229,.1);border-color:rgba(79,70,229,.2)">🔒</div>
+          <div>
+            <div class="fw-title">Enterprise Security</div>
+            <div class="fw-desc">SOC2 Type II · GDPR · ISO 27001 · Zero trust architecture</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="fw-badge">SOC2 Type II</span>
+          <span class="fw-badge">GDPR</span>
+          <span class="fw-badge">ISO 27001</span>
+        </div>
+      </div>
+      <div class="fw-divider"></div>
+      <div class="fw-row">
+        <div style="display:flex;align-items:flex-start;gap:18px;">
+          <div class="fw-ic" style="background:rgba(5,150,105,.1);border-color:rgba(5,150,105,.2)">📊</div>
+          <div>
+            <div class="fw-title">Reports &amp; Analytics</div>
+            <div class="fw-desc">Real-time dashboard, export as PDF/CSV, scheduled reports</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px;">
+          <div style="text-align:center;">
+            <span style="font-family:var(--fd);font-size:22px;font-weight:800;color:rgba(110,231,183,.9);display:block;letter-spacing:-1px">47</span>
+            <span style="font-size:10px;color:rgba(255,255,255,.25)">Report types</span>
+          </div>
+          <div style="text-align:center;">
+            <span style="font-family:var(--fd);font-size:22px;font-weight:800;color:rgba(110,231,183,.9);display:block;letter-spacing:-1px">Real-time</span>
+            <span style="font-size:10px;color:rgba(255,255,255,.25)">Data refresh</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code"><span class="cm">/* Feature wall structure */</span>
+<span class="kw">.feat-wall</span> { border:<span class="v">1px solid rgba(255,255,255,.07)</span>; border-radius:<span class="v">24px</span>; overflow:<span class="v">hidden</span>; background:<span class="v">rgba(255,255,255,.02)</span>; }
+<span class="kw">.fw-row</span>     { display:<span class="v">grid</span>; grid-template-columns:<span class="v">1fr 1fr</span>; gap:<span class="v">0</span>; padding:<span class="v">28px 32px</span>; transition:<span class="v">background .25s</span>; align-items:<span class="v">center</span>; }
+<span class="kw">.fw-divider</span>  { height:<span class="v">1px</span>; background:<span class="v">rgba(255,255,255,.05)</span>; margin:<span class="v">0</span>; }
+<span class="kw">.fw-row:hover</span>{ background:<span class="v">rgba(255,255,255,.02)</span>; }</div>
+</section>
+
+<!-- ═══════════════════════════════════
+     15  SCROLL REVEALS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="reveals">
+  <span class="ds-sec-id">15 - Scroll Reveals</span>
+  <div class="ds-sec-title">Scroll Reveal Patterns</div>
+  <p class="ds-sec-desc">Three reveal patterns. <code>.sr</code> is standard fadeup. <code>.cinema-enter</code> is deeper lift (48px). <code>.headline-line</code>/<code>.line-inner</code> is the split-line text wipe. JS adds <code>.in</code> or <code>.visible</code> class on IntersectionObserver.</p>
+
+  <div class="code"><span class="cm">/* Standard scroll reveal - add .sr to elements, JS adds .in */</span>
+<span class="kw">.sr</span> { opacity:<span class="v">0</span>; transform:<span class="v">translateY(26px)</span>; transition:<span class="v">opacity .65s var(--ease), transform .65s var(--ease)</span>; }
+<span class="kw">.sr.in</span> { opacity:<span class="v">1</span>; transform:<span class="v">none</span>; }
+<span class="kw">.d1</span>{ transition-delay:<span class="v">.08s</span>; } <span class="kw">.d2</span>{ transition-delay:<span class="v">.16s</span>; } <span class="kw">.d3</span>{ transition-delay:<span class="v">.24s</span>; }
+
+<span class="cm">/* Cinema entrance - deeper lift, slower */</span>
+<span class="kw">.cinema-enter</span> { opacity:<span class="v">0</span>; transform:<span class="v">translateY(48px)</span>; transition:<span class="v">opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)</span>; }
+<span class="kw">.cinema-enter.visible</span> { opacity:<span class="v">1</span>; transform:<span class="v">none</span>; }
+
+<span class="cm">/* Split headline wipe (Bricolage headings only) */</span>
+<span class="kw">.headline-line</span> { overflow:<span class="v">hidden</span>; display:<span class="v">block</span>; }
+<span class="kw">.line-inner</span> { display:<span class="v">block</span>; transform:<span class="v">translateY(105%)</span>; transition:<span class="v">transform 1s cubic-bezier(.16,1,.3,1)</span>; }
+<span class="kw">.line-inner.visible</span> { transform:<span class="v">translateY(0)</span>; }</div>
+</section>
+
+<!-- ═══════════════════════════════════
+     16  SECTION BACKGROUNDS
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="section-bgs">
+  <span class="ds-sec-id">16 - Section Backgrounds</span>
+  <div class="ds-sec-title">Section Backgrounds</div>
+  <p class="ds-sec-desc">Page alternates light→dark→light for rhythm. Dark sections: white text. All section padding: <code>clamp(80px,12vh,130px) var(--px)</code>.</p>
+
+  <div class="tg tg-4">
+    <div class="sbg"><div class="sbg-sw" style="background:linear-gradient(140deg,#EEF2FF 0%,#F0EEFF 30%,#EDE9FE 60%,#E8E4FF 100%)"><span class="sbg-label dk-text">#hero</span></div><div class="sbg-body"><div class="sbg-id">#hero</div><div class="sbg-val">140deg EEF2FF→E8E4FF<br>min-height:100vh</div></div></div>
+    <div class="sbg" style="border-color:var(--i08)"><div class="sbg-sw" style="background:#fff;border-bottom:1px solid var(--i08)"><span class="sbg-label dk-text">#proof / #products</span></div><div class="sbg-body"><div class="sbg-id">#proof, #products, #testimonials</div><div class="sbg-val">#ffffff (white sections)</div></div></div>
+    <div class="sbg"><div class="sbg-sw" style="background:linear-gradient(160deg,#0F0A2E,#1a0f4e,#0e1a3d)"><span class="sbg-label">#problem</span></div><div class="sbg-body"><div class="sbg-id">#problem</div><div class="sbg-val">160deg #0F0A2E→#0e1a3d</div></div></div>
+    <div class="sbg" style="border-color:var(--i08)"><div class="sbg-sw" style="background:var(--off);border-bottom:1px solid var(--i08)"><span class="sbg-label dk-text">#platform / #workshop</span></div><div class="sbg-body"><div class="sbg-id">#platform, #workshop</div><div class="sbg-val">var(--off) · #F5F5F3</div></div></div>
+    <div class="sbg"><div class="sbg-sw" style="background:linear-gradient(160deg,#1a1040,#0d1a3a,#1a0d2e)"><span class="sbg-label">#impact</span></div><div class="sbg-body"><div class="sbg-id">#impact</div><div class="sbg-val">160deg #1a1040→#1a0d2e</div></div></div>
+    <div class="sbg"><div class="sbg-sw" style="background:linear-gradient(160deg,#06070F,#0D0A1E,#06101A)"><span class="sbg-label">#pred-timeline</span></div><div class="sbg-body"><div class="sbg-id">#pred-timeline</div><div class="sbg-val">160deg #06070F→#06101A</div></div></div>
+    <div class="sbg"><div class="sbg-sw" style="background:#06050F"><span class="sbg-label">#aichat (left)</span></div><div class="sbg-body"><div class="sbg-id">#aichat left col</div><div class="sbg-val">#06050F · grid 1fr 1fr · min-h:80vh</div></div></div>
+    <div class="sbg"><div class="sbg-sw" style="background:#08091A"><span class="sbg-label">#final CTA</span></div><div class="sbg-body"><div class="sbg-id">#final</div><div class="sbg-val">var(--ink) · #08091A<br>text-align:center</div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     17  LIGHT / DARK THEMES
+     ═══════════════════════════════════ -->
+<section class="ds-sec" id="themes">
+  <span class="ds-sec-id">17 - Themes</span>
+  <div class="ds-sec-title">Light &amp; Dark Theme Variables</div>
+  <p class="ds-sec-desc">Semantic vars via <code>data-theme</code> attribute on the HTML element. Use <code>var(--card-bg)</code>, <code>var(--body-text)</code> etc. for surfaces that need to be theme-aware.</p>
+
+  <div class="tg tg-2">
+    <div>
+      <div class="sub" style="margin-top:0">[data-theme="light"] - default</div>
+      <div class="code"><span class="kw">[data-theme="light"]</span> {
+  <span class="p">--page-bg</span>:    <span class="v">#F0F0EE</span>;
+  <span class="p">--card-bg</span>:    <span class="v">#ffffff</span>;
+  <span class="p">--card-border</span>: <span class="v">rgba(8,9,26,.08)</span>;
+  <span class="p">--body-text</span>:  <span class="v">#08091A</span>;
+  <span class="p">--body-sub</span>:   <span class="v">rgba(8,9,26,.5)</span>;
+  <span class="p">--body-faint</span>: <span class="v">rgba(8,9,26,.18)</span>;
+  <span class="p">--surface</span>:    <span class="v">rgba(8,9,26,.03)</span>;
+  <span class="p">--nav-bg</span>:     <span class="v">rgba(255,255,255,.9)</span>;
+}</div>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0">[data-theme="dark"]</div>
+      <div class="code"><span class="kw">[data-theme="dark"]</span> {
+  <span class="p">--page-bg</span>:    <span class="v">#09090F</span>;
+  <span class="p">--card-bg</span>:    <span class="v">#111118</span>;
+  <span class="p">--card-border</span>: <span class="v">rgba(255,255,255,.07)</span>;
+  <span class="p">--body-text</span>:  <span class="v">#F0F0F5</span>;
+  <span class="p">--body-sub</span>:   <span class="v">rgba(240,240,245,.5)</span>;
+  <span class="p">--body-faint</span>: <span class="v">rgba(240,240,245,.2)</span>;
+  <span class="p">--surface</span>:    <span class="v">rgba(255,255,255,.04)</span>;
+  <span class="p">--nav-bg</span>:     <span class="v">rgba(14,14,22,.92)</span>;
+  <span class="p">--nav-border</span>: <span class="v">rgba(255,255,255,.08)</span>;
+  <span class="cm">/* ink scale overrides */</span>
+  <span class="p">--ink</span>: <span class="v">#F0F0F5</span>;  <span class="p">--off</span>: <span class="v">#111118</span>;
+  <span class="p">--i50</span>: <span class="v">rgba(240,240,245,.5)</span>;
+  <span class="p">--i20</span>: <span class="v">rgba(240,240,245,.2)</span>;
+  <span class="p">--i08</span>: <span class="v">rgba(255,255,255,.07)</span>;
+  <span class="p">--i04</span>: <span class="v">rgba(255,255,255,.04)</span>;
+}</div>
+    </div>
+  </div>
+</section>
+
+<!-- footer -->
+<div style="background:#06050F;padding:28px 60px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.06);">
+  <div style="display:flex;align-items:center;gap:9px;">
+    <div style="width:24px;height:24px;background:var(--gv);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:10px;font-weight:900;color:#fff">M</div>
+    <span style="font-family:var(--fd);font-size:13px;font-weight:800;color:#fff;letter-spacing:-.3px">Mobcast Design System</span>
+  </div>
+  <span style="font-size:11px;color:rgba(255,255,255,.18)">v8 · Extracted verbatim from Mobcast_Homepage_v8.html production source · March 2026</span>
+</div>
+
+</main>
+</div>
+
+</body>
+</html>
