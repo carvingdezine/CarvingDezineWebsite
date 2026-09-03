@@ -15,7 +15,10 @@
     if(saved==='dark')return false;
     return mq.matches;
   }
-  function apply(){root.classList.toggle('light-mode',isLight())}
+  function apply(){
+    root.classList.toggle('light-mode',isLight());
+    window.dispatchEvent(new Event('cd-theme-change'));
+  }
   apply();
   mq.addEventListener('change',function(){if(!localStorage.getItem(KEY))apply()});
   window._cdToggleTheme=function(){
@@ -3261,6 +3264,14 @@ var _heroCanvas=(function(){
   if(!c)return{start:function(){}};
   var ctx=c.getContext('2d'),pts=[],running=false;
   var LINK=180,REPEL=100,ATTRACT=240,FORCE=2.6;
+  // Canvas 2D can't resolve CSS var() in color strings, so we read the
+  // current --red-rgb value into a plain string and refresh it whenever
+  // the theme toggles (see cd-theme-change event, dispatched by _cdToggleTheme).
+  function getRedRGB(){
+    return (getComputedStyle(document.documentElement).getPropertyValue('--red-rgb')||'255,42,42').trim();
+  }
+  var _redRGB=getRedRGB();
+  window.addEventListener('cd-theme-change',function(){_redRGB=getRedRGB();});
   // Smooth mouse position with lerp
   var mouse={x:-9999,y:-9999,tx:-9999,ty:-9999,inside:false};
 
@@ -3353,7 +3364,7 @@ var _heroCanvas=(function(){
         if(d2<LINK*LINK){
           var d=Math.sqrt(d2);
           var alpha=(0.65+linkBoost)*(1-d/LINK);
-          ctx.strokeStyle='rgba(var(--red-rgb),'+alpha.toFixed(2)+')';
+          ctx.strokeStyle='rgba('+_redRGB+','+alpha.toFixed(2)+')';
           ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();
         }
       }
@@ -3366,7 +3377,7 @@ var _heroCanvas=(function(){
         var cd=pts[i]._distC;
         if(cd<ATTRACT){
           var ca=(0.75*(1-cd/ATTRACT)).toFixed(2);
-          ctx.strokeStyle='rgba(var(--red-rgb),'+ca+')';
+          ctx.strokeStyle='rgba('+_redRGB+','+ca+')';
           ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();
         }
       }
@@ -3381,21 +3392,21 @@ var _heroCanvas=(function(){
       if(p.bright||glow>0.2){
         ctx.beginPath();
         ctx.arc(p.x,p.y,p.r*(p.bright?5:3),0,Math.PI*2);
-        ctx.fillStyle='rgba(var(--red-rgb),'+(alpha*(p.bright?.4:.5)).toFixed(2)+')';
+        ctx.fillStyle='rgba('+_redRGB+','+(alpha*(p.bright?.4:.5)).toFixed(2)+')';
         ctx.fill();
       }
       ctx.beginPath();
       ctx.arc(p.x,p.y,p.r+(glow*2),0,Math.PI*2);
-      ctx.fillStyle='rgba(var(--red-rgb),'+Math.min(alpha,0.95).toFixed(2)+')';
+      ctx.fillStyle='rgba('+_redRGB+','+Math.min(alpha,0.95).toFixed(2)+')';
       ctx.fill();
     }
 
     // Cursor glow node
     if(mouse.inside){
       ctx.beginPath();ctx.arc(mouse.x,mouse.y,5,0,Math.PI*2);
-      ctx.fillStyle='rgba(var(--red-rgb),.9)';ctx.fill();
+      ctx.fillStyle='rgba('+_redRGB+',.9)';ctx.fill();
       ctx.beginPath();ctx.arc(mouse.x,mouse.y,14,0,Math.PI*2);
-      ctx.fillStyle='rgba(var(--red-rgb),.12)';ctx.fill();
+      ctx.fillStyle='rgba('+_redRGB+',.12)';ctx.fill();
     }
 
     requestAnimationFrame(draw);
