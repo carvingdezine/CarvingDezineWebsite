@@ -8123,6 +8123,11 @@ body { max-width: 100%; overflow-x: clip !important; }
   </nav>
   <button class="m2-sound" id="m2-sound" type="button" aria-pressed="true" data-state="armed" aria-label="Turn sound off" title="Sound on · starts at your first click"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="spk" d="M4 9.5v5h3.6L12 18.5v-13L7.6 9.5H4z"/><path class="wv w1" d="M15.2 9.2a4 4 0 0 1 0 5.6"/><path class="wv w2" d="M17.6 6.8a7.4 7.4 0 0 1 0 10.4"/><path class="x" d="M15.6 9.6l4.8 4.8m0-4.8l-4.8 4.8"/></svg><span class="lbl"></span></button>
   <button class="m2-ncta" type="button" data-m2-go="m2-final">Book a demo</button>
+  <button class="m2-burger" id="m2-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="m2-menu"><span></span><span></span><span></span></button>
+  <nav class="m2-menu" id="m2-menu" aria-label="Sections menu">
+    <a href="#m2-trust">Customers</a><a href="#m2-platform">Platform</a><a href="#m2-story">Product</a><a href="#m2-intel">Intelligence</a><a href="#m2-outcomes">Outcomes</a><a href="#m2-voices">Reviews</a><a href="#m2-impact">Impact</a>
+    <button class="m2-btn m2-btn-grad m2-menu-cta" type="button" data-m2-go="m2-final">Book a demo <span aria-hidden="true">→</span></button>
+  </nav>
 </header>
 
 <!-- ═════════════ HERO ═════════════ -->
@@ -13441,6 +13446,15 @@ html body.design-1b #d1-root#d1-root#d1-root #testimonials .niva-story .niva-sol
 #platform .ft-panel.ft-enter{animation:ftPanelIn .42s cubic-bezier(.16,1,.3,1) both;}
 @media(prefers-reduced-motion:reduce){#platform .ft-panel.ft-enter{animation:none;}}
 
+/* Design 1a hero on phones and tablets: the single column was a plain 1fr, which lets a wide child
+   (the chip line, the carousel) stretch it past the screen and get clipped */
+@media(max-width:900px){
+  #d1-root#d1-root#d1-root#d1-root#d1-root #hero .hs-inner,
+  #d1-root#d1-root#d1-root#d1-root#d1-root #hero-d1a .hs-inner{grid-template-columns:minmax(0,1fr)!important;}
+  #d1-root#d1-root#d1-root#d1-root#d1-root #hero .hs-left,
+  #d1-root#d1-root#d1-root#d1-root#d1-root #hero-d1a .hs-left{min-width:0!important;}
+}
+
 /* 4 ─ Design 2: Reviews */
 #m2-voices .m2-voices{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(40px,7vw,120px);align-items:start;}
 #m2-voices .m2-vquotes{display:grid;}
@@ -13500,9 +13514,41 @@ html body.design-1b #d1-root#d1-root#d1-root #testimonials .niva-story .niva-sol
 #m2-root .m2-a-impact{aspect-ratio:5/3;}
 @media(max-width:900px){#m2-root .m2-a-side{width:min(100%,340px);margin-top:8px;}}
 
-/* nav has two more links: tighten a little on smaller desktops */
-@media(max-width:1280px){#m2-nav .m2-links a{padding:10px 11px;}}
-@media(max-width:1080px){#m2-nav .m2-links a{padding:10px 8px;font-size:13px;}}
+/* the sound hint used to grow inside the pill and push "Book a demo" out of it on
+   anything narrower than a big desktop; below 1760px it floats under the button instead */
+@media(max-width:1760px){
+  #m2-nav .m2-sound{position:relative;}
+  #m2-nav .m2-sound .lbl{position:absolute;top:calc(100% + 14px);right:0;max-width:none;overflow:visible;margin:0;padding:9px 14px;border-radius:100px;background:rgba(255,255,255,.96);box-shadow:0 6px 24px rgba(8,9,26,.12);pointer-events:none;}
+  #m2-nav .m2-sound.show-lbl .lbl{max-width:none;margin:0;}
+}
+
+/* nav has two more links: tighten on smaller desktops, and fold the links away
+   below 1100px (the pill overflowed there before, with or without the new links) */
+@media(max-width:1400px){#m2-nav .m2-links a{padding:10px 9px;font-size:13px;}}
+@media(max-width:1240px){
+  #m2-nav .m2-links{display:none;}
+  #m2-nav .m2-sound{margin-left:auto;}
+  #m2-nav .m2-sound + .m2-ncta{margin-left:0;}
+}
+
+@media(max-width:520px){
+  #m2-nav{padding-left:16px;}
+  #m2-nav .m2-brand img{height:26px;}
+  #m2-nav .m2-sound{min-width:34px;padding:0 8px;}
+  #m2-nav .m2-ncta{padding:11px 16px;font-size:12.5px;}
+}
+@media(max-width:400px){
+  #m2-nav{padding-left:14px;gap:4px;}
+  #m2-nav .m2-brand img{height:22px;}
+  #m2-nav .m2-sound{min-width:30px;padding:0 6px;}
+  #m2-nav .m2-ncta{padding:10px 12px;font-size:12px;}
+}
+@media(max-width:350px){
+  #m2-nav{padding-left:12px;gap:2px;}
+  #m2-nav .m2-brand img{height:18px;}
+  #m2-nav .m2-sound{min-width:26px;padding:0 4px;}
+  #m2-nav .m2-ncta{padding:9px 9px;font-size:11.5px;}
+}
 
 @media(max-width:900px){
   #m2-voices .m2-voices,#m2-impact .m2-roi{grid-template-columns:1fr;}
@@ -13515,6 +13561,37 @@ html body.design-1b #d1-root#d1-root#d1-root #testimonials .niva-story .niva-sol
 @media(prefers-reduced-motion:reduce){
   #m2-voices .m2-vq{transition:none;}
   #m2-voices .m2-vt.is-on::after{animation:none;width:100%;}
+}
+
+/* Design 2: menu for the section links when they no longer fit in the pill (1240px and below) */
+@media(max-width:1240px){
+  #m2-nav .m2-burger{display:grid;place-content:center;gap:5px;flex:none;width:40px;height:40px;border-radius:50%;transition:background .3s;}
+  #m2-nav .m2-burger:hover{background:rgba(8,9,26,.06);}
+  #m2-nav .m2-burger:focus-visible{outline:2px solid var(--v);outline-offset:2px;}
+  #m2-nav .m2-burger span{display:block;width:18px;height:2px;border-radius:2px;background:#08091A;transition:transform .4s var(--ease),opacity .25s;}
+  #m2-nav .m2-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  #m2-nav .m2-burger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  #m2-nav .m2-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+}
+#m2-nav .m2-menu{display:none;}
+@media(max-width:1240px){
+  #m2-nav .m2-menu{display:grid;position:absolute;top:calc(100% + 10px);left:0;right:0;padding:10px;background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(26px) saturate(1.4);backdrop-filter:blur(26px) saturate(1.4);border:1px solid rgba(8,9,26,.08);border-radius:28px;box-shadow:0 18px 50px rgba(8,9,26,.14);opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .3s var(--ease),transform .4s var(--ease),visibility 0s linear .4s;}
+  #m2-nav .m2-menu.is-open{opacity:1;visibility:visible;transform:none;pointer-events:auto;transition-delay:0s;}
+  #m2-nav .m2-menu a{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-radius:18px;font:500 16px/1.2 var(--fb);color:rgba(8,9,26,.72);transition:background .25s,color .25s;}
+  #m2-nav .m2-menu a::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--gv);transform:scale(0);transition:transform .35s var(--spring);}
+  #m2-nav .m2-menu a:hover{background:rgba(8,9,26,.04);color:var(--ink);}
+  #m2-nav .m2-menu a:focus-visible{outline:2px solid var(--v);outline-offset:-2px;}
+  #m2-nav .m2-menu a.is-active{color:var(--ink);font-weight:600;}
+  #m2-nav .m2-menu a.is-active::after{transform:scale(1);}
+  #m2-nav .m2-menu .m2-menu-cta{display:none;margin:8px 8px 6px;justify-content:center;}
+}
+@media(min-width:901px) and (max-width:1240px){#m2-nav .m2-menu{left:auto;width:340px;}}
+@media(max-width:420px){
+  #m2-nav .m2-ncta{display:none;}
+  #m2-nav .m2-menu .m2-menu-cta{display:inline-flex;}
+}
+@media(prefers-reduced-motion:reduce){
+  #m2-nav .m2-menu,#m2-nav .m2-burger span{transition:none;}
 }
 </style>
 <script id="m2-js">
@@ -14651,6 +14728,43 @@ W.M2=W.M2||{};W.M2.audio=Sound;
     sl.addEventListener('input',onInput);
     onInput();
   })();
+})();
+</script>
+<script id="v82-m2-menu">
+/* Design 2: section menu for tablets and phones */
+(function(){
+  'use strict';
+  var d=document,W=window;
+  var btn=d.getElementById('m2-burger'),menu=d.getElementById('m2-menu'),nav=d.getElementById('m2-nav');
+  if(!btn||!menu||!nav)return;
+  function isOpen(){return menu.classList.contains('is-open');}
+  function setOpen(v){
+    menu.classList.toggle('is-open',v);
+    btn.setAttribute('aria-expanded',v?'true':'false');
+    btn.setAttribute('aria-label',v?'Close menu':'Open menu');
+  }
+  btn.addEventListener('click',function(){setOpen(!isOpen());});
+  menu.addEventListener('click',function(e){if(e.target.closest('a,[data-m2-go]'))setOpen(false);});
+  d.addEventListener('click',function(e){if(isOpen()&&!nav.contains(e.target))setOpen(false);});
+  d.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen()){setOpen(false);btn.focus();}});
+  W.addEventListener('resize',function(){if(W.innerWidth>1240)setOpen(false);});
+  new MutationObserver(function(){if(!d.body.classList.contains('design-m2'))setOpen(false);}).observe(d.body,{attributes:true,attributeFilter:['class']});
+  var links=[].slice.call(menu.querySelectorAll('a[href^="#m2-"]'));
+  function spy(){
+    if(!d.body.classList.contains('design-m2'))return;
+    var y=W.innerHeight*.42,best=null;
+    links.forEach(function(a){
+      var el=d.getElementById(a.getAttribute('href').slice(1)); if(!el)return;
+      var r=el.getBoundingClientRect(); if(r.top<=y&&r.bottom>y)best=a;
+    });
+    links.forEach(function(a){
+      a.classList.toggle('is-active',a===best);
+      if(a===best)a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
+    });
+  }
+  W.addEventListener('scroll',function(){requestAnimationFrame(spy);},{passive:true});
+  W.addEventListener('resize',spy,{passive:true});
+  spy();
 })();
 </script>
 </body>
