@@ -14930,8 +14930,8 @@ tabs();loved();reveal();
 }
 /* ---------- product tabs ---------- */
 function tabs(){var S=$('#fb-platform'),T=$$('.fb-tab',S),Pn=$$('.fb-pn',S),cur=0,auto=!reduce,vis=false,hov=false,tm=0;
-function sched(){clearTimeout(tm);var still=!auto||!vis||hov||D.hidden;S.classList.toggle('fb-still',still);S.classList.toggle('fb-noauto',!auto);if(still)return;tm=setTimeout(function(){show((cur+1)%4,1)},7000)}
-function show(i,a){cur=i;if(!a)auto=false;T.forEach(function(t,j){var on=j===i;t.classList.toggle('on',on);t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;if(on){var b=$('.fb-bar i',t);b.style.animation='none';void b.offsetWidth;b.style.animation=''}});Pn.forEach(function(p,j){p.classList.toggle('on',j===i)});sched()}
+function sched(){clearTimeout(tm);var fbn=B.classList.contains('fbn')&&!reduce,still=(!auto&&!fbn)||!vis||(hov&&!fbn)||D.hidden;S.classList.toggle('fb-still',still);S.classList.toggle('fb-noauto',!auto&&!fbn);if(still)return;tm=setTimeout(function(){show((cur+1)%4,1)},fbn?5000:7000)}
+function show(i,a){cur=i;if(!a&&!B.classList.contains('fbn'))auto=false;T.forEach(function(t,j){var on=j===i;t.classList.toggle('on',on);t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;if(on){var b=$('.fb-bar i',t);b.style.animation='none';void b.offsetWidth;b.style.animation=''}});Pn.forEach(function(p,j){p.classList.toggle('on',j===i)});sched()}
 T.forEach(function(t,i){t.addEventListener('click',function(){show(i)});t.addEventListener('keydown',function(e){var n=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:null;if(n===null)return;e.preventDefault();n=(n+4)%4;show(n);T[n].focus()})});
 S.addEventListener('mouseenter',function(){hov=true;sched()});S.addEventListener('mouseleave',function(){hov=false;sched()});
 if(W.IntersectionObserver)new IntersectionObserver(function(e){vis=e[0].isIntersecting;sched()},{threshold:.35}).observe(S);
@@ -15022,6 +15022,7 @@ body.fbn.fn-mo #fn-dots{display:block}
 .fn-hint{position:absolute;top:14px;left:14px;font:700 11px Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.22);padding:6px 10px;border-radius:100px}
 body.fbn .ft-cta{display:none!important}
 body.fbn.fn-ft #float-demo-btn{opacity:0!important;pointer-events:none!important}
+body.fbn:not(.fb-noauto) .fb-bar i{animation-duration:5s!important}
 </style>
 <script id="fn-final-js">
 (function(){'use strict';
