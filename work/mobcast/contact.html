@@ -141,9 +141,23 @@ button{font:inherit;cursor:pointer}
 .s-orange{background:linear-gradient(135deg,#F97316,#EA580C);color:#fff}
 .s-orange .tag{color:rgba(255,255,255,.78)}
 .tag b{margin-left:auto;font-weight:800;opacity:.5}
-.c-form{grid-column:1/8;grid-row:1/3}
+.c-form{grid-column:1/8;grid-row:1}
 .c-hq{grid-column:8/13;grid-row:1}
-.c-mail{grid-column:8/13;grid-row:2}
+.hqph{margin:18px 0 4px;border-radius:18px;border:1px solid rgba(255,255,255,.14)}
+.c-team{grid-column:1/13;grid-row:2;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2.2fr);gap:44px;align-items:center}
+.c-team h3{font-family:var(--fd);font-weight:700;font-size:clamp(26px,2.5vw,36px);line-height:1.12;letter-spacing:-.025em;margin:18px 0 14px}
+.c-team p{font-size:15px;line-height:1.6;color:rgba(255,255,255,.88);max-width:34ch}
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.person{display:flex;flex-direction:column;text-decoration:none;color:#fff;transition:transform .5s var(--ease)}
+.person:hover{transform:translateY(-4px)}
+.person .ph{border-radius:20px;border:1px solid rgba(255,255,255,.34);margin-bottom:14px}
+.pt{display:flex;flex-direction:column;min-width:0}
+.person b{font-size:16px;font-weight:700}
+.person span{margin-top:3px;font-size:13px;color:rgba(255,255,255,.85);overflow-wrap:anywhere}
+.c-gal{grid-column:1/13;grid-row:4}
+.c-gal h3{font-family:var(--fd);font-weight:700;font-size:clamp(26px,2.5vw,36px);line-height:1.12;letter-spacing:-.025em;margin:18px 0 22px}
+.gal{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:16px}
+.c-gal .gal .ph{aspect-ratio:auto;height:clamp(240px,27vw,400px);min-height:0;border-radius:20px}
 .c-hq h3{font-family:var(--fd);font-weight:700;font-size:clamp(26px,2.5vw,36px);line-height:1.12;letter-spacing:-.025em;margin:18px 0 16px}
 .addr{font-size:16px;line-height:1.65;color:#fff;opacity:.82;max-width:44ch}
 .phone{margin-top:22px;display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;border:1px dashed rgba(255,255,255,.24);font-size:13.5px;font-weight:600;color:rgba(255,255,255,.65);width:fit-content;max-width:100%}
@@ -151,11 +165,6 @@ button{font:inherit;cursor:pointer}
 .maplink{margin-top:auto;padding-top:22px;font-size:14px;font-weight:700;color:var(--amber);text-decoration:none;display:inline-flex;gap:8px;align-items:center}
 .maplink span{transition:transform .3s var(--ease)}
 .maplink:hover span{transform:translateX(4px)}
-.c-mail h3{font-family:var(--fd);font-weight:700;font-size:clamp(26px,2.5vw,36px);line-height:1.12;letter-spacing:-.025em;margin:18px 0 18px}
-.mails{display:grid;gap:10px;margin-top:auto}
-.mails a{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;font-size:14.5px;font-weight:600;color:rgba(255,255,255,.9);text-decoration:none;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);overflow-wrap:anywhere;transition:border-color .3s,background .3s}
-.mails a::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.22);flex:none}
-.mails a:hover{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.22)}
 .c-map{grid-column:1/13;grid-row:3;padding:0;flex-direction:row;background:linear-gradient(145deg,#021408 0%,#057a30 55%,#011a0a 100%);color:#fff;min-height:540px}
 .c-map .tag{color:rgba(255,255,255,.75)}
 .map-l{flex:0 0 38%;padding:34px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;position:relative;z-index:2}
@@ -243,6 +252,16 @@ footer{background:#100D16;padding:86px 0 40px}
 #top-btn.show{opacity:1;transform:none;pointer-events:auto}
 #top-btn svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
+
+/* ---------- photo slots: drop the real file into assets/photos/ with the slot's file name and it replaces the placeholder ---------- */
+.ph{position:relative;overflow:hidden;border-radius:20px;aspect-ratio:var(--r,4/3);isolation:isolate;background:linear-gradient(135deg,var(--p1,#2A1608),var(--p2,#8A3A0E));display:grid;place-items:center}
+.ph.fill{aspect-ratio:auto;height:100%;min-height:100%}
+.ph::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(60% 50% at 24% 16%,rgba(251,191,36,.28),transparent 64%),repeating-linear-gradient(135deg,rgba(255,255,255,.045) 0 1px,transparent 1px 14px)}
+.ph .phi{position:relative;z-index:1;width:34px;height:34px;fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ph .phl{position:absolute;left:12px;bottom:12px;z-index:1;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:100px;background:rgba(21,18,28,.62);color:rgba(255,255,255,.8);max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ph>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.ph.t2{--p1:#15121C;--p2:#6B2A0A}.ph.t3{--p1:#1C0A00;--p2:#B45309}.ph.t4{--p1:#0B2A1E;--p2:#0F7A52}
+
 /* particle layer: the same canvas the homepage uses */
 #fn-dots{position:fixed;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
 
@@ -258,9 +277,10 @@ footer{background:#100D16;padding:86px 0 40px}
   .hs-inner{grid-template-columns:1fr;gap:40px}
   .hero{min-height:0}
   .c-form{grid-column:1/13;grid-row:auto}
+  .c-team{grid-column:1/13;grid-row:auto;grid-template-columns:1fr;gap:28px}
+  .c-gal{grid-column:1/13;grid-row:auto}
   .c-hq{grid-column:1/13;grid-row:auto}
-  .c-mail{grid-column:1/13;grid-row:auto}
-  .c-map{grid-row:auto}
+    .c-map{grid-row:auto}
 }
 @media (max-width:700px){
   :root{--rail:calc(100vw - 32px);--gap:16px;--r:24px}
@@ -272,14 +292,20 @@ footer{background:#100D16;padding:86px 0 40px}
   .hsub{margin-bottom:28px}
   .fgrid{grid-template-columns:1fr}
   .find-grid .card{grid-column:1/-1}
+  .people{grid-template-columns:1fr;gap:14px}
+  .person{flex-direction:row;align-items:center;gap:16px}
+  .person .ph{width:84px;flex:none;margin:0;border-radius:16px}
+  .person .ph .phl{display:none}
+  .gal{grid-template-columns:1fr;gap:12px}
+  .c-gal .gal .ph{height:220px}
   .fsend .btn{width:100%;text-align:center}
   .find{padding:64px 0 80px}
   .find-hd{margin-bottom:36px}
   .card{padding:26px}
   .c-map{flex-direction:column;min-height:0}
   .map-l{flex:none;padding:26px 26px 6px}
-  .map-r{padding:0 18px 22px}
-  .plabel{font-size:30px}
+  .map-r{padding:0 18px 22px 40px}
+  .plabel{font-size:26px}
   footer{padding:64px 0 32px}
   .ftgrid{grid-template-columns:1fr;gap:34px}
   .ftgrid>div:first-child{grid-row:auto}
@@ -374,18 +400,28 @@ footer{background:#100D16;padding:86px 0 40px}
       </article>
       <article class="card s-brown c-hq rv" id="find-hq">
         <div class="tag">Headquarters <b>02</b></div>
+        <div class="ph t2 hqph" style="--r:16/9" data-slot="office-outside.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Photo · office-outside.jpg</span><img src="assets/photos/office-outside.jpg" alt="Mobcast headquarters, Kandivali East, Mumbai (view from outside)" loading="lazy" onerror="this.remove()"></div>
         <h3>Mumbai</h3>
         <p class="addr">Office no 505, Tanishka Commercial Complex,<br>Akruli Road, Kandivali (East),<br>Mumbai - 400101</p>
         <div class="phone"><b>Phone</b><span>Number coming soon</span></div>
         <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Tanishka+Commercial+Complex+Akruli+Road+Kandivali+East+Mumbai+400101" target="_blank" rel="noopener">Open in Maps <span>→</span></a>
       </article>
-      <article class="card s-orange c-mail rv" id="find-mail" style="--i:1">
-        <div class="tag">Email the team <b>03</b></div>
-        <h3>Write to us directly</h3>
-        <div class="mails">
-          <a href="mailto:vandana@mobcast.in">vandana@mobcast.in</a>
-          <a href="mailto:varun@mobcast.in">varun@mobcast.in</a>
-          <a href="mailto:ashwin@mobcast.in">ashwin@mobcast.in</a>
+      <article class="card s-orange c-team rv" id="find-team">
+        <div class="team-l">
+          <div class="tag">Email the team <b>03</b></div>
+          <h3>The people you’ll hear from</h3>
+          <p>Write to any of us directly. Every message is read by a real person on the team.</p>
+        </div>
+        <div class="people">
+          <a class="person" href="mailto:vandana@mobcast.in">
+            <div class="ph t2" style="--r:4/5" data-slot="team-vandana.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Portrait · team-vandana.jpg</span><img src="assets/photos/team-vandana.jpg" alt="Vandana" loading="lazy" onerror="this.remove()"></div><div class="pt"><b>Vandana</b><span>vandana@mobcast.in</span></div>
+          </a>
+          <a class="person" href="mailto:varun@mobcast.in">
+            <div class="ph t3" style="--r:4/5" data-slot="team-varun.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Portrait · team-varun.jpg</span><img src="assets/photos/team-varun.jpg" alt="Varun" loading="lazy" onerror="this.remove()"></div><div class="pt"><b>Varun</b><span>varun@mobcast.in</span></div>
+          </a>
+          <a class="person" href="mailto:ashwin@mobcast.in">
+            <div class="ph t4" style="--r:4/5" data-slot="team-ashwin.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Portrait · team-ashwin.jpg</span><img src="assets/photos/team-ashwin.jpg" alt="Ashwin" loading="lazy" onerror="this.remove()"></div><div class="pt"><b>Ashwin</b><span>ashwin@mobcast.in</span></div>
+          </a>
         </div>
       </article>
       <article class="card c-map rv" id="find-map" style="--i:2">
@@ -410,6 +446,15 @@ footer{background:#100D16;padding:86px 0 40px}
             <text class="plabel" x="203.3" y="216.0">Delhi NCR</text>
             <text class="plabel" x="211.2" y="567.8">Bengaluru</text>
           </svg>
+        </div>
+      </article>
+      <article class="card s-white c-gal rv" id="find-gal">
+        <div class="tag">Inside Mobcast <b>05</b></div>
+        <h3>Where we work</h3>
+        <div class="gal">
+          <div class="ph t3" style="--r:4/5" data-slot="office-inside.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Photo · office-inside.jpg</span><img src="assets/photos/office-inside.jpg" alt="Inside the Mobcast office" loading="lazy" onerror="this.remove()"></div>
+          <div class="ph t4" style="--r:4/5" data-slot="team-working.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Photo · team-working.jpg</span><img src="assets/photos/team-working.jpg" alt="The Mobcast team at work" loading="lazy" onerror="this.remove()"></div>
+          <div class="ph t2" style="--r:4/5" data-slot="team-together.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Photo · team-together.jpg</span><img src="assets/photos/team-together.jpg" alt="The Mobcast team together" loading="lazy" onerror="this.remove()"></div>
         </div>
       </article>
     </div>
@@ -530,7 +575,7 @@ footer{background:#100D16;padding:86px 0 40px}
 
 var M={raf:0,on:false,P:[],st:'',scat:0,cur:null};
 /* [name, trigger element, target(s) to wrap, shape, pad]  shape: r=rounded box, p=pill, t=tight text, c=circle */
-var STG=[['hero','#hero','#hero .hero-btns .btn','p',9],['form','#find-form','#find-form','r',10],['hq','#find-hq','#find-hq','r',10],['mail','#find-mail','#find-mail','r',10],['map','#find-map','#find-map','r',10]];
+var STG=[['hero','#hero','#hero .hero-btns .btn','p',9],['form','#find-form','#find-form','r',10],['hq','#find-hq','#find-hq','r',10],['team','#find-team','#find-team','r',10],['map','#find-map','#find-map','r',10],['gal','#find-gal','#find-gal','r',10]];
 var CTA=[];
 function vis(e){return e&&e.getClientRects().length}
 function rc(s){var e=$(s);return vis(e)?e.getBoundingClientRect():null}
