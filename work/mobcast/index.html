@@ -4190,6 +4190,13 @@ html body #d1-root#d1-root#d1-root #testimonials::before,html body #d1-root#d1-r
 @media (pointer:coarse),(max-width:700px){
   html body .hero-learn,html body .fn-more,html body .niva-more,html body footer a{min-height:44px;display:inline-flex;align-items:center}
 }
+
+/* measured outcomes: even rhythm, no squeezing */
+html body #d1-root#d1-root#d1-root #testimonials .niva-results{display:flex;flex-direction:column;gap:12px}
+html body #d1-root#d1-root#d1-root #testimonials .niva-results-head{margin-bottom:8px!important}
+html body #d1-root#d1-root#d1-root #testimonials .niva-metric,html body #d1-root#d1-root#d1-root #testimonials .niva-metric.is-featured{margin:0!important;flex:0 0 auto!important;box-sizing:border-box;min-height:92px;padding:18px 20px!important;align-items:center}
+html body #d1-root#d1-root#d1-root #testimonials .niva-more{margin-top:6px}
+html body #d1-root#d1-root#d1-root #testimonials .niva-results-foot{margin-top:auto!important;padding-top:18px}
 </style>
 
 <script id="home-js">
@@ -4297,7 +4304,7 @@ tabs();reveal();wall();motion();
   window.addEventListener('load',function(){setTimeout(function(){go(0)},200)});
 })();
 </script>
-<script>window.__FX={nohero:true,titles:false,noorb:true,blocks:[],tiles:['.niva-metric','.tw-card','.fb-outcome'],cards:'.niva-metric,.tw-card,.fb-outcome',mag:'.bfv,.inline-cta-btn,.btn,.nav-cta'};/* ===== FX: parallax, word-reveal titles, cursor glow, magnetic buttons, hero depth ===== */
+<script>window.__FX={nohero:true,titles:false,noorb:true,blocks:[],tiles:[],cards:'.niva-metric,.tw-card,.fb-outcome',mag:'.bfv,.inline-cta-btn,.btn,.nav-cta'};/* ===== FX: parallax, word-reveal titles, cursor glow, magnetic buttons, hero depth ===== */
 (function(){
   var D=document,W=window;
   var CFG=W.__FX||{};
