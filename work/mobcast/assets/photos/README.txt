@@ -35,3 +35,29 @@ testimonial-1..4.jpg   shared with Customers: portraits for the "What Teams Say"
 --- SECURITY page slots (added) ---
 security-niva.jpg   4:5   Niva Bupa compliance or branch team, beside the IRDAI quote (Built for regulated industries)
 (The four control scenes, certificate seals and the PDF cover on this page are drawn in code and need no photos.)
+
+
+CUSTOMERS PAGE (real content)
+-----------------------------
+testimonial-1.jpg, testimonial-2.jpg, testimonial-3.jpg   Portraits, 4:5 (Shharad Dhakkate, Rajeev Yadav, Abdul Wasih M)
+g2-1.jpg ... g2-4.jpg    Reviewer photos, square (Francois van Vuuren, Breanna Brown, Jon McNelis, Jonathan Henault)
+video-1.jpg              Poster for the SUD Life portrait video, 9:16
+(Initials show until a photo is added. review-1..3 and video-2 are no longer used.)
+
+HOMEPAGE (index.html)
+---------------------
+"Loved by the people who run frontline teams" reuses testimonial-1.jpg, testimonial-2.jpg, testimonial-3.jpg
+(same portraits as the Customers page, so one upload fills both pages). Initials show until the photos exist.
+The logo row uses assets/logos/ (phonepe, paytm, kotak-mahindra-bank, niva-bupa, sud-life, oyo, delhivery, hdfc-ergo).
+
+RECEIVED AND IN PLACE
+---------------------
+testimonial-1.jpg  Shharad Dhakkate (4:5 crop)
+testimonial-2.jpg  Rajeev Yadav (4:5 crop)
+testimonial-3.jpg  Abdul Wasih M (4:5 crop)
+g2-1.jpg ... g2-4.jpg  Francois van Vuuren, Breanna Brown, Jon McNelis, Jonathan Henault
+video-1.jpg        Poster frame for the SUD Life video (taken from the client's slide, replace with a clean frame if wanted)
+
+STILL NEEDED
+------------
+assets/videos/sud-life-amitabh-kumar.mp4  (compressed, see assets/videos/README.txt)
