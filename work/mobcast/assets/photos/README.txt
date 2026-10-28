@@ -61,3 +61,24 @@ video-1.jpg        Poster frame for the SUD Life video (taken from the client's 
 STILL NEEDED
 ------------
 assets/videos/sud-life-amitabh-kumar.mp4  (compressed, see assets/videos/README.txt)
+
+INSURANCE PAGE (insurance.html)
+-------------------------------
+insurance-niva.jpg   4:5 portrait or team photo for the Niva Bupa quote (same type of image as security-niva.jpg)
+(onboarding.html has no photo slots.)
+
+AI Studio page (ai-studio.html). Each file below replaces its placeholder automatically when dropped in this folder.
+  ai-studio-a1-upload.jpg       Screenshot A1: upload screen (4:3 or wider)
+  ai-studio-a4-index.jpg        Screenshot A4: course index
+  ai-studio-a5-story.jpg        Screenshot A5: story slide player
+  ai-studio-a6-animated.jpg     Screenshot A6: animated story
+  ai-studio-a7-game.jpg         Screenshot A7: drag-and-drop game
+  ai-studio-a8-scenario.jpg     Screenshot A8: scenario decision tree
+  ai-studio-a9-quiz.jpg         Screenshot A9: quiz slide
+  ai-studio-a10-infographic.jpg Screenshot A10: infographic
+  ai-studio-a11-brand.jpg       Screenshot A11: brand theme setup
+  ai-studio-a13-edit.jpg        Screenshot A13: edit view with re-prompt box
+  ai-studio-team-1.jpg          Photo: creative team at work (4:3)
+  ai-studio-team-2.jpg          Photo: content review (4:3)
+  ai-studio-team-3.jpg          Photo: learning design (4:3)
+Screenshots A2, A3 and A12 are drawn in code (audience picker, same-policy outputs, audience by language grid).
