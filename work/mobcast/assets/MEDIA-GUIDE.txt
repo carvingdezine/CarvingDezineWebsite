@@ -1,0 +1,168 @@
+MOBCAST WEBSITE: PICTURE, VIDEO AND AUDIO GUIDE
+================================================
+One file per slot. Drop the file into the folder named below with the EXACT file name and it replaces the grey placeholder on the page automatically. No code change is needed. If a file is missing, the placeholder simply stays.
+
+Folders:  assets/photos/   assets/videos/   assets/audio/   assets/logos/
+
+-------------------------------------------------
+1. RULES THAT APPLY TO EVERYTHING
+-------------------------------------------------
+PHOTOS
+- Format: JPG (sRGB). Use PNG only for logos or screenshots with sharp text.
+- Size: export at 2x the size shown on screen so it stays sharp on phones and laptops. The pixel sizes in the tables below already include this.
+- File size: stay under the "max" in the tables. Compress with squoosh.app or tinypng.com (quality 75 to 82 is enough). A page that loads fast ranks and converts better.
+- Orientation: follow the ratio in the table. If a photo is a different ratio the page crops it from the centre, so keep faces and the subject near the middle.
+- Never upload photos with: visible customer names, ID cards, account numbers, phone screens with real data, competitor logos, or watermarks (Shutterstock, Getty, etc.).
+- People: use real Mobcast people and customers wherever possible. Every person who is clearly visible needs to have agreed (a short photo consent message is enough). For stock photos, check the licence allows commercial website use without attribution.
+
+VIDEOS
+- Format: MP4, H.264 video, AAC audio. This plays on every browser and phone.
+- Keep it short and light. Aim for the "max" sizes below. Use HandBrake (free): preset "Fast 1080p30", RF 24 to 26, tick "Web optimized".
+- No autoplay with sound. Videos with sound start only when the visitor presses play.
+- Always add a poster image (a still frame) so the page looks right before the video loads.
+- Record in landscape unless the table says portrait. Steady shots, good light, clean audio (a phone mic held close, or a clip-on mic).
+
+AUDIO
+- MP3, 128 kbps, mono, about 10 seconds, under 200 KB per file.
+
+STOCK SEARCH TIPS
+- Good free libraries: Pexels, Unsplash, Pixabay (all allow commercial use, check each image). Paid: Adobe Stock, Envato.
+- Search in English and add "India" or "Indian" plus the setting. Add "candid" or "natural light" to avoid stiff posed shots.
+- Prefer warm daylight, real offices and branches, mobile phones in hand. Avoid: generic handshake shots, people pointing at glowing holograms, clip-art style illustrations.
+- The site palette is warm orange and ink black. Pictures with warm light or neutral backgrounds sit best. Avoid strongly blue or green tinted photos.
+
+-------------------------------------------------
+2. PHOTOS BY PAGE
+-------------------------------------------------
+Sizes: "px" is the width x height to export. "max" is the file size ceiling.
+
+HOME (index.html)
+proof-niva.jpg
+  Where: Niva Bupa proof block (wide banner)
+  Ratio 21:9, 2400 x 1030 px, max 350 KB
+  Client to click: branch or field team at Niva Bupa, agents using phones during a training moment, daylight, faces visible, wide shot.
+  Stock search: "insurance agents using smartphone India", "bank branch team India candid".
+
+CUSTOMERS (customers.html)
+testimonial-1.jpg, testimonial-2.jpg, testimonial-3.jpg   (already supplied)
+  Ratio 4:5 portrait, 800 x 1000 px, max 150 KB
+  Client to click: head and shoulders of the person quoted, plain or office background, looking at the camera, eye level, soft window light.
+g2-1.jpg to g2-4.jpg   (already supplied)
+  Reviewer photos or G2 profile images. Ratio 1:1, 400 x 400 px, max 60 KB.
+video-1.jpg   (already supplied)
+  Poster still for the SUD Life video. Ratio 9:16 portrait, 1080 x 1920 px, max 250 KB. Use a clear frame where the speaker is mid-sentence, eyes open.
+case-field.jpg
+  Where: Niva Bupa case study, large image
+  Ratio 16:9, 1600 x 900 px, max 250 KB
+  Client to click: agents or branch staff completing a training on their phone, real branch setting.
+case-cco.jpg
+  Where: Niva Bupa case study, quote portrait
+  Ratio 1:1, 800 x 800 px, max 120 KB
+  Client to click: the Chief Compliance Officer, head and shoulders, professional but relaxed.
+
+CONTACT (contact.html)
+office-outside.jpg
+  Ratio 16:9, 1600 x 900 px, max 250 KB
+  Client to click: the Tanishka Commercial Complex building from the road, daytime, the entrance and signboard visible, no people in the way.
+office-inside.jpg
+  Ratio 4:5, 800 x 1000 px, max 150 KB
+  Client to click: the open office floor, tidy desks, a few team members working, natural light.
+team-working.jpg
+  Ratio 4:5, 800 x 1000 px, max 150 KB
+  Client to click: two or three team members at a screen, mid-conversation, candid.
+team-together.jpg
+  Ratio 4:5, 800 x 1000 px, max 150 KB
+  Client to click: the whole team standing or seated together, everyone visible, smiling.
+team-ashwin.jpg, team-vandana.jpg, team-varun.jpg
+  Ratio 4:5 portrait, 800 x 1000 px, max 150 KB each
+  Client to click: head and shoulders, same background and light for all three so they look like a set, looking at the camera.
+
+SECURITY (security.html) and INSURANCE (insurance.html)
+security-niva.jpg  and  insurance-niva.jpg
+  Ratio 4:5, 800 x 1000 px, max 150 KB each (use two different photos)
+  Client to click: the Niva Bupa compliance team at work, or an agent confirming a compliance step on a phone. No documents readable.
+  Stock search: "compliance officer reviewing report office India", "insurance agent phone India".
+insurance-field-1.jpg, insurance-field-2.jpg, insurance-field-3.jpg
+  Ratio 4:3, 1200 x 900 px, max 200 KB each
+  1) agent training at a branch  2) agent on mobile between visits  3) compliance review at a desk.
+
+ONBOARDING (onboarding.html)
+onboarding-field-1.jpg, onboarding-field-2.jpg, onboarding-field-3.jpg
+  Ratio 4:3, 1200 x 900 px, max 200 KB each
+  1) new joiner on day one (welcome, laptop, ID badge)  2) floor coaching, a senior colleague guiding a new hire  3) buddy check-in, two people talking over a coffee or tablet.
+  Stock search: "new employee first day office India", "mentor guiding new employee India".
+
+SALES COPILOT (sales-copilot.html)
+sales-copilot-field-1.jpg, sales-copilot-field-2.jpg, sales-copilot-field-3.jpg
+  Ratio 4:3, 1200 x 900 px, max 200 KB each
+  1) relationship manager in a customer meeting, customer visible from the side  2) rep rehearsing a pitch on a phone during a commute or in a break room  3) sales team huddle around a laptop or tablet.
+  Stock search: "bank relationship manager meeting customer India", "salesperson using phone before meeting India", "sales team huddle laptop India".
+
+AI STUDIO (ai-studio.html)
+ai-studio-team-1.jpg, ai-studio-team-2.jpg, ai-studio-team-3.jpg
+  Ratio 4:3, 1200 x 900 px, max 200 KB each
+  1) designer at work with a drawing tablet or screen  2) a content reviewer reading a document with a pen  3) a learning designer at a whiteboard planning a course flow.
+  Stock search: "designer working on tablet office India", "content team review documents", "instructional designer whiteboard".
+
+AI STUDIO PRODUCT SCREENSHOTS (take these from the real product)
+How to capture: use a clean demo account with sample data only. Browser window at 1440 x 900, zoom 100%, capture at 2x (Windows: Snipping Tool at 150% display scale, or Chrome DevTools "Capture screenshot"). Crop out the browser frame. Save as JPG at quality 80, unless the screen has small sharp text, then PNG.
+Ratio 16:10, 1600 x 1000 px, max 300 KB each (PNG max 500 KB).
+  ai-studio-a1-upload.jpg       upload screen with a file dropped in and the prompt box filled ("A 10-minute refresher on KYC norms for new relationship managers")
+  ai-studio-a4-index.jpg        the course index (5 modules with formats)
+  ai-studio-a5-story.jpg        story slide player
+  ai-studio-a6-animated.jpg     animated story, mid-scene
+  ai-studio-a7-game.jpg         drag-and-drop game
+  ai-studio-a8-scenario.jpg     scenario decision tree
+  ai-studio-a9-quiz.jpg         quiz slide
+  ai-studio-a10-infographic.jpg infographic slide
+  ai-studio-a11-brand.jpg       brand theme setup (logo, colours, fonts)
+  ai-studio-a13-edit.jpg        edit view with the re-prompt box ("Make scene 3 shorter and add a branch example")
+Tip: every screenshot should look finished. Fill all fields with believable sample content, no lorem ipsum, no real customer data.
+
+-------------------------------------------------
+3. VIDEOS
+-------------------------------------------------
+sud-life-amitabh-kumar.mp4   (folder assets/videos/)
+  Where: Customers page, portrait testimonial
+  Portrait 9:16, 1080 x 1920 px, 30 fps, 60 to 120 seconds, target 15 to 25 MB (the current file is 142 MB and must be compressed: HandBrake, "Fast 1080p30", RF 26, Web optimized, audio 128 kbps AAC).
+  Poster: assets/photos/video-1.jpg
+Landscape testimonial (YouTube)
+  Already linked to YouTube (ID Tmi8D4tXKGE). Nothing to upload. On a local copy the video opens in a new tab.
+hero-craft.mp4   (existing background loop on Customers)
+  16:9, 1920 x 1080, 8 to 12 second seamless loop, no audio, under 4 MB.
+ai-studio-build-15s.mp4   (AI Studio hero, optional upgrade)
+  Where: replaces the animated build console in the hero
+  Ratio 16:10, 1280 x 800 px, 15 second seamless loop, no audio, under 4 MB.
+  What to record: a real screen recording. A PDF drops into the upload screen, a timer starts at 0:00, the course outline and finished modules appear, the timer stops near 5:00. Speed up the waiting parts so the whole loop is 15 seconds. Honest timing matters, so record a true run.
+sales-copilot-hero-90s.mp4   (Sales Copilot, "Watch it in 90 seconds")
+  16:9, 1920 x 1080 px, about 90 seconds, under 20 MB, with captions burned in or a .vtt file.
+  What to record: a rep opens the meeting brief, asks the coach a question, practises a role-play, and sees the feedback score.
+Shooting checklist for any client video
+  - Landscape for web pages, portrait only for the SUD Life style testimonial.
+  - Good light facing the speaker, quiet room, phone on a tripod or stack of books.
+  - Let the speaker finish and stay still for 2 seconds at the end so it can be trimmed.
+  - Ask for a one-line written consent from every speaker.
+
+-------------------------------------------------
+4. AUDIO (AI Studio languages)
+-------------------------------------------------
+Folder assets/audio/
+  ai-studio-en.mp3   English
+  ai-studio-hi.mp3   Hindi
+  ai-studio-mr.mp3   Marathi
+Same 10 second module read in each language, mp3 128 kbps mono, under 200 KB each. Needs native-speaker review before publishing. Add more languages later by sending the names and I will add buttons.
+
+-------------------------------------------------
+5. LOGOS
+-------------------------------------------------
+Folder assets/logos/ (52 supplied). New customer logos: PNG with transparent background, 500 x 208 px (2.4:1), max 30 KB, dark or full-colour on transparent, no white box around it.
+
+-------------------------------------------------
+6. QUICK CHECKLIST BEFORE YOU UPLOAD
+-------------------------------------------------
+[ ] Exact file name and folder
+[ ] Right ratio and pixel size
+[ ] Under the max file size
+[ ] No watermark, no private data, nobody's face without consent
+[ ] Looks good when cropped from the centre
+[ ] Open the page and check the placeholder is gone

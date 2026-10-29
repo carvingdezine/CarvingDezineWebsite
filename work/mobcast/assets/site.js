@@ -25,6 +25,10 @@ if(mp&&!mp.querySelector('.mn-h')){var cta=mp.querySelector('button.ncta'),f=D.c
 /* 2. coming-soon links */
 [].forEach.call(D.querySelectorAll('a[href="#"],a[data-soon]'),function(a){if(a.closest('.snav'))return;if(!a.hasAttribute('data-soon')){var t=(a.textContent||'').trim();if(!t||a.classList.contains('nlogo')||a.getAttribute('role')==='button')return;soon(a,t)}
  a.classList.add('is-soon');a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation()})});
+/* sub-nav scroll-spy */
+(function(){var L=[].slice.call(D.querySelectorAll('.snav-l a[href^="#"]'));if(!L.length||!('IntersectionObserver' in W))return;var m={};L.forEach(function(a){var t=D.querySelector(a.getAttribute('href'));if(t)m[t.id]=a});
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){L.forEach(function(a){a.classList.remove('on')});if(m[e.target.id])m[e.target.id].classList.add('on')}})},{rootMargin:'-45% 0px -50% 0px'});
+ Object.keys(m).forEach(function(id){io.observe(D.getElementById(id))})})();
 /* 3. scroll effects (skipped when reduced motion is on) */
 if(RM||!W.requestAnimationFrame)return;
 var isHome=!!D.getElementById('hero-sticky');
