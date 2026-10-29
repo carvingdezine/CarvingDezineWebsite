@@ -2,7 +2,7 @@
 (function(){
 var D=document,W=window,RM=W.matchMedia&&W.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var cur=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-var PRODUCTS=[['AI','AI Studio','Content built from your documents','ai-studio.html'],['SC','Sales Copilot','AI coaching for every rep','sales-copilot.html'],['FL','Frontline LMS','Learning on every phone',null],['FC','Flow ComplAI','Compliance that runs itself',null]];
+var PRODUCTS=[['AI','AI Studio','Content built from your documents','ai-studio.html'],['SC','Sales Copilot','AI coaching for every rep','sales-copilot.html'],['FL','Frontline LXP','Learning on every phone','frontline-lxp.html'],['FC','Flow ComplAI','Compliance that runs itself',null]];
 var SOLUTIONS=[['IN','Insurance','Train, coach and certify agents','insurance.html'],['ON','Onboarding','Floor-ready in half the time','onboarding.html'],['SE','Security','Enterprise-grade trust','security.html']];
 function soon(a,label){a.setAttribute('href','#');a.setAttribute('data-soon',label||a.textContent.trim());a.setAttribute('aria-disabled','true');a.setAttribute('title',(label||'This page')+' is coming soon')}
 /* 1. nav dropdowns */
@@ -38,7 +38,11 @@ var pimgs=[].slice.call(D.querySelectorAll('.phs img,.ph>img,.ph-i,.q-slide img.
 var hs=isHome?[]:[].slice.call(D.querySelectorAll('.hero .hs-right'));hs.forEach(function(e){e.classList.add('fx-par');e.setAttribute('data-s','-.07')});
 
 /* floating UI chips on mockups (content, not background) */
-var CHIPS=[['.sch',[['Brief ready','left:-6%;top:10%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
+var CHIPS=[['.lxh-dev',[['Streak: 3 days','left:-60px;bottom:22%',.06,'l']]],
+ ['.lxo-dev',[['Unlocks after day 1','right:-60px;top:18%',-.06,'d']]],
+ ['.lxc-qr',[['Time-stamped','right:-10px;top:-14px',-.06,'d']]],
+ ['.lxz-r',[['SCORM ready','left:-16px;bottom:-16px',.06,'l']]],
+ ['.sch',[['Brief ready','left:-6%;top:10%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
  ['.aib',[['SCORM exported','right:16px;bottom:-20px',.07,'l'],['Hindi voiceover added','right:-18px;top:-18px',-.06,'d']]],
  ['.ixp',[['Reordered','right:-14px;top:-14px',-.06,'l'],['5 modules proposed','left:-18px;bottom:60px',.07,'d']]],
  ['.fp-dev',[['Competitor compared','left:-70px;bottom:18%',.06,'l']]],

@@ -166,3 +166,7 @@ Folder assets/logos/ (52 supplied). New customer logos: PNG with transparent bac
 [ ] No watermark, no private data, nobody's face without consent
 [ ] Looks good when cropped from the centre
 [ ] Open the page and check the placeholder is gone
+
+FRONTLINE LXP PAGE (frontline-lxp.html)
+Screenshot slots lxp-l1 to lxp-l16 (see assets/photos/README.txt for names, ratios and what each shows). L13 and L14 are not used.
+Optional: a 90-second app walkthrough video is not wired yet (the "See the app in 90 seconds" link scrolls to the Onboard section for now).
