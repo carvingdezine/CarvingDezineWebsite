@@ -1,3 +1,5 @@
+SEE assets/MEDIA-GUIDE.txt for ratios, pixel sizes, file-size limits and what to search or photograph for every slot.
+
 PHOTO AND VIDEO SLOTS
 =====================
 Every slot on index.html, customers.html, contact.html and security.html shows a labelled placeholder until a file with
@@ -82,3 +84,17 @@ AI Studio page (ai-studio.html). Each file below replaces its placeholder automa
   ai-studio-team-2.jpg          Photo: content review (4:3)
   ai-studio-team-3.jpg          Photo: learning design (4:3)
 Screenshots A2, A3 and A12 are drawn in code (audience picker, same-policy outputs, audience by language grid).
+
+Photo strips (4:3, drop the file in with the exact name and the placeholder disappears; the picture drifts slightly as you scroll)
+  sales-copilot-field-1.jpg, -2.jpg, -3.jpg   Sales Copilot page, "From 50 reps to 50,000" section
+  insurance-field-1.jpg, -2.jpg, -3.jpg       Insurance page, products section
+  onboarding-field-1.jpg, -2.jpg, -3.jpg      Onboarding page, pain section
+
+Frontline LXP page (frontline-lxp.html). Files drop in with the exact name and replace the placeholder, no code change.
+Already supplied (9 creatives, in use): lxp-l1-journey (portrait), l2-course (portrait), l3-quiz (portrait), l4-library (portrait), l5-chatbot (portrait), l6-leaderboard (2:1), l7-awards (2:1), l8-forum (2:1), l10-invite (2:1, classroom RSVP + QR attendance; lxp-l11-qr is no longer used).
+Still drawn in code, optional to replace with a creative:
+  lxp-l9-push.jpg         Push / WhatsApp nudge (4:3)
+  lxp-l12-admin.jpg       Admin console dashboard (16:10, 1440px+)
+  lxp-l15-incentive.jpg   Rep incentive view (4:3)
+  lxp-l16-generated.jpg   AI Studio generated course (4:3)
+Format: JPG, under 400 KB, at least 1600px on the long side for wide images.
