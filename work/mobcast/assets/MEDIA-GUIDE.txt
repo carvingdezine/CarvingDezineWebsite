@@ -130,13 +130,9 @@ Landscape testimonial (YouTube)
   Already linked to YouTube (ID Tmi8D4tXKGE). Nothing to upload. On a local copy the video opens in a new tab.
 hero-craft.mp4   (existing background loop on Customers)
   16:9, 1920 x 1080, 8 to 12 second seamless loop, no audio, under 4 MB.
-ai-studio-build-15s.mp4   (AI Studio hero, optional upgrade)
-  Where: replaces the animated build console in the hero
-  Ratio 16:10, 1280 x 800 px, 15 second seamless loop, no audio, under 4 MB.
-  What to record: a real screen recording. A PDF drops into the upload screen, a timer starts at 0:00, the course outline and finished modules appear, the timer stops near 5:00. Speed up the waiting parts so the whole loop is 15 seconds. Honest timing matters, so record a true run.
-sales-copilot-hero-90s.mp4   (Sales Copilot, "Watch it in 90 seconds")
-  16:9, 1920 x 1080 px, about 90 seconds, under 20 MB, with captions burned in or a .vtt file.
-  What to record: a rep opens the meeting brief, asks the coach a question, practises a role-play, and sees the feedback score.
+No hero videos: the Sales Copilot, AI Studio and LXP heroes stay as designed. Video slots exist only where a video card is shown (Customers).
+HOW THE "Image here / Screenshot here / Video here" LABELS WORK
+  Each label sits in the middle of its slot. When you add the file named in the label to assets/photos (or assets/videos), the image covers the slot and the label disappears. No code change.
 Shooting checklist for any client video
   - Landscape for web pages, portrait only for the SUD Life style testimonial.
   - Good light facing the speaker, quiet room, phone on a tripod or stack of books.

@@ -38,23 +38,22 @@ var pimgs=[].slice.call(D.querySelectorAll('.phs img,.ph>img,.ph-i,.q-slide img.
 var hs=isHome?[]:[].slice.call(D.querySelectorAll('.hero .hs-right'));hs.forEach(function(e){e.classList.add('fx-par');e.setAttribute('data-s','-.07')});
 
 /* floating UI chips on mockups (content, not background) */
-var CHIPS=[['.lxh-dev',[['Streak: 3 days','left:-60px;bottom:22%',.06,'l']]],
+var CHIPS=[['.lxh',[['Streak: 3 days','left:-112px;top:46%',.06,'l']]],
  ['.lxo-dev',[['Unlocks after day 1','right:-60px;top:18%',-.06,'d']]],
  ['.lxc-qr',[['Time-stamped','right:-10px;top:-14px',-.06,'d']]],
- ['.lxz-r',[['SCORM ready','left:-16px;bottom:-16px',.06,'l']]],
- ['.sch',[['Brief ready','left:-6%;top:10%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
+ ['.sch',[['Brief ready','left:-30%;top:4%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
  ['.aib',[['SCORM exported','right:16px;bottom:-20px',.07,'l'],['Hindi voiceover added','right:-18px;top:-18px',-.06,'d']]],
  ['.ixp',[['Reordered','right:-14px;top:-14px',-.06,'l'],['5 modules proposed','left:-18px;bottom:60px',.07,'d']]],
  ['.fp-dev',[['Competitor compared','left:-70px;bottom:18%',.06,'l']]],
  ['.lap',[['Sample data','right:-12px;top:-14px',-.06,'d']]],
  ['.bsl',[['Brand applied','left:-16px;top:-14px',-.06,'d']]],
- ['.edt',[['Free re-prompt','right:24px;top:-16px',-.05,'d']]],
+ ['.edt',[['Free re-prompt','left:42%;top:11px',-.05,'l']]],
  ['.ph-dev',[['Added to audit record','left:-70px;bottom:16%',.06,'l']]],
  ['.fb-ring',[['Sample score','right:-34px;top:4px',-.05,'d']]]];
 CHIPS.forEach(function(c){var host=D.querySelector(c[0]);if(!host||host.closest('#hero-sticky'))return;if(getComputedStyle(host).position==='static')host.style.position='relative';
  c[1].forEach(function(x){var i=D.createElement('span');i.className='fx-chip '+(x[3]==='d'?'is-dark':'');i.style.cssText=x[1];i.setAttribute('data-depth',x[2]);i.setAttribute('aria-hidden','true');i.innerHTML='<i></i>'+x[0];host.appendChild(i)})});
 /* staggered columns in card grids */
-[].forEach.call(D.querySelectorAll('.apb,.pr3,.tr4,.bn3,.pb3,.srcs,.fmt,.prm,.rp-side,.upc,.pho3,.pf-s,.rel,.hh3'),function(g){[].forEach.call(g.children,function(k,i){if(!k.hasAttribute('data-depth')&&!k.classList.contains('rv-x'))k.setAttribute('data-depth',(i%2?.035:-.025))})});
+[].forEach.call(D.querySelectorAll('.zz-none'),function(g){[].forEach.call(g.children,function(k,i){if(!k.hasAttribute('data-depth')&&!k.classList.contains('rv-x'))k.setAttribute('data-depth',(i%2?.035:-.025))})});
 var depthEls=[].slice.call(D.querySelectorAll('[data-depth]'));
 var orbs=[];
 /* card spotlight */
@@ -67,3 +66,5 @@ var tick=false;function upd(){tick=false;var vh=W.innerHeight;
 function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
 W.addEventListener('scroll',req,{passive:true});W.addEventListener('resize',req);upd();
 })();
+/* video slots: show "Video here" when the file is not there yet */
+(function(){var D=document;[].forEach.call(D.querySelectorAll('.vid[data-video-src]'),function(v){var src=v.getAttribute('data-video-src'),pz=v.querySelector('.poster');if(!src||!pz)return;pz.setAttribute('data-vph','Video here · '+src.split('/').pop());var p=D.createElement('video');p.preload='metadata';p.muted=true;p.onerror=function(){v.classList.add('vid-missing')};p.onloadedmetadata=function(){v.classList.remove('vid-missing')};p.src=src;setTimeout(function(){if(p.readyState===0)v.classList.add('vid-missing')},1500)})})();
