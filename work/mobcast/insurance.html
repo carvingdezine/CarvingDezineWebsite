@@ -1384,6 +1384,21 @@ nav#nav#nav .nlinks>a.is-soon::after,nav#nav#nav .nlinks>a[data-soon]::after{dis
 #mnav-panel a.is-soon,#mnav-panel a[data-soon]{opacity:.45}
 footer a:not(.is-soon):not([data-soon]){color:rgba(255,255,255,.95)}
 nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
+/* media placeholders: clear "image here / video here" labels */
+.ph-here{display:block;margin-bottom:4px;font:800 11px/1.2 var(--fb,system-ui);letter-spacing:.1em;text-transform:uppercase;color:#FBBF24}
+.phl{font-weight:800}
+.shot-slot[data-ph]::after,.viz[data-ph]::after{content:attr(data-ph);position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:1;width:max-content;max-width:calc(100% - 28px);text-align:center;padding:9px 16px;border-radius:100px;background:#1C0A00;color:#FBBF24;font:800 10px/1.25 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 6px 16px rgba(28,10,0,.3);pointer-events:none}
+.viz[data-ph]{position:relative}
+.vh-note{display:inline-block;margin-left:14px;padding:6px 12px;border-radius:100px;border:1.5px dashed rgba(251,191,36,.8);color:#FBBF24;font:800 10.5px/1.3 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase}
+.vid.vid-missing .poster::after{content:attr(data-vph);position:absolute;left:50%;bottom:64px;translate:-50% 0;z-index:3;padding:7px 14px;border-radius:100px;background:#1C0A00;color:#FBBF24;font:800 10.5px/1.3 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.vid .poster:has(.pimg) .scene{display:none}
+.vid.vid-missing .poster::after{white-space:normal;max-width:86%;text-align:center;bottom:84px}
+html,body{overflow-x:clip}
+
+/* v45: placeholder labels sit centred INSIDE the slot and are covered by the image once it is added */
+.phs.ph-slot:has(>img) .ph-here{display:none}
+.ph[data-slot] .phl{left:50%;bottom:auto;top:calc(50% + 30px);translate:-50% 0;width:max-content;max-width:88%;text-align:center;white-space:normal}
+.vid.vid-missing .poster::after{bottom:auto;top:calc(50% + 62px)}
 </style></head>
 <body>
 <div id="bar" aria-hidden="true"></div>
@@ -1505,7 +1520,7 @@ nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
         </div>
       </div>
     </div>
-  <div class="pho3"><div class="phs ph-slot rv" style="--i:0" data-slot="insurance-field-1.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><img class="ph-i" src="assets/photos/insurance-field-1.jpg" alt="" loading="lazy" onerror="this.remove()"><span>Agent training at a branch</span></div><div class="phs ph-slot rv" style="--i:1" data-slot="insurance-field-2.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><img class="ph-i" src="assets/photos/insurance-field-2.jpg" alt="" loading="lazy" onerror="this.remove()"><span>Agent on mobile between visits</span></div><div class="phs ph-slot rv" style="--i:2" data-slot="insurance-field-3.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><img class="ph-i" src="assets/photos/insurance-field-3.jpg" alt="" loading="lazy" onerror="this.remove()"><span>Compliance review</span></div></div>
+  <div class="pho3"><div class="phs ph-slot rv" style="--i:0" data-slot="insurance-field-1.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><img class="ph-i" src="assets/photos/insurance-field-1.jpg" alt="" loading="lazy" onerror="this.remove()"><span><b class="ph-here">Image here · insurance-field-1.jpg</b>Agent training at a branch</span></div><div class="phs ph-slot rv" style="--i:1" data-slot="insurance-field-2.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><img class="ph-i" src="assets/photos/insurance-field-2.jpg" alt="" loading="lazy" onerror="this.remove()"><span><b class="ph-here">Image here · insurance-field-2.jpg</b>Agent on mobile between visits</span></div><div class="phs ph-slot rv" style="--i:2" data-slot="insurance-field-3.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><img class="ph-i" src="assets/photos/insurance-field-3.jpg" alt="" loading="lazy" onerror="this.remove()"><span><b class="ph-here">Image here · insurance-field-3.jpg</b>Compliance review</span></div></div>
 </div>
 </section>
 
@@ -1535,7 +1550,7 @@ nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
       </div>
     </div>
     <figure class="as-q rv" id="assure-q" style="--i:1">
-      <div class="as-ph"><div class="ph t2 fill" style="--r:4/5" data-slot="insurance-niva.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Niva Bupa compliance team</span><img src="assets/photos/insurance-niva.jpg" alt="Niva Bupa compliance team" loading="lazy" onerror="this.remove()"></div></div>
+      <div class="as-ph"><div class="ph t2 fill" style="--r:4/5" data-slot="insurance-niva.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Image here · insurance-field-1.jpg · Niva Bupa compliance team</span><img src="assets/photos/insurance-niva.jpg" alt="Niva Bupa compliance team" loading="lazy" onerror="this.remove()"></div></div>
       <div class="as-qt">
         <svg class="qm" viewBox="0 0 48 36" aria-hidden="true"><path d="M0 36V20C0 8 6 1 18 0v8c-6 1-9 4-9 9h9v19zM26 36V20c0-12 6-19 18-20v8c-6 1-9 4-9 9h9v19z"/></svg>
         <blockquote>Agents who never opened an email were completing training in 48 hours. IRDAI audit, zero findings.</blockquote>
@@ -1914,20 +1929,19 @@ var hs=isHome?[]:[].slice.call(D.querySelectorAll('.hero .hs-right'));hs.forEach
 var CHIPS=[['.lxh',[['Streak: 3 days','left:-112px;top:46%',.06,'l']]],
  ['.lxo-dev',[['Unlocks after day 1','right:-60px;top:18%',-.06,'d']]],
  ['.lxc-qr',[['Time-stamped','right:-10px;top:-14px',-.06,'d']]],
- ['.lxz-r',[['SCORM ready','left:-16px;bottom:-16px',.06,'l']]],
- ['.sch',[['Brief ready','left:-6%;top:10%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
+ ['.sch',[['Brief ready','left:-30%;top:4%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
  ['.aib',[['SCORM exported','right:16px;bottom:-20px',.07,'l'],['Hindi voiceover added','right:-18px;top:-18px',-.06,'d']]],
  ['.ixp',[['Reordered','right:-14px;top:-14px',-.06,'l'],['5 modules proposed','left:-18px;bottom:60px',.07,'d']]],
  ['.fp-dev',[['Competitor compared','left:-70px;bottom:18%',.06,'l']]],
  ['.lap',[['Sample data','right:-12px;top:-14px',-.06,'d']]],
  ['.bsl',[['Brand applied','left:-16px;top:-14px',-.06,'d']]],
- ['.edt',[['Free re-prompt','right:24px;top:-16px',-.05,'d']]],
+ ['.edt',[['Free re-prompt','left:42%;top:11px',-.05,'l']]],
  ['.ph-dev',[['Added to audit record','left:-70px;bottom:16%',.06,'l']]],
  ['.fb-ring',[['Sample score','right:-34px;top:4px',-.05,'d']]]];
 CHIPS.forEach(function(c){var host=D.querySelector(c[0]);if(!host||host.closest('#hero-sticky'))return;if(getComputedStyle(host).position==='static')host.style.position='relative';
  c[1].forEach(function(x){var i=D.createElement('span');i.className='fx-chip '+(x[3]==='d'?'is-dark':'');i.style.cssText=x[1];i.setAttribute('data-depth',x[2]);i.setAttribute('aria-hidden','true');i.innerHTML='<i></i>'+x[0];host.appendChild(i)})});
 /* staggered columns in card grids */
-[].forEach.call(D.querySelectorAll('.apb,.pr3,.tr4,.bn3,.pb3,.srcs,.fmt,.prm,.rp-side,.upc,.pho3,.pf-s,.rel,.hh3'),function(g){[].forEach.call(g.children,function(k,i){if(!k.hasAttribute('data-depth')&&!k.classList.contains('rv-x'))k.setAttribute('data-depth',(i%2?.035:-.025))})});
+[].forEach.call(D.querySelectorAll('.zz-none'),function(g){[].forEach.call(g.children,function(k,i){if(!k.hasAttribute('data-depth')&&!k.classList.contains('rv-x'))k.setAttribute('data-depth',(i%2?.035:-.025))})});
 var depthEls=[].slice.call(D.querySelectorAll('[data-depth]'));
 var orbs=[];
 /* card spotlight */
@@ -1940,5 +1954,7 @@ var tick=false;function upd(){tick=false;var vh=W.innerHeight;
 function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
 W.addEventListener('scroll',req,{passive:true});W.addEventListener('resize',req);upd();
 })();
+/* video slots: show "Video here" when the file is not there yet */
+(function(){var D=document;[].forEach.call(D.querySelectorAll('.vid[data-video-src]'),function(v){var src=v.getAttribute('data-video-src'),pz=v.querySelector('.poster');if(!src||!pz)return;pz.setAttribute('data-vph','Video here · '+src.split('/').pop());var p=D.createElement('video');p.preload='metadata';p.muted=true;p.onerror=function(){v.classList.add('vid-missing')};p.onloadedmetadata=function(){v.classList.remove('vid-missing')};p.src=src;setTimeout(function(){if(p.readyState===0)v.classList.add('vid-missing')},1500)})})();
 </script></body>
 </html>

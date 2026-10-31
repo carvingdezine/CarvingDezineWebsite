@@ -979,6 +979,29 @@ html body .hh1{font-size:clamp(34px,3.8vw,54px)!important}
   .sch-dev{left:0;width:220px;height:420px}.sch-rp{width:150px;height:120px}.fin-f{padding:20px}
 }
 @media (prefers-reduced-motion:reduce){.lpd-flow,.sch-obj,.sch-rp,.rp-bar i{animation:none}.fb-bars u i,.pr-l{transform:none;stroke-dashoffset:0;transition:none}}
+
+/* v45 persona cards: explain who the card is about */
+.ind-card{display:flex!important;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px;padding:34px;place-items:unset}
+.ic-k{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#7C2D12}
+.ic-r{font:700 clamp(26px,2.6vw,36px)/1.15 var(--fd,serif);color:#1C0A00}
+.ic-k2{margin-top:14px}
+.ind-card ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.ind-card li{padding:9px 16px;border-radius:100px;background:#fff;box-shadow:0 8px 20px rgba(28,10,0,.12);font-size:14px;font-weight:700;color:#1C0A00}
+
+/* v45 chat window */
+.chw{display:flex!important;flex-direction:column;gap:0!important;border-radius:22px;overflow:hidden;background:#F6F1EA;color:#1C0A00;box-shadow:0 30px 70px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12)}
+.chw-h{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#1C0A00;color:#fff;border-bottom:2px solid #F97316}
+.chw-h>i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#F97316;font:800 12px var(--fb);font-style:normal}
+.chw-h b{display:block;font-size:15px}.chw-h small{display:block;font-size:12px;color:#86EFAC}.chw-h em{margin-left:auto;font-style:normal;font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px;background:rgba(251,191,36,.18);color:#FBBF24}
+.chw-b{display:grid;gap:10px;padding:18px;min-height:240px;align-content:start}
+.chw-d{justify-self:center;font-size:11px;font-weight:700;padding:3px 12px;border-radius:100px;background:rgba(28,10,0,.08);color:rgba(28,10,0,.6)}
+.chw .cb{max-width:82%;padding:10px 14px 6px;font-size:14.5px;line-height:1.4;box-shadow:0 2px 6px rgba(28,10,0,.1)}
+.chw .cb small{display:block;text-align:right;font-size:10.5px;opacity:.6;margin-top:3px}
+.chw .cb.me{justify-self:end;background:#F97316;color:#fff;border-radius:16px 16px 4px 16px}
+.chw .cb.ai{justify-self:start;background:#fff;color:#1C0A00;border-radius:16px 16px 16px 4px}
+.chw-ty{display:flex;gap:4px;padding:10px 14px;border-radius:16px;background:#fff;width:fit-content}.chw-ty i{width:7px;height:7px;border-radius:50%;background:rgba(28,10,0,.35);animation:lxty 1.2s infinite}.chw-ty i:nth-child(2){animation-delay:.2s}.chw-ty i:nth-child(3){animation-delay:.4s}
+@keyframes lxty{50%{translate:0 -4px;opacity:.4}}
+.chw-i{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fff;border-top:1px solid rgba(28,10,0,.1)}.chw-i span{flex:1;padding:10px 14px;border-radius:100px;background:#F3EEE8;font-size:13px;color:rgba(28,10,0,.5)}.chw-i u{text-decoration:none;padding:9px 16px;border-radius:100px;background:#F97316;color:#fff;font-size:12.5px;font-weight:800}
 /* ===== AI Studio page ===== */
 .shot-slot{position:absolute;inset:0;z-index:5;pointer-events:none}
 .shot-slot .shot,.viz>.shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:6;border-radius:inherit}
@@ -1272,6 +1295,17 @@ html body .cmp-hl::after{background-size:63px 63px,97px 97px;opacity:.35;animati
 .tm3-fig .tm3-scr{padding-bottom:0}
 html body .cmp-us{padding-left:34px}
 @media (max-width:700px){html body .cmp-hl{display:none}}
+.v-quiz i{height:auto;min-height:30px;display:flex;align-items:center;padding:6px 14px;font:600 13px var(--fb);font-style:normal;color:#1E3A8A}.v-quiz i.ok{color:#047857}
+.vi-b{align-items:flex-end;height:auto;gap:16px}.vi-b>div{display:grid;justify-items:center;gap:6px}.vi-b>div>i{display:block;height:calc(var(--h)*1.3);min-height:12px}.vi-b s{text-decoration:none;font-size:11px;font-weight:700;color:#831843}
+
+/* v45 clock */
+.hw-clock{align-items:center!important;gap:22px!important}
+.hw-tx{display:grid;gap:4px}.hw-tx span{display:block}
+.clk{width:clamp(110px,12vw,150px);height:auto;flex:none}
+.clk-f{fill:#fff;stroke:#1C0A00;stroke-width:3}.clk-t{fill:none;stroke:rgba(28,10,0,.1);stroke-width:8}
+.clk-p{fill:none;stroke:#F97316;stroke-width:8;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--hp,0));transform:rotate(-90deg);transform-origin:60px 60px}
+.clk-k path{stroke:#1C0A00;stroke-width:3;stroke-linecap:round}
+.clk-hd{transform-origin:60px 60px;transform:rotate(calc(var(--hp,0) * 3.6deg))}.clk-hd path{stroke:#EA580C;stroke-width:4;stroke-linecap:round}
 /* ===== Frontline LXP ===== */
 .lxh{position:relative;width:min(100%,450px);margin:0 auto;height:560px}
 .lxh-dev{position:absolute;left:0;top:0;width:270px;height:540px;border-radius:40px;background:#15121C;border:7px solid #2a2233;box-shadow:0 40px 90px rgba(28,10,0,.35);overflow:hidden}
@@ -1529,6 +1563,20 @@ html,body{overflow-x:clip}
 .lxh-adm span{display:block;line-height:1.35}
 @media (max-width:1100px){.lxh-dev{left:50%;translate:-50% 0}.lxh-adm{right:-10px}}
 
+/* v45 */
+.lxm-lap{max-width:720px}
+.lxm-fig{margin:56px 0 0}.lxm-fig .lx-img{box-shadow:0 30px 80px rgba(28,10,0,.12)}.lxm-fig figcaption{text-align:center;margin-top:14px;font-size:14px;color:rgba(28,10,0,.65)}
+.lxz-r.lxz-real{padding:0;background:none;display:block}.lxz-real .lx-img{border-radius:28px}
+.lxi-r.lxi-real{padding:0;background:none;border:0;display:grid;place-items:center}.lxi-real .lx-tall{max-height:560px;border-radius:24px}
+
+/* v45 persona cards: explain who the card is about */
+.ind-card{display:flex!important;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px;padding:34px;place-items:unset}
+.ic-k{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#7C2D12}
+.ic-r{font:700 clamp(26px,2.6vw,36px)/1.15 var(--fd,serif);color:#1C0A00}
+.ic-k2{margin-top:14px}
+.ind-card ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.ind-card li{padding:9px 16px;border-radius:100px;background:#fff;box-shadow:0 8px 20px rgba(28,10,0,.12);font-size:14px;font-weight:700;color:#1C0A00}
+
 @media (max-width:1180px){
   .ftgrid{grid-template-columns:1.3fr repeat(2,1fr);row-gap:44px}
   .ftgrid>div:first-child{grid-row:span 2}
@@ -1684,6 +1732,21 @@ nav#nav#nav .nlinks>a.is-soon::after,nav#nav#nav .nlinks>a[data-soon]::after{dis
 #mnav-panel a.is-soon,#mnav-panel a[data-soon]{opacity:.45}
 footer a:not(.is-soon):not([data-soon]){color:rgba(255,255,255,.95)}
 nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
+/* media placeholders: clear "image here / video here" labels */
+.ph-here{display:block;margin-bottom:4px;font:800 11px/1.2 var(--fb,system-ui);letter-spacing:.1em;text-transform:uppercase;color:#FBBF24}
+.phl{font-weight:800}
+.shot-slot[data-ph]::after,.viz[data-ph]::after{content:attr(data-ph);position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:1;width:max-content;max-width:calc(100% - 28px);text-align:center;padding:9px 16px;border-radius:100px;background:#1C0A00;color:#FBBF24;font:800 10px/1.25 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 6px 16px rgba(28,10,0,.3);pointer-events:none}
+.viz[data-ph]{position:relative}
+.vh-note{display:inline-block;margin-left:14px;padding:6px 12px;border-radius:100px;border:1.5px dashed rgba(251,191,36,.8);color:#FBBF24;font:800 10.5px/1.3 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase}
+.vid.vid-missing .poster::after{content:attr(data-vph);position:absolute;left:50%;bottom:64px;translate:-50% 0;z-index:3;padding:7px 14px;border-radius:100px;background:#1C0A00;color:#FBBF24;font:800 10.5px/1.3 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.vid .poster:has(.pimg) .scene{display:none}
+.vid.vid-missing .poster::after{white-space:normal;max-width:86%;text-align:center;bottom:84px}
+html,body{overflow-x:clip}
+
+/* v45: placeholder labels sit centred INSIDE the slot and are covered by the image once it is added */
+.phs.ph-slot:has(>img) .ph-here{display:none}
+.ph[data-slot] .phl{left:50%;bottom:auto;top:calc(50% + 30px);translate:-50% 0;width:max-content;max-width:88%;text-align:center;white-space:normal}
+.vid.vid-missing .poster::after{bottom:auto;top:calc(50% + 62px)}
 </style></head>
 <body>
 <div id="bar" aria-hidden="true"></div>
@@ -1871,7 +1934,7 @@ nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
     <div class="lxv">
       <div class="lxv-h"><h3>A voice for the frontline</h3><span class="ed ed-d">Enterprise edition</span></div>
       <div class="lxv-g">
-        <article class="lxv-c rv"><div class="shot-slot"><img class="shot" src="assets/photos/lxp-l9-push.jpg" alt="" loading="lazy" onerror="this.remove()"></div><span class="tag">Push / WhatsApp reminder</span><h3>Nudges that reach the right cohort</h3><p>Targeted push and WhatsApp reminders to exactly the people who need them.</p><div class="chx chx-wa"><div class="chx-h"><i>ML</i><div><b>Mobcast Learning</b><small>Business account</small></div><em>WhatsApp</em></div><div class="chx-b"><div class="chx-d">Today</div><div class="chx-m ai"><b>Reminder</b><p>Hi Priya, your Product basics course closes Friday. Only 10 minutes left to finish.</p><small>09:00</small></div><div class="chx-m ai"><p>Tap to continue your course</p><small>09:00</small></div></div></div></article>
+        <article class="lxv-c rv"><div class="shot-slot" data-ph="Screenshot here · lxp-l9-push.jpg"><img class="shot" src="assets/photos/lxp-l9-push.jpg" alt="" loading="lazy" onerror="this.remove()"></div><span class="tag">Push / WhatsApp reminder</span><h3>Nudges that reach the right cohort</h3><p>Targeted push and WhatsApp reminders to exactly the people who need them.</p><div class="chx chx-wa"><div class="chx-h"><i>ML</i><div><b>Mobcast Learning</b><small>Business account</small></div><em>WhatsApp</em></div><div class="chx-b"><div class="chx-d">Today</div><div class="chx-m ai"><b>Reminder</b><p>Hi Priya, your Product basics course closes Friday. Only 10 minutes left to finish.</p><small>09:00</small></div><div class="chx-m ai"><p>Tap to continue your course</p><small>09:00</small></div></div></div></article>
         <article class="lxv-c rv" style="--i:1"><span class="tag">Help desk chat</span><h3>Raise it. Track it. Get an answer.</h3><p>Token-based help desk and grievance filing with real-time admin chat.</p><div class="chx"><div class="chx-h"><i>HD</i><div><b>Help desk</b><small><s></s>Online</small></div><em>Token #2041</em></div><div class="chx-b"><div class="chx-d">Today</div><div class="chx-m me"><p>My payslip app is not opening.</p><small>10:24</small></div><div class="chx-t"><span>Token #2041 raised</span><u>Status: Open</u></div><div class="chx-m ai"><b>Admin · Meera</b><p>Hi Priya, I'm looking at it now. Can you send a screenshot?</p><small>10:25</small></div><div class="chx-ty"><i></i><i></i><i></i></div></div><div class="chx-i"><span>Type a message</span><u>Send</u></div></div></article>
       </div>
     </div>
@@ -1904,8 +1967,7 @@ nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
       <p class="lxm-h rv">Pick a role to see the dashboard they get.</p>
       <div class="lxm-t" role="tablist" aria-label="Choose a role"><button class="on" role="tab" aria-selected="true">L&amp;D heads</button><button role="tab" aria-selected="false">HR heads</button><button role="tab" aria-selected="false">Sales heads</button></div>
       <div class="lap lxm-lap"><div class="lap-s">
-        <div class="shot-slot"><img class="shot" src="assets/photos/lxp-l12-admin.jpg" alt="Admin console" loading="lazy" onerror="this.remove()"></div>
-        <div class="lm-bar"><b>Admin console</b><span class="lm-role"><i></i><em class="r0">Viewing as: L&amp;D head</em><em class="r1">Viewing as: HR head</em><em class="r2">Viewing as: Sales head</em></span><small>Sample data</small></div>
+                <div class="lm-bar"><b>Admin console</b><span class="lm-role"><i></i><em class="r0">Viewing as: L&amp;D head</em><em class="r1">Viewing as: HR head</em><em class="r2">Viewing as: Sales head</em></span><small>Sample data</small></div>
         <div class="lm-views">
           <div class="lm-v v0"><h4>How is learning going across the organisation?</h4><div class="lm-g">
             <div class="lm-c"><span>Overall completion</span><strong>78%</strong><u style="--w:78%"><i></i></u><small>of assigned courses finished</small></div>
@@ -1920,13 +1982,14 @@ nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
             <div class="lm-c"><span>Top reps this month</span><ol class="lm-l"><li>Anita S.<b>112%</b></li><li>Rohan M.<b>104%</b></li><li>Neha K.<b>98%</b></li></ol></div>
             <div class="lm-c"><span>Incentive earned</span><strong>₹18,400</strong><u style="--w:74%"><i></i></u><small>₹6,600 to next slab</small></div></div></div>
         </div></div><div class="lap-base"></div></div>
+      <figure class="lxm-fig rv"><img class="lx-img" src="assets/photos/lxp-l12-admin.jpg" alt="Manager and admin view: team health score, journey timeline, completion by region and a learner table with nudges" loading="lazy"><figcaption>Drill from the organisation down to one learner, and nudge them in one tap.</figcaption></figure>
       <div class="lxm-c">
         <article class="lxmc rv"><span class="tag">Manager dashboard</span><h3>See your team in one view</h3><p>Team-level consumption, drill-down to each user, one-tap reminders.</p><div class="dr"><b>Rohan M.</b><u>40% done</u><i>Remind</i></div></article>
         <article class="lxmc rv" style="--i:1"><span class="tag">Feedback and surveys</span><h3>Hear it early</h3><p>Pulse, 360, engagement and onboarding surveys in every question format.</p><div class="sv"><div class="lbr"><span>Clear on my role</span><u style="--w:88%"></u><b>88%</b></div><div class="lbr"><span>Manager supports me</span><u style="--w:76%"></u><b>76%</b></div><div class="lbr"><span>Would recommend us</span><u style="--w:69%"></u><b>69%</b></div><small class="lcap">Sample pulse survey</small></div></article>
         <article class="lxmc rv" style="--i:2"><span class="tag">Audit forms and field capture</span><h3>Field data, structured</h3><p>Structured field data with photos and geo-context.</p><div class="fc"><i></i><b>Store visit · Geo-tagged</b></div></article>
       </div>
     </div>
-    <div class="lxi rv"><div class="lxi-l"><span class="tag">For sales-led teams</span><h3>Reps see earned incentives live.</h3><p>Leaders get daily and monthly sales dashboards. Both are Enterprise, custom. Pairs with <a href="sales-copilot.html">Sales Copilot</a>.</p></div><div class="lxi-r"><div class="shot-slot"><img class="shot" src="assets/photos/lxp-l15-incentive.jpg" alt="" loading="lazy" onerror="this.remove()"></div><span>Earned this month</span><b>₹18,400</b><u><i></i></u><small>₹6,600 to next slab · Sample</small></div></div>
+    <div class="lxi rv"><div class="lxi-l"><span class="tag">For sales-led teams</span><h3>Reps see earned incentives live.</h3><p>Leaders get daily and monthly sales dashboards. Both are Enterprise, custom. Pairs with <a href="sales-copilot.html">Sales Copilot</a>.</p></div><div class="lxi-r lxi-real"><img class="lx-img lx-tall" src="assets/photos/lxp-l15-incentive.jpg" alt="Incentive calculator: a rep sees quarterly earnings instantly" loading="lazy"></div></div>
   </div>
 </section>
 
@@ -1940,9 +2003,7 @@ nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
       <p class="lxz-n rv" style="--i:3">Bundled credits come with Professional and Enterprise editions.</p>
       <a class="btn rv" style="--i:4" href="ai-studio.html">Explore AI Studio</a>
     </div>
-    <div class="lxz-r rv" style="--i:1"><div class="shot-slot"><img class="shot" src="assets/photos/lxp-l16-generated.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
-      <div class="zp"><em>Prompt</em><p>A 10-minute refresher on the returns policy for store associates</p></div><div class="za">↓</div>
-      <div class="zc"><b>Returns policy refresher</b><ol><li>Why it matters<u>Story</u></li><li>Spot the mistake<u>Scenario</u></li><li>Match the rule<u>Game</u></li><li>Check yourself<u>Quiz</u></li></ol><small>Sample · SCORM ready</small></div></div>
+    <div class="lxz-r lxz-real rv" style="--i:1"><img class="lx-img" src="assets/photos/lxp-l16-generated.jpg" alt="AI Studio turning a topic into a course: prompt, slide types and the built course" loading="lazy"></div>
   </div>
 </section>
 
@@ -1955,11 +2016,11 @@ nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
     </div>
     <div class="ind lxn" id="lxn" data-a="0">
       <div class="ind-t" role="tablist" aria-label="Industries"><button class="on" role="tab" aria-selected="true">Retail</button><button role="tab" aria-selected="false">BFSI and insurance</button><button role="tab" aria-selected="false">Logistics</button><button role="tab" aria-selected="false">Hospitality</button><button role="tab" aria-selected="false">Manufacturing</button></div>
-      <div class="ind-sc ind-0"><div class="ind-art lxn-r"><span class="ind-tag">Store floor associate</span><div class="av"><i></i><u></u></div><span class="ind-chip">New launch</span><span class="ind-chip c2">Seasonal hiring</span></div><div class="ind-x"><h3>Retail</h3><p>Constant product launches and seasonal hiring. Keep every store on the same story.</p><a class="maplink" href="#" data-soon="Retail page">See it in Retail →</a></div></div>
-      <div class="ind-sc ind-1"><div class="ind-art"><span class="ind-tag">Branch or field RM</span><div class="av"><i></i><u></u></div><span class="ind-chip">Product</span><span class="ind-chip c2">Process</span><span class="ind-chip c3">Compliance</span></div><div class="ind-x"><h3>BFSI and insurance</h3><p>Product, process and compliance learning for branch and field teams at scale.</p><a class="maplink" href="insurance.html">See it in BFSI →</a></div></div>
-      <div class="ind-sc ind-2"><div class="ind-art"><span class="ind-tag">Delivery or hub staff</span><div class="av"><i></i><u></u></div><span class="ind-chip">Short bursts</span><span class="ind-chip c2">Always moving</span></div><div class="ind-x"><h3>Logistics</h3><p>Short-burst learning for distributed, always-moving teams.</p><a class="maplink" href="#" data-soon="Logistics page">See it in Logistics →</a></div></div>
-      <div class="ind-sc ind-3"><div class="ind-art"><span class="ind-tag">Hotel and service staff</span><div class="av"><i></i><u></u></div><span class="ind-chip">Guest service</span><span class="ind-chip c2">Standards</span></div><div class="ind-x"><h3>Hospitality</h3><p>Service standards and guest-facing skills, learned between shifts and in every property.</p></div></div>
-      <div class="ind-sc ind-4"><div class="ind-art"><span class="ind-tag">Plant and shift teams</span><div class="av"><i></i><u></u></div><span class="ind-chip">Safety</span><span class="ind-chip c2">SOPs</span></div><div class="ind-x"><h3>Manufacturing</h3><p>Plant teams learn procedures and safety practices on their phones, without leaving the line for long.</p></div></div>
+      <div class="ind-sc ind-0"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Store floor associate</b><span class="ic-k ic-k2">Typical topics</span><ul><li>New launch</li><li>Seasonal hiring</li></ul></div><div class="ind-x"><h3>Retail</h3><p>Constant product launches and seasonal hiring. Keep every store on the same story.</p><a class="maplink" href="#" data-soon="Retail page">See it in Retail →</a></div></div>
+      <div class="ind-sc ind-1"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Branch or field RM</b><span class="ic-k ic-k2">Typical topics</span><ul><li>Product</li><li>Process</li><li>Compliance</li></ul></div><div class="ind-x"><h3>BFSI and insurance</h3><p>Product, process and compliance learning for branch and field teams at scale.</p><a class="maplink" href="insurance.html">See it in BFSI →</a></div></div>
+      <div class="ind-sc ind-2"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Delivery or hub staff</b><span class="ic-k ic-k2">Typical topics</span><ul><li>Short bursts</li><li>Always moving</li></ul></div><div class="ind-x"><h3>Logistics</h3><p>Short-burst learning for distributed, always-moving teams.</p><a class="maplink" href="#" data-soon="Logistics page">See it in Logistics →</a></div></div>
+      <div class="ind-sc ind-3"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Hotel and service staff</b><span class="ic-k ic-k2">Typical topics</span><ul><li>Guest service</li><li>Standards</li></ul></div><div class="ind-x"><h3>Hospitality</h3><p>Service standards and guest-facing skills, learned between shifts and in every property.</p></div></div>
+      <div class="ind-sc ind-4"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Plant and shift teams</b><span class="ic-k ic-k2">Typical topics</span><ul><li>Safety</li><li>SOPs</li></ul></div><div class="ind-x"><h3>Manufacturing</h3><p>Plant teams learn procedures and safety practices on their phones, without leaving the line for long.</p></div></div>
     </div>
   </div>
 </section>
@@ -2452,20 +2513,19 @@ var hs=isHome?[]:[].slice.call(D.querySelectorAll('.hero .hs-right'));hs.forEach
 var CHIPS=[['.lxh',[['Streak: 3 days','left:-112px;top:46%',.06,'l']]],
  ['.lxo-dev',[['Unlocks after day 1','right:-60px;top:18%',-.06,'d']]],
  ['.lxc-qr',[['Time-stamped','right:-10px;top:-14px',-.06,'d']]],
- ['.lxz-r',[['SCORM ready','left:-16px;bottom:-16px',.06,'l']]],
- ['.sch',[['Brief ready','left:-6%;top:10%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
+ ['.sch',[['Brief ready','left:-30%;top:4%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
  ['.aib',[['SCORM exported','right:16px;bottom:-20px',.07,'l'],['Hindi voiceover added','right:-18px;top:-18px',-.06,'d']]],
  ['.ixp',[['Reordered','right:-14px;top:-14px',-.06,'l'],['5 modules proposed','left:-18px;bottom:60px',.07,'d']]],
  ['.fp-dev',[['Competitor compared','left:-70px;bottom:18%',.06,'l']]],
  ['.lap',[['Sample data','right:-12px;top:-14px',-.06,'d']]],
  ['.bsl',[['Brand applied','left:-16px;top:-14px',-.06,'d']]],
- ['.edt',[['Free re-prompt','right:24px;top:-16px',-.05,'d']]],
+ ['.edt',[['Free re-prompt','left:42%;top:11px',-.05,'l']]],
  ['.ph-dev',[['Added to audit record','left:-70px;bottom:16%',.06,'l']]],
  ['.fb-ring',[['Sample score','right:-34px;top:4px',-.05,'d']]]];
 CHIPS.forEach(function(c){var host=D.querySelector(c[0]);if(!host||host.closest('#hero-sticky'))return;if(getComputedStyle(host).position==='static')host.style.position='relative';
  c[1].forEach(function(x){var i=D.createElement('span');i.className='fx-chip '+(x[3]==='d'?'is-dark':'');i.style.cssText=x[1];i.setAttribute('data-depth',x[2]);i.setAttribute('aria-hidden','true');i.innerHTML='<i></i>'+x[0];host.appendChild(i)})});
 /* staggered columns in card grids */
-[].forEach.call(D.querySelectorAll('.apb,.pr3,.tr4,.bn3,.pb3,.srcs,.fmt,.prm,.rp-side,.upc,.pho3,.pf-s,.rel,.hh3'),function(g){[].forEach.call(g.children,function(k,i){if(!k.hasAttribute('data-depth')&&!k.classList.contains('rv-x'))k.setAttribute('data-depth',(i%2?.035:-.025))})});
+[].forEach.call(D.querySelectorAll('.zz-none'),function(g){[].forEach.call(g.children,function(k,i){if(!k.hasAttribute('data-depth')&&!k.classList.contains('rv-x'))k.setAttribute('data-depth',(i%2?.035:-.025))})});
 var depthEls=[].slice.call(D.querySelectorAll('[data-depth]'));
 var orbs=[];
 /* card spotlight */
@@ -2478,5 +2538,7 @@ var tick=false;function upd(){tick=false;var vh=W.innerHeight;
 function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
 W.addEventListener('scroll',req,{passive:true});W.addEventListener('resize',req);upd();
 })();
+/* video slots: show "Video here" when the file is not there yet */
+(function(){var D=document;[].forEach.call(D.querySelectorAll('.vid[data-video-src]'),function(v){var src=v.getAttribute('data-video-src'),pz=v.querySelector('.poster');if(!src||!pz)return;pz.setAttribute('data-vph','Video here · '+src.split('/').pop());var p=D.createElement('video');p.preload='metadata';p.muted=true;p.onerror=function(){v.classList.add('vid-missing')};p.onloadedmetadata=function(){v.classList.remove('vid-missing')};p.src=src;setTimeout(function(){if(p.readyState===0)v.classList.add('vid-missing')},1500)})})();
 </script></body>
 </html>

@@ -124,6 +124,7 @@ button{font:inherit;cursor:pointer}
 .hero-craft.on{opacity:1}
 .fly-scene .hero-craft{inset:-8% 0 -2% -12%;width:112%;height:110%;-webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent);mask-image:radial-gradient(closest-side,#000 70%,transparent)}
 .fly-scene .hero-craft{inset:-14% -8% -10% -14%;width:122%;height:124%;-webkit-mask-image:none;mask-image:none}
+.hs-right,.fly-scene{mix-blend-mode:screen}.fly-scene .hero-craft{mix-blend-mode:normal}
 .hero .hs-inner,.hs-right,.fly-scene{z-index:auto}
 @media (max-width:700px){.hero-craft{display:none}.hs-right{display:none}.hero-flow i{animation-duration:70s}}
 @media (max-width:1024px){#streaks{opacity:.55;-webkit-mask-image:none;mask-image:none}}
@@ -593,6 +594,21 @@ nav#nav#nav .nlinks>a.is-soon::after,nav#nav#nav .nlinks>a[data-soon]::after{dis
 #mnav-panel a.is-soon,#mnav-panel a[data-soon]{opacity:.45}
 footer a:not(.is-soon):not([data-soon]){color:rgba(255,255,255,.95)}
 nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
+/* media placeholders: clear "image here / video here" labels */
+.ph-here{display:block;margin-bottom:4px;font:800 11px/1.2 var(--fb,system-ui);letter-spacing:.1em;text-transform:uppercase;color:#FBBF24}
+.phl{font-weight:800}
+.shot-slot[data-ph]::after,.viz[data-ph]::after{content:attr(data-ph);position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:1;width:max-content;max-width:calc(100% - 28px);text-align:center;padding:9px 16px;border-radius:100px;background:#1C0A00;color:#FBBF24;font:800 10px/1.25 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 6px 16px rgba(28,10,0,.3);pointer-events:none}
+.viz[data-ph]{position:relative}
+.vh-note{display:inline-block;margin-left:14px;padding:6px 12px;border-radius:100px;border:1.5px dashed rgba(251,191,36,.8);color:#FBBF24;font:800 10.5px/1.3 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase}
+.vid.vid-missing .poster::after{content:attr(data-vph);position:absolute;left:50%;bottom:64px;translate:-50% 0;z-index:3;padding:7px 14px;border-radius:100px;background:#1C0A00;color:#FBBF24;font:800 10.5px/1.3 var(--fb,system-ui);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.vid .poster:has(.pimg) .scene{display:none}
+.vid.vid-missing .poster::after{white-space:normal;max-width:86%;text-align:center;bottom:84px}
+html,body{overflow-x:clip}
+
+/* v45: placeholder labels sit centred INSIDE the slot and are covered by the image once it is added */
+.phs.ph-slot:has(>img) .ph-here{display:none}
+.ph[data-slot] .phl{left:50%;bottom:auto;top:calc(50% + 30px);translate:-50% 0;width:max-content;max-width:88%;text-align:center;white-space:normal}
+.vid.vid-missing .poster::after{bottom:auto;top:calc(50% + 62px)}
 </style></head>
 <body>
 <div id="bar" aria-hidden="true"></div>
@@ -763,9 +779,9 @@ nav#nav#nav .ndd:not(.has-cur)>button{color:#1C0A00!important;font-weight:700}
           <div class="case-prog" role="group" aria-label="Case study steps"><i class="cp-line" aria-hidden="true"><i class="cp-fill"></i></i><button class="cp-i on" type="button"><b>01</b><span>The challenge</span></button><button class="cp-i" type="button"><b>02</b><span>How Mobcast helped</span></button><button class="cp-i" type="button"><b>03</b><span>The result</span></button></div>
         </div>
         <div class="steps">
-          <div class="step is-on"><div class="n">01</div><div><div class="k">The challenge</div><h3>Train 12,000 agents without taking them off the floor.</h3><p>Fast training, across 600 branches, with full IRDAI audit compliance.</p><div class="ph t2 stepph" style="--r:16/9" data-slot="case-field.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Photo · case-field.jpg</span><img src="assets/photos/case-field.jpg" alt="Frontline staff in a branch" loading="lazy" onerror="this.remove()"></div></div></div>
+          <div class="step is-on"><div class="n">01</div><div><div class="k">The challenge</div><h3>Train 12,000 agents without taking them off the floor.</h3><p>Fast training, across 600 branches, with full IRDAI audit compliance.</p><div class="ph t2 stepph" style="--r:16/9" data-slot="case-field.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Image here · case-field.jpg</span><img src="assets/photos/case-field.jpg" alt="Frontline staff in a branch" loading="lazy" onerror="this.remove()"></div></div></div>
 <div class="step"><div class="n">02</div><div><div class="k">How Mobcast helped</div><div class="solves"><div><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4zM18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg><span>AI Copilot · product knowledge</span></div><div><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4zM7 11.5V16c0 1.2 2.2 2.5 5 2.5s5-1.3 5-2.5v-4.5"/></svg><span>Frontline LMS · micro-learning</span></div><div><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20.5l1.3-4.6A8 8 0 1 1 21 12z"/></svg><span>WhatsApp · compliance delivery</span></div></div></div></div>
-<div class="step"><div class="n">03</div><div><div class="k">The result</div><div class="cq cqp"><div class="cq-text"><q>Agents who never opened an email were completing training in 48 hours. IRDAI audit - zero findings.</q><cite>Chief Compliance Officer · Niva Bupa Insurance</cite></div><div class="ph t3 cqph" style="--r:1/1" data-slot="case-cco.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Portrait · case-cco.jpg</span><img src="assets/photos/case-cco.jpg" alt="Chief Compliance Officer, Niva Bupa" loading="lazy" onerror="this.remove()"></div></div></div></div>
+<div class="step"><div class="n">03</div><div><div class="k">The result</div><div class="cq cqp"><div class="cq-text"><q>Agents who never opened an email were completing training in 48 hours. IRDAI audit - zero findings.</q><cite>Chief Compliance Officer · Niva Bupa Insurance</cite></div><div class="ph t3 cqph" style="--r:1/1" data-slot="case-cco.jpg"><svg class="phi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.6-2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span class="phl">Image here · case-cco.jpg</span><img src="assets/photos/case-cco.jpg" alt="Chief Compliance Officer, Niva Bupa" loading="lazy" onerror="this.remove()"></div></div></div></div>
         </div>
       </div>
     </div>
@@ -1199,20 +1215,19 @@ var hs=isHome?[]:[].slice.call(D.querySelectorAll('.hero .hs-right'));hs.forEach
 var CHIPS=[['.lxh',[['Streak: 3 days','left:-112px;top:46%',.06,'l']]],
  ['.lxo-dev',[['Unlocks after day 1','right:-60px;top:18%',-.06,'d']]],
  ['.lxc-qr',[['Time-stamped','right:-10px;top:-14px',-.06,'d']]],
- ['.lxz-r',[['SCORM ready','left:-16px;bottom:-16px',.06,'l']]],
- ['.sch',[['Brief ready','left:-6%;top:10%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
+ ['.sch',[['Brief ready','left:-30%;top:4%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
  ['.aib',[['SCORM exported','right:16px;bottom:-20px',.07,'l'],['Hindi voiceover added','right:-18px;top:-18px',-.06,'d']]],
  ['.ixp',[['Reordered','right:-14px;top:-14px',-.06,'l'],['5 modules proposed','left:-18px;bottom:60px',.07,'d']]],
  ['.fp-dev',[['Competitor compared','left:-70px;bottom:18%',.06,'l']]],
  ['.lap',[['Sample data','right:-12px;top:-14px',-.06,'d']]],
  ['.bsl',[['Brand applied','left:-16px;top:-14px',-.06,'d']]],
- ['.edt',[['Free re-prompt','right:24px;top:-16px',-.05,'d']]],
+ ['.edt',[['Free re-prompt','left:42%;top:11px',-.05,'l']]],
  ['.ph-dev',[['Added to audit record','left:-70px;bottom:16%',.06,'l']]],
  ['.fb-ring',[['Sample score','right:-34px;top:4px',-.05,'d']]]];
 CHIPS.forEach(function(c){var host=D.querySelector(c[0]);if(!host||host.closest('#hero-sticky'))return;if(getComputedStyle(host).position==='static')host.style.position='relative';
  c[1].forEach(function(x){var i=D.createElement('span');i.className='fx-chip '+(x[3]==='d'?'is-dark':'');i.style.cssText=x[1];i.setAttribute('data-depth',x[2]);i.setAttribute('aria-hidden','true');i.innerHTML='<i></i>'+x[0];host.appendChild(i)})});
 /* staggered columns in card grids */
-[].forEach.call(D.querySelectorAll('.apb,.pr3,.tr4,.bn3,.pb3,.srcs,.fmt,.prm,.rp-side,.upc,.pho3,.pf-s,.rel,.hh3'),function(g){[].forEach.call(g.children,function(k,i){if(!k.hasAttribute('data-depth')&&!k.classList.contains('rv-x'))k.setAttribute('data-depth',(i%2?.035:-.025))})});
+[].forEach.call(D.querySelectorAll('.zz-none'),function(g){[].forEach.call(g.children,function(k,i){if(!k.hasAttribute('data-depth')&&!k.classList.contains('rv-x'))k.setAttribute('data-depth',(i%2?.035:-.025))})});
 var depthEls=[].slice.call(D.querySelectorAll('[data-depth]'));
 var orbs=[];
 /* card spotlight */
@@ -1225,5 +1240,7 @@ var tick=false;function upd(){tick=false;var vh=W.innerHeight;
 function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
 W.addEventListener('scroll',req,{passive:true});W.addEventListener('resize',req);upd();
 })();
+/* video slots: show "Video here" when the file is not there yet */
+(function(){var D=document;[].forEach.call(D.querySelectorAll('.vid[data-video-src]'),function(v){var src=v.getAttribute('data-video-src'),pz=v.querySelector('.poster');if(!src||!pz)return;pz.setAttribute('data-vph','Video here · '+src.split('/').pop());var p=D.createElement('video');p.preload='metadata';p.muted=true;p.onerror=function(){v.classList.add('vid-missing')};p.onloadedmetadata=function(){v.classList.remove('vid-missing')};p.src=src;setTimeout(function(){if(p.readyState===0)v.classList.add('vid-missing')},1500)})})();
 </script></body>
 </html>
