@@ -98,3 +98,8 @@ Still drawn in code, optional to replace with a creative:
   lxp-l15-incentive.jpg   Rep incentive view (4:3)
   lxp-l16-generated.jpg   AI Studio generated course (4:3)
 Format: JPG, under 400 KB, at least 1600px on the long side for wide images.
+
+LXP v46 additions (supplied, already wired)
+  lxp-l9-push.jpg, lxp-l9b-helpdesk.jpg
+  lxp-ind-<industry>-1.jpg and -2.jpg for retail, bfsi, logistics, hospitality, manufacturing (two per industry tab, they cross-fade every 4 seconds)
+Still to supply for LXP: L11 trainer scanning QR, L13 and L14 user drill-down with one-tap reminder, employee quote or short video clip.
