@@ -1306,6 +1306,7 @@ html body .cmp-us{padding-left:34px}
 .clk-p{fill:none;stroke:#F97316;stroke-width:8;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--hp,0));transform:rotate(-90deg);transform-origin:60px 60px}
 .clk-k path{stroke:#1C0A00;stroke-width:3;stroke-linecap:round}
 .clk-hd{transform-origin:60px 60px;transform:rotate(calc(var(--hp,0) * 3.6deg))}.clk-hd path{stroke:#EA580C;stroke-width:4;stroke-linecap:round}
+.hw-s li{display:flex}.hw-s a{width:100%;align-content:start}
 /* ===== Frontline LXP ===== */
 .lxh{position:relative;width:min(100%,450px);margin:0 auto;height:560px}
 .lxh-dev{position:absolute;left:0;top:0;width:270px;height:540px;border-radius:40px;background:#15121C;border:7px solid #2a2233;box-shadow:0 40px 90px rgba(28,10,0,.35);overflow:hidden}
@@ -1576,6 +1577,23 @@ html,body{overflow-x:clip}
 .ic-k2{margin-top:14px}
 .ind-card ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
 .ind-card li{padding:9px 16px;border-radius:100px;background:#fff;box-shadow:0 8px 20px rgba(28,10,0,.12);font-size:14px;font-weight:700;color:#1C0A00}
+
+/* v46 real creatives */
+.lxv-g{grid-template-columns:minmax(0,1fr)}
+.lxv-c.lxv-real{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.6fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(22px,3vw,40px)}
+.lxv-real .lx-img{border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.ind-pic{position:relative;display:block!important;min-height:0!important;aspect-ratio:5/3;padding:0}
+.ind-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s}
+.ind-pic img.on{opacity:1}
+.ind-dots{position:absolute;left:50%;bottom:12px;translate:-50% 0;display:flex;gap:8px;z-index:2}
+.ind-dots i{width:9px;height:9px;border-radius:50%;background:rgba(28,10,0,.28);cursor:pointer}.ind-dots i.on{background:#EA580C;width:22px;border-radius:9px}
+@media (max-width:860px){.lxv-c.lxv-real{grid-template-columns:minmax(0,1fr)}}
+
+/* v47 video */
+.lxvd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:clamp(30px,5vw,80px);align-items:center}
+.lxvd-v{margin:0;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(28,10,0,.18);background:#F6F2FB;aspect-ratio:1/1}
+.lxvd-v video{display:block;width:100%;height:100%;object-fit:cover}
+@media (max-width:860px){.lxvd{grid-template-columns:minmax(0,1fr)}}
 
 @media (max-width:1180px){
   .ftgrid{grid-template-columns:1.3fr repeat(2,1fr);row-gap:44px}
@@ -1875,6 +1893,18 @@ html,body{overflow-x:clip}
   </div>
 </section>
 
+<!-- ============ 03b VIDEO ============ -->
+<section class="sx" id="lxvid" aria-labelledby="lxvid-h">
+  <div class="rail lxvd">
+    <div class="lxvd-l">
+      <span class="eyebrow rv">See it in 30 seconds</span>
+      <h2 class="h2 rv" id="lxvid-h" style="--i:1">Six steps, <em>one app.</em></h2>
+      <p class="sec-sub rv" style="--i:2">A quick walk through the learner journey: onboard, learn in your language, engage, and measure, with a one-tap nudge for anyone falling behind.</p>
+    </div>
+    <figure class="lxvd-v rv" style="--i:1"><video id="lxvid-v" muted loop playsinline preload="metadata" controls poster="assets/photos/lxp-video-poster.jpg" aria-label="Frontline LXP in 30 seconds"><source src="assets/videos/frontline-lxp-30s.mp4" type="video/mp4"></video></figure>
+  </div>
+</section>
+
 <!-- ============ 04 ONBOARD ============ -->
 <section class="sx" id="onboard" aria-labelledby="onboard-h">
   <div class="rail">
@@ -1934,8 +1964,8 @@ html,body{overflow-x:clip}
     <div class="lxv">
       <div class="lxv-h"><h3>A voice for the frontline</h3><span class="ed ed-d">Enterprise edition</span></div>
       <div class="lxv-g">
-        <article class="lxv-c rv"><div class="shot-slot" data-ph="Screenshot here · lxp-l9-push.jpg"><img class="shot" src="assets/photos/lxp-l9-push.jpg" alt="" loading="lazy" onerror="this.remove()"></div><span class="tag">Push / WhatsApp reminder</span><h3>Nudges that reach the right cohort</h3><p>Targeted push and WhatsApp reminders to exactly the people who need them.</p><div class="chx chx-wa"><div class="chx-h"><i>ML</i><div><b>Mobcast Learning</b><small>Business account</small></div><em>WhatsApp</em></div><div class="chx-b"><div class="chx-d">Today</div><div class="chx-m ai"><b>Reminder</b><p>Hi Priya, your Product basics course closes Friday. Only 10 minutes left to finish.</p><small>09:00</small></div><div class="chx-m ai"><p>Tap to continue your course</p><small>09:00</small></div></div></div></article>
-        <article class="lxv-c rv" style="--i:1"><span class="tag">Help desk chat</span><h3>Raise it. Track it. Get an answer.</h3><p>Token-based help desk and grievance filing with real-time admin chat.</p><div class="chx"><div class="chx-h"><i>HD</i><div><b>Help desk</b><small><s></s>Online</small></div><em>Token #2041</em></div><div class="chx-b"><div class="chx-d">Today</div><div class="chx-m me"><p>My payslip app is not opening.</p><small>10:24</small></div><div class="chx-t"><span>Token #2041 raised</span><u>Status: Open</u></div><div class="chx-m ai"><b>Admin · Meera</b><p>Hi Priya, I'm looking at it now. Can you send a screenshot?</p><small>10:25</small></div><div class="chx-ty"><i></i><i></i><i></i></div></div><div class="chx-i"><span>Type a message</span><u>Send</u></div></div></article>
+        <article class="lxv-c lxv-real rv"><div><span class="tag">Push / WhatsApp reminder</span><h3>Nudges that reach the right cohort</h3><p>Targeted push and WhatsApp reminders to exactly the people who need them.</p></div><img class="lx-img" src="assets/photos/lxp-l9-push.jpg" alt="Building a nudge: pick the cohort, choose app push and WhatsApp, see live results, and the learner's WhatsApp reminder" loading="lazy"></article>
+        <article class="lxv-c lxv-real rv" style="--i:1"><div><span class="tag">Help desk chat</span><h3>Raise it. Track it. Get an answer.</h3><p>Token-based help desk and grievance filing with real-time admin chat.</p></div><img class="lx-img" src="assets/photos/lxp-l9b-helpdesk.jpg" alt="Help desk: ticket list, a live chat with an admin, and the form to raise a token by text, voice or screenshot" loading="lazy"></article>
       </div>
     </div>
   </div>
@@ -2016,11 +2046,11 @@ html,body{overflow-x:clip}
     </div>
     <div class="ind lxn" id="lxn" data-a="0">
       <div class="ind-t" role="tablist" aria-label="Industries"><button class="on" role="tab" aria-selected="true">Retail</button><button role="tab" aria-selected="false">BFSI and insurance</button><button role="tab" aria-selected="false">Logistics</button><button role="tab" aria-selected="false">Hospitality</button><button role="tab" aria-selected="false">Manufacturing</button></div>
-      <div class="ind-sc ind-0"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Store floor associate</b><span class="ic-k ic-k2">Typical topics</span><ul><li>New launch</li><li>Seasonal hiring</li></ul></div><div class="ind-x"><h3>Retail</h3><p>Constant product launches and seasonal hiring. Keep every store on the same story.</p><a class="maplink" href="#" data-soon="Retail page">See it in Retail →</a></div></div>
-      <div class="ind-sc ind-1"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Branch or field RM</b><span class="ic-k ic-k2">Typical topics</span><ul><li>Product</li><li>Process</li><li>Compliance</li></ul></div><div class="ind-x"><h3>BFSI and insurance</h3><p>Product, process and compliance learning for branch and field teams at scale.</p><a class="maplink" href="insurance.html">See it in BFSI →</a></div></div>
-      <div class="ind-sc ind-2"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Delivery or hub staff</b><span class="ic-k ic-k2">Typical topics</span><ul><li>Short bursts</li><li>Always moving</li></ul></div><div class="ind-x"><h3>Logistics</h3><p>Short-burst learning for distributed, always-moving teams.</p><a class="maplink" href="#" data-soon="Logistics page">See it in Logistics →</a></div></div>
-      <div class="ind-sc ind-3"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Hotel and service staff</b><span class="ic-k ic-k2">Typical topics</span><ul><li>Guest service</li><li>Standards</li></ul></div><div class="ind-x"><h3>Hospitality</h3><p>Service standards and guest-facing skills, learned between shifts and in every property.</p></div></div>
-      <div class="ind-sc ind-4"><div class="ind-art ind-card"><span class="ic-k">Who learns</span><b class="ic-r">Plant and shift teams</b><span class="ic-k ic-k2">Typical topics</span><ul><li>Safety</li><li>SOPs</li></ul></div><div class="ind-x"><h3>Manufacturing</h3><p>Plant teams learn procedures and safety practices on their phones, without leaving the line for long.</p></div></div>
+      <div class="ind-sc ind-0"><div class="ind-art ind-pic" data-n="2"><img class="on" src="assets/photos/lxp-ind-retail-1.jpg" alt="Retail: store floor associate" loading="lazy"><img src="assets/photos/lxp-ind-retail-2.jpg" alt="Retail: store floor associate, second view" loading="lazy"><span class="ind-dots"><i class="on"></i><i></i></span></div><div class="ind-x"><h3>Retail</h3><p>Constant product launches and seasonal hiring. Keep every store on the same story.</p><a class="maplink" href="#" data-soon="Retail page">See it in Retail →</a></div></div>
+      <div class="ind-sc ind-1"><div class="ind-art ind-pic" data-n="2"><img class="on" src="assets/photos/lxp-ind-bfsi-1.jpg" alt="BFSI and insurance: branch and field teams" loading="lazy"><img src="assets/photos/lxp-ind-bfsi-2.jpg" alt="BFSI and insurance: branch and field teams, second view" loading="lazy"><span class="ind-dots"><i class="on"></i><i></i></span></div><div class="ind-x"><h3>BFSI and insurance</h3><p>Product, process and compliance learning for branch and field teams at scale.</p><a class="maplink" href="insurance.html">See it in BFSI →</a></div></div>
+      <div class="ind-sc ind-2"><div class="ind-art ind-pic" data-n="2"><img class="on" src="assets/photos/lxp-ind-logistics-1.jpg" alt="Logistics: delivery and hub staff" loading="lazy"><img src="assets/photos/lxp-ind-logistics-2.jpg" alt="Logistics: delivery and hub staff, second view" loading="lazy"><span class="ind-dots"><i class="on"></i><i></i></span></div><div class="ind-x"><h3>Logistics</h3><p>Short-burst learning for distributed, always-moving teams.</p><a class="maplink" href="#" data-soon="Logistics page">See it in Logistics →</a></div></div>
+      <div class="ind-sc ind-3"><div class="ind-art ind-pic" data-n="2"><img class="on" src="assets/photos/lxp-ind-hospitality-1.jpg" alt="Hospitality: hotel and service staff" loading="lazy"><img src="assets/photos/lxp-ind-hospitality-2.jpg" alt="Hospitality: hotel and service staff, second view" loading="lazy"><span class="ind-dots"><i class="on"></i><i></i></span></div><div class="ind-x"><h3>Hospitality</h3><p>Service standards and guest-facing skills, learned between shifts and in every property.</p></div></div>
+      <div class="ind-sc ind-4"><div class="ind-art ind-pic" data-n="2"><img class="on" src="assets/photos/lxp-ind-manufacturing-1.jpg" alt="Manufacturing: plant and shift teams" loading="lazy"><img src="assets/photos/lxp-ind-manufacturing-2.jpg" alt="Manufacturing: plant and shift teams, second view" loading="lazy"><span class="ind-dots"><i class="on"></i><i></i></span></div><div class="ind-x"><h3>Manufacturing</h3><p>Plant teams learn procedures and safety practices on their phones, without leaving the line for long.</p></div></div>
     </div>
   </div>
 </section>
@@ -2466,6 +2496,8 @@ function $(i){return document.getElementById(i)}
 var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 function tabs(id,sel){var r=$(id);if(!r)return;var b=[].slice.call(r.querySelectorAll(sel));b.forEach(function(x,i){x.addEventListener('click',function(){r.setAttribute('data-a',i);b.forEach(function(y,j){y.classList.toggle('on',i===j);y.setAttribute('aria-selected',i===j)})})})}
 tabs('lxm','.lxm-t button');tabs('lxn','.ind-t button');
+var vv=$('lxvid-v');if(vv&&'IntersectionObserver' in window&&!RM){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var p=vv.play();if(p&&p.catch)p.catch(function(){})}else vv.pause()})},{threshold:.5}).observe(vv)}
+[].forEach.call(document.querySelectorAll('.ind-pic'),function(pc){var im=pc.querySelectorAll('img'),dt=pc.querySelectorAll('.ind-dots i'),c=0;function go(n){c=n;[].forEach.call(im,function(x,i){x.classList.toggle('on',i===n)});[].forEach.call(dt,function(x,i){x.classList.toggle('on',i===n)})}[].forEach.call(dt,function(d,i){d.addEventListener('click',function(){go(i)})});if(!RM)setInterval(function(){go((c+1)%im.length)},4200)});
 var lo=$('lxo');if(lo&&'IntersectionObserver' in window){var bs=[].slice.call(lo.querySelectorAll('.beat'));var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var k=+e.target.getAttribute('data-k');lo.setAttribute('data-a',k);bs.forEach(function(b,i){b.classList.toggle('is-on',i===k)})}})},{rootMargin:'-42% 0px -42% 0px'});bs.forEach(function(b){io.observe(b)})}
 var g=$('lxg');if(g&&!RM){var n=0,hv=false;g.addEventListener('mouseenter',function(){hv=true});g.addEventListener('mouseleave',function(){hv=false});setInterval(function(){if(!hv){n=(n+1)%4;g.setAttribute('data-a',n)}},2200)}
 [].forEach.call(document.querySelectorAll('#lxg a'),function(a,i){a.addEventListener('mouseenter',function(){g.setAttribute('data-a',i)})});
