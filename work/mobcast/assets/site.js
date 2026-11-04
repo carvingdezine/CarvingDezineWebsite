@@ -43,11 +43,8 @@ var CHIPS=[['.lxh',[['Streak: 3 days','left:-112px;top:46%',.06,'l']]],
  ['.lxc-qr',[['Time-stamped','right:-10px;top:-14px',-.06,'d']]],
  ['.sch',[['Brief ready','left:-30%;top:4%',-.07,'d'],['Objection handled','right:-4%;top:44%',.06,'l']]],
  ['.aib',[['SCORM exported','right:16px;bottom:-20px',.07,'l'],['Hindi voiceover added','right:-18px;top:-18px',-.06,'d']]],
- ['.ixp',[['Reordered','right:-14px;top:-14px',-.06,'l'],['5 modules proposed','left:-18px;bottom:60px',.07,'d']]],
  ['.fp-dev',[['Competitor compared','left:-70px;bottom:18%',.06,'l']]],
  ['.lap',[['Sample data','right:-12px;top:-14px',-.06,'d']]],
- ['.bsl',[['Brand applied','left:-16px;top:-14px',-.06,'d']]],
- ['.edt',[['Free re-prompt','left:42%;top:11px',-.05,'l']]],
  ['.ph-dev',[['Added to audit record','left:-70px;bottom:16%',.06,'l']]],
  ['.fb-ring',[['Sample score','right:-34px;top:4px',-.05,'d']]]];
 CHIPS.forEach(function(c){var host=D.querySelector(c[0]);if(!host||host.closest('#hero-sticky'))return;if(getComputedStyle(host).position==='static')host.style.position='relative';
