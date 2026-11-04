@@ -1595,6 +1595,31 @@ html,body{overflow-x:clip}
 .lxvd-v video{display:block;width:100%;height:100%;object-fit:cover}
 @media (max-width:860px){.lxvd{grid-template-columns:minmax(0,1fr)}}
 
+/* v48 */
+.lxm-fig.lxm-solo{margin-top:0}
+.lxm-roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin-top:28px}
+.lxm-roles article{padding:22px 24px;border-radius:20px;background:#fff;border:1px solid rgba(28,10,0,.1)}
+.lxm-roles b{display:block;font:700 22px var(--fd);margin-bottom:6px}.lxm-roles p{margin:0;font-size:15px;line-height:1.5;color:rgba(28,10,0,.72)}
+@media (max-width:860px){.lxm-roles{grid-template-columns:minmax(0,1fr)}}
+/* creatives keep their exact ratio: never cropped */
+.lxl>.lxl-i .lx-tall{aspect-ratio:auto;height:auto;object-fit:contain;max-height:none}
+.lx-eng{aspect-ratio:auto;height:auto;object-fit:contain}
+
+/* v49: max two background layers (section + the creative's own background) */
+/* Learn: three cards, titles on one line */
+.lxl>.lxl-i{background:none;border:0;box-shadow:none;padding:0}
+.lxl>.lxl-i .lx-tall{flex:1 1 auto;height:0;min-height:clamp(340px,34vw,470px);width:100%;aspect-ratio:auto;object-fit:contain;object-position:center;border-radius:24px;background:none}
+.lxl>.lxl-i h3{min-height:2.3em;margin-top:18px}
+.lxl>.lxl-i p{min-height:6.2em}
+/* Engage: solid section colour matched to the nudge and help desk creatives, creatives sit straight on it */
+#engage.assure{background:#0B1121!important}
+.lxe-c,.lxv-c{background:none!important;border:0!important;padding-left:0;padding-right:0;box-shadow:none}
+.lxe-c:hover,.lxv-c:hover{transform:none;background:none!important}
+.lxv-real .lx-img{box-shadow:none}
+/* Sales-led block: no dark card behind the creative */
+.lxi{background:none;color:#1C0A00;padding:0}
+.lxi .tag{color:#EA580C}.lxi h3{color:#1C0A00}.lxi p{color:rgba(28,10,0,.75)}.lxi a{color:#C2410C}
+
 @media (max-width:1180px){
   .ftgrid{grid-template-columns:1.3fr repeat(2,1fr);row-gap:44px}
   .ftgrid>div:first-child{grid-row:span 2}
@@ -1994,25 +2019,8 @@ html,body{overflow-x:clip}
       <p class="sec-sub rv" style="--i:2">Managers see their team's consumption and drill into any individual. L&amp;D and HR see the whole organisation. No spreadsheets.</p>
     </div>
     <div class="lxm" id="lxm" data-a="0">
-      <p class="lxm-h rv">Pick a role to see the dashboard they get.</p>
-      <div class="lxm-t" role="tablist" aria-label="Choose a role"><button class="on" role="tab" aria-selected="true">L&amp;D heads</button><button role="tab" aria-selected="false">HR heads</button><button role="tab" aria-selected="false">Sales heads</button></div>
-      <div class="lap lxm-lap"><div class="lap-s">
-                <div class="lm-bar"><b>Admin console</b><span class="lm-role"><i></i><em class="r0">Viewing as: L&amp;D head</em><em class="r1">Viewing as: HR head</em><em class="r2">Viewing as: Sales head</em></span><small>Sample data</small></div>
-        <div class="lm-views">
-          <div class="lm-v v0"><h4>How is learning going across the organisation?</h4><div class="lm-g">
-            <div class="lm-c"><span>Overall completion</span><strong>78%</strong><u style="--w:78%"><i></i></u><small>of assigned courses finished</small></div>
-            <div class="lm-c"><span>Completion by region</span><div class="lm-rg"><div><u style="--h:80%"></u><b>80%</b><span>North</span></div><div><u style="--h:56%"></u><b>56%</b><span>South</span></div><div><u style="--h:92%"></u><b>92%</b><span>West</span></div><div><u style="--h:64%"></u><b>64%</b><span>East</span></div></div></div>
-            <div class="lm-c"><span>Courses falling behind</span><ol class="lm-l"><li>Safety basics<b>52%</b></li><li>Product launch<b>61%</b></li><li>KYC refresher<b>67%</b></li></ol></div></div></div>
-          <div class="lm-v v1"><h4>Are new joiners settling in?</h4><div class="lm-g">
-            <div class="lm-c"><span>Onboarding on track</span><div class="lm-ring" style="--p:64"><b>64%</b></div><small>of joiners at day 30</small></div>
-            <div class="lm-c"><span>Pulse survey: how joiners feel</span><div class="lbr"><span>Clear on role</span><u style="--w:88%"></u><b>88%</b></div><div class="lbr"><span>Manager support</span><u style="--w:76%"></u><b>76%</b></div><div class="lbr"><span>Would recommend</span><u style="--w:69%"></u><b>69%</b></div></div>
-            <div class="lm-c"><span>Needs attention</span><ol class="lm-l"><li>Pune branch<b>3 behind</b></li><li>Delhi hub<b>2 behind</b></li><li>Surat store<b>2 behind</b></li></ol></div></div></div>
-          <div class="lm-v v2"><h4>How are sales and incentives tracking? <em class="ed">Enterprise, custom</em></h4><div class="lm-g">
-            <div class="lm-c"><span>Today's sales vs target</span><strong>82%</strong><u style="--w:82%"><i></i></u><small>of daily target reached</small></div>
-            <div class="lm-c"><span>Top reps this month</span><ol class="lm-l"><li>Anita S.<b>112%</b></li><li>Rohan M.<b>104%</b></li><li>Neha K.<b>98%</b></li></ol></div>
-            <div class="lm-c"><span>Incentive earned</span><strong>₹18,400</strong><u style="--w:74%"><i></i></u><small>₹6,600 to next slab</small></div></div></div>
-        </div></div><div class="lap-base"></div></div>
-      <figure class="lxm-fig rv"><img class="lx-img" src="assets/photos/lxp-l12-admin.jpg" alt="Manager and admin view: team health score, journey timeline, completion by region and a learner table with nudges" loading="lazy"><figcaption>Drill from the organisation down to one learner, and nudge them in one tap.</figcaption></figure>
+      <figure class="lxm-fig lxm-solo rv"><img class="lx-img" src="assets/photos/lxp-l12-admin.jpg" alt="Manager and admin view: team health score, journey timeline, completion by region and a learner table with nudges" loading="lazy"><figcaption>Drill from the organisation down to one learner, and nudge them in one tap.</figcaption></figure>
+      <div class="lxm-roles"><article class="rv"><b>L&amp;D heads</b><p>Completion by course and region, and the courses falling behind.</p></article><article class="rv" style="--i:1"><b>HR heads</b><p>Employee health score, who needs attention, and a one-tap nudge.</p></article><article class="rv" style="--i:2"><b>Sales heads</b><p>Daily sales against target, top reps and incentive earned.</p></article></div>
       <div class="lxm-c">
         <article class="lxmc rv"><span class="tag">Manager dashboard</span><h3>See your team in one view</h3><p>Team-level consumption, drill-down to each user, one-tap reminders.</p><div class="dr"><b>Rohan M.</b><u>40% done</u><i>Remind</i></div></article>
         <article class="lxmc rv" style="--i:1"><span class="tag">Feedback and surveys</span><h3>Hear it early</h3><p>Pulse, 360, engagement and onboarding surveys in every question format.</p><div class="sv"><div class="lbr"><span>Clear on my role</span><u style="--w:88%"></u><b>88%</b></div><div class="lbr"><span>Manager supports me</span><u style="--w:76%"></u><b>76%</b></div><div class="lbr"><span>Would recommend us</span><u style="--w:69%"></u><b>69%</b></div><small class="lcap">Sample pulse survey</small></div></article>
@@ -2426,7 +2434,7 @@ window.__FX={tiles:[],blocks:[],cards:'.bt',mag:'.btn,.ncta'};/* ===== FX: paral
   /* ---------- particle motion: the homepage engine, unchanged ---------- */
 var M={raf:0,on:false,P:[],st:'',scat:0,cur:null};
 /* [name, trigger element, target(s) to wrap, shape, pad]  shape: r=rounded box, p=pill, t=tight text, c=circle */
-var STG=[['hero','#hero','#hero .hero-btns .btn','p',9],['prob','#problem','#problem .lxs-b','r',12],['onb','#onboard','#onboard .lxo-dev','r',22],['lrn','#learn','#learn .lxcm','r',12],['eng','#engage','#engage .lxe-lb','r',12],['cls','#classroom','#classroom .lxc-qr','r',12],['mea','#measure','#measure .lxm-lap','r',10],['cre','#create','#create .lxz-r','r',12],['edt','#editions','#editions .lxe3-m','r',12],['final','#final-cta-btn','#final-cta-btn','p',9]];
+var STG=[['hero','#hero','#hero .hero-btns .btn','p',9],['prob','#problem','#problem .lxp3','r',12],['gl','#glance','#lxg','r',12],['vid','#lxvid','#lxvid .lxvd-v','r',12],['onb','#onboard','#onboard .stk-v','r',16],['lrn','#learn','#learn .lxl','r',12],['eng','#engage','#engage .lxe-lb','r',12],['cls','#classroom','#classroom .lxc-r','r',12],['sl','#measure .lxi','#measure .lxi-r','r',12],['mea','#measure','#measure .lxm-fig','r',10],['cre','#create','#create .lxz-r','r',12],['ind','#industries','#industries .ind-sc','r',12],['cus','#customers','#customers .lxlg','r',12],['edt','#editions','#editions .lxed','r',12],['sec','#security','#security .lxb','r',12],['rol','#rollout','#rollout .ro','r',12],['faq','#faq','#faq .faq-r','r',12],['plt','#platform','#platform .pl3','r',12],['final','#final-cta-btn','#final-cta-btn','p',9]];
 var CTA=['final'];
 function vis(e){return e&&e.getClientRects().length}
 function rc(s){var e=$(s);return vis(e)?e.getBoundingClientRect():null}
