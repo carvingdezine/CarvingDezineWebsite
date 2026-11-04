@@ -103,3 +103,7 @@ LXP v46 additions (supplied, already wired)
   lxp-l9-push.jpg, lxp-l9b-helpdesk.jpg
   lxp-ind-<industry>-1.jpg and -2.jpg for retail, bfsi, logistics, hospitality, manufacturing (two per industry tab, they cross-fade every 4 seconds)
 Still to supply for LXP: L11 trainer scanning QR, L13 and L14 user drill-down with one-tap reminder, employee quote or short video clip.
+
+AI Studio v50: supplied and wired (exact ratio, no cropping)
+  ai-studio-a1-upload, a4-index (formats and outline), a5-story, a7-game, a8-scenario, a9-quiz, a11-brand, a13-edit
+Still to supply: ai-studio-a6-animated.jpg (animated stories) and ai-studio-a10-infographic.jpg (infographic), plus the GIF.
