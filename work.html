@@ -209,6 +209,50 @@ html.light-mode .theme-toggle .tt-sun{display:block}
 
 @media(max-width:900px){.wk-masonry{column-count:2;}.wk-ft-main{grid-template-columns:1fr;}.wk-ft-col{border-right:none;border-top:1px solid var(--line);justify-content:center;text-align:center;}.wk-ft-col:first-child{border-top:none;}.wk-ft-links{justify-content:center;}.wk-ft-btm{flex-direction:column;gap:8px;text-align:center;justify-content:center;}}
 @media(max-width:560px){.wk-masonry{column-count:1;}}
+
+/* ═══ RED PLACEHOLDER THUMBNAILS — shown only until a cover image exists ═══
+   Upload a cover and the real image replaces this automatically. */
+.pc-img{container-type:inline-size}
+.pc-ph{display:flex}
+.pc-ph,.pc-img img.img-error~.img-ph{
+  background:#ff2a2a!important;position:absolute;inset:0;width:100%;height:100%;min-height:0;
+  flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;overflow:hidden;
+  padding:clamp(40px,14cqw,58px) clamp(14px,5cqw,22px) 0;
+}
+.pc-ph::before,.pc-img img.img-error~.img-ph::before,.pc-ph::after,.pc-img img.img-error~.img-ph::after{
+  display:block;font-family:var(--f);font-weight:800;letter-spacing:-.045em;line-height:.92;text-transform:none;
+  font-size:clamp(26px,3.2vw,50px);font-size:clamp(26px,12cqw,58px);
+}
+.pc-ph::before,.pc-img img.img-error~.img-ph::before{content:"Selected";color:#000}
+.pc-ph::after,.pc-img img.img-error~.img-ph::after{content:"work";color:#fff}
+.pc[data-cat="ux"] .pc-ph::before,.pc[data-cat="ux"] .pc-img img.img-error~.img-ph::before{content:"UX/UI"}
+.pc[data-cat="ux"] .pc-ph::after,.pc[data-cat="ux"] .pc-img img.img-error~.img-ph::after{content:"design"}
+.pc[data-cat="brand"] .pc-ph::before,.pc[data-cat="brand"] .pc-img img.img-error~.img-ph::before{content:"Brand"}
+.pc[data-cat="brand"] .pc-ph::after,.pc[data-cat="brand"] .pc-img img.img-error~.img-ph::after{content:"identity"}
+.pc[data-cat="deck"] .pc-ph::before,.pc[data-cat="deck"] .pc-img img.img-error~.img-ph::before{content:"Deck"}
+.pc[data-cat="deck"] .pc-ph::after,.pc[data-cat="deck"] .pc-img img.img-error~.img-ph::after{content:"design"}
+.pc[data-cat="print"] .pc-ph::before,.pc[data-cat="print"] .pc-img img.img-error~.img-ph::before{content:"Print"}
+.pc[data-cat="print"] .pc-ph::after,.pc[data-cat="print"] .pc-img img.img-error~.img-ph::after{content:"& marketing"}
+.pc[data-cat="web"] .pc-ph::before,.pc[data-cat="web"] .pc-img img.img-error~.img-ph::before{content:"Interactive"}
+.pc[data-cat="web"] .pc-ph::after,.pc[data-cat="web"] .pc-img img.img-error~.img-ph::after{content:"web"}
+.pc[data-cat="design-system"] .pc-ph::before,.pc[data-cat="design-system"] .pc-img img.img-error~.img-ph::before{content:"Design"}
+.pc[data-cat="design-system"] .pc-ph::after,.pc[data-cat="design-system"] .pc-img img.img-error~.img-ph::after{content:"system"}
+
+.pc-ph-n,.pc-img .img-ph-txt{
+  position:absolute;top:clamp(12px,4cqw,18px);left:clamp(14px,5cqw,22px);
+  font:400 10px/1 var(--m);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;
+  color:#fff;background:#000;padding:5px 9px;
+}
+.pc-badge+.pc-img .pc-ph-n,.pc-badge+.pc-img .img-ph-txt{top:42px}
+.pc-img .img-ph-icon{display:none}
+/* text over the red surface: black, no dark gradient */
+.pc-img:has(.pc-ph) .pc-overlay,.pc-img:has(img.img-error) .pc-overlay{background:none}
+.pc-img:has(.pc-ph) .pc-cat,.pc-img:has(img.img-error) .pc-cat{display:none}
+.pc-img:has(.pc-ph) .pc-title,.pc-img:has(img.img-error) .pc-title{color:#000;text-shadow:none}
+.pc-img:has(.pc-ph) .pc-yr,.pc-img:has(img.img-error) .pc-yr{color:rgba(0,0,0,.78);text-shadow:none}
+.pc-img:has(.pc-ph) .pc-client-link,.pc-img:has(img.img-error) .pc-client-link{color:#000;text-decoration-color:rgba(0,0,0,.45)}
+.pc-img:has(.pc-ph) .pc-live,.pc-img:has(img.img-error) .pc-live,.pc:hover .pc-img:has(.pc-ph) .pc-live{color:#000;border-color:#000;background:transparent}
+.pc:has(.pc-ph) .pc-line,.pc:has(img.img-error) .pc-line{background:#000}
 </style>
 <script type="application/ld+json">
 {
@@ -232,6 +276,7 @@ html.light-mode .theme-toggle .tt-sun{display:block}
   <ul class="nav-links">
     <li><a href="work.html" class="active">Work</a></li>
     <li><a href="index.html#audit">Audit Studio</a></li>
+    <li><a href="index.html#brand-centre">Brand Centre</a></li>
     <li><a href="index.html#pricing">Pricing</a></li>
     <li><a href="index.html#services">Services</a></li>
     <li><a href="index.html#about">About</a></li>
@@ -251,6 +296,7 @@ html.light-mode .theme-toggle .tt-sun{display:block}
   <button class="mob-close" id="mob-close">✕</button>
   <a href="work.html" class="mob-ni active">Work</a>
   <a href="index.html#audit" class="mob-ni">Audit Studio</a>
+  <a href="index.html#brand-centre" class="mob-ni">Brand Centre</a>
   <a href="index.html#pricing" class="mob-ni">Pricing</a>
   <a href="index.html#services" class="mob-ni">Services</a>
   <a href="index.html#about" class="mob-ni">About</a>

@@ -233,6 +233,31 @@
           "@type": "Question",
           "name": "How does payment work?",
           "acceptedAnswer": {"@type": "Answer", "text": "Invoiced directly - Wise for international clients, UPI for India. No card details, no third-party checkout."}
+        },
+        {
+          "@type": "Question",
+          "name": "What is a Brand Centre?",
+          "acceptedAnswer": {"@type": "Answer", "text": "A single self-contained toolkit set up for one company. It holds your brand guidelines as a site, plus ready-made tools for on-brand social posts, print pieces (cards, brochures, decks, ads) and motion or video exports, with light and dark themes. It runs in a browser. See the Kairof Pvt. Ltd. demo in the Brand Centre section."}
+        },
+        {
+          "@type": "Question",
+          "name": "How is it different from a website, or from Frontify and Brandfolder?",
+          "acceptedAnswer": {"@type": "Answer", "text": "A website shows your brand. A Brand Centre also lets your team make things in it. Frontify and Brandfolder are hosted cloud platforms built around logins and a shared asset library. A Brand Centre is not that: no logins, no shared library, no hosted service. If you need a shared asset library for a large team, those tools fit better."}
+        },
+        {
+          "@type": "Question",
+          "name": "What happens after year one?",
+          "acceptedAnswer": {"@type": "Answer", "text": "The first year of AMC is included in your setup fee. After that you can renew it, yearly or monthly, to keep updates, fixes, small edits and email support. If you don't, you keep the version delivered. Updates, fixes, new versions and new templates stop."}
+        },
+        {
+          "@type": "Question",
+          "name": "Can we change it later?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. While your AMC is active I update the Brand Centre when your brand changes and handle a set number of small edits each month. Designing something new, like a new campaign or a fresh set of materials, is design work and sits under the Retainer."}
+        },
+        {
+          "@type": "Question",
+          "name": "Who owns the files?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Your logo, colours, fonts and content stay yours. The Brand Centre itself is licensed to your company: you get the files and may keep using the version delivered, with or without an AMC. New versions and new templates come only while an AMC is active."}
         }
       ]
     }
@@ -252,7 +277,7 @@
 :root{
   --black:#000;--white:#fff;--red:#ff2a2a;--red-hover:#ff5252;--white-rgb:255,255,255;--red-rgb:255,42,42;--black-rgb:0,0,0;
   --g1:#0a0a0a;--g2:#111;--g3:#1a1a1a;--g4:#222;
-  --muted:rgba(var(--white-rgb),.62);--muted2:rgba(var(--white-rgb),.45);
+  --muted:rgba(var(--white-rgb),.72);--muted2:rgba(var(--white-rgb),.58);
   --line:rgba(var(--white-rgb),.07);--line2:rgba(var(--white-rgb),.13);
   --ease:cubic-bezier(.19,1,.22,1);
   --ease2:cubic-bezier(.77,0,.175,1);
@@ -717,6 +742,16 @@ html.light-mode .theme-toggle .tt-sun{display:block}
 .aud-note{font-family:var(--m);font-size:10.5px;letter-spacing:.05em;color:var(--muted2)}
 .aud-err{display:none;font-family:var(--m);font-size:10px;letter-spacing:.05em;color:var(--red);width:100%}
 .aud-ok{display:none;font-family:var(--m);font-size:11px;letter-spacing:.05em;color:#22c55e;line-height:1.7;width:100%}
+/* sample audit card */
+.aud-sample{display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:center;border:1px solid var(--line2);padding:16px;margin-bottom:32px;max-width:640px;color:inherit;text-decoration:none;transition:border-color .3s}
+.aud-sample:hover{border-color:var(--red)}
+.aud-sample:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.aud-sample img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+.aud-sample-tag{font-family:var(--m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px}
+.aud-sample-t{font-size:16px;font-weight:700;margin-bottom:6px}
+.aud-sample-d{font-size:13px;line-height:1.7;color:var(--muted);margin-bottom:10px}
+.aud-sample-l{font-family:var(--m);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+@media(max-width:640px){.aud-sample{grid-template-columns:1fr}}
 @media(max-width:640px){.aud-cta-row{flex-direction:column;align-items:stretch}.aud-fi{max-width:none}.aud-sub{width:100%}}
 
 /* ═══════════════════════════════════
@@ -770,11 +805,11 @@ html.light-mode .theme-toggle .tt-sun{display:block}
 .abt-lnk:hover::after{width:40px}
 .abt-lnk::before{content:'↗';font-size:11px;flex-shrink:0}
 .abt-r{padding:clamp(40px,6vw,72px) clamp(24px,4vw,52px);display:flex;flex-direction:column;justify-content:space-between}
-.abt-body{font-size:15px;line-height:1.95;color:rgba(var(--white-rgb),.70);max-width:540px}
+.abt-body{font-size:16px;line-height:1.9;color:rgba(var(--white-rgb),.80);max-width:560px}
 .abt-body+.abt-body{margin-top:18px}
 .abt-body strong{color:rgba(var(--white-rgb),.88);font-weight:600}
-.abt-body em{color:rgba(var(--white-rgb),.35);font-style:italic}
-.abt-sig{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--m);font-size:12px;letter-spacing:.08em;color:rgba(var(--white-rgb),.52);line-height:2}
+.abt-body em{color:rgba(var(--white-rgb),.62);font-style:italic}
+.abt-sig{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--m);font-size:12px;letter-spacing:.08em;color:rgba(var(--white-rgb),.68);line-height:2}
 .abt-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:52px}
 .ast{padding:22px 0;border-right:1px solid var(--line)}
 .ast:last-child{border-right:none}
@@ -1140,7 +1175,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 .tm-sep{color:var(--line);font-size:12px}
 .tm-role{
   font-family:var(--m);font-size:10px;letter-spacing:.1em;
-  text-transform:uppercase;color:rgba(var(--white-rgb),.4);
+  text-transform:uppercase;color:rgba(var(--white-rgb),.62);
 }
 .tm-platform{
   font-family:var(--m);font-size:9px;letter-spacing:.18em;
@@ -1180,7 +1215,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 }
 .tm-quote{
   font-size:15px;line-height:1.95;
-  color:rgba(var(--white-rgb),.70);
+  color:rgba(var(--white-rgb),.80);
   flex:1;
 }
 .tm-byline{
@@ -1600,7 +1635,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 .faq-eyebrow{font-family:var(--m);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:20px;}
 .faq-title{font-size:clamp(38px,6.5vw,96px);font-weight:900;letter-spacing:-.045em;line-height:.92;margin-bottom:20px;text-transform:uppercase;}
 .faq-title em{font-style:normal;color:var(--red)}
-.faq-sub{font-size:14px;font-weight:300;color:rgba(var(--white-rgb),.45);line-height:1.8;margin-bottom:28px;}
+.faq-sub{font-size:14px;font-weight:300;color:rgba(var(--white-rgb),.64);line-height:1.8;margin-bottom:28px;}
 .faq-cta{
   display:inline-flex;align-items:center;gap:8px;
   font-family:var(--m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
@@ -1636,7 +1671,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 .faq-item.on .faq-a{max-height:300px;}
 .faq-a-inner{
   padding:0 clamp(20px,4vw,52px) clamp(20px,2.5vw,32px);
-  font-size:14px;font-weight:300;color:rgba(var(--white-rgb),.55);line-height:1.9;
+  font-size:14px;font-weight:300;color:rgba(var(--white-rgb),.74);line-height:1.9;
 }
 @media(max-width:768px){
   .faq-wrap{grid-template-columns:1fr;}
@@ -1867,6 +1902,121 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   transform:scaleX(0);transform-origin:right;
   transition:transform .35s var(--ease2) .05s;
 }
+/* ═══════════════════════════════════
+   BRAND CENTRE (additive)
+═══════════════════════════════════ */
+
+/* Services: sixth card needs a little more scroll runway */
+@media(min-width:901px){.svc-scroll-outer{height:420vh}}
+
+/* FAQ: a few Brand Centre answers are longer than the originals */
+.faq-item.on .faq-a{max-height:420px}
+
+/* Nav: one more link, so tighten the middle widths a touch */
+@media(min-width:769px) and (max-width:1280px){
+  .nav-links{gap:clamp(12px,1.5vw,20px)}
+  .nav-links a{font-size:10px;letter-spacing:.1em;white-space:nowrap}
+  .avail-badge{display:none}
+}
+
+/* Showcase section */
+#brand-centre{border-bottom:1px solid var(--line);padding:clamp(48px,6vw,80px) 0}
+.bc-wrap{max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,52px)}
+.bc-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,4vw,56px);align-items:center;margin-top:8px}
+.bc-benefits{list-style:none;border-top:1px solid var(--line)}
+.bc-benefits li{display:grid;grid-template-columns:34px 1fr;gap:0 14px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.75;color:var(--muted)}
+.bc-benefits .bc-n{font-family:var(--m);font-size:11px;letter-spacing:.14em;color:var(--red);padding-top:3px}
+.bc-benefits strong{color:var(--white);font-weight:700}
+.bc-video{position:relative;aspect-ratio:16/9;border:1px solid var(--line2);background:#000;overflow:hidden}
+.bc-video video,.bc-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain;background:#000}
+.bc-badge{position:absolute;top:12px;left:12px;z-index:2;pointer-events:none;font-family:var(--m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:#fff;padding:5px 11px}
+.bc-cap{font-family:var(--m);font-size:11px;letter-spacing:.04em;line-height:1.7;color:var(--muted2);margin-top:12px}
+.bc-cap a{color:var(--white);text-decoration:underline;text-underline-offset:3px}
+.bc-cap a:hover{color:var(--red)}
+.bc-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+@media(max-width:800px){.bc-grid{grid-template-columns:1fr}}
+
+/* Pricing: Brand Centre lane */
+.pr-help{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 28px;margin-top:44px;padding:18px 22px;border:1px solid var(--line2);border-left:3px solid var(--red);font-size:14px;line-height:1.6;color:var(--muted)}
+.pr-help-q{font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--white)}
+.pr-help b{color:var(--white);font-weight:700}
+.pr-bc-head{margin-top:40px}
+.pr-bc-head .pr-title{margin-bottom:8px}
+.pr-bc-head .pr-desc{max-width:640px;margin-bottom:0}
+.pr-bc-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:24px}
+.pr-tiers{list-style:none;margin:6px 0 22px;border-top:1px solid var(--line)}
+.pr-tiers li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.5;color:rgba(var(--white-rgb),.65)}
+.pr-tiers strong{display:block;color:var(--white);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.pr-tiers .pr-tp{font-family:var(--m);font-size:15px;color:var(--white);text-align:right;white-space:nowrap}
+.pr-tiers .pr-tp small{display:block;font-size:11px;color:var(--muted2)}
+.pr-fine{font-family:var(--m);font-size:11px;line-height:1.7;color:var(--muted2);margin:-8px 0 22px}
+.pr-bc-cta{max-width:440px;margin:28px auto 0}
+@media(max-width:700px){.pr-bc-grid{grid-template-columns:1fr}}
+
+/* ═══ RED PLACEHOLDER THUMBNAILS — shown only until a cover image exists ═══
+   Upload a cover and the real image replaces this automatically. */
+.pc-img{container-type:inline-size}
+.pc-ph{display:flex}
+.pc-ph,.pc-img img.img-error~.img-ph{
+  background:#ff2a2a!important;position:absolute;inset:0;width:100%;height:100%;min-height:0;
+  flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;overflow:hidden;
+  padding:clamp(40px,14cqw,58px) clamp(14px,5cqw,22px) 0;
+}
+.pc-ph::before,.pc-img img.img-error~.img-ph::before,.pc-ph::after,.pc-img img.img-error~.img-ph::after{
+  display:block;font-family:var(--f);font-weight:800;letter-spacing:-.045em;line-height:.92;text-transform:none;
+  font-size:clamp(26px,3.2vw,50px);font-size:clamp(26px,12cqw,58px);
+}
+.pc-ph::before,.pc-img img.img-error~.img-ph::before{content:"Selected";color:#000}
+.pc-ph::after,.pc-img img.img-error~.img-ph::after{content:"work";color:#fff}
+.pc[data-cat="ux"] .pc-ph::before,.pc[data-cat="ux"] .pc-img img.img-error~.img-ph::before{content:"UX/UI"}
+.pc[data-cat="ux"] .pc-ph::after,.pc[data-cat="ux"] .pc-img img.img-error~.img-ph::after{content:"design"}
+.pc[data-cat="brand"] .pc-ph::before,.pc[data-cat="brand"] .pc-img img.img-error~.img-ph::before{content:"Brand"}
+.pc[data-cat="brand"] .pc-ph::after,.pc[data-cat="brand"] .pc-img img.img-error~.img-ph::after{content:"identity"}
+.pc[data-cat="deck"] .pc-ph::before,.pc[data-cat="deck"] .pc-img img.img-error~.img-ph::before{content:"Deck"}
+.pc[data-cat="deck"] .pc-ph::after,.pc[data-cat="deck"] .pc-img img.img-error~.img-ph::after{content:"design"}
+.pc[data-cat="print"] .pc-ph::before,.pc[data-cat="print"] .pc-img img.img-error~.img-ph::before{content:"Print"}
+.pc[data-cat="print"] .pc-ph::after,.pc[data-cat="print"] .pc-img img.img-error~.img-ph::after{content:"& marketing"}
+.pc[data-cat="web"] .pc-ph::before,.pc[data-cat="web"] .pc-img img.img-error~.img-ph::before{content:"Interactive"}
+.pc[data-cat="web"] .pc-ph::after,.pc[data-cat="web"] .pc-img img.img-error~.img-ph::after{content:"web"}
+.pc[data-cat="design-system"] .pc-ph::before,.pc[data-cat="design-system"] .pc-img img.img-error~.img-ph::before{content:"Design"}
+.pc[data-cat="design-system"] .pc-ph::after,.pc[data-cat="design-system"] .pc-img img.img-error~.img-ph::after{content:"system"}
+
+.pc-ph-n,.pc-img .img-ph-txt{
+  position:absolute;top:clamp(12px,4cqw,18px);left:clamp(14px,5cqw,22px);
+  font:400 10px/1 var(--m);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;
+  color:#fff;background:#000;padding:5px 9px;
+}
+.pc-badge+.pc-img .pc-ph-n,.pc-badge+.pc-img .img-ph-txt{top:42px}
+.pc-img .img-ph-icon{display:none}
+/* text over the red surface: black, no dark gradient */
+.pc-img:has(.pc-ph) .pc-overlay,.pc-img:has(img.img-error) .pc-overlay{background:none}
+.pc-img:has(.pc-ph) .pc-cat,.pc-img:has(img.img-error) .pc-cat{display:none}
+.pc-img:has(.pc-ph) .pc-title,.pc-img:has(img.img-error) .pc-title{color:#000;text-shadow:none}
+.pc-img:has(.pc-ph) .pc-yr,.pc-img:has(img.img-error) .pc-yr{color:rgba(0,0,0,.78);text-shadow:none}
+.pc-img:has(.pc-ph) .pc-client-link,.pc-img:has(img.img-error) .pc-client-link{color:#000;text-decoration-color:rgba(0,0,0,.45)}
+.pc-img:has(.pc-ph) .pc-live,.pc-img:has(img.img-error) .pc-live,.pc:hover .pc-img:has(.pc-ph) .pc-live{color:#000;border-color:#000;background:transparent}
+.pc:has(.pc-ph) .pc-line,.pc:has(img.img-error) .pc-line{background:#000}
+
+/* ═══ PAPER SECTIONS — a white panel for text-heavy sections ═══
+   Add class="paper" to any section or column. Colours come from your existing
+   light palette, so everything inside flips automatically. In light mode the
+   same class turns the panel dark, so the rhythm is kept. */
+.paper{
+  --black:#ffffff;--white:#0f0f0f;--red:#E8001D;--red-hover:#B20016;
+  --white-rgb:15,15,15;--red-rgb:232,0,29;--black-rgb:255,255,255;
+  --g1:#f5f5f5;--g2:#eeeeee;--g3:#e2e2e2;--g4:#d4d4d4;
+  --muted:rgba(15,15,15,.74);--muted2:rgba(15,15,15,.62);
+  --line:rgba(15,15,15,.10);--line2:rgba(15,15,15,.18);
+  background:#ffffff;color:#0f0f0f;
+}
+html.light-mode .paper{
+  --black:#000;--white:#fff;--red:#ff2a2a;--red-hover:#ff5252;
+  --white-rgb:255,255,255;--red-rgb:255,42,42;--black-rgb:0,0,0;
+  --g1:#0a0a0a;--g2:#111;--g3:#1a1a1a;--g4:#222;
+  --muted:rgba(255,255,255,.74);--muted2:rgba(255,255,255,.62);
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);
+  background:#000;color:#fff;
+}
 </style>
 </head>
 <body>
@@ -1992,6 +2142,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   <button class="mob-close" id="mob-close">✕</button>
   <a href="#work" class="mob-ni">Work</a>
   <a href="#audit" class="mob-ni">Audit Studio</a>
+  <a href="#brand-centre" class="mob-ni">Brand Centre</a>
   <a href="#pricing" class="mob-ni">Pricing</a>
   <a href="#services" class="mob-ni">Services</a>
   <a href="#about" class="mob-ni">About</a>
@@ -2314,6 +2465,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#audit">Audit Studio</a></li>
+    <li><a href="#brand-centre">Brand Centre</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
@@ -2428,7 +2580,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <!-- ═══════════════════ SERVICES (editorial list, merged with How We Work) ═══════════════════ -->
 <section id="services">
   <h2 class="sr-only">Services</h2>
-  <div class="s-hd rv"><span class="sec-tag">Specialisms</span><span class="sec-ct">5 services</span></div>
+  <div class="s-hd rv"><span class="sec-tag">Specialisms</span><span class="sec-ct">6 services</span></div>
   <div class="svc-scroll-outer">
     <div class="svc-scroll-pin">
       <div class="svc-eds">
@@ -2492,9 +2644,21 @@ h2 .whu{display:inline-block;vertical-align:bottom}
           </div>
           <div class="svc-ed-icon" style="font-size:22px">⟡</div>
         </div>
+        <div class="svc-ed rv" data-i="5">
+          <div class="svc-ed-bgnum">06</div>
+          <div class="svc-ed-num">06</div>
+          <div class="svc-ed-main">
+            <h3 class="svc-ed-name">Brand Centre</h3>
+            <p class="svc-ed-body">A brand guidelines site plus ready-made on-brand creation tools, in one toolkit set up for your company.</p>
+            <p class="svc-ed-how"><span>Best for:</span> Companies with a finished brand and a team that keeps making posts, decks and print.</p>
+            <div class="svc-ed-tags-spacer"></div>
+            <div class="svc-tags"><span class="svc-tag">Brand Guidelines</span><span class="svc-tag">Social Studio</span><span class="svc-tag">Print Templates</span><span class="svc-tag">Motion Export</span></div>
+          </div>
+          <div class="svc-ed-icon">◧</div>
+        </div>
       </div>
       <div class="svc-dots" id="svc-dots">
-        <span class="svc-dot on"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span>
+        <span class="svc-dot on"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span>
       </div>
     </div>
   </div>
@@ -2506,7 +2670,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIiBhcmlhLWxhYmVsPSJDYXJ2aW5nIERlemluZSI+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIgZD0iTTI4My40Niw1NjYuOTNoMEMxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3aDBDMCwxMjYuOTEsMTI2LjkxLDAsMjgzLjQ2LDBzMjgzLjQ2LDEyNi45MSwyODMuNDYsMjgzLjQ2aDBjMCwxNTYuNTUtMTI2LjkxLDI4My40Ni0yODMuNDYsMjgzLjQ2Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTIyNS40NywzMjFjMC0zMi41NSwyNS43OS01OS4yNiw1Ny40Mi01OS41NGg2NS45MnYtNjAuNTFjLTQxLjQyLDAtNjYuMjMsMC02Ni4yOCwwLTY0LjM3LjUyLTExNi43NCw1NC4zNy0xMTYuNzQsMTIwLjA0LDAsMzIuMjksMTIuNTgsNjEuNjEsMzIuOTgsODMuMjFsLTI0LjUxLDQ5LjM0LDY0LjY1LTIxLjQ2YzEzLjc1LDUuNzYsMjguOCw4Ljk2LDQ0LjU2LDguOTYsMTQuMzIsMCwyOC4wNC0yLjYzLDQwLjc1LTcuNDN2LTcwLjMxYy0xMC40OCwxMC42NC0yNC44OCwxNy4yMy00MC43NSwxNy4yMy0zMS45OCwwLTU4LTI2LjcxLTU4LTU5LjU0Ii8+PHJlY3QgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTloMHYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg==" class="abt-logo" alt="Carving Dezine"/ loading="lazy">
     <h2 class="abt-q"><span class="whu">DESIGN</span> <span class="whu">THAT</span><br><span class="whu">MAKES</span> <span class="whu">PEOPLE</span><br><em><span class="whu" data-scramble>STOP.</span></em><br><span class="whu">THEN</span> <span class="whu">ACT.</span></h2>
   </div>
-  <div class="abt-r rv-right">
+  <div class="abt-r rv-right paper">
     <div>
       <div class="sec-tag" style="margin-bottom:26px">About the Studio</div>
       <p class="abt-body">Carving Dezine is a boutique design studio founded by <strong>Tanvi Shah</strong> - a designer with 15+ years of experience crafting thoughtful digital and brand experiences.</p>
@@ -2522,7 +2686,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 
 
 <!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
-<section id="testimonials">
+<section id="testimonials" class="paper">
   <h2 class="sr-only">Client Testimonials</h2>
   <div class="s-hd rv"><span class="sec-tag">Kind Words</span><span class="sec-ct" id="tm-ct"></span></div>
   <div class="tm-grid tm-scene" id="tm-grid"><!-- populated by JS --></div>
@@ -2552,6 +2716,15 @@ h2 .whu{display:inline-block;vertical-align:bottom}
     <div class="aud-tags rv-children">
       <span class="svc-tag">Website Health</span><span class="svc-tag">Brand Health</span><span class="svc-tag">UX / Product</span><span class="svc-tag">Conversion</span><span class="svc-tag">Mobile Experience</span><span class="svc-tag">AI Readiness</span>
     </div>
+    <a class="aud-sample rv" href="samples/ux-audit-sample.html">
+      <img src="images/audit-sample-thumb.jpg" alt="Cover of the sample UX/UI audit report" loading="lazy"/>
+      <div>
+        <div class="aud-sample-tag">Sample audit &middot; self-initiated</div>
+        <div class="aud-sample-t">UX/UI audit of a Web3 racing game</div>
+        <p class="aud-sample-d">Eleven prioritised findings from a source-code review, with a suggested first phase. Details anonymised.</p>
+        <span class="aud-sample-l">Read the sample &rarr;</span>
+      </div>
+    </a>
     <div class="aud-cta-row rv">
       <input class="aud-fi" type="text" id="aud-url" placeholder="Your website URL"/>
       <input class="aud-fi" type="email" id="aud-email" placeholder="Your email" required/>
@@ -2563,9 +2736,46 @@ h2 .whu{display:inline-block;vertical-align:bottom}
   </div>
 </section>
 
+<!-- ═══════════════════ BRAND CENTRE (showcase) ═══════════════════ -->
+<section id="brand-centre">
+  <div class="bc-wrap">
+    <div class="s-hd rv"><span class="sec-tag">Brand Centre</span><span class="sec-ct">New · A Carving Dezine product</span></div>
+    <h2 class="aud-h rv">A BRAND GUIDE YOU CAN <em data-scramble>ACTUALLY USE.</em></h2>
+    <p class="aud-lede rv">Brand Centre is a brand-in-a-box: your guidelines and a ready set of on-brand tools, together in one toolkit made for your company.</p>
+
+    <div class="bc-grid">
+      <ul class="bc-benefits rv">
+        <li><span class="bc-n">01</span><div><strong>Guidelines that work.</strong> Your brand rules live next to the tools that apply them.</div></li>
+        <li><span class="bc-n">02</span><div><strong>On-brand from the first click.</strong> Posts, cards, brochures, decks and ads start from your templates, not a blank page.</div></li>
+        <li><span class="bc-n">03</span><div><strong>Still or moving.</strong> Export motion and video from the same toolkit.</div></li>
+        <li><span class="bc-n">04</span><div><strong>Made for one company.</strong> Yours. Self-contained, with no logins and no platform to sign in to.</div></li>
+      </ul>
+
+      <div class="bc-demo rv">
+        <div class="bc-video">
+          <span class="bc-badge">Real client: Kairof Pvt. Ltd.</span>
+          <!-- OPTION A (self-hosted file): fill in the two placeholders -->
+          <video controls playsinline preload="metadata" poster="[KAIROF_POSTER_IMAGE_URL]">
+            <source src="[KAIROF_DEMO_VIDEO_URL.mp4]" type="video/mp4"/>
+          </video>
+          <!-- OPTION B (YouTube / Vimeo): delete the <video> above and use this instead
+          <iframe src="[EMBED_URL]" title="Kairof Pvt. Ltd. Brand Centre demo" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+          -->
+        </div>
+        <p class="bc-cap">The Brand Centre built for Kairof Pvt. Ltd. <a href="[KAIROF_DEMO_VIDEO_URL]" target="_blank" rel="noopener">Open the video in a new tab →</a></p>
+      </div>
+    </div>
+
+    <div class="bc-cta rv">
+      <a href="#contact" class="btn-p" data-bc-enquire>Get a Brand Centre quote <svg viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+      <a href="#pricing" class="btn-g">See pricing</a>
+    </div>
+  </div>
+</section>
+
 <section id="pricing">
   <div class="pr-wrap">
-    <div class="s-hd rv"><span class="sec-tag">Ways To Work Together</span><span class="sec-ct">2 plans</span></div>
+    <div class="s-hd rv"><span class="sec-tag">Ways To Work Together</span><span class="sec-ct">3 ways</span></div>
     <h2 class="aud-h rv">READY TO SKIP AHEAD? <em data-scramble>PICK A LANE.</em></h2>
 
     <div class="pr-cards-grid rv-children">
@@ -2601,12 +2811,65 @@ h2 .whu{display:inline-block;vertical-align:bottom}
         <a href="https://wa.me/919820142005?text=Hi!%20I%27m%20interested%20in%20the%20Retainer%20plan%20-%20can%20we%20discuss%20details%3F" target="_blank" rel="noopener" class="pr-wa">or message on WhatsApp →</a>
       </div>
     </div>
+
+    <!-- ═══ BRAND CENTRE LANE ═══ -->
+    <div class="pr-help rv">
+      <span class="pr-help-q">Which one do I need?</span>
+      <span><b>Retainer</b> = I design new things for you.</span>
+      <span><b>Brand Centre AMC</b> = I maintain your tool.</span>
+      <span>Both? [X]% off.</span>
+    </div>
+
+    <div class="pr-bc-head rv">
+      <div class="pr-tag">New · Not design work: a toolkit for your own brand</div>
+      <div class="pr-title">Brand Centre</div>
+      <p class="pr-desc">A brand-in-a-box set up for one company. Pay the setup fee once; the first year of AMC is included.</p>
+    </div>
+
+    <div class="pr-bc-grid rv-children">
+      <div class="pr-card">
+        <div class="pr-tag">Step 1 · One time, per company</div>
+        <div class="pr-title">Setup</div>
+        <ul class="pr-tiers">
+          <li><div><strong>Starter</strong>[STARTER_INCLUDES]</div><div class="pr-tp">$[STARTER_USD]<small>₹[STARTER_INR]</small></div></li>
+          <li><div><strong>Standard</strong>[STANDARD_INCLUDES]</div><div class="pr-tp">$[STANDARD_USD]<small>₹[STANDARD_INR]</small></div></li>
+          <li><div><strong>Custom</strong>[CUSTOM_INCLUDES]</div><div class="pr-tp">from $[CUSTOM_USD]<small>from ₹[CUSTOM_INR]</small></div></li>
+        </ul>
+        <ul class="pr-list">
+          <li>Brand guidelines site and creation tools, set up for your company</li>
+          <li>First year of AMC included</li>
+          <li>Keep using the version delivered</li>
+        </ul>
+      </div>
+
+      <div class="pr-card">
+        <div class="pr-tag">Step 2 · Annual Maintenance Contract</div>
+        <div class="pr-title">AMC</div>
+        <div class="pr-price">$[AMC_YEAR_USD]<small>/yr</small></div>
+        <div class="pr-price-sub">or $[AMC_MONTH_USD]/mo &middot; ₹[AMC_YEAR_INR]/yr or ₹[AMC_MONTH_INR]/mo domestic</div>
+        <p class="pr-desc">Included free for year one. After that, it keeps your Brand Centre maintained. It does not cover new design work.</p>
+        <ul class="pr-list">
+          <li>Updates when your brand changes</li>
+          <li>Fixes for exports and browser changes</li>
+          <li>[N] small edits per month</li>
+          <li>Email support, reply within [RESPONSE_TIME]</li>
+          <li>New versions and templates while active</li>
+        </ul>
+        <div class="pr-fine">No AMC? You can keep using the version delivered. New versions and templates need an active AMC.</div>
+      </div>
+    </div>
+
+    <div class="pr-bc-cta rv">
+      <a href="#contact" class="pr-cta" data-plan="Brand Centre">Get a Brand Centre Quote</a>
+      <a href="https://wa.me/919820142005?text=Hi!%20I%27m%20interested%20in%20Brand%20Centre%20-%20can%20we%20discuss%20setup%20and%20pricing%3F" target="_blank" rel="noopener" class="pr-wa">or message on WhatsApp →</a>
+    </div>
+
     <div class="pr-pay-note rv">No card required - invoiced via Wise for international clients, UPI for India.</div>
   </div>
 </section>
 
 
-<section id="faq">
+<section id="faq" class="paper">
   <div class="faq-wrap">
     <div class="faq-left rv">
       <div class="faq-eyebrow">FAQ</div>
@@ -2720,6 +2983,46 @@ h2 .whu{display:inline-block;vertical-align:bottom}
         <div class="faq-a"><div class="faq-a-inner">Invoiced directly - Wise for international clients, UPI for India. No card details, no third-party checkout.</div></div>
       </div>
 
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">What is a Brand Centre?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">A single self-contained toolkit set up for one company. It holds your brand guidelines as a site, plus ready-made tools for on-brand social posts, print pieces (cards, brochures, decks, ads) and motion or video exports, with light and dark themes. It runs in a browser. See the Kairof Pvt. Ltd. demo in the Brand Centre section.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">How is it different from a website, or from Frontify and Brandfolder?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">A website shows your brand. A Brand Centre also lets your team make things in it. Frontify and Brandfolder are hosted cloud platforms built around logins and a shared asset library. A Brand Centre is not that: no logins, no shared library, no hosted service. If you need a shared asset library for a large team, those tools fit better.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">What happens after year one?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">The first year of <a href="#pricing" style="color:var(--red);text-decoration:underline">AMC</a> is included in your setup fee. After that you can renew it, yearly or monthly, to keep updates, fixes, small edits and email support. If you don't, you keep the version delivered. Updates, fixes, new versions and new templates stop.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">Can we change it later?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. While your AMC is active I update the Brand Centre when your brand changes and handle a set number of small edits each month. Designing something new, like a new campaign or a fresh set of materials, is design work and sits under the <a href="#pricing" style="color:var(--red);text-decoration:underline">Retainer</a>.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">Who owns the files?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Your logo, colours, fonts and content stay yours. The Brand Centre itself is licensed to your company: you get the files and may keep using the version delivered, with or without an AMC. New versions and new templates come only while an AMC is active.</div></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -2771,6 +3074,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
         <option value="">Select a service…</option>
         <option>UX / UI Design</option><option>Brand Identity</option>
         <option>Presentation Design</option><option>Print &amp; Marketing</option><option>Interactive Web</option>
+        <option>Brand Centre</option>
         <option>Multiple Services</option>
       </select>
     </div>
@@ -2782,6 +3086,8 @@ h2 .whu{display:inline-block;vertical-align:bottom}
         <option>₹1L – ₹3L / $1,200 – $3,600</option>
         <option>₹3L – ₹5L / $3,600 – $6,000</option>
         <option>₹5L+ / $6,000+</option>
+        <option>Brand Centre setup: ₹[STARTER_INR] – ₹[STANDARD_INR] / $[STARTER_USD] – $[STANDARD_USD]</option>
+        <option>Brand Centre custom: from ₹[CUSTOM_INR] / $[CUSTOM_USD]</option>
         <option>Let's discuss</option>
       </select>
     </div>
@@ -4068,7 +4374,7 @@ document.getElementById('fsub').addEventListener('click',function(){
 
 // NAV - ACTIVE SECTION INDICATOR (desktop + mobile)
 (function(){
-  var ids=['hero','work','audit','services','about','testimonials','faq','contact'];
+  var ids=['hero','work','audit','brand-centre','pricing','services','about','testimonials','faq','contact'];
   var sections=ids.map(function(id){return document.getElementById(id)}).filter(Boolean);
   var navLinks=document.querySelectorAll('.nav-links a, .mob-ni');
   if(!sections.length||!navLinks.length)return;
@@ -4165,6 +4471,20 @@ document.getElementById('fsub').addEventListener('click',function(){
       var isOn=item.classList.contains('on');
       document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('on');});
       if(!isOn)item.classList.add('on');
+    });
+  });
+})();
+
+// BRAND CENTRE — enquiry buttons. Reuses the pricing-card handler (tags the plan,
+// shows the "Enquiring about" chip, scrolls to the form) and preselects the service.
+(function(){
+  function pick(){var s=document.getElementById('fs');if(s)s.value='Brand Centre';}
+  var priceBtn=document.querySelector('.pr-cta[data-plan="Brand Centre"]');
+  if(priceBtn)priceBtn.addEventListener('click',pick);
+  document.querySelectorAll('[data-bc-enquire]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      pick();
+      if(priceBtn){e.preventDefault();priceBtn.click();}
     });
   });
 })();
