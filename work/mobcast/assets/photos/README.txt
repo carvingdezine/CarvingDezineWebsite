@@ -107,3 +107,14 @@ Still to supply for LXP: L11 trainer scanning QR, L13 and L14 user drill-down wi
 AI Studio v50: supplied and wired (exact ratio, no cropping)
   ai-studio-a1-upload, a4-index (formats and outline), a5-story, a7-game, a8-scenario, a9-quiz, a11-brand, a13-edit
 Still to supply: ai-studio-a6-animated.jpg (animated stories) and ai-studio-a10-infographic.jpg (infographic), plus the GIF.
+
+SALES COPILOT v52: supplied and wired (exact ratio, no cropping)
+  sales-copilot-s1-hero.jpg        hero: live role-play with score card (1720x1200)
+  sales-copilot-s2-brief.jpg       "Know everything before you walk in": chat and the four brief tabs (16:9)
+  sales-copilot-s3-result.jpg      "Coached after every rep": call result screen (1312x808)
+  sales-copilot-s4-dashboard.jpg   "From 50 reps to 50,000": home screen and team dashboard (1312x812)
+  sales-copilot-ind-bfsi-1/2.jpg, -retail-1/2.jpg, -pharma-1/2.jpg   Industries tabs, two per tab, cross-fade every 4 seconds (5:3)
+  The three sales-copilot-field-N.jpg photo strips are still to supply.
+
+AI STUDIO v52
+  ai-studio-timelapse.gif          "Four steps. One coffee.": 5-minute time-lapse (720x600, 28 MB). NOT inside the zip (size limit): copy your compressed GIF into this folder with this exact name.
