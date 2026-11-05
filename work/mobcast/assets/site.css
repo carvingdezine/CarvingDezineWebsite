@@ -91,3 +91,12 @@ html,body{overflow-x:clip}
 .phs.ph-slot:has(>img) .ph-here{display:none}
 .ph[data-slot] .phl{left:50%;bottom:auto;top:calc(50% + 30px);translate:-50% 0;width:max-content;max-width:88%;text-align:center;white-space:normal}
 .vid.vid-missing .poster::after{bottom:auto;top:calc(50% + 62px)}
+
+/* v51: live links are always full strength; only pages that do not exist yet are dimmed */
+html body nav#nav#nav .nlinks>a:not(.is-soon):not([data-soon]){opacity:1!important;font-weight:700!important}
+html body nav#nav#nav .nlinks>a:not(.is-soon):not([data-soon]):not([aria-current]){color:#1C0A00!important}
+html body nav#nav#nav .ndd-m a:not(.is-soon):not([data-soon]){opacity:1!important}
+html body nav#nav#nav .nlinks>a.is-soon,html body nav#nav#nav .ndd-m a.is-soon{opacity:.45!important}
+html body #mobile-nav-panel a:not(.is-soon):not([data-soon]),html body .mnav a:not(.is-soon):not([data-soon]){opacity:1!important}
+html body nav#nav#nav .ndd-m a:not(.is-soon):not([data-soon]){color:#15121C!important}html body nav#nav#nav .ndd-m a:not(.is-soon):not([data-soon]) b,html body nav#nav#nav .ndd-m a:not(.is-soon):not([data-soon]) strong{color:#15121C!important;font-weight:700}
+html body footer a:not(.is-soon):not([data-soon]):not(.btn):not(.ncta){color:rgba(255,255,255,.95)!important;opacity:1!important}

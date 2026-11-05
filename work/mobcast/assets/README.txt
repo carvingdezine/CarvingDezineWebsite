@@ -1,22 +1,17 @@
-Hero videos for customers.html and contact.html
-================================================
-Put these four files in this folder (same names):
+MOBCAST WEBSITE: ASSETS FOLDER
+==============================
+Every page is a single self-contained HTML file (styles and scripts are inside it). Only media lives here.
 
-  hero-bg.mp4      hero-bg.webm      background loop (space / galaxies)
-  hero-craft.mp4   hero-craft.webm   aircraft / shuttle clip
+  favicon.ico, icons/            Browser tab icon (the coloured "o" from the logo) and the phone home-screen icon.
+  hero-craft.mp4                 Jet clip, Customers and Contact heroes.
+  hero-flow.jpg, hero-flow2.jpg  Background textures for page heroes.
+  logos/                         Customer and partner logos (see logos/README.txt).
+  photos/                        Product creatives, photo slots and the AI Studio time-lapse (see photos/README.txt).
+  videos/                        Product videos (see videos/README.txt).
+  audio/                         Voice samples for AI Studio (see audio/README.txt). No files yet.
+  docs/                          Downloads, for example the security overview PDF (see docs/README.txt).
+  MEDIA-GUIDE.txt                Full list of every image, video and GIF slot on every page, with sizes.
 
-Source clips (Pixabay Content License):
-  Background: https://pixabay.com/videos/space-travel-nasa-galaxies-5/
-  Aircraft:   https://pixabay.com/videos/space-shuttle-rocket-launch-nasa-23882/
-Note: the Pixabay pages say commercial use of NASA footage may require permission from NASA.
-
-Compress them for the web first (ffmpeg). Keep each clip under about 3 MB:
-
-  ffmpeg -i in-bg.mp4 -t 12 -an -vf "scale=1600:-2,fps=24" -c:v libx264 -crf 29 -preset slow -movflags +faststart hero-bg.mp4
-  ffmpeg -i in-bg.mp4 -t 12 -an -vf "scale=1600:-2,fps=24" -c:v libvpx-vp9 -crf 36 -b:v 0 hero-bg.webm
-
-  ffmpeg -i in-craft.mp4 -t 10 -an -vf "scale=1100:-2,fps=24" -c:v libx264 -crf 28 -preset slow -movflags +faststart hero-craft.mp4
-  ffmpeg -i in-craft.mp4 -t 10 -an -vf "scale=1100:-2,fps=24" -c:v libvpx-vp9 -crf 35 -b:v 0 hero-craft.webm
-
-Until the files exist, the pages show the built-in light-trail animation instead.
-Videos are not loaded on phones, with reduced-motion, or on data-saver.
+Compress video for the web first (ffmpeg), keep each clip under about 3 MB for heroes:
+  ffmpeg -i in.mp4 -t 10 -an -vf "scale=1100:-2,fps=24" -c:v libx264 -crf 28 -preset slow -movflags +faststart out.mp4
+Videos are not loaded on phones, with reduced motion, or on data saver.
