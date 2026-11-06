@@ -1,32 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-// THEME (light/dark) — applied before paint to avoid flash.
-// Uses the CarvingDezine light design system palette (see html.light-mode
-// CSS variables below) rather than a filter-based inversion.
-(function(){
-  var KEY='cd_theme';
-  var root=document.documentElement;
-  var mq=window.matchMedia('(prefers-color-scheme: light)');
-  function isLight(){
-    var saved=localStorage.getItem(KEY);
-    if(saved==='light')return true;
-    if(saved==='dark')return false;
-    return mq.matches;
-  }
-  function apply(){root.classList.toggle('light-mode',isLight())}
-  apply();
-  mq.addEventListener('change',function(){if(!localStorage.getItem(KEY))apply()});
-  window._cdToggleTheme=function(){
-    localStorage.setItem(KEY, root.classList.contains('light-mode')?'dark':'light');
-    apply();
-    document.querySelectorAll('.theme-toggle').forEach(function(b){
-      b.setAttribute('aria-label', root.classList.contains('light-mode')?'Switch to dark mode':'Switch to light mode');
-    });
-  };
-})();
-</script>
+<script>window._cdToggleTheme=function(){};document.documentElement.classList.remove("light-mode");</script>
 
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -72,7 +47,7 @@ html.light-mode{
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --black:#000;--white:#fff;--red:#ff2a2a;--red-hover:#ff5252;--white-rgb:255,255,255;--red-rgb:255,42,42;--black-rgb:0,0,0;
+  --black:#000;--white:#fff;--red:#E8001D;--red-hover:#B20016;--white-rgb:255,255,255;--red-rgb:232,0,29;--black-rgb:0,0,0;
   --g1:#0a0a0a;--g2:#111;--g3:#1a1a1a;
   --muted:rgba(var(--white-rgb),.62);
   --line:rgba(var(--white-rgb),.07);--line2:rgba(var(--white-rgb),.13);
@@ -108,7 +83,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .nav-cta{font-family:var(--m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--white);border:1px solid rgba(var(--white-rgb),.2);padding:9px 22px;transition:border-color .2s,background .2s;}
 .nav-cta:hover{border-color:var(--red);background:rgba(var(--red-rgb),.08);}
 .avail-badge{display:flex;align-items:center;gap:7px;font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(var(--white-rgb),.62);}
-.avail-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pdot 2.5s ease infinite;}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:#ffffff;flex-shrink:0;animation:pdot 2.5s ease infinite;}
 @keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
 .burger{display:none;flex-direction:column;gap:5px;padding:4px;background:transparent;border:none;cursor:pointer;}
 .theme-toggle{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid rgba(var(--white-rgb),.15);background:transparent;color:var(--white);cursor:pointer;transition:border-color .2s,background .2s;flex-shrink:0}
@@ -298,7 +273,7 @@ footer{border-top:1px solid var(--line)}
   .pj-related-grid{grid-template-columns:1fr;}
 }
 <style id="sh-styles">
-:root{--black:#000;--white:#fff;--red:#ff2a2a;--red-hover:#ff5252;--white-rgb:255,255,255;--red-rgb:255,42,42;--black-rgb:0,0,0;--g1:#0a0a0a;--g2:#111;--g3:#1a1a1a;--line:rgba(var(--white-rgb),.07);--ease:cubic-bezier(.19,1,.22,1);--f:'Outfit',sans-serif;--m:'DM Mono',monospace;}
+:root{--black:#000;--white:#fff;--red:#E8001D;--red-hover:#B20016;--white-rgb:255,255,255;--red-rgb:232,0,29;--black-rgb:0,0,0;--g1:#0a0a0a;--g2:#111;--g3:#1a1a1a;--line:rgba(var(--white-rgb),.07);--ease:cubic-bezier(.19,1,.22,1);--f:'Outfit',sans-serif;--m:'DM Mono',monospace;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{overflow-x:hidden;font-size:16px;scroll-behavior:smooth;}
 body{background:var(--black);color:var(--white);font-family:var(--f);-webkit-font-smoothing:antialiased;}
@@ -342,58 +317,26 @@ a{color:inherit;text-decoration:none;}
 
 </style>
 </style>
+<style>.cd-skip{position:absolute;left:-999px;top:8px}.cd-logo img{width:32px;height:32px}.cd-ft-brand img{width:40px;height:40px}#bg-nodes{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}.cd-menu{position:fixed;opacity:0;pointer-events:none}</style><link rel="stylesheet" href="assets/site.css"/>
+<style>.hl{font-style:normal;color:var(--red)}</style>
 </head>
-<body>
+<body data-page="work" data-root="">
 
-<nav id="nav" class="solid">
-  <a class="nav-logo" href="index.html">
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDcpIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTl2MTQ4LjYxYzAsMS4wOS0uMSwyLjE2LS4xNiwzLjI0aC4xNnYxMDEuMTVjMzUuNjEtMjAuNjYsNTkuNjktNTkuNyw1OS42OS0xMDQuMzlWMTEzLjQxYy0uMjMsMC0uNDYtLjAyLS42OC0uMDIiLz48L3N2Zz4=" alt="Carving Dezine"/>
-    <span>Carving Dezine</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="work.html">Work</a></li>
-    <li><a href="index.html#audit">Audit Studio</a></li>
-    <li><a href="index.html#brand-centre">Brand Centre</a></li>
-    <li><a href="index.html#pricing">Pricing</a></li>
-    <li><a href="index.html#services">Services</a></li>
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="index.html#testimonials">Testimonials</a></li>
-    <li><a href="index.html#faq">FAQ</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-  </ul>
-  <div class="nav-r">
-    <div class="avail-badge"><span class="avail-dot"></span>Available</div>
-    <a href="index.html#contact" class="nav-cta">Start a Project</a>
-    <button class="theme-toggle" onclick="_cdToggleTheme()" aria-label="Switch to light mode"><svg class="tt-moon" viewBox="0 0 20 20" fill="currentColor"><path d="M17 10.79A7 7 0 119.21 3 5.5 5.5 0 0017 10.79z"/></svg><svg class="tt-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="3.5"/><path d="M10 1.5v2M10 16.5v2M3.5 3.5l1.4 1.4M15.1 15.1l1.4 1.4M1.5 10h2M16.5 10h2M3.5 16.5l1.4-1.4M15.1 4.9l1.4-1.4" stroke-linecap="round"/></svg></button>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+<canvas id="bg-nodes" data-dim aria-hidden="true"></canvas>
+<a class="cd-skip" href="#cd-main">Skip to content</a>
+<header class="cd-hd" id="cd-hd">
+  <a class="cd-logo" href="index.html" aria-label="Carving Dezine home"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDcpIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTl2MTQ4LjYxYzAsMS4wOS0uMSwyLjE2LS4xNiwzLjI0aC4xNnYxMDEuMTVjMzUuNjEtMjAuNjYsNTkuNjktNTkuNyw1OS42OS0xMDQuMzlWMTEzLjQxYy0uMjMsMC0uNDYtLjAyLS42OC0uMDIiLz48L3N2Zz4=" alt="" width="32" height="32"/><span>Carving Dezine</span></a>
+  <nav class="cd-nav" aria-label="Main"><ul><li><a href="work.html" data-k="work">Work</a></li><li><a href="index.html#about" data-k="about">About</a></li><li><a href="index.html#services" data-k="services">Services</a></li><li><a href="index.html#audit" data-k="audit">Audit</a></li><li><a href="index.html#contact" data-k="contact">Contact</a></li></ul></nav>
+  <div class="cd-hd-r">
+    <button class="cd-icon on" id="cd-snd" type="button" aria-label="Toggle sound" title="Sound on"><svg viewBox="0 0 20 20" fill="none"><path id="cd-s-on" d="M3 7H1v6h2l4 4V3L3 7zm8.5 3a3.5 3.5 0 00-3-3.46V13.46A3.5 3.5 0 0011.5 10zm2.5 0a6 6 0 00-5-5.92v1.84A4 4 0 0114 10a4 4 0 01-2.5 3.7v1.84A6 6 0 0014 10z" fill="currentColor"/><path id="cd-s-off" style="display:none" d="M3 7H1v6h2l4 4V3L3 7zm13.06 3l1.64-1.64-1.42-1.42L14.64 8.6l-1.64-1.64-1.42 1.42L13.22 10l-1.64 1.64 1.42 1.42 1.64-1.64 1.64 1.64 1.42-1.42L16.06 10z" fill="currentColor"/></svg></button>
+    <a class="cd-btn cd-btn-primary cd-hd-cta" href="index.html#contact">Start a project</a>
+    <button class="cd-icon cd-burger" id="cd-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="cd-menu"><span></span><span></span><span></span></button>
   </div>
-</nav>
+</header>
+<div class="cd-menu" id="cd-menu" aria-hidden="true"><a href="work.html">Work</a><a href="index.html#about">About</a><a href="index.html#services">Services</a><a href="index.html#audit">Audit</a><a href="index.html#contact">Contact</a><a class="cd-btn cd-btn-primary" href="index.html#contact">Start a project</a></div>
+<span id="cd-main"></span>
 
-<div id="mob-nav">
-  <button class="mob-close" id="mob-close">✕</button>
-  <a href="work.html" class="mob-ni">Work</a>
-  <a href="index.html#audit" class="mob-ni">Audit Studio</a>
-  <a href="index.html#brand-centre" class="mob-ni">Brand Centre</a>
-  <a href="index.html#pricing" class="mob-ni">Pricing</a>
-  <a href="index.html#services" class="mob-ni">Services</a>
-  <a href="index.html#about" class="mob-ni">About</a>
-  <a href="index.html#testimonials" class="mob-ni">Testimonials</a>
-  <a href="index.html#contact" class="mob-ni red">Start a Project ↗</a>
-</div>
 
-<script>
-(function(){
-  var burger=document.getElementById('burger');
-  var mobNav=document.getElementById('mob-nav');
-  var mobClose=document.getElementById('mob-close');
-  if(!burger||!mobNav)return;
-  function openNav(){mobNav.classList.add('open');burger.classList.add('open');document.body.style.overflow='hidden';}
-  function closeNav(){mobNav.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';}
-  burger.addEventListener('click',function(){mobNav.classList.contains('open')?closeNav():openNav();});
-  if(mobClose)mobClose.addEventListener('click',closeNav);
-  mobNav.querySelectorAll('.mob-ni').forEach(function(a){a.addEventListener('click',closeNav);});
-})();
-</script>
 
 <div id="pj-root"></div>
 
@@ -618,7 +561,7 @@ function renderPjBody(pj,id,projects,coverImage,root){
       +clientRelatedH
       +relatedH
       +'<div class="pj-cta"><div class="pj-cta-eyebrow">Like what you see?</div><div class="pj-cta-title">Let\'s work together</div><div class="pj-cta-sub">Tell me about your project and let\'s create something remarkable.</div><a class="pj-cta-btn" href="index.html#contact">Get in touch</a></div>'
-      +'<footer><div class="ft-main"><div class="ft-col"><div class="ft-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIiBhcmlhLWxhYmVsPSJDYXJ2aW5nIERlemluZSI+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIgZD0iTTI4My40Niw1NjYuOTNoMEMxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3aDBDMCwxMjYuOTEsMTI2LjkxLDAsMjgzLjQ2LDBzMjgzLjQ2LDEyNi45MSwyODMuNDYsMjgzLjQ2aDBjMCwxNTYuNTUtMTI2LjkxLDI4My40Ni0yODMuNDYsMjgzLjQ2Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTIyNS40NywzMjFjMC0zMi41NSwyNS43OS01OS4yNiw1Ny40Mi01OS41NGg2NS45MnYtNjAuNTFjLTQxLjQyLDAtNjYuMjMsMC02Ni4yOCwwLTY0LjM3LjUyLTExNi43NCw1NC4zNy0xMTYuNzQsMTIwLjA0LDAsMzIuMjksMTIuNTgsNjEuNjEsMzIuOTgsODMuMjFsLTI0LjUxLDQ5LjM0LDY0LjY1LTIxLjQ2YzEzLjc1LDUuNzYsMjguOCw4Ljk2LDQ0LjU2LDguOTYsMTQuMzIsMCwyOC4wNC0yLjYzLDQwLjc1LTcuNDN2LTcwLjMxYy0xMC40OCwxMC42NC0yNC44OCwxNy4yMy00MC43NSwxNy4yMy0zMS45OCwwLTU4LTI2LjcxLTU4LTU5LjU0Ii8+PHJlY3QgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjQpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTloMHYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg==" class="ft-logo" alt="Carving Dezine"/><span class="ft-name">Carving Dezine</span></div></div><div class="ft-col"><span class="ft-copy">&copy; 2026 Carving Dezine &middot; Mumbai &amp; Surat, India</span></div><div class="ft-col"><div class="ft-links"><a href="https://behance.net/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Behance</a><a href="https://dribbble.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Dribbble</a><a href="https://instagram.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Instagram</a><a href="https://x.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">X</a><a href="https://threads.net/@carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Threads</a><a href="https://reddit.com/r/CarvingDezine" target="_blank" rel="noopener" class="ft-lnk">Reddit</a><a href="https://facebook.com/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">Facebook</a><a href="https://youtube.com/@carvingdezine" target="_blank" rel="noopener" class="ft-lnk">YouTube</a><a href="https://linkedin.com/company/carvingdezine" target="_blank" rel="noopener" class="ft-lnk">LinkedIn</a><a href="mailto:carvingdezine@gmail.com" class="ft-lnk">Email</a><a href="#" onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false;" class="ft-lnk">&#8593; Top</a></div></div></div><div class="ft-btm"><span>A part of <a href="https://www.microngroup.in" target="_blank" rel="noopener">Micron Group</a> &nbsp;&middot;&nbsp; www.carvingdezine.com</span><span id="cd-last-updated" title="Timestamp of the most recently saved project, straight from the database">Last updated: -</span><span>Designed with intention &nbsp;&middot;&nbsp; <a href="index.html#admin" target="_blank">Studio Admin</a></span></div></footer>'
+      +'<footer class="cd-ft">  <div class="cd-ft-top">    <div class="cd-ft-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDcpIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTl2MTQ4LjYxYzAsMS4wOS0uMSwyLjE2LS4xNiwzLjI0aC4xNnYxMDEuMTVjMzUuNjEtMjAuNjYsNTkuNjktNTkuNyw1OS42OS0xMDQuMzlWMTEzLjQxYy0uMjMsMC0uNDYtLjAyLS42OC0uMDIiLz48L3N2Zz4=" alt="Carving Dezine" width="40" height="40"/><p>We carve <em>meaning</em> into design.</p></div>    <div><h4>Studio</h4><ul><li><a href="work.html">Work</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#audit">Free health check</a></li><li><a href="index.html#brand-centre">Brand Centre</a></li><li><a href="index.html#about">About</a></li><li><a href="index.html#faq">Questions</a></li></ul></div>    <div><h4>Contact</h4><div class="cd-ft-contact"><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a><a href="tel:+919820142005">+91 98201 42005</a><a href="https://wa.me/919820142005" target="_blank" rel="noopener">WhatsApp</a><span>Mumbai &amp; Surat, India<br/>Working globally</span></div></div>  </div>  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="studio.html#admin">Studio</a></span></div></footer>'
     +'</div>';
 
   // ── SCROLL PROGRESS ──
@@ -771,11 +714,11 @@ window._ambientPad=(function(){
 <style>
 #wa{
   position:fixed;bottom:84px;right:28px;z-index:600;width:46px;height:46px;border-radius:50%;
-  background:#25D366;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(37,211,102,.28);transition:transform .3s ease,box-shadow .3s,opacity .5s;
+  background:#E8001D;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(232,0,29,.28);transition:transform .3s ease,box-shadow .3s,opacity .5s;
   opacity:1;border:none;cursor:pointer;padding:0;
 }
-#wa:hover{transform:scale(1.12);box-shadow:0 8px 30px rgba(37,211,102,.45)}
+#wa:hover{transform:scale(1.12);box-shadow:0 8px 30px rgba(232,0,29,.45)}
 #wa svg{width:21px;height:21px;fill:var(--white)}
 
 #wa-panel{
@@ -788,7 +731,7 @@ window._ambientPad=(function(){
 }
 #wa-panel.open{opacity:1;transform:none;pointer-events:auto;}
 .wa-p-head{display:flex;align-items:center;gap:10px;padding:14px 14px;background:#1a1a1a;border-bottom:1px solid var(--line);}
-.wa-p-avatar{width:34px;height:34px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wa-p-avatar{width:34px;height:34px;border-radius:50%;background:#E8001D;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .wa-p-avatar svg{width:18px;height:18px;fill:var(--white);}
 .wa-p-head-txt{flex:1;min-width:0;}
 .wa-p-name{font-size:13px;font-weight:700;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -799,9 +742,9 @@ window._ambientPad=(function(){
 .wa-p-bubble{background:#1e1e1e;color:rgba(var(--white-rgb),.85);font-size:13px;line-height:1.6;padding:10px 12px;border-radius:10px 10px 10px 2px;max-width:90%;}
 .wa-p-foot{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;}
 #wa-msg{width:100%;resize:none;background:#1a1a1a;border:1px solid var(--line);border-radius:8px;color:var(--white);font-family:inherit;font-size:12.5px;padding:9px 10px;line-height:1.5;}
-#wa-msg:focus{outline:none;border-color:#25D366;}
-#wa-send{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#0c0c0c;border:none;border-radius:8px;padding:10px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.02em;}
-#wa-send:hover{background:#2ee574;}
+#wa-msg:focus{outline:none;border-color:#E8001D;}
+#wa-send{display:flex;align-items:center;justify-content:center;gap:8px;background:#E8001D;color:#0c0c0c;border:none;border-radius:8px;padding:10px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.02em;}
+#wa-send:hover{background:#B20016;}
 #wa-send svg{width:14px;height:14px;}
 .wa-p-note{font-size:10px;color:rgba(var(--white-rgb),.3);line-height:1.5;text-align:center;}
 @media(max-width:640px){#wa-panel{right:12px;bottom:130px;width:280px;}}
@@ -904,5 +847,6 @@ window._ambientPad=(function(){
   });
 })();
 </script>
+<script src="assets/site.js"></script>
 </body>
 </html>
