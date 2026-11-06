@@ -118,3 +118,5 @@ SALES COPILOT v52: supplied and wired (exact ratio, no cropping)
 
 AI STUDIO v52
   ai-studio-timelapse.gif          "Four steps. One coffee.": 5-minute time-lapse (720x600, 28 MB). NOT inside the zip (size limit): copy your compressed GIF into this folder with this exact name.
+
+v54: ai-studio-a6-animated.gif and ai-studio-a10-infographic.jpg supplied and wired. Copy the GIF into this folder from the separate download (excluded from the zip for size).
