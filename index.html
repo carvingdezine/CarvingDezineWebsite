@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
 <script>document.documentElement.className='js';</script>
 <style>.cd-skip{position:absolute;left:-999px;top:8px}.cd-logo img{width:32px;height:32px}.cd-ft-brand img{width:40px;height:40px}#bg-nodes{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}.cd-menu{position:fixed;opacity:0;pointer-events:none}</style>
-<link rel="stylesheet" href="assets/site.css"/>
+<link rel="stylesheet" href="assets/site.css?v=5"/>
 <style>
 body{font-size:16px;line-height:1.75;font-weight:400;overflow-x:hidden}
 img{max-width:100%;display:block}
@@ -159,6 +159,9 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
 .contact .field input::placeholder,.contact .field textarea::placeholder{color:var(--t-58);opacity:1}
 .contact .ferr{color:#fff;border-left:3px solid var(--red);padding-left:var(--s3)}
 
+/* CRITICAL (inline): sizing + capital titles, independent of site.css */
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,.cd-h{text-transform:uppercase}
 /* ===== personality: marquee, story, parallax, ghost words ===== */
 .ghost{position:absolute;right:-2vw;top:6%;font-size:clamp(140px,26vw,420px);font-weight:900;letter-spacing:-.05em;line-height:.8;text-transform:uppercase;color:transparent;-webkit-text-stroke:1px rgba(0,0,0,.14);pointer-events:none;user-select:none;z-index:0;white-space:nowrap}
 #about{overflow:hidden}
@@ -248,7 +251,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
 .hs-sticky{padding:calc(var(--nav-h) + var(--s8)) var(--pad) var(--s8)}
 .hs-track{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s7);position:relative;min-width:0}
 .hs-panel{position:relative;background:rgba(10,10,10,.85);border:1px solid var(--t-14);padding:var(--s6);display:flex;flex-direction:column;justify-content:flex-end;gap:var(--s4);overflow:hidden;min-height:260px;transition:background .5s var(--ease),border-color .5s}
-.hs-panel .bgnum{position:absolute;top:var(--s4);right:var(--s6);font-size:clamp(120px,16vw,260px);font-weight:900;letter-spacing:-.05em;line-height:.8;color:transparent;-webkit-text-stroke:1px var(--t-20);pointer-events:none;transition:-webkit-text-stroke-color .5s}
+.hs-panel .bgnum{position:absolute;top:var(--s4);right:calc(var(--s6) + 72px);font-size:clamp(120px,16vw,260px);font-weight:900;letter-spacing:-.05em;line-height:.8;color:transparent;-webkit-text-stroke:1px var(--t-20);pointer-events:none;transition:-webkit-text-stroke-color .5s}
 .hs-panel .n{font-family:var(--m);font-size:11px;letter-spacing:.24em;color:var(--red);transition:color .4s}
 .hs-panel h3{font-size:clamp(34px,5vw,84px);font-weight:800;letter-spacing:-.03em;line-height:.95;text-transform:uppercase;position:relative}
 .hs-panel p{font-size:clamp(16px,1.4vw,20px);color:var(--t-72);max-width:38ch;line-height:1.6;position:relative}
@@ -288,6 +291,29 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
 .cur button.on{background:#000;color:#fff}
 .bc-note{margin-top:var(--s5)}
 @media(max-width:960px){.afields{grid-template-columns:1fr}.bc-tiers{grid-template-columns:1fr}}
+
+/* services arrow -> matching section of work.html */
+.hs-go{position:absolute;top:var(--s5);right:var(--s5);z-index:3;width:48px;height:48px;border-radius:50%;border:1px solid var(--t-20);display:grid;place-items:center;color:#fff;transition:background .25s,color .25s,border-color .25s,transform .3s}
+.hs-go svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hs-go:hover,.hs-go:focus-visible{background:#fff;color:#000;border-color:#fff;transform:rotate(45deg)}
+.hs-panel.on .hs-go{border-color:rgba(255,255,255,.7)}
+
+/* capital titles: tune sizes so long headings still fit */
+h2.cd-h{font-size:clamp(32px,4.6vw,68px);letter-spacing:-.01em;line-height:1}
+.pcard h3{font-size:clamp(16px,1.45vw,20px);letter-spacing:0;line-height:1.25}
+.way h3{text-transform:uppercase}
+
+/* choose a plan = click the card; the form shows the choice instead of a dropdown */
+.way{cursor:pointer;transition:outline-color .25s,transform .3s}
+.way:hover{transform:translateY(-4px)}
+.way.sel{outline:2px solid var(--red);outline-offset:-2px}
+.plan-chip{display:none;align-items:center;gap:var(--s4);flex-wrap:wrap;padding:var(--s4) var(--s5);background:var(--grey-900);border-left:3px solid var(--red)}
+.plan-field.has .plan-chip{display:flex}
+.plan-chip .pc-l{font-family:var(--m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--t-58)}
+.plan-chip b{font-size:18px;font-weight:700}
+.plan-chip .pc-p{font-family:var(--m);font-size:12px;letter-spacing:.12em;color:var(--t-72)}
+.plan-chip button{margin-left:auto;background:none;border:0;border-bottom:1px solid var(--red);color:#fff;font-family:var(--m);font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:0 0 var(--s1)}
+.plan-field.has:not(.open) select{display:none}
 .js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
 .js .rv.in{opacity:1;transform:none}
 
@@ -400,11 +426,11 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
   <div class="hs-sticky">
     <div class="rv"><div class="cd-label">What I do</div><h2 class="cd-h">Five disciplines. One <em>standard</em>.</h2></div>
     <div class="hs-track" id="hs-track">
-      <article class="hs-panel"><span class="bgnum" aria-hidden="true">01</span><span class="n">01</span><h3>UX &amp; UI design</h3><p>Human-centred interfaces, from first wireframe to final handoff.</p><div class="tags">Product design &middot; Design systems &middot; Prototyping</div></article>
-      <article class="hs-panel"><span class="bgnum" aria-hidden="true">02</span><span class="n">02</span><h3>Brand identity</h3><p>Logos, type, colour and guidelines that say who you are at a glance.</p><div class="tags">Logo &middot; Brand system &middot; Style guide</div></article>
-      <article class="hs-panel"><span class="bgnum" aria-hidden="true">03</span><span class="n">03</span><h3>Presentation design</h3><p>Pitch decks where every slide earns its place.</p><div class="tags">Pitch decks &middot; Keynote &middot; PowerPoint</div></article>
-      <article class="hs-panel"><span class="bgnum" aria-hidden="true">04</span><span class="n">04</span><h3>Print &amp; marketing</h3><p>Brochures, catalogues and reports that people keep.</p><div class="tags">Brochures &middot; Catalogues &middot; Annual reports</div></article>
-      <article class="hs-panel"><span class="bgnum" aria-hidden="true">05</span><span class="n">05</span><h3>Interactive web</h3><p>Experimental interfaces where UX, motion and front-end come together.</p><div class="tags">WebGL &middot; Motion &middot; Front-end</div></article>
+      <article class="hs-panel"><a class="hs-go" href="work.html?cat=ux" aria-label="See UX and UI design projects"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span class="bgnum" aria-hidden="true">01</span><span class="n">01</span><h3>UX &amp; UI design</h3><p>Human-centred interfaces, from first wireframe to final handoff.</p><div class="tags">Product design &middot; Design systems &middot; Prototyping</div></article>
+      <article class="hs-panel"><a class="hs-go" href="work.html?cat=brand" aria-label="See Brand identity projects"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span class="bgnum" aria-hidden="true">02</span><span class="n">02</span><h3>Brand identity</h3><p>Logos, type, colour and guidelines that say who you are at a glance.</p><div class="tags">Logo &middot; Brand system &middot; Style guide</div></article>
+      <article class="hs-panel"><a class="hs-go" href="work.html?cat=deck" aria-label="See Presentation design projects"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span class="bgnum" aria-hidden="true">03</span><span class="n">03</span><h3>Presentation design</h3><p>Pitch decks where every slide earns its place.</p><div class="tags">Pitch decks &middot; Keynote &middot; PowerPoint</div></article>
+      <article class="hs-panel"><a class="hs-go" href="work.html?cat=print" aria-label="See Print and marketing projects"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span class="bgnum" aria-hidden="true">04</span><span class="n">04</span><h3>Print &amp; marketing</h3><p>Brochures, catalogues and reports that people keep.</p><div class="tags">Brochures &middot; Catalogues &middot; Annual reports</div></article>
+      <article class="hs-panel"><a class="hs-go" href="work.html?cat=web" aria-label="See Interactive web projects"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></a><span class="bgnum" aria-hidden="true">05</span><span class="n">05</span><h3>Interactive web</h3><p>Experimental interfaces where UX, motion and front-end come together.</p><div class="tags">WebGL &middot; Motion &middot; Front-end</div></article>
     </div>
     <div class="hs-prog" aria-hidden="true"><i id="hs-bar"></i></div>
   </div>
@@ -543,11 +569,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
     <form class="aform rv" id="cform" novalidate style="--d:.1s">
       <div class="field"><label for="cn">Name</label><input id="cn" name="name" type="text" autocomplete="name" required/></div>
       <div class="field"><label for="ce">Email</label><input id="ce" name="email" type="email" autocomplete="email" required/></div>
-      <div class="field"><label for="cs">What do you need?</label>
-        <select id="cs" name="service">
-          <option value="">Choose one</option>
-          <option>UX / UI design</option><option>Brand identity</option><option>Presentation design</option><option>Print &amp; marketing</option><option>Interactive web</option><option>Paid audit</option><option>Brand Centre - Starter</option><option>Brand Centre - Essential</option><option>Brand Centre - Complete</option><option>Brand Centre - Custom</option><option>Monthly retainer</option><option>Not sure yet</option>
-        </select></div>
+      <div class="field plan-field"><label for="cs">What do you need?</label><div class="plan-chip" id="plan-chip"><span class="pc-l">You chose</span><b id="plan-name"></b><span class="pc-p" id="plan-price"></span><button type="button" id="plan-change">Change</button></div><select id="cs" name="service"></select></div>
       <div class="field"><label for="cm">Tell me about the project</label><textarea id="cm" name="message" required></textarea></div>
       <button class="cd-btn cd-btn-primary" type="submit">Send message <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <p class="fok" id="cok" role="status">Message sent. I'll get back to you within 24 hours.</p>
@@ -564,7 +586,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
     <div><h4>Studio</h4><ul><li><a href="work.html">Work</a></li><li><a href="#services">Services</a></li><li><a href="#audit">Free health check</a></li><li><a href="#brand-centre">Brand Centre</a></li><li><a href="#about">About</a></li><li><a href="#faq">Questions</a></li></ul></div>
     <div><h4>Contact</h4><div class="cd-ft-contact"><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a><a href="tel:+919820142005">+91 98201 42005</a><a href="https://wa.me/919820142005" target="_blank" rel="noopener">WhatsApp</a><span>Mumbai &amp; Surat, India<br/>Working globally</span></div></div>
   </div>
-  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="admin.html">Studio</a></span></div>
+  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat &middot; Build 5<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="admin.html">Studio</a></span></div>
 </footer>
 <button id="wa" type="button" aria-label="Chat on WhatsApp" aria-expanded="false">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -595,7 +617,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
   </div>
 </div>
 
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v=5"></script>
 <script>
 (function(){
   var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
@@ -757,20 +779,6 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(relayout);
   setupHS();tick();
 
-  /* ===== Brand Centre prices: India in rupees, international in dollars (set separately, not converted) ===== */
-  (function(){
-    var KEY='cd_currency',btns=$$('.cur button'),cur;
-    try{cur=localStorage.getItem(KEY)}catch(e){}
-    if(cur!=='in'&&cur!=='us'){var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}cur=/Kolkata|Calcutta/i.test(tz)?'in':'us'}
-    function apply(c){
-      $$('.price[data-in]').forEach(function(el){$('.amt',el).textContent=el.getAttribute('data-'+c)});
-      $$('.upd').forEach(function(el){el.textContent=el.getAttribute('data-'+c)});
-      btns.forEach(function(b){b.classList.toggle('on',b.getAttribute('data-cur')===c);b.setAttribute('aria-pressed',b.getAttribute('data-cur')===c)});
-    }
-    btns.forEach(function(b){b.addEventListener('click',function(){cur=b.getAttribute('data-cur');try{localStorage.setItem(KEY,cur)}catch(e){}apply(cur)})});
-    apply(cur);
-  })();
-
   /* ===== Brand Centre demo video: paste a YouTube link in data-youtube on #bc-video ===== */
   (function(){
     var box=$('#bc-video');if(!box)return;
@@ -782,11 +790,60 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
     });
   })();
 
-  /* any button with data-plan pre-fills the contact form */
-  $$('[data-plan]').forEach(function(b){b.addEventListener('click',function(){
-    var s=$('#cs'),v=b.getAttribute('data-plan');window._plan=v;
-    if(!s)return;for(var i=0;i<s.options.length;i++){if(s.options[i].text===v||s.options[i].value===v){s.selectedIndex=i;break}}
-  })});
+  /* ===== plans: pick a card, the form shows your choice (no dropdown needed), prices follow India / International ===== */
+  var CURKEY='cd_currency',CUR='us',PLAN='';
+  try{CUR=localStorage.getItem(CURKEY)}catch(e){}
+  if(CUR!=='in'&&CUR!=='us'){var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}CUR=/Kolkata|Calcutta/i.test(tz)?'in':'us'}
+  var PLANS=[
+    {g:'Design services',k:'UX / UI design',l:'UX / UI design',p:'Custom quote'},
+    {g:'Design services',k:'Brand identity',l:'Brand identity',p:'Custom quote'},
+    {g:'Design services',k:'Presentation design',l:'Presentation design',p:'Custom quote'},
+    {g:'Design services',k:'Print & marketing',l:'Print & marketing',p:'Custom quote'},
+    {g:'Design services',k:'Interactive web',l:'Interactive web',p:'Custom quote'},
+    {g:'Ways to work',k:'Project',l:'Project: one brief, one fixed price',p:'Custom quote'},
+    {g:'Ways to work',k:'Monthly retainer',l:'Monthly: design on demand',p:{'in':'\u20b91,25,000 / month','us':'$2,200 / month'}},
+    {g:'Brand Centre',k:'Brand Centre - Starter',l:'Brand Centre: Starter',p:{'in':'\u20b949,000','us':'$1,200'}},
+    {g:'Brand Centre',k:'Brand Centre - Essential',l:'Brand Centre: Essential',p:{'in':'\u20b999,000','us':'$2,400'}},
+    {g:'Brand Centre',k:'Brand Centre - Complete',l:'Brand Centre: Complete',p:{'in':'\u20b91,79,000','us':'$4,200'}},
+    {g:'Brand Centre',k:'Brand Centre - Custom',l:'Brand Centre: Custom',p:'Custom quote'},
+    {g:'Other',k:'Paid audit',l:'Paid audit',p:'Quote on request'},
+    {g:'Other',k:'Not sure yet',l:'Not sure yet',p:''}
+  ];
+  function planByKey(k){for(var i=0;i<PLANS.length;i++)if(PLANS[i].k===k)return PLANS[i];return null}
+  function priceOf(pl){return !pl?'':(typeof pl.p==='object'?pl.p[CUR]:pl.p)}
+  function planText(){var pl=planByKey(PLAN);return pl?(pl.l+(priceOf(pl)?' - '+priceOf(pl):'')):''}
+  var field=$('.plan-field'),sel=$('#cs');
+  function buildSelect(){
+    if(!sel)return;
+    var html='<option value="">Choose one</option>',g='';
+    PLANS.forEach(function(pl){
+      if(pl.g!==g){if(g)html+='</optgroup>';g=pl.g;html+='<optgroup label="'+pl.g+'">'}
+      var pr=priceOf(pl);
+      html+='<option value="'+esc(pl.k)+'"'+(pl.k===PLAN?' selected':'')+'>'+esc(pl.l)+(pr?'  \u2014  '+esc(pr):'')+'</option>';
+    });
+    sel.innerHTML=html+'</optgroup>';
+  }
+  function showPlan(){
+    var pl=planByKey(PLAN);
+    if(field)field.classList.toggle('has',!!pl);
+    if(pl){$('#plan-name').textContent=pl.l;$('#plan-price').textContent=priceOf(pl)}
+    $$('.way').forEach(function(c){var b=$('[data-plan]',c);c.classList.toggle('sel',!!b&&b.getAttribute('data-plan')===PLAN)});
+  }
+  function setPlan(k){PLAN=k;buildSelect();showPlan()}
+  function applyCur(){
+    $$('.price[data-in]').forEach(function(el){$('.amt',el).textContent=el.getAttribute('data-'+CUR)});
+    $$('.upd').forEach(function(el){el.textContent=el.getAttribute('data-'+CUR)});
+    $$('.cur button').forEach(function(b){var on=b.getAttribute('data-cur')===CUR;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+    buildSelect();showPlan();
+  }
+  $$('.cur button').forEach(function(b){b.addEventListener('click',function(){CUR=b.getAttribute('data-cur');try{localStorage.setItem(CURKEY,CUR)}catch(e){}applyCur()})});
+  if(sel)sel.addEventListener('change',function(){PLAN=this.value;showPlan()});
+  var chg=$('#plan-change');if(chg)chg.addEventListener('click',function(){field.classList.add('open');sel.focus()});
+  /* any button with data-plan picks that plan, then the link scrolls to the form */
+  $$('[data-plan]').forEach(function(b){b.addEventListener('click',function(){field&&field.classList.remove('open');setPlan(b.getAttribute('data-plan'))})});
+  /* the whole card is a button: click anywhere on it */
+  $$('.way').forEach(function(c){c.addEventListener('click',function(e){if(e.target.closest('a,button'))return;var b=$('[data-plan]',c);if(b)b.click()})});
+  applyCur();
 
   /* forms: same Formspree endpoint as the current site */
   var EP='https://formspree.io/f/mpqyqjzp';
@@ -809,7 +866,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
     if(!n.value.trim())return bad(n);
     if(m.value.indexOf('@')<1)return bad(m);
     if(!t.value.trim())return bad(t);
-    send(this,{name:n.value.trim(),email:m.value.trim(),service:$('#cs').value||'Not specified',message:t.value.trim(),plan:window._plan||'General enquiry',_subject:'New enquiry from '+n.value.trim()+' - Carving Dezine'},$('#cok'),$('#cerr'),this.querySelector('button'));
+    send(this,{name:n.value.trim(),email:m.value.trim(),service:planText()||'Not specified',message:t.value.trim(),plan:PLAN||'General enquiry',_subject:'New enquiry from '+n.value.trim()+' - Carving Dezine'},$('#cok'),$('#cerr'),this.querySelector('button'));
   });
 })();
 

@@ -1946,7 +1946,7 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <meta name="robots" content="noindex,nofollow"/>
 <style>/* admin.html: only the admin tools are shown; the public site lives in index.html */
 #nav,#mob-nav,#hero,.tkr,#work,#clients,#carve,#services,#about,#testimonials,#audit,#brand-centre,#pricing,#faq,#closing,#contact,body>footer,#wa,#wa-panel,#scroll-progress,#cd-scroll-progress,#cd-scroll-btn{display:none!important}</style>
-<script>if(location.hash!=="#admin")history.replaceState(null,"","#admin");</script>
+<script>try{if(location.hash!=="#admin")history.replaceState(null,"","#admin")}catch(e){try{location.hash="#admin"}catch(e2){}}</script>
 </head>
 <body>
 
