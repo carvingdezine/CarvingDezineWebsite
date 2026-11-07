@@ -35,7 +35,7 @@ h2.cd-h{font-size:clamp(36px,5.4vw,80px);margin-top:var(--s5);max-width:16ch}
 .hero-in a,.hero-in button{pointer-events:auto}
 .hero-top{display:flex;align-items:center;gap:var(--s4);font-family:var(--m);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--t-72);margin-bottom:clamp(16px,3vw,36px)}
 .hero-top::before{content:"";width:var(--s7);height:2px;background:var(--red)}
-h1.cd-display{font-size:clamp(52px,11.2vw,200px)}
+h1.cd-display{font-size:clamp(46px,min(11.2vw,18.5vh),200px)}
 h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
 h1 .ln>span{display:inline-block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
 h1 .ln:nth-child(2)>span{animation-delay:.12s}
@@ -215,44 +215,33 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
 }
 @media(prefers-reduced-motion:reduce){.scene-logo{display:block}.beat{transition:none}}
 
-/* ===== portfolio: every detail lives inside the card (flow layout, so text can never overlap) ===== */
-.pgrid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:clamp(320px,31vw,470px);gap:clamp(12px,1.4vw,20px)}
-.pcard{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:var(--s4);overflow:hidden;background:var(--grey-900);color:#fff;text-decoration:none;isolation:isolate;padding:var(--s5);scale:var(--sc,1)}
-.pcard.s4{grid-column:span 4}.pcard.s2{grid-column:span 2}.pcard.s3{grid-column:span 3}
-.pmedia{position:absolute;inset:0;z-index:-2;overflow:hidden}
-.pmedia img{width:100%;height:118%;margin-top:-9%;object-fit:cover;transition:scale 1s var(--ease);will-change:transform}
+/* ===== portfolio: one clean frame per project. Picture on top, details on a solid panel inside the same card ===== */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,24px)}
+.pcard{position:relative;display:flex;flex-direction:column;background:var(--grey-900);border:1px solid var(--t-08);color:#fff;text-decoration:none;overflow:hidden;scale:var(--sc,1);transition:border-color .3s}
+.pcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transform-origin:top;transition:transform .45s var(--ease);z-index:3}
+.pcard:hover,.pcard:focus-visible{border-color:var(--t-20)}
+.pcard:hover::before,.pcard:focus-visible::before{transform:scaleY(1)}
+.pmedia{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--grey-800);container-type:size}
+.pmedia img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;transition:scale 1s var(--ease);will-change:transform}
 .pcard:hover .pmedia img{scale:1.06}
-.pshade{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.6) 40%,rgba(0,0,0,.12) 72%,rgba(0,0,0,.4) 100%)}
-.ptop{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s4);flex:none}
-.pidx{font-family:var(--m);font-size:11px;letter-spacing:.2em;color:#fff;padding-top:6px}
-.pmid{display:none;flex:1;min-height:0;container-type:size}
-.pbot{flex:none}
-.pmeta{font-family:var(--m);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--t-72);margin-bottom:var(--s2)}
-.pcard h3{font-size:clamp(20px,2vw,30px);font-weight:700;line-height:1.15;letter-spacing:-.01em;max-width:26ch}
-.pcard.s4 h3{font-size:clamp(24px,2.8vw,42px);max-width:22ch}
-.pfoot{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4);margin-top:var(--s4)}
-.ptags{display:flex;flex-wrap:wrap;gap:var(--s2)}
-.ptags span{font-family:var(--m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--t-20);padding:4px 10px;color:var(--t-72)}
-.parrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--t-20);display:grid;place-items:center;flex:none;color:#fff;transition:background .3s,color .3s,border-color .3s,transform .3s}
-.parrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.pcard:hover .parrow,.pcard:focus-visible .parrow{background:#fff;color:#000;border-color:#fff;transform:rotate(45deg)}
-/* no cover image yet: red design-system card, category as the headline in its own space */
-.pcard.is-ph{background:var(--red)}
-.pcard.is-ph .pmedia,.pcard.is-ph .pshade{display:none}
-.pcard.is-ph .pmid{display:block}
-.pcard.is-ph .ph{height:100%;display:flex;flex-direction:column;justify-content:center;color:#000}
-.pcard.is-ph .ph b{display:block;font-weight:800;letter-spacing:-.045em;line-height:.9;font-size:clamp(28px,4vw,64px);font-size:min(15cqw,36cqh)}
-.pcard.is-ph .ph b+b{color:#fff}
-.pcard.is-ph .cd-tag{background:#000;color:#fff}
-.pcard.is-ph .pidx{color:#000}
-.pcard.is-ph .pmeta{color:#000}
-.pcard.is-ph h3{color:#000}
-.pcard.is-ph .ptags span{border-color:rgba(0,0,0,.45);color:#000}
-.pcard.is-ph .parrow{border-color:rgba(0,0,0,.5);color:#000}
-.pcard.is-ph:hover .parrow{background:#000;color:#fff;border-color:#000}
+.pmedia .ph{position:absolute;inset:0;background:var(--red);color:#000;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(16px,7cqw,32px)}
+.pmedia .ph b{display:block;font-weight:800;letter-spacing:-.045em;line-height:.9;font-size:clamp(30px,3.6vw,56px);font-size:min(17cqw,30cqh)}
+.pmedia .ph b+b{color:#fff}
+.pmedia .ph i{position:absolute;top:clamp(14px,5cqw,22px);left:clamp(16px,7cqw,32px);font-style:normal;font-family:var(--m);font-size:10px;letter-spacing:.2em;color:#fff;background:#000;padding:5px 12px}
+.pinfo{display:flex;flex-direction:column;gap:var(--s3);padding:var(--s5);flex:1}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:var(--s3)}
+.pyear{font-family:var(--m);font-size:11px;letter-spacing:.2em;color:var(--t-72)}
+.pcard h3{font-size:clamp(19px,1.7vw,24px);font-weight:700;line-height:1.2;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.4em}
+.pfoot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4);padding-top:var(--s3);border-top:1px solid var(--t-08)}
+.pclient{font-family:var(--m);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--t-72);line-height:1.7}
+.ptags{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s2)}
+.ptags span{font-family:var(--m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--t-20);padding:3px 9px;color:var(--t-72)}
+.parrow{width:40px;height:40px;border-radius:50%;border:1px solid var(--t-20);display:grid;place-items:center;flex:none;color:#fff;transition:background .3s,color .3s,border-color .3s,transform .3s}
+.parrow svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pcard:hover .parrow,.pcard:focus-visible .parrow{background:var(--red);border-color:var(--red);transform:rotate(45deg)}
 .grid-note{grid-column:1/-1;font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--t-72);border-left:3px solid var(--red);padding:var(--s3) var(--s4);background:var(--grey-900)}
-@media(max-width:960px){.pgrid{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(300px,46vw,430px)}.pcard.s4,.pcard.s3{grid-column:span 2}.pcard.s2{grid-column:span 1}}
-@media(max-width:620px){.pgrid{grid-template-columns:1fr;grid-auto-rows:380px}.pcard.s4,.pcard.s3,.pcard.s2{grid-column:span 1}}
+@media(max-width:960px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.pgrid{grid-template-columns:1fr}}
 
 /* ===== cinematic scroll: horizontal services, word-by-word text, curtain panels ===== */
 #services{padding:0}
@@ -268,14 +257,37 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
 .hs-panel.on .n,.hs-panel.on p,.hs-panel.on .tags{color:#fff}
 .hs-panel.on .bgnum{-webkit-text-stroke-color:rgba(255,255,255,.4)}
 .hs-prog{display:none}
-.hs-on .hs-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-top:var(--nav-h);padding-bottom:var(--s6)}
-.hs-on .hs-track{flex-direction:row;gap:var(--s5);margin:var(--s6) calc(var(--pad)*-1) 0;padding:0 var(--pad);will-change:transform}
-.hs-on .hs-panel{flex:none;width:min(62vw,820px);height:min(56vh,500px)}
-.hs-on .hs-prog{display:block;height:2px;background:var(--t-14);margin-top:var(--s6);max-width:320px}
+.hs-on .hs-sticky{position:sticky;top:0;height:100vh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;padding-top:calc(var(--nav-h) + var(--s5));padding-bottom:var(--s5)}
+.hs-on .hs-track{flex-direction:row;gap:var(--s5);margin:var(--s5) calc(var(--pad)*-1) 0;padding:0 var(--pad);will-change:transform;min-height:0}
+.hs-on .hs-panel{flex:none;width:min(62vw,820px);height:100%;min-height:0}
+.hs-on .hs-prog{display:block;height:2px;background:var(--t-14);margin-top:var(--s5);max-width:320px}
 .hs-prog i{display:block;height:100%;width:0;background:var(--red)}
 .scrub .w{opacity:.2;transition:opacity .3s}
 .scrub .w.on{opacity:1}
 @media(prefers-reduced-motion:reduce){.scrub .w{opacity:1}}
+
+#services h2.cd-h{font-size:clamp(30px,3.6vw,56px);max-width:none;margin-top:var(--s3)}
+.hs-panel h3{font-size:clamp(30px,4.2vw,72px)}
+
+/* audit + brand centre cards, currency switch */
+.acard{background:var(--grey-900);color:#fff;padding:clamp(24px,3vw,40px);position:relative;margin-top:clamp(32px,4vw,56px)}
+.acard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red)}
+.acard :focus-visible{outline-color:#fff}
+.afields{display:grid;grid-template-columns:1fr 1fr auto;gap:var(--s5);align-items:end}
+.acard .fnote{margin-top:var(--s5);color:var(--t-72)}
+.acard .fnote a{color:#fff}
+.acard .fok,.acard .ferr{margin-top:var(--s4);color:#fff}
+.acard .ferr{border-left:3px solid var(--red);padding-left:var(--s3)}
+.bc-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
+.bc-tiers .way{padding:var(--s6)}
+.bc-tiers .for{font-size:16px;line-height:1.55;color:var(--t-72);min-height:3.2em}
+.bc-tiers .price{font-size:clamp(30px,3vw,44px)}
+.bc-tiers .price small{margin-top:var(--s2)}
+.cur{display:inline-flex;border:1px solid var(--k-14);margin-top:clamp(24px,3vw,40px)}
+.cur button{font-family:var(--m);font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:var(--s3) var(--s5);background:transparent;border:0;cursor:pointer;color:var(--k-72);transition:background .2s,color .2s}
+.cur button.on{background:#000;color:#fff}
+.bc-note{margin-top:var(--s5)}
+@media(max-width:960px){.afields{grid-template-columns:1fr}.bc-tiers{grid-template-columns:1fr}}
 .js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
 .js .rv.in{opacity:1;transform:none}
 
@@ -399,22 +411,28 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
 </section>
 
 <!-- AUDIT -->
-<section id="audit" class="red panel">
-  <div class="audit-grid">
-    <div class="rv">
-      <div class="cd-label">Free design health check</div>
-      <h2 class="cd-h">Before we design, we find out what's <em>not working</em>.</h2>
-      <p class="lede" style="margin-top:var(--s6)">A plain-English look at your site and brand: what's working, what to improve, what to do next. I reply personally within one business day.</p>
+<section id="audit" class="light on-light panel">
+  <div class="bc-head">
+    <div class="rv"><div class="cd-label">Free design health check</div><h2 class="cd-h">Before we design, we find out what's <em>not working</em>.</h2></div>
+    <div class="rv" style="--d:.1s">
+      <p class="lede">A plain-English look at your site and brand: what's working, what to improve, what to do next. I reply personally within one business day.</p>
+      <ul class="bc-list">
+        <li><b>01</b>Website health: speed, clarity and first impressions.</li>
+        <li><b>02</b>Brand health: how consistent you look across touchpoints.</li>
+        <li><b>03</b>UX and conversion: what stops people from acting.</li>
+      </ul>
     </div>
-    <form class="aform rv" id="aform" novalidate>
+  </div>
+  <form class="acard rv" id="aform" novalidate>
+    <div class="afields">
       <div class="field"><label for="au">Your website</label><input id="au" name="url" type="text" inputmode="url" autocomplete="url" placeholder="yourcompany.com" required/></div>
       <div class="field"><label for="ae">Your email</label><input id="ae" name="email" type="email" autocomplete="email" placeholder="you@company.com" required/></div>
       <button class="cd-btn cd-btn-primary" type="submit">Get my free check <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      <p class="fok" id="aok" role="status">Thank you. I'll be in touch within one business day.</p>
-      <p class="ferr" id="aerr" role="alert">Something went wrong. Please email carvingdezine@gmail.com.</p>
-      <p class="fnote">Free, no obligation. Want a deeper paid audit? <a href="#contact" data-plan="Paid audit">Ask for a quote</a> or <a href="samples/ux-audit-sample.html">read a sample audit</a>. More in the <a href="#faq">questions below</a>.</p>
-    </form>
-  </div>
+    </div>
+    <p class="fok" id="aok" role="status">Thank you. I'll be in touch within one business day.</p>
+    <p class="ferr" id="aerr" role="alert">Something went wrong. Please email carvingdezine@gmail.com.</p>
+    <p class="fnote">Free, no obligation. Want a deeper paid audit? <a href="#contact" data-plan="Paid audit">Ask for a quote</a> or <a href="samples/ux-audit-sample.html">read a sample audit</a>. More in the <a href="#faq">questions below</a>.</p>
+  </form>
 </section>
 
 <!-- WAYS -->
@@ -444,7 +462,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
 <!-- BRAND -->
 <section id="brand-centre" class="light on-light panel">
   <div class="bc-head">
-    <div class="rv"><div class="cd-label">New &middot; Brand Centre</div><h2 class="cd-h">A brand guide you can actually <em>use</em>.</h2></div>
+    <div class="rv"><div class="cd-label">Our Product - Brand Centre</div><h2 class="cd-h">A brand guide you can actually <em>use</em>.</h2></div>
     <div class="rv" style="--d:.1s">
       <p class="lede">Your guidelines and a ready set of on-brand tools, together in one toolkit made for your company. No logins, no platform to sign in to.</p>
       <ul class="bc-list">
@@ -459,21 +477,32 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
   <div class="bc-video rv" id="bc-video" data-youtube="">
     <div class="bcv-ph"><span>Demo video &middot; coming soon</span><b>Brand</b><b>Centre</b><div class="bcv-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
   </div>
-  <div class="bc-prices rv" style="--d:.1s">
-      <article class="cd-card way">
-        <span class="cd-tag cd-tag-outline">Essential</span>
-        <div class="price">$2,500<small>one-time &middot; &#8377;1,40,000 in India</small></div>
-        <ul><li>Brand guidelines: logo, colour, type, usage</li><li>10 ready-to-use templates for social, cards and covers</li><li>Light and dark versions</li><li>Year one of updates included</li></ul>
-        <a class="cd-btn cd-btn-outline" href="#contact" data-plan="Brand Centre - Essential">Ask for Essential</a>
-      </article>
-      <article class="cd-card way">
-        <span class="cd-tag cd-tag-red">Complete</span>
-        <div class="price">$4,500<small>one-time &middot; &#8377;2,55,000 in India</small></div>
-        <ul><li>Everything in Essential</li><li>25 templates across print, decks and ads</li><li>Motion and video exports</li><li>Team walkthrough call</li></ul>
-        <a class="cd-btn cd-btn-primary" href="#contact" data-plan="Brand Centre - Complete">Ask for Complete</a>
-      </article>
-      <p class="bc-note"><b>From year two:</b> $600 a year (&#8377;34,000 in India) for updates and fixes. Several brands or a larger team? <a href="#contact" data-plan="Brand Centre - Custom" style="text-decoration:underline;text-underline-offset:3px;font-weight:600">Ask for a custom quote</a>.</p>
-    </div>
+
+  <div class="cur rv" role="group" aria-label="Show prices for"><button type="button" data-cur="in">India &middot; &#8377;</button><button type="button" data-cur="us">International &middot; $</button></div>
+  <div class="bc-tiers rv" style="margin-top:var(--s5)">
+    <article class="cd-card way">
+      <span class="cd-tag cd-tag-outline">Starter</span>
+      <p class="for">You already have a logo and a brand. I set up your Brand Centre.</p>
+      <div class="price" data-in="&#8377;49,000" data-us="$1,200"><span class="amt"></span><small>one-time</small></div>
+      <ul><li>Brand Centre built from your existing brand</li><li>Guidelines: logo, colour, type, usage</li><li>10 ready-to-use templates, light and dark</li></ul>
+      <a class="cd-btn cd-btn-outline" href="#contact" data-plan="Brand Centre - Starter">Ask for Starter</a>
+    </article>
+    <article class="cd-card way">
+      <span class="cd-tag cd-tag-outline">Essential</span>
+      <p class="for">You have a logo but no brand system. I build the brand and the Brand Centre.</p>
+      <div class="price" data-in="&#8377;99,000" data-us="$2,400"><span class="amt"></span><small>one-time</small></div>
+      <ul><li>Everything in Starter</li><li>A brand system built for you: colour, type, rules</li><li>15 templates for social, cards and decks</li></ul>
+      <a class="cd-btn cd-btn-outline" href="#contact" data-plan="Brand Centre - Essential">Ask for Essential</a>
+    </article>
+    <article class="cd-card way">
+      <span class="cd-tag cd-tag-red">Complete</span>
+      <p class="for">Logo and brand designed from scratch, with print and motion.</p>
+      <div class="price" data-in="&#8377;1,79,000" data-us="$4,200"><span class="amt"></span><small>one-time</small></div>
+      <ul><li>Everything in Essential</li><li>Logo and brand designed from scratch</li><li>Print kit, motion and video exports, 25 templates</li></ul>
+      <a class="cd-btn cd-btn-primary" href="#contact" data-plan="Brand Centre - Complete">Ask for Complete</a>
+    </article>
+  </div>
+  <p class="bc-note rv">Updates after launch: <b class="upd" data-in="&#8377;15,000 a year" data-us="$300 a year"></b>, or small update packs when you need them. Prices are set separately for India and overseas, not converted. Several brands or a larger team? <a href="#contact" data-plan="Brand Centre - Custom" style="text-decoration:underline;text-underline-offset:3px;font-weight:600">Ask for a custom quote</a>.</p>
 </section>
 
 <!-- FAQ -->
@@ -493,8 +522,8 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
 
     <h3>Brand Centre</h3>
     <details><summary>What is a Brand Centre, and how is it different from a brand guideline PDF?</summary><p>A Brand Centre is your brand guidelines and a ready set of on-brand tools in one toolkit, made for your company. Instead of a PDF that people read once, your team gets templates for posts, cards, brochures and decks that already follow the rules. There are no logins and no platform to sign in to.</p></details>
-    <details><summary>What does each Brand Centre option include, and what does it cost?</summary><p><b>Essential, $2,500 (&#8377;1,40,000 in India):</b> guidelines, 10 templates, light and dark versions and a year of updates. <b>Complete, $4,500 (&#8377;2,55,000):</b> everything in Essential plus 25 templates across print, decks and ads, motion and video exports and a team walkthrough. Several brands or a larger team is a custom quote.</p></details>
-    <details><summary>What happens after the first year, and who owns the Brand Centre?</summary><p>From year two, updates and fixes are $600 a year (&#8377;34,000 in India). It's optional: the toolkit is made for your company and it's yours to keep, so it keeps working if you choose not to renew.</p></details>
+    <details><summary>What does each Brand Centre option include, and what does it cost?</summary><p><b>Starter (&#8377;49,000 in India, $1,200 overseas):</b> you already have a logo and brand, and I set up your Brand Centre with guidelines and 10 templates. <b>Essential (&#8377;99,000, $2,400):</b> everything in Starter, plus a brand system built for you and 15 templates. <b>Complete (&#8377;1,79,000, $4,200):</b> everything in Essential, plus your logo and brand designed from scratch, a print kit, motion and video exports and 25 templates. Prices are set separately for India and overseas, not converted.</p></details>
+    <details><summary>What happens after launch, and who owns the Brand Centre?</summary><p>It's made for your company and it's yours to keep, so it keeps working whether or not you pay for updates. Updates and fixes after launch are &#8377;15,000 a year ($300 overseas), or you can buy small update packs when you need them.</p></details>
   </div>
 </section>
 
@@ -517,7 +546,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
       <div class="field"><label for="cs">What do you need?</label>
         <select id="cs" name="service">
           <option value="">Choose one</option>
-          <option>UX / UI design</option><option>Brand identity</option><option>Presentation design</option><option>Print &amp; marketing</option><option>Interactive web</option><option>Paid audit</option><option>Brand Centre - Essential</option><option>Brand Centre - Complete</option><option>Brand Centre - Custom</option><option>Monthly retainer</option><option>Not sure yet</option>
+          <option>UX / UI design</option><option>Brand identity</option><option>Presentation design</option><option>Print &amp; marketing</option><option>Interactive web</option><option>Paid audit</option><option>Brand Centre - Starter</option><option>Brand Centre - Essential</option><option>Brand Centre - Complete</option><option>Brand Centre - Custom</option><option>Monthly retainer</option><option>Not sure yet</option>
         </select></div>
       <div class="field"><label for="cm">Tell me about the project</label><textarea id="cm" name="message" required></textarea></div>
       <button class="cd-btn cd-btn-primary" type="submit">Send message <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -535,7 +564,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
     <div><h4>Studio</h4><ul><li><a href="work.html">Work</a></li><li><a href="#services">Services</a></li><li><a href="#audit">Free health check</a></li><li><a href="#brand-centre">Brand Centre</a></li><li><a href="#about">About</a></li><li><a href="#faq">Questions</a></li></ul></div>
     <div><h4>Contact</h4><div class="cd-ft-contact"><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a><a href="tel:+919820142005">+91 98201 42005</a><a href="https://wa.me/919820142005" target="_blank" rel="noopener">WhatsApp</a><span>Mumbai &amp; Surat, India<br/>Working globally</span></div></div>
   </div>
-  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="studio.html#admin">Studio</a></span></div>
+  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="admin.html">Studio</a></span></div>
 </footer>
 <button id="wa" type="button" aria-label="Chat on WhatsApp" aria-expanded="false">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -611,13 +640,13 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
   var ARR='<svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg>';
   function card(p,i){
     var img=cover(p),w=CAT[p.cat]||['Selected','work'],l=href(p),tg=tagsOf(p);
-    var meta=[p.client,p.year].filter(Boolean).map(esc).join(' &middot; ');
-    return '<a class="pcard '+SPAN[i%6]+(img?'':' is-ph')+' rv" style="--d:'+((i%3)*.08)+'s" href="'+esc(l.h)+'"'+(l.ext?' target="_blank" rel="noopener"':'')+' aria-label="'+esc(p.title)+'">'
-      +'<div class="pmedia">'+(img?'<img src="'+esc(img)+'" alt="" loading="lazy"/>':'')+'</div><div class="pshade"></div>'
-      +'<div class="ptop"><span class="cd-tag cd-tag-red">'+esc(CMAP[p.cat]||'Project')+'</span><span class="pidx">'+String(i+1).padStart(2,'0')+'</span></div>'
-      +'<div class="pmid"><div class="ph"><b>'+esc(w[0])+'</b><b>'+esc(w[1])+'</b></div></div>'
-      +'<div class="pbot">'+(meta?'<div class="pmeta">'+meta+'</div>':'')+'<h3>'+esc(p.title)+'</h3>'
-      +'<div class="pfoot"><div class="ptags">'+tg.map(function(t){return '<span>'+esc(t)+'</span>'}).join('')+'</div><span class="parrow">'+ARR+'</span></div></div></a>';
+    var media=img?'<img src="'+esc(img)+'" alt="" loading="lazy"/>':'<div class="ph"><i>'+String(i+1).padStart(2,'0')+'</i><b>'+esc(w[0])+'</b><b>'+esc(w[1])+'</b></div>';
+    return '<a class="pcard rv" style="--d:'+((i%3)*.08)+'s" href="'+esc(l.h)+'"'+(l.ext?' target="_blank" rel="noopener"':'')+' aria-label="'+esc(p.title)+'">'
+      +'<div class="pmedia">'+media+'</div>'
+      +'<div class="pinfo"><div class="prow"><span class="cd-tag cd-tag-red">'+esc(CMAP[p.cat]||'Project')+'</span><span class="pyear">'+esc(p.year||'')+'</span></div>'
+      +'<h3>'+esc(p.title)+'</h3>'
+      +(tg.length?'<div class="ptags">'+tg.map(function(t){return '<span>'+esc(t)+'</span>'}).join('')+'</div>':'')
+      +'<div class="pfoot"><span class="pclient">'+esc(p.client||'Carving Dezine')+'</span><span class="parrow">'+ARR+'</span></div></div></a>';
   }
   function render(list,sample){
     var grid=$('#grid');
@@ -643,7 +672,7 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
   function smooth(a,b,v){var t=clamp((v-a)/(b-a),0,1);return t*t*(3-2*t)}
 
   /* text scrub: wrap every word so it can light up as you read */
-  var scrubs=$$('#about .about p');
+  var scrubs=$$('main p').filter(function(p){return !p.closest('details,.beat,.hs-panel,.bc-note,.fok,.ferr,.fnote,.grid-note,.ways-note')});
   function wrapWords(node){
     Array.prototype.slice.call(node.childNodes).forEach(function(ch){
       if(ch.nodeType===3){
@@ -727,6 +756,20 @@ details p a{text-decoration:underline;text-underline-offset:3px;color:#fff}
   addEventListener('scroll',req,{passive:true});addEventListener('resize',relayout);addEventListener('load',relayout);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(relayout);
   setupHS();tick();
+
+  /* ===== Brand Centre prices: India in rupees, international in dollars (set separately, not converted) ===== */
+  (function(){
+    var KEY='cd_currency',btns=$$('.cur button'),cur;
+    try{cur=localStorage.getItem(KEY)}catch(e){}
+    if(cur!=='in'&&cur!=='us'){var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}cur=/Kolkata|Calcutta/i.test(tz)?'in':'us'}
+    function apply(c){
+      $$('.price[data-in]').forEach(function(el){$('.amt',el).textContent=el.getAttribute('data-'+c)});
+      $$('.upd').forEach(function(el){el.textContent=el.getAttribute('data-'+c)});
+      btns.forEach(function(b){b.classList.toggle('on',b.getAttribute('data-cur')===c);b.setAttribute('aria-pressed',b.getAttribute('data-cur')===c)});
+    }
+    btns.forEach(function(b){b.addEventListener('click',function(){cur=b.getAttribute('data-cur');try{localStorage.setItem(KEY,cur)}catch(e){}apply(cur)})});
+    apply(cur);
+  })();
 
   /* ===== Brand Centre demo video: paste a YouTube link in data-youtube on #bc-video ===== */
   (function(){
