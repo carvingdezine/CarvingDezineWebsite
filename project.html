@@ -317,8 +317,18 @@ a{color:inherit;text-decoration:none;}
 
 </style>
 </style>
-<style>.cd-skip{position:absolute;left:-999px;top:8px}.cd-logo img{width:32px;height:32px}.cd-ft-brand img{width:40px;height:40px}#bg-nodes{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}.cd-menu{position:fixed;opacity:0;pointer-events:none}</style><link rel="stylesheet" href="assets/site.css?v=5"/>
+<style>.cd-skip{position:absolute;left:-999px;top:8px}.cd-logo img{width:32px;height:32px}.cd-ft-brand img{width:40px;height:40px}#bg-nodes{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}.cd-menu{position:fixed;opacity:0;pointer-events:none}</style><link rel="stylesheet" href="assets/site.css?v=6"/>
 <style>.hl{font-style:normal;color:var(--red)}</style>
+<style>h1,h2,h3,.cd-h,.pj-title,.wk-title,.pj-cta-title,.rp-body h2{text-transform:uppercase}
+/* NEW CARD for related projects */
+.pj-related-grid{gap:clamp(14px,1.6vw,24px)}
+.pj-rel-card{display:flex;flex-direction:column;background:var(--grey-900);border:1px solid var(--t-08);transition:border-color .3s}
+.pj-rel-card:hover{border-color:var(--t-20)}
+.pj-rel-img{aspect-ratio:4/3;margin-bottom:0}
+.pj-rel-cat{align-self:flex-start;background:var(--red);color:#fff;padding:5px 12px;margin:var(--s5) var(--s5) var(--s3);font-size:10px;letter-spacing:.2em}
+.pj-rel-title{margin:0 var(--s5);text-transform:uppercase;font-size:clamp(15px,1.3vw,18px);font-weight:700}
+.pj-rel-yr{margin:var(--s3) var(--s5) var(--s5);color:var(--t-72)}
+</style>
 </head>
 <body data-page="work" data-root="">
 
@@ -561,7 +571,7 @@ function renderPjBody(pj,id,projects,coverImage,root){
       +clientRelatedH
       +relatedH
       +'<div class="pj-cta"><div class="pj-cta-eyebrow">Like what you see?</div><div class="pj-cta-title">Let\'s work together</div><div class="pj-cta-sub">Tell me about your project and let\'s create something remarkable.</div><a class="pj-cta-btn" href="index.html#contact">Get in touch</a></div>'
-      +'<footer class="cd-ft">  <div class="cd-ft-top">    <div class="cd-ft-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDcpIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTl2MTQ4LjYxYzAsMS4wOS0uMSwyLjE2LS4xNiwzLjI0aC4xNnYxMDEuMTVjMzUuNjEtMjAuNjYsNTkuNjktNTkuNyw1OS42OS0xMDQuMzlWMTEzLjQxYy0uMjMsMC0uNDYtLjAyLS42OC0uMDIiLz48L3N2Zz4=" alt="Carving Dezine" width="40" height="40"/><p>We carve <em>meaning</em> into design.</p></div>    <div><h4>Studio</h4><ul><li><a href="work.html">Work</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#audit">Free health check</a></li><li><a href="index.html#brand-centre">Brand Centre</a></li><li><a href="index.html#about">About</a></li><li><a href="index.html#faq">Questions</a></li></ul></div>    <div><h4>Contact</h4><div class="cd-ft-contact"><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a><a href="tel:+919820142005">+91 98201 42005</a><a href="https://wa.me/919820142005" target="_blank" rel="noopener">WhatsApp</a><span>Mumbai &amp; Surat, India<br/>Working globally</span></div></div>  </div>  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat &middot; Build 5<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="admin.html">Studio</a></span></div></footer>'
+      +'<footer class="cd-ft">  <div class="cd-ft-top">    <div class="cd-ft-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDcpIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTl2MTQ4LjYxYzAsMS4wOS0uMSwyLjE2LS4xNiwzLjI0aC4xNnYxMDEuMTVjMzUuNjEtMjAuNjYsNTkuNjktNTkuNyw1OS42OS0xMDQuMzlWMTEzLjQxYy0uMjMsMC0uNDYtLjAyLS42OC0uMDIiLz48L3N2Zz4=" alt="Carving Dezine" width="40" height="40"/><p>We carve <em>meaning</em> into design.</p></div>    <div><h4>Studio</h4><ul><li><a href="work.html">Work</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#audit">Free health check</a></li><li><a href="index.html#brand-centre">Brand Centre</a></li><li><a href="index.html#about">About</a></li><li><a href="index.html#faq">Questions</a></li></ul></div>    <div><h4>Contact</h4><div class="cd-ft-contact"><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a><a href="tel:+919820142005">+91 98201 42005</a><a href="https://wa.me/919820142005" target="_blank" rel="noopener">WhatsApp</a><span>Mumbai &amp; Surat, India<br/>Working globally</span></div></div>  </div>  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat &middot; Build 6<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="admin.html">Studio</a></span></div></footer>'
     +'</div>';
 
   // ── SCROLL PROGRESS ──
@@ -847,6 +857,6 @@ window._ambientPad=(function(){
   });
 })();
 </script>
-<script src="assets/site.js?v=5"></script>
+<script src="assets/site.js?v=6"></script>
 </body>
 </html>

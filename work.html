@@ -240,8 +240,28 @@ html.light-mode .theme-toggle .tt-sun{display:block}
   "author": { "@type": "Person", "name": "Tanvi Shah", "url": "https://www.carvingdezine.com" }
 }
 </script>
-<style>.cd-skip{position:absolute;left:-999px;top:8px}.cd-logo img{width:32px;height:32px}.cd-ft-brand img{width:40px;height:40px}#bg-nodes{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}.cd-menu{position:fixed;opacity:0;pointer-events:none}</style><link rel="stylesheet" href="assets/site.css?v=5"/>
+<style>.cd-skip{position:absolute;left:-999px;top:8px}.cd-logo img{width:32px;height:32px}.cd-ft-brand img{width:40px;height:40px}#bg-nodes{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}.cd-menu{position:fixed;opacity:0;pointer-events:none}</style><link rel="stylesheet" href="assets/site.css?v=6"/>
 <style>.hl{font-style:normal;color:var(--red)}</style>
+<style>h1,h2,h3,.cd-h,.pj-title,.wk-title,.pj-cta-title,.rp-body h2{text-transform:uppercase}
+/* NEW CARD on the work page: picture on top, details on a solid panel inside the same frame */
+.wk-masonry{column-count:auto!important;column-gap:0!important;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,24px);padding:var(--s5) var(--pad) var(--s9)!important}
+.pc{break-inside:auto;margin-bottom:0!important;display:flex!important;flex-direction:column;background:var(--grey-900)!important;border:1px solid var(--t-08);transition:border-color .3s}
+.pc:hover{border-color:var(--t-20)}
+.pc-img{display:flex;flex-direction:column;flex:1;position:static!important;aspect-ratio:auto!important;overflow:visible!important;background:var(--grey-900)!important}
+.pc-img>img{width:100%;height:auto!important;aspect-ratio:4/3;object-fit:cover;flex:none;transform:none!important}
+.pc:hover .pc-img>img{filter:brightness(1.08)}
+.pc-ph,.pc-img img.img-error~.img-ph{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;aspect-ratio:4/3;flex:none}
+.pc-img img.img-error~.img-ph{display:flex}
+.pc-overlay{position:static!important;inset:auto!important;background:none!important;padding:var(--s5)!important;display:flex;flex-direction:column;gap:var(--s2);flex:1;justify-content:flex-start}
+.pc-cat,.pc-img:has(.pc-ph) .pc-cat,.pc-img:has(img.img-error) .pc-cat{display:inline-block!important;align-self:flex-start;background:var(--red);color:#fff!important;padding:5px 12px;font-size:10px;letter-spacing:.2em;text-shadow:none;margin:0 0 var(--s2)}
+.pc-title,.pc-img:has(.pc-ph) .pc-title{font-size:clamp(16px,1.45vw,20px);font-weight:700;line-height:1.25;color:#fff!important;text-shadow:none;text-transform:uppercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-yr,.pc-img:has(.pc-ph) .pc-yr,.pc-img:has(img.img-error) .pc-yr{font-size:11px;letter-spacing:.14em;color:var(--t-72)!important;text-shadow:none;margin-top:0}
+.pc-tags-ov{margin-top:auto;padding-top:var(--s3)}
+.pc-img:has(.pc-ph) .pc-live,.pc-img:has(img.img-error) .pc-live,.pc:hover .pc-img:has(.pc-ph) .pc-live{color:#fff;border-color:var(--t-20);background:transparent}
+.pc:has(.pc-ph) .pc-line,.pc:has(img.img-error) .pc-line{background:var(--red)}
+@media(max-width:960px){.wk-masonry{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.wk-masonry{grid-template-columns:1fr}}
+</style>
 </head>
 <body data-page="work" data-root="">
 
@@ -288,7 +308,7 @@ html.light-mode .theme-toggle .tt-sun{display:block}
     <div><h4>Studio</h4><ul><li><a href="work.html">Work</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#audit">Free health check</a></li><li><a href="index.html#brand-centre">Brand Centre</a></li><li><a href="index.html#about">About</a></li><li><a href="index.html#faq">Questions</a></li></ul></div>
     <div><h4>Contact</h4><div class="cd-ft-contact"><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a><a href="tel:+919820142005">+91 98201 42005</a><a href="https://wa.me/919820142005" target="_blank" rel="noopener">WhatsApp</a><span>Mumbai &amp; Surat, India<br/>Working globally</span></div></div>
   </div>
-  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat &middot; Build 5<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="admin.html">Studio</a></span></div>
+  <div class="cd-ft-bot"><span>&copy; 2026 Carving Dezine &middot; Tanvi Shah &middot; Made in Mumbai &amp; Surat &middot; Build 6<span id="cd-last-updated" hidden></span></span><span><a href="samples/ux-audit-sample.html">Sample audit</a> &nbsp;&middot;&nbsp; <a href="admin.html">Studio</a></span></div>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -728,6 +748,6 @@ window._ambientPad=(function(){
   });
 })();
 </script>
-<script src="assets/site.js?v=5"></script>
+<script src="assets/site.js?v=6"></script>
 </body>
 </html>
