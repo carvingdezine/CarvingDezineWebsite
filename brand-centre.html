@@ -102,10 +102,18 @@ h3{font-weight:700;letter-spacing:-.01em;line-height:1.2;font-size:clamp(18px,1.
 .rules .old{text-decoration:line-through;text-decoration-color:rgba(0,0,0,.5)}
 .rules .h{font:400 10px/1 var(--m);letter-spacing:.2em;color:#000;display:block;margin-bottom:8px}
 @media(max-width:760px){.rules li{grid-template-columns:1fr;gap:6px}}
+/* gated "what you get" (text only, no screens) */
+section#inside{padding:clamp(64px,9vw,128px) var(--pad)}
+.gt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);margin-top:var(--s7)}@media(max-width:960px){.gt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.gt-grid{grid-template-columns:1fr}}
+.gt-card,#inside .gt-card{background:#000!important;color:#fff!important;padding:var(--s6)}#inside .gt-card h3,#inside .gt-gate h3{color:#fff}#inside .gt-card p,#inside .gt-gate p{color:rgba(255,255,255,.72)}#inside .gt-gate{background:#000}.gt-card .n{font:400 11px/1 var(--m);letter-spacing:.24em;color:var(--red);display:block;margin-bottom:var(--s5)}
+.gt-card h3{overflow-wrap:anywhere;font-size:clamp(22px,2vw,30px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0 0 var(--s3)}.gt-card p{color:var(--t-72);line-height:1.6;margin:0;font-size:16px}
+.gt-gate{display:flex;justify-content:space-between;align-items:center;gap:var(--s6);flex-wrap:wrap;margin-top:var(--s7);padding:var(--s7) var(--s6);background:#000;color:#fff;border-left:3px solid var(--red)}
+.gt-gate h3{font-size:clamp(26px,3vw,40px);font-weight:800;letter-spacing:-.02em;margin:var(--s3) 0}.gt-gate p{color:var(--t-72);max-width:52ch;line-height:1.6;margin:0}.gt-gate .cd-label{color:var(--t-72)}
+.gt-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
 /* demo video */
 .bc-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);align-items:end}.bc-head .cd-h{max-width:12ch}
 @media(max-width:960px){.bc-head{grid-template-columns:1fr}}
-.bc-video{--bcv-max:960px;width:100%;max-width:var(--bcv-max);margin-left:auto!important;margin-right:auto!important;position:relative;aspect-ratio:16/9;background:#000;margin:clamp(32px,4vw,56px) 0 0;overflow:hidden;container-type:inline-size;display:block;width:100%;border:0;cursor:pointer;text-align:left}
+.bc-video{position:relative;aspect-ratio:16/9;background:#000;margin:clamp(32px,4vw,56px) 0 0;overflow:hidden;container-type:inline-size;display:block;width:100%;border:0;cursor:pointer;text-align:left}
 .bc-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .bcv-btn{position:absolute;z-index:1;width:clamp(64px,9cqw,104px);height:clamp(64px,9cqw,104px);border-radius:50%;background:#000;display:grid;place-items:center;right:clamp(20px,5cqw,56px);bottom:clamp(20px,5cqw,56px);transition:transform .3s}
 .bc-video:hover .bcv-btn{transform:scale(1.08)}.bcv-btn svg{width:36%;height:36%;fill:#fff;margin-left:6%}
@@ -114,7 +122,6 @@ h3{font-weight:700;letter-spacing:-.01em;line-height:1.2;font-size:clamp(18px,1.
 .bcv-ph span{position:absolute;top:clamp(16px,3cqw,32px);left:clamp(20px,5cqw,56px);font:400 11px/1 var(--m);letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#000;padding:5px 14px}
 .chapters{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.chapters span{font:400 11px/1 var(--m);letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--k-14);padding:10px 14px;color:var(--k-72)}
 /* inside: horizontal scroll */
-#inside{padding:0}
 .hs-sticky{padding:calc(var(--nav-h) + var(--s8)) var(--pad) var(--s8)}
 .hs-track{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s7);position:relative;min-width:0}
 .hs-panel{position:relative;background:rgba(10,10,10,.85);border:1px solid var(--t-14);padding:var(--s6);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--s6);align-items:center;overflow:hidden;min-height:260px;transition:background .5s var(--ease),border-color .5s}
@@ -205,7 +212,7 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
   <h1 class="cd-display" aria-label="A brand guide you can actually use."><span class="ln" aria-hidden="true"><span>A brand guide</span></span><span class="ln" aria-hidden="true"><span>you can actually</span></span><span class="ln" aria-hidden="true"><span><em>use.</em></span></span></h1>
   <div class="hero-sub">
    <p class="lede">Your guidelines, your logo files and a ready set of on-brand tools, together in one toolkit made for your company. No logins, no platform to sign in to.</p>
-   <div class="hero-ctas"><a class="cd-btn cd-btn-primary" href="#demo">Watch the demo <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a><a class="cd-btn cd-btn-outline" href="#pricing">See pricing</a></div>
+   <div class="hero-ctas"><a class="cd-btn cd-btn-primary" href="#inside">Book a demo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="cd-btn cd-btn-outline" href="#demo">Watch the demo <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a></div>
   </div>
  </div>
  <div class="hero-strip hero-in"><div><b>1</b>File, opens in any browser</div><div><b>0</b>Logins or platforms</div><div><b>6</b>Parts in every Brand Centre</div></div>
@@ -252,19 +259,11 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
  <div class="chapters rv"><span>The problem</span><span>What's inside</span><span>Make a post</span><span>Print and motion</span><span>AI Kit</span><span>Your logo pack</span></div>
 </section>
 
-<section id="inside" aria-label="What is inside the Brand Centre">
- <div class="hs-sticky">
-  <div class="rv"><div class="cd-label">What's inside</div><h2 class="cd-h">Six parts. One <em>toolkit</em>.</h2></div>
-  <div class="hs-track" id="hs-track">
-   <article class="hs-panel"><span class="bgnum" aria-hidden="true">01</span><div class="hs-copy"><span class="n">01</span><h3>A guided start</h3><p>Every Brand Centre opens with a simple home, a how-to guide and a short tour, so nobody is left guessing where to begin.</p><span class="tags">Home &middot; Guide &middot; Tour</span></div><div class="hs-shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/brand-centre/home.jpg" width="2400" height="1500" alt="The Brand Centre home screen with a guided start and a menu of every section" loading="lazy" decoding="async"/></div></article>
-   <article class="hs-panel"><span class="bgnum" aria-hidden="true">02</span><div class="hs-copy"><span class="n">02</span><h3>Guidelines to copy from</h3><p>Logo, colour, type and usage rules, with every value one click away: hex, RGB, CMYK and ready-to-paste tokens.</p><span class="tags">Logo &middot; Colour &middot; Type &middot; Usage</span></div><div class="hs-shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/brand-centre/colour.jpg" width="2400" height="1500" alt="Colour guidelines with copyable values" loading="lazy" decoding="async"/></div></article>
-   <article class="hs-panel"><span class="bgnum" aria-hidden="true">03</span><div class="hs-copy"><span class="n">03</span><h3>Social posts in minutes</h3><p>Pick a platform and a template, edit the words and images, and export a post that is already on brand. Festive greetings are ready for Indian and international occasions.</p><span class="tags">Platform &middot; Template &middot; Studio &middot; Publish kit</span></div><div class="hs-shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/brand-centre/social.jpg" width="2400" height="1500" alt="Social post studio with a live preview" loading="lazy" decoding="async"/></div></article>
-   <article class="hs-panel"><span class="bgnum" aria-hidden="true">04</span><div class="hs-copy"><span class="n">04</span><h3>Print and decks</h3><p>Business cards, brochures and flyers your team edits in the browser and exports for print. Print kit is part of Complete.</p><span class="tags">Cards &middot; Brochures &middot; Flyers</span></div><div class="hs-shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/brand-centre/print.jpg" width="2400" height="1500" alt="Stationery templates for print" loading="lazy" decoding="async"/></div></article>
-   <article class="hs-panel"><span class="bgnum" aria-hidden="true">05</span><div class="hs-copy"><span class="n">05</span><h3>An AI Kit</h3><p>A brand file and ready prompts so AI tools generate websites and material that match your system, plus a prompt to check what they produce.</p><span class="tags">Brand file &middot; Prompts &middot; Check</span></div><div class="hs-shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/brand-centre/aikit.jpg" width="2400" height="1500" alt="AI Kit with a brand file and prompts" loading="lazy" decoding="async"/></div></article>
-   <article class="hs-panel"><span class="bgnum" aria-hidden="true">06</span><div class="hs-copy"><span class="n">06</span><h3>Your logo pack</h3><p>Every logo file on its own card, with its own download button. Need only the CMYK EPS for a printer, or the SVG for a developer? Pick the file type from a dropdown and download just that. Or download everything at once.</p><span class="tags">SVG &middot; PNG &middot; JPG &middot; WebP &middot; EPS &middot; PDF &middot; Favicons</span></div><div class="hs-shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/brand-centre/package.jpg" width="2400" height="1500" alt="Logo pack with one card per file, dropdown filters and a download button on each file" loading="lazy" decoding="async"/></div></article>
-  </div>
-  <div class="hs-prog" aria-hidden="true"><i id="hs-bar"></i></div>
- </div>
+<section id="inside" class="light on-light panel" aria-label="What you get">
+ <div class="rv"><div class="cd-label">What you get</div><h2 class="cd-h">Six parts. One <em>toolkit</em>.</h2><p class="lede" style="margin-top:20px">The full toolkit is shown live in a short demo, with your own brand colours.</p></div>
+ <div class="gt-grid"><article class="cd-card gt-card rv"><span class="n">01</span><h3>A guided start</h3><p>Your team is walked through the brand in minutes, not hours.</p></article><article class="cd-card gt-card rv"><span class="n">02</span><h3>Guidelines that work</h3><p>Colour, type, logo and voice, written for your company.</p></article><article class="cd-card gt-card rv"><span class="n">03</span><h3>Ready to post</h3><p>Social templates in your brand, sized for every platform.</p></article><article class="cd-card gt-card rv"><span class="n">04</span><h3>Print and presentations</h3><p>Cards, letterheads and decks that match, without a designer.</p></article><article class="cd-card gt-card rv"><span class="n">05</span><h3>An AI Kit</h3><p>Brand-aware prompts so AI tools write and design on-brand.</p></article><article class="cd-card gt-card rv"><span class="n">06</span><h3>Your logo pack</h3><p>Every logo file in every format, one download at a time.</p></article></div>
+ <div class="gt-gate rv"><div><div class="cd-label">See inside</div><h3>Want to see it working?</h3><p>Book a 30-minute live demo, or ask for a free trial. Tell us your company and we will set up a sample Brand Centre for you to try.</p></div>
+  <div class="gt-ctas"><a class="cd-btn cd-btn-primary" href="mailto:carvingdezine@gmail.com?subject=Brand%20Centre%20demo&amp;body=Hi%2C%20I%27d%20like%20to%20book%20a%20Brand%20Centre%20demo.%0A%0ACompany%3A%20%0APreferred%20time%3A%20">Book a demo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="cd-btn cd-btn-outline" href="mailto:carvingdezine@gmail.com?subject=Brand%20Centre%20free%20trial&amp;body=Hi%2C%20I%27d%20like%20to%20try%20a%20Brand%20Centre.%0A%0ACompany%3A%20%0AWebsite%3A%20">Start a free trial</a></div></div>
 </section>
 
 <section id="how" class="light on-light panel">
@@ -323,7 +322,7 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
 
 <section class="red panel final">
  <div class="rv"><div class="cd-label">Ready?</div><h2 class="cd-h">Let's make your brand <em>easy to use</em>.</h2><p class="lede" style="margin-top:22px">Tell me where you're starting from and I'll reply personally with the right option and a timeline.</p>
- <div class="hero-ctas"><a class="cd-btn cd-btn-blk" href="index.html?plan=Brand%20Centre#contact">Start my Brand Centre</a><a class="cd-btn" href="#pricing">Compare options</a></div>
+ <div class="hero-ctas"><a class="cd-btn cd-btn-blk" href="#inside">Book a demo</a><a class="cd-btn" href="index.html?plan=Brand%20Centre#contact">Start my Brand Centre</a><a class="cd-btn" href="#pricing">Compare options</a></div>
  <div class="contact"><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a><a href="tel:+919820142005">+91 98201 42005</a></div></div>
 </section>
 </main>
