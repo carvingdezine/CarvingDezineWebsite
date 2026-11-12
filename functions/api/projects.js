@@ -26,6 +26,15 @@ async function readAll(sql) {
   return { projects, lastUpdated };
 }
 
+// constant-time compare, so the admin key cannot be guessed by timing
+function safeEqual(a, b) {
+  a = String(a || ''); b = String(b || '');
+  let diff = a.length ^ b.length;
+  const n = Math.max(a.length, b.length);
+  for (let i = 0; i < n; i++) diff |= (a.charCodeAt(i) || 0) ^ (b.charCodeAt(i) || 0);
+  return diff === 0;
+}
+
 export async function onRequestGet(context) {
   try {
     const sql = neon(context.env.DATABASE_URL);
@@ -41,7 +50,7 @@ export async function onRequestPost(context) {
     const authHeader = context.request.headers.get('Authorization') || '';
     const key = authHeader.replace(/^Bearer\s+/i, '').trim();
 
-    if (!context.env.ADMIN_KEY || key !== context.env.ADMIN_KEY) {
+    if (!context.env.ADMIN_KEY || !safeEqual(key, context.env.ADMIN_KEY)) {
       return noStoreJson({ error: 'Unauthorized' }, 401);
     }
 
