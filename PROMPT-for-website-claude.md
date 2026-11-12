@@ -42,3 +42,15 @@ brand-centre.html loads the site's own `assets/site.js?v=6` first and uses its `
 - Hero and final call-to-action now lead with **Book a demo**.
 - No product screenshots are shipped with the page. `assets/brand-centre/` is no longer needed; remove it if it exists on the site.
 - The page uses its own spacing tokens (`--s2` to `--s8`). Do not use `--s9`, it is not defined here.
+
+## Update: glimpses and region pricing
+- The `#demo` full-video section is removed on purpose (a full walkthrough gives the product away). Do not re-add it. The "Watch the demo" links now read "See a glimpse" and point to `#inside`.
+- `#inside` shows six animated glimpse cards (`.gl-card`, CSS keyframes only, no images, honours prefers-reduced-motion). Each shows a small slice of one part, never a full screen. Keep it that way.
+- Prices: the India/International tabs are gone. Currency is picked by timezone first, then country from `cloudflare.com/cdn-cgi/trace` (fallback `ipapi.co/country/`). IN shows ₹, every other country shows $. A small "Change" link (`#curswap`) lets visitors switch, and that choice is remembered. FAQ prices follow the same setting (`.pv` spans). Prices are fixed per region, not live exchange rates.
+
+## Update: Brand Centre contact form
+- One dialog (`#bcm`) with three tabs: Start a project (option cards with the visitor's regional prices), Book a demo (month calendar plus time slots), Free trial. Any element with `data-bc="project|demo|trial"` opens it; `#start`, `#book`, `#trial` in the URL open it too. The header "Start a project" button opens it on this page instead of linking to index.html#contact.
+- Demo slots are generated in India time (11:00, 12:00, 15:00, 16:00, 17:00, Monday to Saturday, from 24 hours ahead to 45 days) and shown in the visitor's own time zone. Edit `HOURS` in the script to change them. The page has no booking system, so already-taken slots are not hidden. Each booking is a request that you confirm by email.
+- Sending: set `ENDPOINT` at the top of the form script to a form service URL (Formspree or similar) and requests are posted as JSON. While it is empty, the form opens the visitor's email app with the details filled in.
+- Live calendar: set `BOOKING_URL` in the form script to a booking page link (Cal.com, Calendly or Google Calendar). When set, the Book a demo tab shows that booking page in an iframe (with an "open in new tab" fallback) instead of the built-in request calendar. The Formspree flow stays for Start a project and Free trial.
+- The contact form is no longer a pop-up. It sits inline in the final red "Ready?" section (`#start`) as three tabs: Start my Brand Centre (default), Book a demo, Free trial. Every `data-bc` button scrolls to it and selects the matching tab; `#book` and `#trial` in the URL do the same.

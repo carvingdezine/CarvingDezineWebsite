@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin-portfolio
+Disallow: /login
+Disallow: /logout
 
 Sitemap: https://www.carvingdezine.com/sitemap.xml
