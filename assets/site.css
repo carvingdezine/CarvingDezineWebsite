@@ -30,6 +30,7 @@
 }
 
 /* ---------- page base: black page with the node network behind everything ---------- */
+*,*::before,*::after{box-sizing:border-box}
 html{background:#000;scroll-behavior:smooth;scroll-padding-top:var(--nav-h);-webkit-text-size-adjust:100%}
 body{background:transparent!important;color:var(--white);font-family:var(--f)}
 :where(a){color:inherit;text-decoration:none}   /* no browser-default blue links anywhere; styled links set their own underline */
@@ -149,3 +150,6 @@ footer.cd-ft{display:block;margin:0;padding:var(--s9) var(--pad) var(--s6);borde
 .pc-tag,.pc-tags-ov span{background:transparent!important;color:rgba(255,255,255,.85)!important;border-color:rgba(255,255,255,.32)!important}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ALL TITLES IN CAPITALS (headings only; body text and questions stay sentence case) */
+h1,h2,h3,.cd-h,.cd-h1,.pj-title,.wk-title,.rp-body h2,.cd-ft-brand p{text-transform:uppercase}
