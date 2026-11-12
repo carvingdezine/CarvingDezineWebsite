@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
+<script>/* WORKSPACE MERGE: this page now runs INSIDE admin.html (?embed=1). Opened on its own, it sends you to the workspace. */
+(function(){try{var q=new URLSearchParams(location.search),r=document.documentElement;
+if(q.get('embed')==='1'){r.classList.add('cdw-embed');var t=q.get('t')||'dark';r.setAttribute('data-cdw-theme',t);r.classList.toggle('light-mode',t==='light');}
+else if(window.top===window.self){location.replace('admin.html#/pf/add');}
+}catch(e){}})();</script>
+
 <script>
 // THEME (light/dark) — applied before paint to avoid flash.
 // Uses the CarvingDezine light design system palette (see html.light-mode
@@ -1947,6 +1953,54 @@ h2 .whu{display:inline-block;vertical-align:bottom}
 <style>/* admin.html: only the admin tools are shown; the public site lives in index.html */
 #nav,#mob-nav,#hero,.tkr,#work,#clients,#carve,#services,#about,#testimonials,#audit,#brand-centre,#pricing,#faq,#closing,#contact,body>footer,#wa,#wa-panel,#scroll-progress,#cd-scroll-progress,#cd-scroll-btn{display:none!important}</style>
 <script>try{if(location.hash!=="#admin")history.replaceState(null,"","#admin")}catch(e){try{location.hash="#admin"}catch(e2){}}</script>
+<style id="cdw-embed-css">
+/* ===== EMBED MODE: make the portfolio manager look like part of the workspace (same tokens, fonts, buttons, fields) ===== */
+html.cdw-embed{--cw-bg:#000;--cw-surface:#0a0a0a;--cw-surface2:#111;--cw-border:#222;--cw-border2:#555;--cw-text:#e5e5e5;--cw-strong:#f5f5f5;--cw-muted:#bbb;--cw-faint:#888;--cw-accent:#E8001D;--cw-accent-hover:#B20016;--cw-accent-soft:rgba(232,0,29,.18);--cw-accent-text:#ff6b7d;--cw-accent-border:rgba(232,0,29,.42);
+  --black:#000;--white:#f5f5f5;--white-rgb:255,255,255;--black-rgb:0,0,0;--line:#222;--g1:#0a0a0a;--g2:#111;--g3:#1a1a1a;--muted:#bbb;--muted2:#888;--f:'Outfit',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;--m:'Outfit',system-ui,sans-serif}
+html.cdw-embed[data-cdw-theme="light"]{--cw-bg:#f5f5f5;--cw-surface:#fff;--cw-surface2:#eee;--cw-border:#e5e5e5;--cw-border2:#bbb;--cw-text:#0a0a0a;--cw-strong:#000;--cw-muted:#555;--cw-faint:#888;--cw-accent-hover:#B20016;--cw-accent-soft:rgba(232,0,29,.10);--cw-accent-text:#B20016;--cw-accent-border:rgba(232,0,29,.35);
+  --black:#f5f5f5;--white:#0a0a0a;--white-rgb:15,15,15;--black-rgb:255,255,255;--line:#e5e5e5;--g1:#fff;--g2:#eee;--g3:#e2e2e2;--muted:#555;--muted2:#888}
+html.cdw-embed,html.cdw-embed body{background:var(--cw-bg)!important;color:var(--cw-text);font-family:var(--f);overflow:hidden}
+html.cdw-embed #adm-login,html.cdw-embed .adm-bar,html.cdw-embed .adm-nav{display:none!important}
+html.cdw-embed #adm-ov{background:var(--cw-bg);z-index:1}
+html.cdw-embed .adm-ct{padding:var(--sp-2,8px) clamp(12px,2vw,24px) 48px;max-width:1120px}
+html.cdw-embed .adm-st{font-family:var(--f);font-size:2rem;font-weight:700;letter-spacing:-.03em;color:var(--cw-strong);margin:0 0 8px}
+html.cdw-embed .adm-hint{font-family:var(--f);font-size:.875rem;letter-spacing:0;line-height:1.6;color:var(--cw-muted);max-width:72ch;margin-bottom:24px}
+html.cdw-embed .adm-hint strong{color:var(--cw-strong);font-weight:600}
+html.cdw-embed .adm-hint a,html.cdw-embed .adm-hint code{color:var(--cw-accent-text)}
+html.cdw-embed .adm-hint code{background:var(--cw-surface2);border:1px solid var(--cw-border);padding:1px 6px;border-radius:4px;font-size:.85em}
+html.cdw-embed .adm-g{gap:16px 20px}
+html.cdw-embed .adm-l{font-family:var(--f);font-size:.875rem;font-weight:500;letter-spacing:0;text-transform:none;color:var(--cw-strong)}
+html.cdw-embed .adm-l span{font-family:var(--f)!important;font-size:.75rem!important;font-weight:400;color:var(--cw-faint)!important;letter-spacing:0!important}
+html.cdw-embed .adm-in,html.cdw-embed .adm-sl,html.cdw-embed .adm-ta{font-family:var(--f);background:var(--cw-surface);color:var(--cw-strong);border:1px solid var(--cw-border2);border-radius:12px;height:40px;padding:0 12px;font-size:.875rem;transition:border-color .16s,box-shadow .16s}
+html.cdw-embed .adm-ta{height:auto;min-height:92px;padding:10px 12px;line-height:1.5}
+html.cdw-embed .adm-in::placeholder,html.cdw-embed .adm-ta::placeholder{color:var(--cw-faint)}
+html.cdw-embed .adm-in:hover,html.cdw-embed .adm-sl:hover,html.cdw-embed .adm-ta:hover{border-color:var(--cw-faint)}
+html.cdw-embed .adm-in:focus,html.cdw-embed .adm-sl:focus,html.cdw-embed .adm-ta:focus{border-color:var(--cw-accent);box-shadow:0 0 0 3px rgba(232,0,29,.45)}
+html.cdw-embed .adm-sl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
+html.cdw-embed .adm-sl option{background:var(--cw-surface);color:var(--cw-strong)}
+html.cdw-embed .adm-btn{font-family:var(--f);font-size:.875rem;font-weight:600;letter-spacing:0;text-transform:none;height:40px;padding:0 16px;border-radius:12px;background:var(--cw-accent);color:#fff;border:1px solid transparent;transition:background .16s,transform .09s}
+html.cdw-embed .adm-btn:hover{background:var(--cw-accent-hover);color:#fff}
+html.cdw-embed .adm-btn:active{transform:scale(.97)}
+html.cdw-embed .adm-btn.del{background:transparent;color:var(--cw-accent-text);border:1px solid var(--cw-accent-border)}
+html.cdw-embed .adm-btn.del:hover{background:var(--cw-accent);color:#fff;border-color:transparent}
+html.cdw-embed .adm-ok{font-family:var(--f);font-size:.875rem;letter-spacing:0;color:var(--cw-accent-text)}
+html.cdw-embed .adm-err{font-family:var(--f);font-size:.875rem;color:var(--cw-accent-text)}
+html.cdw-embed .itabs{border:1px solid var(--cw-border2);border-radius:12px;overflow:hidden}
+html.cdw-embed .itab{font-family:var(--f);font-size:.875rem;font-weight:500;letter-spacing:0;text-transform:none;color:var(--cw-muted);border-right:1px solid var(--cw-border);padding:10px}
+html.cdw-embed .itab.on{background:var(--cw-accent);color:#fff}
+html.cdw-embed .dropzone{border:1.5px dashed var(--cw-border2);border-radius:12px;background:var(--cw-surface)}
+html.cdw-embed .dropzone:hover,html.cdw-embed .dropzone.drag{border-color:var(--cw-accent);background:var(--cw-accent-soft)}
+html.cdw-embed .dz-txt{font-family:var(--f);font-size:.875rem;letter-spacing:0;text-transform:none;color:var(--cw-muted)}
+html.cdw-embed .dz-txt strong{color:var(--cw-strong);font-weight:600}
+html.cdw-embed .img-prev{border-radius:12px;border-color:var(--cw-border);background:var(--cw-surface)}
+html.cdw-embed .pj-list{border:1px solid var(--cw-border);border-radius:16px;background:var(--cw-surface);overflow:hidden}
+html.cdw-embed .pj-item{border-bottom:1px solid var(--cw-border)}
+html.cdw-embed .pj-t{font-size:.9375rem;font-weight:600;color:var(--cw-strong)}
+html.cdw-embed .pj-s,html.cdw-embed .pj-empty{font-family:var(--f);font-size:.8125rem;letter-spacing:0;color:var(--cw-muted)}
+html.cdw-embed ::-webkit-scrollbar{width:10px;height:10px}html.cdw-embed ::-webkit-scrollbar-track{background:var(--cw-bg)}html.cdw-embed ::-webkit-scrollbar-thumb{background:var(--cw-border2);border-radius:6px;border:2px solid var(--cw-bg)}
+html.cdw-embed #p-clients>div[style*="border:1px solid"]{border-radius:16px!important}
+@media(max-width:760px){html.cdw-embed .adm-g{grid-template-columns:1fr}html.cdw-embed .adm-f.full{grid-column:auto}}
+</style>
 </head>
 <body>
 
@@ -5740,5 +5794,24 @@ function renderTmList(){
 </script>
 <script>/* admin-portfolio.html: inside the workspace there is no close button; opened alone it returns to the workspace */
 document.addEventListener("DOMContentLoaded",function(){var x=document.getElementById("admx");if(!x)return;if(window.top!==window.self){x.style.display="none";return}x.addEventListener("click",function(){location.href="admin.html"})});</script>
+<script id="cdw-embed-js">/* EMBED MODE: no second login, no top bar; the workspace menu picks the panel and the theme. */
+(function(){
+  var q=new URLSearchParams(location.search);if(q.get('embed')!=='1')return;
+  var root=document.documentElement;
+  function theme(t){if(t!=='light'&&t!=='dark')return;root.setAttribute('data-cdw-theme',t);root.classList.toggle('light-mode',t==='light')}
+  function panel(p){if(!p)return;var it=document.querySelector('.adm-ni[data-p="'+p+'"]');if(it)it.click();
+    var sc=document.querySelector('.adm-ct');if(sc)sc.scrollTop=0;var ov=document.getElementById('adm-ov');if(ov)ov.scrollTop=0}
+  function enter(){
+    var ov=document.getElementById('adm-ov'),lg=document.getElementById('adm-login'),pw=document.getElementById('lpwd'),bt=document.getElementById('lbtn');
+    if(ov&&ov.classList.contains('show'))return;
+    try{if(pw&&bt&&typeof gPwd==='function'){pw.value=gPwd();bt.click()}}catch(e){}
+    if(ov&&!ov.classList.contains('show')){ /* fallback: open the panel directly */
+      if(lg)lg.classList.remove('show');ov.classList.add('show');
+      try{renderList();renderTagPicker();loadDraft();checkStorage()}catch(e){}}
+  }
+  window.addEventListener('message',function(e){if(e.source!==window.parent||!e.data||e.data.cdw!==1)return;theme(e.data.theme);panel(e.data.panel)});
+  function start(){enter();theme(q.get('t'));panel(q.get('p'));try{window.parent.postMessage({cdw:1,ready:true},'*')}catch(e){}}
+  if(document.readyState==='complete')start();else window.addEventListener('load',start);
+})();</script>
 </body>
 </html>

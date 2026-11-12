@@ -23,3 +23,22 @@ Do not change prices: Starter ₹49,000 / $1,200, Essential ₹99,000 / $2,400, 
 - If index.html already has its own `CDNodes`/scroll engine, keep this page's inline copy as is; do not merge.
 - Demo video: paste the YouTube link into `data-youtube=""` on `#bc-video`.
 - Name is always CARVINGDEZINE.
+
+## Node animation
+brand-centre.html loads the site's own `assets/site.js?v=6` first and uses its `window.CDNodes` (exact same node concept as index.html). A simple inline copy only runs if site.js is missing. Keep brand-centre.html next to the same `assets/` folder as index.html.
+
+## Update 11 Nov 2026: logo pack
+
+- Panel 06 on `brand-centre.html` is now "Your logo pack": every logo file has its own card and its own download button (Download SVG, EPS, PDF, PNG and so on). Filters are dropdowns. A client can download one file, a filtered set as a ZIP, or everything.
+- `assets/brand-centre/package.jpg` was retaken (logo pack view). `filters.jpg` (EPS filter applied) and `assets.jpg` (overview with Logo pack, Library, Fonts cards) are new and can be used as extra screenshots.
+- Wording: use "logo pack" in headings; "Brand Assets" has four tabs: All, Logo pack, Library, Fonts.
+- Demo video link is already set in the page: https://youtu.be/W7pHCCnu9LY (the `data-youtube` attribute on `#bc-video`).
+- Nodes: the page now uses window.CDNodes from your assets/site.js (the page calls CDNodes.set({p,cx,cy,size}) while scrolling the story section). An exact copy of the site.js network is inlined and only runs if site.js fails to load. Load order: assets/site.js first, then the inline script.
+- Keep the rest of the page, design system and CARVINGDEZINE spelling unchanged.
+
+## Update 12 Nov 2026: gated page (supersedes the screenshot panels)
+
+- The six-panel screenshot section (`#inside`) is replaced by six text-only cards (no screens, no tab names) and a "Want to see it working?" block with two buttons: **Book a demo** and **Start a free trial** (both open an email to carvingdezine@gmail.com with a prefilled subject and body; swap for a form or booking link if you prefer).
+- Hero and final call-to-action now lead with **Book a demo**.
+- No product screenshots are shipped with the page. `assets/brand-centre/` is no longer needed; remove it if it exists on the site.
+- The page uses its own spacing tokens (`--s2` to `--s8`). Do not use `--s9`, it is not defined here.

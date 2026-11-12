@@ -213,6 +213,9 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 
 /* iframe modules */
 .frame-card{padding:0;overflow:hidden}
+.pf-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-2)}
+.pf-card{margin:0 calc(-1*var(--sp-2))}
+#pfFrame{height:calc(100vh - var(--topbar-h) - 96px);min-height:560px;background:transparent}
 .frame{display:block;width:100%;border:0;background:var(--bg);height:calc(100vh - var(--topbar-h) - 220px);min-height:560px}
 
 /* modal, drawer, toast, palette */
@@ -276,13 +279,20 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
       <div class="nav-group">Clients</div>
       <a class="nav-item" href="#/leads" data-p="leads"></a>
       <a class="nav-item" href="#/clients" data-p="clients"></a>
+      <a class="nav-item" href="#/pf/clients" data-p="pf-clients"></a>
       <a class="nav-item" href="#/docs" data-p="docs"></a>
+      <div class="nav-group">Portfolio</div>
+      <a class="nav-item" href="#/pf/add" data-p="pf-add"></a>
+      <a class="nav-item" href="#/pf/manage" data-p="pf-manage"></a>
+      <a class="nav-item" href="#/pf/testimonials" data-p="pf-testimonials"></a>
+      <a class="nav-item" href="#/pf/tags" data-p="pf-tags"></a>
       <div class="nav-group">Content</div>
-      <a class="nav-item" href="#/portfolio" data-p="portfolio"></a>
       <a class="nav-item" href="#/files" data-p="files"></a>
       <a class="nav-item" href="#/brand" data-p="brand"></a>
       <div class="nav-group">Studio</div>
       <a class="nav-item" href="#/settings" data-p="settings"></a>
+      <a class="nav-item" href="#/pf/backup" data-p="pf-backup"></a>
+      <a class="nav-item" href="#/pf/settings" data-p="pf-settings"></a>
     </nav>
     <div class="sb-foot"><span id="storeChip">Storage: checking</span><br/>Workspace v1 &middot; <a href="index.html" target="_blank" rel="noopener">View site</a></div>
   </aside>
@@ -352,11 +362,10 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
         </div>
       </section>
 
-      <!-- PORTFOLIO -->
-      <section class="page" id="page-portfolio">
-        <div class="page-head"><span class="eyebrow">Content</span><div class="row-end"><h1>Portfolio</h1><div class="row"><a class="btn" href="index.html#work" target="_blank" rel="noopener" id="viewPf"></a><a class="btn btn--secondary" href="admin-portfolio.html" target="_blank" rel="noopener" id="openPf"></a></div></div><p class="lead">Add, edit and reorder projects, upload images and manage testimonials. The portfolio manager below is your existing tool, running inside the workspace.</p></div>
-        <div class="grid g4 block" id="pfStats"></div>
-        <div class="card frame-card"><iframe class="frame" id="pfFrame" title="Portfolio manager" loading="lazy"></iframe></div>
+      <!-- PORTFOLIO MANAGER (runs inside the workspace; each menu item opens one panel) -->
+      <section class="page" id="page-pf">
+        <div class="pf-bar"><span class="eyebrow" id="pfEyebrow">Portfolio</span><a class="btn btn--ghost btn--sm" href="index.html#work" target="_blank" rel="noopener" id="viewPf"></a></div>
+        <div class="pf-card"><iframe class="frame" id="pfFrame" title="Portfolio manager"></iframe></div>
       </section>
 
       <!-- FILES -->
@@ -428,6 +437,7 @@ var IC={
  file:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/>',
  search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>'
 };
+IC['pf-add']=IC.plus;IC['pf-manage']=IC.portfolio;IC['pf-testimonials']=IC.docs;IC['pf-tags']=IC.link;IC['pf-clients']=IC.clients;IC['pf-backup']=IC.download;IC['pf-settings']=IC.settings;
 function ic(n){return '<svg class="ni" viewBox="0 0 24 24">'+(IC[n]||'')+'</svg>'}
 
 /* ============ storage layer: one small adapter so a database can replace the browser later ============ */
@@ -532,34 +542,37 @@ function formModal(o){
 }
 
 /* ============ router + chrome ============ */
-var PAGES={home:'Home',tasks:'Tasks',leads:'Leads',clients:'Clients',docs:'Quotes and invoices',portfolio:'Portfolio',files:'Files and links',brand:'Brand Centre',settings:'Settings',doc:'Document'};
-var NAV_LABEL={home:'Home',tasks:'Tasks',leads:'Leads',clients:'Clients',docs:'Quotes and invoices',portfolio:'Portfolio',files:'Files and links',brand:'Brand Centre',settings:'Settings'};
-function go(p){location.hash='#/'+p}
+var PF={add:'Add project',manage:'Manage projects',testimonials:'Testimonials',tags:'Tags',clients:'Client portal',backup:'Portfolio backup',settings:'Site connection'};
+var PAGES={home:'Home',tasks:'Tasks',leads:'Leads',clients:'Clients',docs:'Quotes and invoices',pf:'Portfolio',files:'Files and links',brand:'Brand Centre',settings:'Settings',doc:'Document'};
+var NAV_LABEL={home:'Home',tasks:'Tasks',leads:'Leads',clients:'Clients',docs:'Quotes and invoices',files:'Files and links',brand:'Brand Centre',settings:'Settings','pf-clients':'Client portal','pf-add':'Add project','pf-manage':'Manage projects','pf-testimonials':'Testimonials','pf-tags':'Tags','pf-backup':'Portfolio backup','pf-settings':'Site connection'};
+function go(p){location.hash='#/'+String(p).replace(/^pf-/,'pf/')}
 function navCounts(){
   var open=S.leads.filter(function(l){return l.status!=='Won'&&l.status!=='Lost'}).length;
   var due=S.tasks.filter(function(t){return !t.done&&t.due&&t.due<=today()}).length;
-  return{leads:open||'',tasks:due||'',clients:S.clients.length||'',docs:S.docs.length||'',files:S.files.length||'',portfolio:S.projects?S.projects.length:''};
+  return{leads:open||'',tasks:due||'',clients:S.clients.length||'',docs:S.docs.length||'',files:S.files.length||'','pf-manage':S.projects?S.projects.length:''};
 }
 function paintNav(){var c=navCounts();$$('#nav .nav-item').forEach(function(a){var p=a.getAttribute('data-p');a.innerHTML=ic(p)+'<span>'+NAV_LABEL[p]+'</span>'+(c[p]?'<span class="num">'+c[p]+'</span>':'')})}
 var cur={p:'home',arg:null};
 function route(){
   var h=(location.hash||'#/home').replace(/^#\/?/,'').split('/');
+  if(h[0]==='portfolio'){location.replace('#/pf/manage');return}
   var p=PAGES[h[0]]?h[0]:'home';
+  if(p==='pf'&&!PF[h[1]])h[1]='add';
   cur={p:p,arg:h[1]||null};
   $$('.page').forEach(function(x){x.classList.toggle('active',x.id==='page-'+p)});
-  $$('#nav .nav-item').forEach(function(a){var on=a.getAttribute('data-p')===(p==='doc'?'docs':p);a.classList.toggle('active',on)});
-  $('#crumb').textContent=PAGES[p];document.title=PAGES[p]+' | Carving Dezine Workspace';
+  $$('#nav .nav-item').forEach(function(a){var on=a.getAttribute('data-p')===(p==='doc'?'docs':(p==='pf'?'pf-'+cur.arg:p));a.classList.toggle('active',on)});
+  var ttl=p==='pf'?PF[cur.arg]:PAGES[p];$('#crumb').textContent=ttl;document.title=ttl+' | Carving Dezine Workspace';
   $('#app').classList.remove('nav-open');
   paintNav();renderPage();window.scrollTo(0,0);
 }
-function renderPage(){({home:rHome,tasks:rTasks,leads:rLeads,clients:rClients,docs:rDocs,doc:rDoc,portfolio:rPortfolio,files:rFiles,brand:rBrand,settings:rSettings})[cur.p]()}
+function renderPage(){({home:rHome,tasks:rTasks,leads:rLeads,clients:rClients,docs:rDocs,doc:rDoc,pf:rPf,files:rFiles,brand:rBrand,settings:rSettings})[cur.p]()}
 function refresh(){paintNav();renderPage()}
 
 /* ============ HOME ============ */
 function rHome(){
   $('#homeBanner').innerHTML=storageOK?'':'<div class="banner block"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg><div>This browser is blocking storage here, so changes are kept only until you close the tab. Open the workspace normally on your own site to save data.</div></div>';
   var jobs=[
-    ['portfolio','Add a project','Upload work to your portfolio',function(){go('portfolio')}],
+    ['portfolio','Add a project','Upload work to your portfolio',function(){go('pf/add')}],
     ['leads','Log an enquiry','Track a new lead',function(){leadForm()}],
     ['docs','Create a quote','Price a project in INR or USD',function(){newDoc('quote')}],
     ['docs','Create an invoice','Bill a client',function(){newDoc('invoice')}],
@@ -762,13 +775,13 @@ function paintLines(){
 function paintPrev(){$('#docPrev').innerHTML=docHtml(D)}
 
 /* ============ PORTFOLIO + BRAND ============ */
-function rPortfolio(){
-  $('#viewPf').innerHTML=ic('ext')+'View live portfolio';$('#openPf').innerHTML=ic('ext')+'Open manager in a tab';
-  var p=S.projects;
-  if(p){var by={};p.forEach(function(x){by[x.cat]=(by[x.cat]||0)+1});var names={ux:'UX / UI',brand:'Brand identity',deck:'Presentations',print:'Print and marketing',web:'Interactive web','design-system':'Design system'};
-    $('#pfStats').innerHTML='<div class="card kpi"><span class="l">Projects live</span><span class="v">'+p.length+'</span><span class="s">From your live site</span></div>'+Object.keys(names).slice(0,3).map(function(k){return '<div class="card kpi"><span class="l">'+names[k]+'</span><span class="v">'+(by[k]||0)+'</span><span class="s">projects</span></div>'}).join('')}
-  else $('#pfStats').innerHTML='<div class="banner banner--info" style="grid-column:1/-1"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg><div>Project counts load from your live <code>/api/projects</code>. Open the workspace on your live site to see them. The manager below works the same as before.</div></div>';
-  var f=$('#pfFrame');if(!f.getAttribute('src'))f.setAttribute('src','admin-portfolio.html#admin');
+function pfSend(){var f=$('#pfFrame');if(!f||!f.contentWindow||!f.getAttribute('data-ready'))return;try{f.contentWindow.postMessage({cdw:1,panel:cur.p==='pf'?cur.arg:null,theme:document.documentElement.getAttribute('data-theme')},'*')}catch(e){}}
+window.addEventListener('message',function(e){var f=$('#pfFrame');if(f&&e.source===f.contentWindow&&e.data&&e.data.cdw===1&&e.data.ready){f.setAttribute('data-ready','1');pfSend()}});
+function rPf(){
+  $('#viewPf').innerHTML=ic('ext')+'View live portfolio';$('#pfEyebrow').textContent='Portfolio / '+PF[cur.arg];
+  var f=$('#pfFrame');
+  if(!f.getAttribute('src'))f.setAttribute('src','admin-portfolio.html?embed=1&p='+cur.arg+'&t='+encodeURIComponent(document.documentElement.getAttribute('data-theme'))+'#admin');
+  else pfSend();
 }
 function rBrand(){$('#openBc').innerHTML=ic('ext')+'Open in a tab';var f=$('#bcFrame');if(!f.getAttribute('src'))f.setAttribute('src','brand-centre.html')}
 
@@ -867,7 +880,7 @@ function palette(){
 }
 
 /* ============ boot ============ */
-function applyTheme(t){document.documentElement.setAttribute('data-theme',t);$('#themeBtn').innerHTML=ic(t==='dark'?'sun':'moon');try{localStorage.setItem('cdw:theme',t)}catch(e){}}
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);$('#themeBtn').innerHTML=ic(t==='dark'?'sun':'moon');try{localStorage.setItem('cdw:theme',t)}catch(e){}if(typeof pfSend==='function')pfSend()}
 function boot(){
   var t='dark';try{t=localStorage.getItem('cdw:theme')||'dark'}catch(e){}
   $('#menuBtn').innerHTML=ic('menu');$('#viewSite').innerHTML=ic('ext')+'View site';applyTheme(t);
