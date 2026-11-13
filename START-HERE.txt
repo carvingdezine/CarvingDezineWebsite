@@ -1,0 +1,167 @@
+START HERE - Carving Dezine
+============================
+
+Keep this file on your Desktop. Do NOT put it inside the website folder.
+
+There are only 5 jobs. Do them in this order. After each job, check it
+worked before moving on. You do not need to understand anything else.
+
+Two words you will see:
+  ADMIN_KEY    = your password. You invent it. You type it to sign in.
+  DATABASE_URL = the address of your database. You copy it once.
+
+
+----------------------------------------------------------------
+JOB 1 - Check two settings in Cloudflare            (about 5 minutes)
+----------------------------------------------------------------
+
+1. Go to dash.cloudflare.com and log in.
+2. Click "Workers & Pages".
+3. Click your website.
+4. Click "Settings".
+5. Click "Variables and Secrets" (it may say "Environment variables").
+6. Look for two names in the list: ADMIN_KEY and DATABASE_URL.
+
+What you find, and what to do:
+
+  Both are there:
+    Your database is already set up. Skip JOB 2.
+    The old admin page was public, so make a NEW password now:
+    click "Edit" next to ADMIN_KEY, delete the old value, type a new
+    long password (20 or more letters and numbers, no spaces), click Save.
+    WRITE THIS PASSWORD DOWN somewhere safe. A password manager is best.
+
+  ADMIN_KEY is missing:
+    Click "Add". Name: ADMIN_KEY. Value: a long password (20 or more
+    letters and numbers, no spaces). Choose "Secret" or "Encrypt" if it
+    asks. Click Save. WRITE THE PASSWORD DOWN.
+
+  DATABASE_URL is missing:
+    You need to create the database. Go to JOB 2.
+
+Check: you can see both names in the list. (You cannot see the values.
+That is normal.)
+
+
+----------------------------------------------------------------
+JOB 2 - Create the database      ONLY if DATABASE_URL was missing
+----------------------------------------------------------------
+
+1. Go to neon.tech and sign up (it is free).
+2. Click "Create project". Name it carvingdezine. Pick the region
+   closest to India.
+3. On the project page click "Connect". Copy the long address that
+   starts with postgresql://
+4. Go back to Cloudflare (JOB 1, steps 1 to 5). Click "Add".
+   Name: DATABASE_URL. Value: paste the address. Click Save.
+5. Back in Neon click "SQL Editor".
+6. Open these 3 files with Notepad, one at a time, in this order.
+   For each one: select all (Ctrl+A), copy (Ctrl+C), click inside
+   the Neon SQL Editor, paste (Ctrl+V), click "Run".
+     a) D:\Github\CarvingDezineWebsite\schema.sql
+     b) D:\Github\CarvingDezineWebsite\001_client_portal.sql
+     c) D:\Github\CarvingDezineWebsite\sql\002_portal_hardening.sql
+
+Check: each file says it ran successfully, with no red error.
+
+(If your portfolio projects were lost, they come back later in the
+workspace: Portfolio backup, then Restore, using your projects.json.)
+
+
+----------------------------------------------------------------
+JOB 3 - Put the new files on your website          (about 10 minutes)
+----------------------------------------------------------------
+
+1. Open site-update.zip. Select everything inside and copy it.
+2. Open the folder D:\Github\CarvingDezineWebsite
+3. Paste. When Windows asks, click "Replace the files in the
+   destination". The folders "assets" and "functions" will merge
+   with your existing ones. That is correct.
+4. Open GitHub Desktop. You will see a list of changed files.
+5. In the small box at the bottom left type: workspace update
+6. Click "Commit to main".
+7. Click "Push origin" at the top.
+8. Wait 2 minutes. In Cloudflare, click Workers & Pages, your website,
+   then "Deployments". The newest one should say "Success".
+
+Check: the top deployment says Success.
+
+
+----------------------------------------------------------------
+JOB 4 - Sign in and test                           (about 5 minutes)
+----------------------------------------------------------------
+
+1. In your browser go to: carvingdezine.com/admin
+2. You should see a black page that says "Private area".
+3. Type your ADMIN_KEY password and click "Sign in".
+4. Your workspace opens. Click "Manage projects" on the left. Your
+   portfolio projects should be listed.
+
+Now the safety test (this proves strangers cannot get in):
+5. Open a private window (Ctrl+Shift+N in Chrome). Do NOT sign in there.
+6. Go to carvingdezine.com/api/session
+   It must show:  {"signedIn":false}
+   If you see "Not found" instead, the new files did not publish: do
+   JOB 3 again.
+7. Go to carvingdezine.com/admin.html
+   It must show the sign-in page. It must NOT show your workspace.
+8. Go to carvingdezine.com/schema.sql
+   It must say "Not found".
+
+You stay signed in only until you close your browser. If you tick
+"Keep me signed in", it is 7 days. The workspace also signs you out
+after 60 minutes of doing nothing. Use "Sign out" when you finish.
+
+If any of this is different, take a screenshot and send it to me.
+Say which JOB and which step you were on.
+
+Wrong password? It is exactly the ADMIN_KEY value in Cloudflare.
+Lost it? Do JOB 1 again with a new password, wait 2 minutes, try again.
+
+
+----------------------------------------------------------------
+JOB 5 - Load your earnings                          (about 3 minutes)
+----------------------------------------------------------------
+
+1. In the workspace click "Earnings" on the left.
+2. Click "Import Projects.xlsx" and choose your file.
+3. A check screen appears. Look at it, then click "Save to database".
+
+Important: keep Projects.xlsx OUT of the GitHub folder. It contains
+client emails.
+
+
+----------------------------------------------------------------
+JOB 6 - Make your GitHub folder private           (about 3 minutes)
+----------------------------------------------------------------
+
+Your GitHub folder (repository) is public. Your earnings and client
+details are NOT in it, they live in your database. But the workspace
+code is, and it is better kept private.
+
+1. Go to github.com and open your carvingdezine repository.
+2. Click "Settings" (top row of the repository).
+3. Scroll to the very bottom, to "Danger Zone".
+4. Click "Change repository visibility", then "Make private".
+   Follow the prompts and type the repository name to confirm.
+5. Wait 2 minutes. In Cloudflare, Workers & Pages, your website,
+   Deployments: make a small change and push, and check it still
+   publishes. If it does not, in Cloudflare open Settings, Builds,
+   and reconnect the GitHub account when it asks.
+
+Also look inside the folder called "website" in your project. If it holds
+old copies of your pages, tell me what is in it before you publish again.
+Do not delete it yet.
+
+Also never put these in the folder: Projects.xlsx, passwords, the
+DATABASE_URL address, invoices, or client files.
+
+
+----------------------------------------------------------------
+LATER - not today
+----------------------------------------------------------------
+
+Extra protection, for another day: two-step verification on GitHub,
+Cloudflare and Neon, and limiting sign-in attempts. When you are
+ready, type "security steps" and I will walk you through them one at
+a time.

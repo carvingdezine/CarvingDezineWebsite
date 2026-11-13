@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+<script id="cd-guard">/* The server already refuses to deliver this page without a sign-in. This is a second lock: the page asks the
+   server who you are and shows NOTHING until the answer is yes. It also signs you out after 60 minutes of no activity. */
+(function(){var r=document.documentElement;r.style.visibility='hidden';
+function out(){location.replace('/login?next='+encodeURIComponent(location.pathname))}
+fetch('/api/session',{credentials:'same-origin',cache:'no-store'}).then(function(x){if(x.ok){r.style.visibility=''}else{out()}}).catch(out);
+var t,idle=60*60*1000;function reset(){clearTimeout(t);t=setTimeout(function(){location.replace('/logout')},idle)}
+['click','keydown','mousemove','touchstart','scroll'].forEach(function(e){addEventListener(e,reset,{passive:true})});reset()})();</script>
+
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Workspace | Carving Dezine</title>
@@ -213,6 +221,23 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 
 /* iframe modules */
 .frame-card{padding:0;overflow:hidden}
+.dash{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--sp-5);margin-bottom:var(--sp-6)}
+.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
+@media(max-width:1180px){.c4,.c5{grid-column:span 6}.c7,.c8{grid-column:span 12}}
+@media(max-width:720px){.dash>*{grid-column:span 12}}
+.ch{width:100%;height:auto;display:block}
+.ch text{font-family:var(--font);fill:var(--text-faint);font-size:11px}
+.ch text.v{fill:var(--text-strong);font-weight:600}
+.ch .bar{fill:var(--accent);opacity:.3;transition:opacity .16s}.ch .bar.hi{opacity:1}.ch .bar:hover{opacity:.75}
+.hb{display:grid;gap:14px}.hb .r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:baseline;font-size:var(--fs-sm)}
+.hb .n{color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hb .a{color:var(--text-strong);font-weight:600;font-variant-numeric:tabular-nums}
+.hb .t{grid-column:1/-1;height:8px;border-radius:8px;background:var(--surface-3);overflow:hidden}.hb .t i{display:block;height:100%;border-radius:8px;background:var(--accent)}
+.dn{display:flex;gap:var(--sp-5);align-items:center;flex-wrap:wrap}.dn svg{width:132px;height:132px;flex:none}
+.dn .lg{display:grid;gap:8px;font-size:var(--fs-sm);min-width:120px;color:var(--text-muted)}.dn .lg b{font-variant-numeric:tabular-nums;color:var(--text-strong);margin-left:4px}.dn .lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px}
+.delta{display:inline-flex;align-items:center;font-size:var(--fs-xs);font-weight:600;padding:2px 8px;border-radius:var(--r-pill);background:var(--surface-2);color:var(--text-muted);width:fit-content}
+.delta.up{background:var(--accent-soft);color:var(--accent-text)}
+.ep{color:var(--text-faint);font-size:var(--fs-sm);padding:var(--sp-8) 0;text-align:center}
+.chips{display:flex;gap:var(--sp-2);flex-wrap:wrap}
 .ebar{height:6px;border-radius:3px;background:var(--accent);min-width:2px;margin:6px 0 0 auto}
 td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .etools{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center;margin-bottom:var(--sp-3)}
@@ -316,20 +341,11 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 
       <!-- HOME -->
       <section class="page" id="page-home">
-        <div class="page-head"><span class="eyebrow">Workspace</span><h1>What do you want to do today?</h1><p class="lead">Your studio in one place: portfolio, brand, clients, quotes, invoices, files and tasks. Pick a job below or use the menu.</p></div>
+        <div class="page-head"><span class="eyebrow">Workspace</span><h1>Dashboard</h1><p class="lead">Your studio at a glance: earnings, leads, invoices, tasks and portfolio. Quick actions are just below.</p></div>
         <div id="homeBanner"></div>
-        <div class="grid g4 block" id="homeJobs"></div>
+        <div class="chips block" id="homeJobs"></div>
         <div class="grid g4 block" id="kpis"></div>
-        <div class="split">
-          <div class="col">
-            <div class="panel"><div class="ph"><h5>Today and overdue</h5><a class="btn btn--ghost btn--sm" href="#/tasks">All tasks</a></div><div class="pb" id="homeTasks"></div></div>
-            <div class="panel"><div class="ph"><h5>Lead pipeline</h5><a class="btn btn--ghost btn--sm" href="#/leads">Open pipeline</a></div><div class="pb" id="homePipe"></div></div>
-          </div>
-          <div class="col">
-            <div class="panel"><div class="ph"><h5>Recent activity</h5></div><div class="pb" id="homeAct"></div></div>
-            <div class="card"><h5>Ideas to add next</h5><p>These fit a studio like yours and the data layer is ready for them.</p><ul class="muted" style="margin:var(--sp-3) 0 0;padding-left:18px;font-size:var(--fs-sm);line-height:1.9"><li>Client portal: share proofs and collect approvals</li><li>Contracts and e-signature</li><li>Time tracking for monthly retainers</li><li>Email templates for follow-ups</li><li>Site analytics and form inbox from the database</li></ul></div>
-          </div>
-        </div>
+        <div class="dash" id="homeDash"></div>
       </section>
 
       <!-- TASKS -->
@@ -370,7 +386,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 
       <!-- EARNINGS -->
       <section class="page" id="page-earn">
-        <div class="page-head"><span class="eyebrow">Clients</span><div class="row-end"><h1>Earnings</h1><div class="row"><button class="btn btn--primary" id="earnImport" type="button"></button><input type="file" id="earnFile" accept=".xlsx,.xlsm" hidden/></div></div><p class="lead">Every project and payment from your Projects sheet. Nothing is converted between currencies: rupees stay rupees, dollars stay dollars.</p></div>
+        <div class="page-head"><span class="eyebrow">Clients</span><div class="row-end"><h1>Earnings</h1><div class="row"><button class="btn btn--primary" id="earnImport" type="button"></button><input type="file" id="earnFile" accept=".xlsx,.xlsm" hidden/></div></div><p class="lead">Income, clients and pending payments from your Projects sheet. Nothing is converted between currencies: rupees stay rupees, dollars stay dollars.</p></div>
         <div id="earnBody"></div>
       </section>
 
@@ -734,26 +750,41 @@ function rHome(){
     ['brand','Open Brand Centre','Guidelines, logos and tools',function(){go('brand')}],
     ['tasks','Add a task','Follow-ups and deadlines',function(){go('tasks');setTimeout(function(){$('#tTitle').focus()},150)}]
   ];
-  $('#homeJobs').innerHTML=jobs.map(function(j,i){return '<button class="card card--interactive" type="button" data-j="'+i+'"><span class="job-ic">'+ic(j[0])+'</span><h5>'+esc(j[1])+'</h5><p>'+esc(j[2])+'</p></button>'}).join('');
+  $('#homeJobs').innerHTML=jobs.map(function(j,i){return '<button class="btn btn--secondary btn--sm" type="button" data-j="'+i+'">'+ic(j[0])+esc(j[1])+'</button>'}).join('');
   $$('#homeJobs [data-j]').forEach(function(b){b.addEventListener('click',jobs[+b.getAttribute('data-j')][3])});
   var openLeads=S.leads.filter(function(l){return l.status!=='Won'&&l.status!=='Lost'});
-  var due=S.tasks.filter(function(t){return !t.done&&t.due&&t.due<=today()});
-  var unp={INR:0,USD:0};S.docs.filter(function(d){return d.type==='invoice'&&d.status==='Unpaid'}).forEach(function(d){unp[d.currency]=(unp[d.currency]||0)+calc(d).total});
-  var unpTxt=[unp.INR?money(unp.INR,'INR'):'',unp.USD?money(unp.USD,'USD'):''].filter(Boolean).join(' · ')||'Nothing due';
-  var k=[
-    [S.projects?S.projects.length:'—','Projects live',S.projects?'In your portfolio':'Open on your live site to count'],
-    [openLeads.length,'Open leads',S.leads.length+' in total'],
-    [S.clients.filter(function(c){return c.status==='Active'}).length,'Active clients',S.clients.length+' in total'],
-    [due.length,'Tasks due',unpTxt==='Nothing due'?'Nothing unpaid':'Unpaid: '+unpTxt]
-  ];
-  $('#kpis').innerHTML=k.map(function(x){return '<div class="card kpi"><span class="l">'+esc(x[1])+'</span><span class="v">'+esc(x[0])+'</span><span class="s">'+esc(x[2])+'</span></div>'}).join('');
-  $('#homeTasks').innerHTML=due.length?'<div class="list">'+due.slice(0,6).map(function(t){return '<div class="list-item"><label class="check"><input type="checkbox" data-done="'+t.id+'"/></label><div class="grow"><div class="t">'+esc(t.title)+'</div><div class="m">'+(t.due<today()?'Overdue · ':'Today · ')+fmtDate(t.due)+(t.clientId?' · '+esc(clName(t.clientId)):'')+'</div></div></div>'}).join('')+'</div>':'<div class="empty"><p>Nothing due. Nice.</p></div>';
-  $$('#homeTasks [data-done]').forEach(function(c){c.addEventListener('change',function(){toggleTask(c.getAttribute('data-done'))})});
-  var stages=['New','Contacted','Proposal sent','Won','Lost'],max=Math.max(1,Math.max.apply(null,stages.map(function(s){return S.leads.filter(function(l){return l.status===s}).length})));
-  $('#homePipe').innerHTML=S.leads.length?stages.map(function(s){var n=S.leads.filter(function(l){return l.status===s}).length;return '<div class="row" style="margin-bottom:10px"><span style="width:110px;font-size:var(--fs-sm)" class="muted">'+s+'</span><div style="flex:1;height:8px;border-radius:8px;background:var(--surface-3)"><div style="width:'+(n/max*100)+'%;height:100%;border-radius:8px;background:var(--accent)"></div></div><b class="strong" style="width:24px;text-align:right">'+n+'</b></div>'}).join(''):'<div class="empty"><p>No leads yet. Log your first enquiry.</p><button class="btn btn--primary btn--sm" id="hpAdd" type="button">'+ic('plus')+'Log an enquiry</button></div>';
+  var due=S.tasks.filter(function(t){return !t.done&&t.due&&t.due<=today()}),over=due.filter(function(t){return t.due<today()});
+  var inv=S.docs.filter(function(d){return d.type==='invoice'});
+  var unp={},unpN=0;inv.filter(function(d){return d.status==='Unpaid'}).forEach(function(d){unpN++;unp[d.currency||'INR']=(unp[d.currency||'INR']||0)+calc(d).total});
+  var unpTxt=Object.keys(unp).map(function(c){return money(unp[c],c)}).join(' + ')||'\u20b90';
+  var pipe={};openLeads.forEach(function(l){var v=Number(l.value)||0;if(v){var c=l.currency||'INR';pipe[c]=(pipe[c]||0)+v}});
+  var pipeTxt=Object.keys(pipe).map(function(c){return nfmt(pipe[c],c)}).join(' + ');
+  var A=E.d?eAgg(E.d):null,yrs=A?A.years.filter(function(y){return y.y!=='Undated'&&y.y>=2024}):[],ly=yrs[0],py=yrs[1];
+  function kp(l,v,sub){return '<div class="card kpi"><span class="l">'+esc(l)+'</span><span class="v">'+esc(v)+'</span><span class="s">'+sub+'</span></div>'}
+  $('#kpis').innerHTML=[
+    ly?kp('Earned in '+ly.y,em(ly.inr,'INR'),dchip(ly.inr,py&&py.inr,py?'vs '+py.y:'')):kp('Earnings','\u2014','Import your sheet in <a href="#/earn">Earnings</a>'),
+    kp('Open leads',openLeads.length,esc(pipeTxt?'Pipeline '+pipeTxt:S.leads.length+' in total')),
+    kp('Unpaid invoices',unpTxt,esc(unpN+(unpN===1?' invoice':' invoices')+' waiting')),
+    kp('Tasks due',due.length,esc(over.length?over.length+' overdue':'Nothing overdue'))
+  ].join('');
+  var D=[];
+  var ys=A?A.years.filter(function(y){return y.y!=='Undated'&&y.inr>0}).sort(function(a,b){return a.y-b.y}).slice(-8):[];
+  D.push(pnl('Earnings by year','Rupees received',ys.length?chBars(ys.map(function(y){return{label:String(y.y),v:y.inr}}),{fmt:function(v){return nfmt(v,'INR')},full:function(v){return em(v,'INR')},label:'Rupees received by year'}):'<div class="ep">Import your Projects sheet to see earnings here.<br/><a class="btn btn--sm" style="margin-top:12px" href="#/earn">Open Earnings</a></div>',8));
+  var stages=['New','Contacted','Proposal sent','Won','Lost'];
+  D.push(pnl('Lead pipeline','',S.leads.length?chHBars(stages.map(function(s){return{n:s,v:S.leads.filter(function(l){return l.status===s}).length}})):'<div class="ep">No leads yet.<br/><button class="btn btn--sm" style="margin-top:12px" id="hpAdd" type="button">Log an enquiry</button></div>',4));
+  var st={};inv.forEach(function(d){st[d.status||'Draft']=(st[d.status||'Draft']||0)+1});
+  var order=['Paid','Unpaid','Draft','Cancelled'],cols={Paid:DC[1],Unpaid:DC[0],Draft:DC[2],Cancelled:DC[3]};
+  D.push(pnl('Invoices','By status',chDonut(order.filter(function(k){return st[k]}).map(function(k){return{n:k,v:st[k],c:cols[k]}})),4));
+  var tasksHtml=due.length?'<div class="list">'+due.slice(0,5).map(function(t){return '<div class="list-item"><label class="check"><input type="checkbox" data-done="'+t.id+'"/></label><div class="grow"><div class="t">'+esc(t.title)+'</div><div class="m">'+(t.due<today()?'Overdue \u00b7 ':'Today \u00b7 ')+fmtDate(t.due)+'</div></div></div>'}).join('')+'</div>':'<div class="ep">Nothing due today.</div>';
+  D.push(pnl('Today and overdue','',tasksHtml,4));
+  var cats={};(S.projects||[]).forEach(function(p){var c=p.category||p.cat||p.type||'Other';cats[c]=(cats[c]||0)+1});
+  D.push(pnl('Portfolio','By category',S.projects?chHBars(Object.keys(cats).map(function(k){return{n:k,v:cats[k]}}).sort(function(a,b){return b.v-a.v}).slice(0,6)):'<div class="ep">Open the workspace on your live site to see your portfolio.</div>',4));
+  var act=S.activity.slice().sort(function(a,b){return b.t-a.t}).slice(0,6);
+  D.push(pnl('Recent activity','',act.length?'<div class="list">'+act.map(function(a){return '<div class="list-item"><div class="grow"><div class="t">'+esc(a.text)+'</div><div class="m">'+ago(a.t)+'</div></div></div>'}).join('')+'</div>':'<div class="ep">Activity appears here as you work.</div>',4));
+  $('#homeDash').innerHTML=D.join('');
+  $$('#homeDash [data-done]').forEach(function(c){c.addEventListener('change',function(){toggleTask(c.getAttribute('data-done'))})});
   var hp=$('#hpAdd');if(hp)hp.addEventListener('click',function(){leadForm()});
-  var act=S.activity.slice().sort(function(a,b){return b.t-a.t}).slice(0,8);
-  $('#homeAct').innerHTML=act.length?'<div class="list">'+act.map(function(a){return '<div class="list-item"><div class="grow"><div class="t">'+esc(a.text)+'</div><div class="m">'+ago(a.t)+'</div></div></div>'}).join('')+'</div>':'<div class="empty"><p>Activity appears here as you work.</p></div>';
+  eQuiet();
 }
 
 /* ============ TASKS ============ */
@@ -959,6 +990,32 @@ function rPf(){
 }
 function rBrand(){$('#openBc').innerHTML=ic('ext')+'Open in a tab';var f=$('#bcFrame');if(!f.getAttribute('src'))f.setAttribute('src','brand-centre.html')}
 
+/* ============ CHARTS (no library: plain SVG and CSS, they follow the light/dark theme) ============ */
+var DC=['var(--accent)','var(--text-strong)','var(--text-faint)','var(--border-strong)'];
+function nfmt(n,c){n=Number(n)||0;function t(x,d){return x.toFixed(d).replace(/\.?0+$/,'')}
+  if(c==='INR'){if(n>=1e7)return '\u20b9'+t(n/1e7,2)+'Cr';if(n>=1e5)return '\u20b9'+t(n/1e5,2)+'L';if(n>=1e3)return '\u20b9'+t(n/1e3,1)+'k';return '\u20b9'+Math.round(n)}
+  var s=CUR[c]||'';if(n>=1e6)return s+t(n/1e6,2)+'M';if(n>=1e3)return s+t(n/1e3,1)+'k';return s+Math.round(n)}
+function dchip(cur,prev,label){if(!prev)return '';var p=(cur-prev)/prev*100;return '<span class="delta'+(p>=0?' up':'')+'">'+(p>=0?'\u25B2 ':'\u25BC ')+Math.abs(Math.round(p))+'% '+esc(label)+'</span>'}
+function pnl(title,sub,body,span){return '<div class="panel c'+span+'"><div class="ph"><h5>'+esc(title)+'</h5>'+(sub?'<span class="faint" style="font-size:var(--fs-xs)">'+esc(sub)+'</span>':'')+'</div><div class="pb">'+body+'</div></div>'}
+function chBars(items,o){o=o||{};var n=items.length;if(!n)return '<div class="ep">No data yet</div>';
+  var W=640,H=o.h||230,pt=26,pb=28,pl=6,pr=6,max=Math.max.apply(null,items.map(function(i){return i.v}))||1,bw=(W-pl-pr)/n,gap=Math.min(bw*.3,16),w=Math.max(4,bw-gap),h=H-pt-pb,last=n-1;
+  var s='<svg class="ch" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(o.label||'Bar chart')+'"><line x1="0" x2="'+W+'" y1="'+(H-pb)+'" y2="'+(H-pb)+'" stroke="var(--border-strong)"/>';
+  items.forEach(function(it,i){var bh=it.v>0?Math.max(3,it.v/max*h):0,x=pl+i*bw+gap/2,y=H-pb-bh,hi=i===last,cx=(x+w/2).toFixed(1);
+    s+='<g><title>'+esc(it.label+': '+(o.full?o.full(it.v):it.v))+'</title><rect class="bar'+(hi?' hi':'')+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="4"/>';
+    if(n<=10||hi||it.v===max)s+='<text class="v" x="'+cx+'" y="'+(y-7).toFixed(1)+'" text-anchor="middle">'+esc(o.fmt?o.fmt(it.v):it.v)+'</text>';
+    if(n<=12||i%2===(n-1)%2)s+='<text x="'+cx+'" y="'+(H-9)+'" text-anchor="middle">'+esc(it.label)+'</text>';
+    s+='</g>'});
+  return s+'</svg>'}
+function chHBars(items,fmt){items=items.filter(function(i){return i.v>0});if(!items.length)return '<div class="ep">No data yet</div>';var max=Math.max.apply(null,items.map(function(i){return i.v}));
+  return '<div class="hb">'+items.map(function(i){return '<div class="r"><span class="n" title="'+esc(i.n)+'">'+esc(i.n)+'</span><span class="a">'+esc(fmt?fmt(i.v):i.v)+'</span><div class="t"><i style="width:'+Math.max(2,Math.round(i.v/max*100))+'%"></i></div></div>'}).join('')+'</div>'}
+function chDonut(items,center){var tot=items.reduce(function(a,i){return a+i.v},0);if(!tot)return '<div class="ep">No data yet</div>';
+  var R=52,C=2*Math.PI*R,off=0,s='<svg viewBox="0 0 132 132" role="img"><circle cx="66" cy="66" r="'+R+'" fill="none" stroke="var(--surface-3)" stroke-width="18"/>';
+  items.forEach(function(it){var len=it.v/tot*C;if(len>0)s+='<circle cx="66" cy="66" r="'+R+'" fill="none" stroke="'+it.c+'" stroke-width="18" stroke-dasharray="'+len.toFixed(2)+' '+(C-len).toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 66 66)"/>';off+=len});
+  s+='<text x="66" y="68" text-anchor="middle" style="font-size:22px;font-weight:700;fill:var(--text-strong);font-family:var(--font)">'+esc(center!=null?center:tot)+'</text></svg>';
+  return '<div class="dn">'+s+'<div class="lg">'+items.map(function(i){return '<div><i style="background:'+i.c+'"></i>'+esc(i.n)+'<b>'+i.v+'</b></div>'}).join('')+'</div></div>'}
+/* quietly load the earnings numbers so the Dashboard can show them too */
+function eQuiet(){if(E.d||E.quiet||!ekey())return;E.quiet=1;
+  fetch('/api/earnings',{headers:{Authorization:'Bearer '+ekey()},cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&((j.projects&&j.projects.length)||(j.payments&&j.payments.length))){E.d=j;if(E.state==='idle')E.state='idle';if(cur.p==='home')rHome()}}).catch(function(){})}
 /* ============ EARNINGS ============ */
 var E={d:null,state:'idle',q:'',f:'all',sort:'inr',all:false,old:false,prev:null};
 var CUR={INR:'\u20b9',USD:'$',AUD:'A$',EUR:'\u20ac',GBP:'\u00a3'};
@@ -1025,33 +1082,39 @@ function rEarn(){
   var msg={nokey:'Paste your admin key in <b>Studio &rsaquo; Site connection</b> first. Earnings are private and need it.',badkey:'The admin key saved in this browser was not accepted. Check it in <b>Studio &rsaquo; Site connection</b>.',offline:'Could not reach <code>/api/earnings</code>. Open the workspace on your live site, and make sure <code>functions/api/earnings.js</code> is deployed.',loading:'Loading ...',empty:'Nothing imported yet. Click <b>Import Projects.xlsx</b> and choose your sheet.'}[E.state];
   if(msg)b.push('<div class="banner banner--info block"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg><div>'+msg+'</div></div>');
   if(E.state==='ready'&&d){
-    var A=eAgg(d),yrs=A.years.filter(function(y){return y.y!=='Undated'&&y.y>=2024}).slice(0,3),maxI=1;
-    A.years.forEach(function(y){if(y.inr>maxI)maxI=y.inr});
-    var kp=yrs.map(function(y){return '<div class="card kpi"><span class="l">Received in '+y.y+'</span><span class="v">'+esc(em(y.inr,'INR'))+'</span><span class="s">'+y.n+' payments, exact rupee receipts</span></div>'});
+    var A=eAgg(d),NY=A.years.filter(function(y){return y.y!=='Undated'}),Y24=NY.filter(function(y){return y.y>=2024}),yrs=Y24.slice(0,3);
+    function kpi(l,v,sub){return '<div class="card kpi"><span class="l">'+esc(l)+'</span><span class="v">'+esc(v)+'</span><span class="s">'+sub+'</span></div>'}
+    var kp=yrs.map(function(y,i){var py=Y24[i+1];return kpi('Received in '+y.y,em(y.inr,'INR'),dchip(y.inr,py&&py.inr,py?'vs '+py.y:'')+' <span class="faint" style="margin-left:6px">'+y.n+' payments</span>')});
     var oth=Object.keys(A.older.oth).map(function(k){return ' + '+em(A.older.oth[k],k)}).join('');
-    kp.push('<div class="card kpi"><span class="l">Older years (before 2024)</span><span class="v">'+esc(em(A.older.usd,'USD'))+'</span><span class="s">+ '+esc(em(A.older.inr,'INR'))+oth+' recorded in rupees. '+A.older.n+' paid projects. Not converted.</span></div>');
+    kp.push(kpi('Before 2024',em(A.older.usd,'USD'),esc('+ '+em(A.older.inr,'INR')+oth+' recorded in rupees. '+A.older.n+' paid projects, not converted.')));
     b.push('<div class="grid g4 block">'+kp.join('')+'</div>');
-    b.push('<div class="block"><div class="bh"><h3>By year</h3></div><div class="table-wrap"><table><thead><tr><th>Year</th><th class="r">Rupees (&#8377;)</th><th class="r">Dollars ($)</th><th class="r">Paid</th><th>Source</th></tr></thead><tbody>'
-      +A.years.map(function(y){var o=Object.keys(y.oth).map(function(k){return ' + '+em(y.oth[k],k)}).join('');return '<tr><td><b class="strong">'+y.y+'</b></td><td class="r">'+(y.inr?esc(em(y.inr,'INR'))+'<div class="ebar" style="width:'+Math.max(2,Math.round(y.inr/maxI*100))+'%"></div>':'<span class="faint">-</span>')+'</td><td class="r">'+(y.usd?esc(em(y.usd,'USD')):'<span class="faint">-</span>')+(o?'<div class="faint">'+esc(o)+'</div>':'')+'</td><td class="r">'+y.n+'</td><td class="muted">'+(y.y!=='Undated'&&y.y>=2024?'Yearly sheet (exact dates and rupees)':'Projects sheet, as recorded'+(y.y==='Undated'?' (no usable start date)':''))+'</td></tr>'}).join('')
-      +'</tbody></table></div></div>');
-    var cl=A.clients.slice().sort(function(a,b2){return E.sort==='usd'?(b2.usd-a.usd):(E.sort==='n'?(b2.n-a.n):(b2.inr-a.inr||b2.usd-a.usd))});
-    var shown=E.all?cl:cl.slice(0,12);
-    b.push('<div class="block"><div class="bh"><h3>By client</h3></div><div class="etools"><div class="seg" id="eSort"><button data-s="inr" class="'+(E.sort==='inr'?'on':'')+'">Most rupees</button><button data-s="usd" class="'+(E.sort==='usd'?'on':'')+'">Most dollars</button><button data-s="n" class="'+(E.sort==='n'?'on':'')+'">Most projects</button></div></div><div class="table-wrap"><table><thead><tr><th>Client</th><th class="r">Rupees (&#8377;)</th><th class="r">Dollars ($)</th><th class="r">Paid</th></tr></thead><tbody>'
-      +shown.map(function(c){return '<tr><td>'+esc(c.name)+'</td><td class="r">'+(c.inr?esc(em(c.inr,'INR')):'<span class="faint">-</span>')+'</td><td class="r">'+(c.usd?esc(em(c.usd,'USD')):'<span class="faint">-</span>')+'</td><td class="r">'+c.n+'</td></tr>'}).join('')
-      +'</tbody></table></div>'+(cl.length>12?'<div style="margin-top:10px"><button class="btn btn--ghost btn--sm" id="eAll" type="button">'+(E.all?'Show top 12':'Show all '+cl.length+' clients')+'</button></div>':'')+'</div>');
-    var wait=d.projects.filter(function(p){return p.status!=='Cancelled'&&/pending|partial|%|not paid/i.test(p.pay_status||'')&&(E.old||p.start_year==null||p.start_year>=2024)});
+    var D=[];
+    var inrY=NY.filter(function(y){return y.inr>0}).sort(function(a,b2){return a.y-b2.y}),usdY=NY.filter(function(y){return y.usd>0}).sort(function(a,b2){return a.y-b2.y});
+    var lab=function(y,n){return n>12?"'"+String(y.y).slice(2):String(y.y)};
+    D.push(pnl('Rupees received by year','Exact receipts from 2024, older years as recorded',chBars(inrY.map(function(y){return{label:lab(y,inrY.length),v:y.inr}}),{fmt:function(v){return nfmt(v,'INR')},full:function(v){return em(v,'INR')},label:'Rupees received by year'}),8));
+    var ly=Y24[0],byC={};if(ly)d.payments.filter(function(p){return p.year===ly.y}).forEach(function(p){var k=p.client||'Not matched to a project';byC[k]=(byC[k]||0)+p.amount_inr});
+    D.push(pnl('Top clients in '+(ly?ly.y:''),'Rupees',chHBars(Object.keys(byC).map(function(k){return{n:k,v:byC[k]}}).sort(function(a,b2){return b2.v-a.v}).slice(0,6),function(v){return nfmt(v,'INR')}),4));
+    D.push(pnl('Dollars received by year','Older years, as recorded',chBars(usdY.map(function(y){return{label:lab(y,usdY.length),v:y.usd}}),{fmt:function(v){return nfmt(v,'USD')},full:function(v){return em(v,'USD')},label:'Dollars received by year'}),8));
+    var isPaid=function(p){return /^(paid|pad)$/i.test(p.pay_status||'')},isWait=function(p){return /pending|partial|%|not paid/i.test(p.pay_status||'')},sc={paid:0,wait:0,canc:0,other:0};
+    d.projects.forEach(function(p){if(p.status==='Cancelled')sc.canc++;else if(isPaid(p))sc.paid++;else if(isWait(p))sc.wait++;else sc.other++});
+    D.push(pnl('Projects by payment','All '+d.projects.length+' projects',chDonut([{n:'Paid',v:sc.paid,c:DC[1]},{n:'Pending',v:sc.wait,c:DC[0]},{n:'Cancelled',v:sc.canc,c:DC[3]},{n:'Other',v:sc.other,c:DC[2]}],d.projects.length),4));
+    var cl=A.clients;
+    D.push(pnl('Top clients, rupees','All years',chHBars(cl.filter(function(c){return c.inr>0}).sort(function(a,b2){return b2.inr-a.inr}).slice(0,8).map(function(c){return{n:c.name,v:c.inr}}),function(v){return nfmt(v,'INR')}),6));
+    D.push(pnl('Top clients, dollars','Older years',chHBars(cl.filter(function(c){return c.usd>0}).sort(function(a,b2){return b2.usd-a.usd}).slice(0,8).map(function(c){return{n:c.name,v:c.usd}}),function(v){return nfmt(v,'USD')}),6));
+    b.push('<div class="dash">'+D.join('')+'</div>');
+    var wait=d.projects.filter(function(p){return p.status!=='Cancelled'&&isWait(p)&&(E.old||p.start_year==null||p.start_year>=2024)});
     b.push('<div class="block"><div class="bh"><h3>Waiting for payment</h3><p>Projects whose payment status is pending or partial. Amounts are shown exactly as written in your sheet.</p></div><div class="etools"><label class="muted" style="font-size:var(--fs-sm)"><input type="checkbox" id="eOld" '+(E.old?'checked':'')+'/> include projects started before 2024</label></div>'
       +(wait.length?'<div class="table-wrap"><table><thead><tr><th>Project</th><th>Client</th><th>Started</th><th>Status</th><th>Project cost</th><th>Received</th><th>Pending</th></tr></thead><tbody>'+wait.map(function(p){return '<tr><td>'+esc(p.name)+'</td><td>'+esc(p.client)+'</td><td class="muted">'+esc(p.start_label)+'</td><td>'+eBadge(p.pay_status)+'</td><td>'+esc(p.cost_raw||'-')+'</td><td>'+esc(p.recv_raw||'-')+'</td><td>'+esc(p.pend_raw||'-')+'</td></tr>'}).join('')+'</tbody></table></div>':'<div class="card muted">Nothing waiting.</div>')+'</div>');
     var q=E.q.toLowerCase(),pl=d.projects.filter(function(p){
-      if(E.f==='paid'&&!/^(paid|pad)$/i.test(p.pay_status||''))return false;
-      if(E.f==='pending'&&!/pending|partial|%|not paid/i.test(p.pay_status||''))return false;
+      if(E.f==='paid'&&!isPaid(p))return false;
+      if(E.f==='pending'&&!isWait(p))return false;
       if(E.f==='progress'&&!/progress|new/i.test(p.status||''))return false;
       if(E.f==='cancelled'&&p.status!=='Cancelled')return false;
       return !q||(p.name+' '+p.client+' '+p.country+' '+p.scope).toLowerCase().indexOf(q)>-1});
     b.push('<div class="block"><div class="bh"><h3>All projects <span class="faint" style="font-weight:400">('+d.projects.length+')</span></h3></div><div class="etools"><input class="input" id="eQ" placeholder="Search project, client or country" value="'+esc(E.q)+'" style="width:280px"/><div class="seg" id="eF">'+[['all','All'],['paid','Paid'],['pending','Pending'],['progress','In progress'],['cancelled','Cancelled']].map(function(x){return '<button data-f="'+x[0]+'" class="'+(E.f===x[0]?'on':'')+'">'+x[1]+'</button>'}).join('')+'</div><span class="faint" style="font-size:var(--fs-sm)">'+pl.length+' match</span></div><div class="table-wrap"><table><thead><tr><th>#</th><th>Project</th><th>Client</th><th>Country</th><th>Started</th><th>Status</th><th>Payment</th><th class="r">Recorded amount</th></tr></thead><tbody>'
-      +pl.slice(0,150).map(function(p){return '<tr><td class="faint">'+p.num+'</td><td>'+esc(p.name)+(p.flag?' <span class="badge badge--warn" title="'+esc(p.flag)+'">check</span>':'')+'</td><td>'+esc(p.client)+'</td><td class="muted">'+esc(p.country)+'</td><td class="muted">'+esc(p.start_label)+'</td><td>'+esc(p.status)+'</td><td>'+eBadge(p.pay_status)+'</td><td class="r" title="'+(p.counted?'counted in the older-years totals':(p.start_year>=2024?'2024 and later is counted from the yearly sheets':'not counted'))+'">'+eAmount(p)+'</td></tr>'}).join('')
+      +pl.slice(0,150).map(function(p){return '<tr><td class="faint">'+p.num+'</td><td>'+esc(p.name)+(p.flag?' <span class="badge badge--warn" title="'+esc(p.flag)+'">check</span>':'')+'</td><td>'+esc(p.client)+'</td><td class="muted">'+esc(p.country)+'</td><td class="muted">'+esc(p.start_label)+'</td><td>'+esc(p.status)+'</td><td>'+eBadge(p.pay_status)+'</td><td class="r" title="'+(p.counted?'counted in the before-2024 totals':(p.start_year>=2024?'2024 and later is counted from the yearly sheets':'not counted'))+'">'+eAmount(p)+'</td></tr>'}).join('')
       +'</tbody></table></div>'+(pl.length>150?'<p class="faint" style="margin-top:8px;font-size:var(--fs-sm)">Showing the first 150. Search to narrow.</p>':'')+'</div>');
-    var mt=d.meta||{},df=[];Object.keys(mt.declared||{}).forEach(function(y){var s=(mt.sums||{})[y];if(s!=null&&Math.abs(s-mt.declared[y])>=0.5)df.push('Your '+y+' sheet total says '+em(mt.declared[y],'INR')+' but its payments add up to '+em(s,'INR')+'. The '+em(Math.abs(s-mt.declared[y]),'INR')+' gap is a payment typed with a rupee sign (as text), which a spreadsheet SUM skips. This page counts it.')});
+    var mt=d.meta||{},df=[];Object.keys(mt.declared||{}).forEach(function(y){var sm=(mt.sums||{})[y];if(sm!=null&&Math.abs(sm-mt.declared[y])>=0.5)df.push('Your '+y+' sheet total says '+em(mt.declared[y],'INR')+' but its payments add up to '+em(sm,'INR')+'. The '+em(Math.abs(sm-mt.declared[y]),'INR')+' gap is a payment typed with a rupee sign (as text), which a spreadsheet SUM skips. This page counts it.')});
     b.push('<div class="card block"><h5>How these numbers are made</h5><ul class="enote" style="margin-top:8px"><li><b>No conversion.</b> Rupees, dollars and other currencies are never added together or converted. A conversion needs the exact rate for the payment date, which the sheet does not hold.</li>'
       +'<li><b>2024 and later:</b> exact rupee receipts from your yearly sheets. Projects started in 2024 or later are not counted again from the Projects sheet.</li>'
       +'<li><b>Before 2024:</b> paid, not-cancelled projects from the Projects sheet, grouped by start year, in the currency recorded. Where no currency was written, online platforms (PayPal, Escrow) are treated as dollars and Indian clients paying by cheque, NEFT, cash or UPI as rupees. In the older layout the amount sits in the TDS Deduction column; rows where that differs from the Payment Pending column are marked <span class="badge badge--warn">check</span>.</li>'

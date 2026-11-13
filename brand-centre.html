@@ -152,7 +152,7 @@ section#inside{padding:clamp(64px,9vw,128px) var(--pad)}
 /* demo video */
 .bc-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);align-items:end}.bc-head .cd-h{max-width:12ch}
 @media(max-width:960px){.bc-head{grid-template-columns:1fr}}
-.bc-video{position:relative;aspect-ratio:16/9;background:#000;margin:clamp(32px,4vw,56px) 0 0;overflow:hidden;container-type:inline-size;display:block;width:100%;border:0;cursor:pointer;text-align:left}
+.bc-video{--bcv-max:960px;width:100%;max-width:var(--bcv-max);margin-left:auto!important;margin-right:auto!important;position:relative;aspect-ratio:16/9;background:#000;margin:clamp(32px,4vw,56px) 0 0;overflow:hidden;container-type:inline-size;display:block;width:100%;border:0;cursor:pointer;text-align:left}
 .bc-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .bcv-btn{position:absolute;z-index:1;width:clamp(64px,9cqw,104px);height:clamp(64px,9cqw,104px);border-radius:50%;background:#000;display:grid;place-items:center;right:clamp(20px,5cqw,56px);bottom:clamp(20px,5cqw,56px);transition:transform .3s}
 .bc-video:hover .bcv-btn{transform:scale(1.08)}.bcv-btn svg{width:36%;height:36%;fill:#fff;margin-left:6%}
@@ -232,27 +232,6 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
 .copy{margin-top:48px;padding-top:24px;border-top:1px solid var(--t-14);font:400 11px/1.6 var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--t-58)}
 .js .rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}.js .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}.cd-display .ln>span{animation:none;transform:none}}
-
-.bcm{display:block;margin-top:var(--s7);text-align:left;scroll-margin-top:90px}
-.bcm-box{position:relative;background:#000;color:#fff;width:100%;max-width:none;border:1px solid rgba(255,255,255,.14);border-left:3px solid var(--red)}
-.bcm-x{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;background:none;color:#fff;font-size:26px;cursor:pointer;z-index:2}
-.bcm-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.14);overflow-x:auto}.bcm-tabs button{flex:1 0 auto;border:0;background:none;color:rgba(255,255,255,.62);font:500 12px/1 var(--m);letter-spacing:.16em;text-transform:uppercase;padding:20px 18px;cursor:pointer;border-bottom:2px solid transparent}.bcm-tabs button[aria-selected=true]{color:#fff;border-bottom-color:var(--red)}
-.bcm-body{padding:clamp(20px,4vw,36px)}.bcm-body h2{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1;text-transform:uppercase;margin:0 0 10px;color:#fff}.bcm-body>p.sub{color:rgba(255,255,255,.72);margin:0 0 24px;line-height:1.55}
-.bcm form{display:flex;flex-direction:column;gap:16px}.bcm .pane{display:none}.bcm .pane.on{display:block}
-.bcm label.f{display:flex;flex-direction:column;gap:7px;font:400 11px/1 var(--m);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62)}
-.bcm input[type=text],.bcm input[type=email],.bcm input[type=tel],.bcm input[type=url],.bcm textarea{background:#0d0d0d;border:1px solid #3a3a3a;color:#fff;font:400 16px/1.4 var(--f);padding:13px 14px;border-radius:0;width:100%;letter-spacing:0;text-transform:none}.bcm textarea{min-height:92px;resize:vertical}.bcm input:focus,.bcm textarea:focus{outline:2px solid var(--red);outline-offset:0;border-color:var(--red)}
-.bcm .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.bcm .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.bcm .tier{position:relative;border:1px solid #3a3a3a;padding:16px 14px;cursor:pointer;display:flex;flex-direction:column;gap:6px;background:#0d0d0d}.bcm .tier input{position:absolute;opacity:0}.bcm .tier b{font:800 17px/1 var(--f);text-transform:uppercase}.bcm .tier .pv{font:500 15px/1.2 var(--m);color:#fff}.bcm .tier small{color:rgba(255,255,255,.62);font-size:13px;line-height:1.4}.bcm .tier:has(input:checked){border-color:var(--red);background:rgba(255,42,42,.12)}.bcm .tier:has(input:focus-visible){outline:2px solid var(--red)}
-.cal{border:1px solid #3a3a3a;padding:14px;background:#0d0d0d}.cal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.cal-h b{font:500 13px/1 var(--m);letter-spacing:.14em;text-transform:uppercase}.cal-h button{width:36px;height:36px;border:1px solid #3a3a3a;background:none;color:#fff;cursor:pointer;font-size:16px}.cal-h button:disabled{opacity:.3;cursor:default}
-.cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.cal-g span{text-align:center;font:400 10px/1 var(--m);letter-spacing:.1em;color:rgba(255,255,255,.5);padding:4px 0}.cal-g button{height:40px;padding:0;border:1px solid transparent;background:none;color:#fff;font:400 14px/1 var(--f);cursor:pointer;min-height:38px}.cal-g button:disabled{color:rgba(255,255,255,.22);cursor:default}.cal-g button:not(:disabled){border-color:#333}.cal-g button[aria-pressed=true]{background:var(--red);border-color:var(--red)}
-.slots{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.slots button{border:1px solid #3a3a3a;background:none;color:#fff;font:400 13px/1 var(--m);letter-spacing:.06em;padding:12px 14px;cursor:pointer}.slots button[aria-pressed=true]{background:var(--red);border-color:var(--red)}.bcm-tabs button{flex:1}.slots p{color:rgba(255,255,255,.62);font-size:14px;margin:0}
-.bcm .tz{font:400 11px/1.5 var(--m);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.58);margin-top:10px}
-.bcm .pick-sum{border-left:2px solid var(--red);padding:2px 0 2px 12px;font-size:15px;color:#fff;display:none}.bcm .pick-sum.on{display:block}
-.bcm .err{color:#ff7b7b;font-size:14px;min-height:0;margin:0}.bcm .go{align-self:flex-start}.bcm .note{color:rgba(255,255,255,.55);font-size:13px;line-height:1.5;margin:0}
-.bcm .done{display:none;padding:clamp(28px,6vw,56px) clamp(20px,4vw,36px)}.bcm .done.on{display:block}.bcm .done h2{margin:0 0 12px}.bcm .done p{color:rgba(255,255,255,.78);line-height:1.6;margin:0 0 20px}
-.bcm .hp{position:absolute;left:-9999px;opacity:0;height:0}
-@media(max-width:640px){.bcm .tiers,.bcm .row2{grid-template-columns:1fr}}
-.choose{margin-top:var(--s4)}
 </style>
 </head>
 <body>
@@ -261,7 +240,7 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
 <header class="cd-hd" id="cd-hd">
  <a class="cd-logo" href="index.html" aria-label="CARVINGDEZINE home"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDcpIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiB4PSIzMjQuMjIiIHk9IjIwMC45NSIgd2lkdGg9IjE3LjI0IiBoZWlnaHQ9IjYwLjQ4Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQwMC40NywxMTMuMzljLTMyLjU5LDAtNTkuMDEsMjYuNDItNTkuMDEsNTl2MTQ4LjYxYzAsMS4wOS0uMSwyLjE2LS4xNiwzLjI0aC4xNnYxMDEuMTVjMzUuNjEtMjAuNjYsNTkuNjktNTkuNyw1OS42OS0xMDQuMzlWMTEzLjQxYy0uMjMsMC0uNDYtLjAyLS42OC0uMDIiLz48L3N2Zz4=" alt="" width="32" height="32"/><span>CARVINGDEZINE</span></a>
  <nav class="cd-nav" aria-label="Main"><ul><li><a href="work.html">Work</a></li><li><a href="index.html#about">About</a></li><li><a href="index.html#services">Services</a></li><li><a href="brand-centre.html" aria-current="page">Brand Centre</a></li><li><a href="index.html#audit">Audit</a></li><li><a href="index.html#contact">Contact</a></li></ul></nav>
- <div class="cd-hd-r"><a class="cd-btn cd-btn-primary cd-btn-sm cd-hd-cta" href="#start" data-bc="project">Start a project</a><button class="cd-burger" id="cd-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="cd-menu"><span></span><span></span><span></span></button></div>
+ <div class="cd-hd-r"><a class="cd-btn cd-btn-primary cd-btn-sm cd-hd-cta" href="index.html#contact">Start a project</a><button class="cd-burger" id="cd-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="cd-menu"><span></span><span></span><span></span></button></div>
 </header>
 <div class="cd-menu" id="cd-menu" aria-hidden="true"><a href="work.html">Work</a><a href="index.html#about">About</a><a href="index.html#services">Services</a><a href="brand-centre.html">Brand Centre</a><a href="index.html#audit">Audit</a><a href="index.html#contact">Contact</a><a class="cd-btn cd-btn-primary" href="index.html#contact">Start a project</a></div>
 
@@ -272,7 +251,7 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
   <h1 class="cd-display" aria-label="A brand guide you can actually use."><span class="ln" aria-hidden="true"><span>A brand guide</span></span><span class="ln" aria-hidden="true"><span>you can actually</span></span><span class="ln" aria-hidden="true"><span><em>use.</em></span></span></h1>
   <div class="hero-sub">
    <p class="lede">Your guidelines, your logo files and a ready set of on-brand tools, together in one toolkit made for your company. No logins, no platform to sign in to.</p>
-   <div class="hero-ctas"><a class="cd-btn cd-btn-primary" href="#book" data-bc="demo">Book a demo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="cd-btn cd-btn-outline" href="#inside">See a glimpse</a></div>
+   <div class="hero-ctas"><a class="cd-btn cd-btn-primary" href="#inside">Book a demo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="cd-btn cd-btn-outline" href="#inside">See a glimpse</a></div>
   </div>
  </div>
  <div class="hero-strip hero-in"><div><b>1</b>File, opens in any browser</div><div><b>0</b>Logins or platforms</div><div><b>6</b>Parts in every Brand Centre</div></div>
@@ -313,7 +292,7 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
  <div class="rv"><div class="cd-label">What you get</div><h2 class="cd-h">Six parts. One <em>toolkit</em>.</h2><p class="lede" style="margin-top:20px">A glimpse of each part. The full toolkit is shown live in a short demo, with your own brand.</p></div>
  <div class="gt-grid"><article class="gl-card rv"><div class="gl" aria-hidden="true"><span class="gl-tag">Glimpse</span><div class="g1"><div class="g1r"><i class="d1"></i><span>Platform</span></div><div class="g1r"><i class="d2"></i><span>Template</span></div><div class="g1r"><i class="d3"></i><span>Studio</span></div><div class="g1bar"><b></b></div></div></div><div class="gl-t"><span class="n">01</span><h3>A guided start</h3><p>Your team is walked through the brand in minutes, not hours.</p></div></article><article class="gl-card rv"><div class="gl" aria-hidden="true"><span class="gl-tag">Glimpse</span><div class="g2"><div class="g2sw"><i style="background:#E8001D"></i><i style="background:#0a0a0a;border:1px solid #444"></i><i style="background:#fff"></i><i style="background:#8a8a8a"></i></div><div class="g2hex"><span>#E8001D</span><em>Copied</em></div><div class="g2line"></div><div class="g2line s"></div></div></div><div class="gl-t"><span class="n">02</span><h3>Guidelines that work</h3><p>Colour, type, logo and voice, written for your company.</p></div></article><article class="gl-card rv"><div class="gl" aria-hidden="true"><span class="gl-tag">Glimpse</span><div class="g3"><div class="g3tile"><i></i><u></u><u class="s"></u></div><div class="g3chips"><span class="a1">1:1</span><span class="a2">4:5</span><span class="a3">9:16</span></div></div></div><div class="gl-t"><span class="n">03</span><h3>Ready to post</h3><p>Social templates in your brand, sized for every platform.</p></div></article><article class="gl-card rv"><div class="gl" aria-hidden="true"><span class="gl-tag">Glimpse</span><div class="g4"><div class="g4c back"></div><div class="g4c"><i></i><u></u><u class="s"></u></div></div></div><div class="gl-t"><span class="n">04</span><h3>Print and presentations</h3><p>Cards, letterheads and decks that match, without a designer.</p></div></article><article class="gl-card rv"><div class="gl" aria-hidden="true"><span class="gl-tag">Glimpse</span><div class="g5"><div class="g5in"><span class="type">Write a post in our brand voice</span><i class="caret"></i></div><div class="g5out"><u></u><u class="s"></u><u class="t"></u></div></div></div><div class="gl-t"><span class="n">05</span><h3>An AI Kit</h3><p>Brand-aware prompts so AI tools write and design on-brand.</p></div></article><article class="gl-card rv"><div class="gl" aria-hidden="true"><span class="gl-tag">Glimpse</span><div class="g6"><div class="g6f"><div class="g6row r1"><b>brand-logo.svg</b><em>SVG</em></div><div class="g6row r2"><b>brand-logo-cmyk.eps</b><em>EPS</em></div><div class="g6row r3"><b>brand-logo-1024.png</b><em>PNG</em></div><div class="g6row r4"><b>brand-logo-cmyk.pdf</b><em>PDF</em></div></div><div class="g6btn"><span class="b1">Download SVG</span><span class="b2">Download EPS</span><span class="b3">Download PNG</span><span class="b4">Download PDF</span></div></div></div><div class="gl-t"><span class="n">06</span><h3>Your logo pack</h3><p>Every logo file in every format, one download at a time.</p></div></article></div>
  <div class="gt-gate rv"><div><div class="cd-label">See inside</div><h3>Want to see it working?</h3><p>Book a 30-minute live demo, or ask for a free trial. Tell us your company and we will set up a sample Brand Centre for you to try.</p></div>
-  <div class="gt-ctas"><a class="cd-btn cd-btn-primary" href="#book" data-bc="demo">Book a demo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="cd-btn cd-btn-outline" href="#trial" data-bc="trial">Start a free trial</a></div></div>
+  <div class="gt-ctas"><a class="cd-btn cd-btn-primary" href="mailto:carvingdezine@gmail.com?subject=Brand%20Centre%20demo&amp;body=Hi%2C%20I%27d%20like%20to%20book%20a%20Brand%20Centre%20demo.%0A%0ACompany%3A%20%0APreferred%20time%3A%20">Book a demo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="cd-btn cd-btn-outline" href="mailto:carvingdezine@gmail.com?subject=Brand%20Centre%20free%20trial&amp;body=Hi%2C%20I%27d%20like%20to%20try%20a%20Brand%20Centre.%0A%0ACompany%3A%20%0AWebsite%3A%20">Start a free trial</a></div></div>
 </section>
 
 <section id="how" class="light on-light panel">
@@ -345,9 +324,9 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
  </div>
  <p class="curnote rv" aria-live="polite">Showing prices for <b id="curname">India</b> &middot; <button type="button" id="curswap">Change</button></p>
  <div class="bc-tiers rv">
-  <article class="cd-card" data-tier="0"><span class="cd-tag">Starter</span><p class="for">You already have a logo and a brand. I set up your Brand Centre.</p><div class="price" data-in="&#8377;49,000" data-us="$1,200"><span class="amt"></span><small>one-time</small></div><ul><li>Brand Centre built from your existing brand</li><li>Guidelines: logo, colour, type, usage</li><li>10 ready-to-use templates, light and dark</li></ul><a class="cd-btn cd-btn-outline" href="index.html?plan=Brand%20Centre%20-%20Starter#contact">Ask for Starter</a><a class="cd-btn cd-btn-blk choose" href="#start" data-bc="project" data-tier="0">Choose Starter</a></article>
-  <article class="cd-card" data-tier="1"><span class="cd-tag">Essential</span><p class="for">You have a logo but no brand system. I build the brand and the Brand Centre.</p><div class="price" data-in="&#8377;99,000" data-us="$2,400"><span class="amt"></span><small>one-time</small></div><ul><li>Everything in Starter</li><li>A brand system built for you: colour, type, rules</li><li>15 templates for social, cards and decks</li></ul><a class="cd-btn cd-btn-outline" href="index.html?plan=Brand%20Centre%20-%20Essential#contact">Ask for Essential</a><a class="cd-btn cd-btn-blk choose" href="#start" data-bc="project" data-tier="1">Choose Essential</a></article>
-  <article class="cd-card" data-tier="2"><span class="cd-tag cd-tag-red">Complete</span><p class="for">Logo and brand designed from scratch, with print and motion.</p><div class="price" data-in="&#8377;1,79,000" data-us="$4,200"><span class="amt"></span><small>one-time</small></div><ul><li>Everything in Essential</li><li>Logo and brand designed from scratch</li><li>Print kit, motion and video exports, 25 templates</li></ul><a class="cd-btn cd-btn-primary" href="index.html?plan=Brand%20Centre%20-%20Complete#contact">Ask for Complete</a><a class="cd-btn cd-btn-blk choose" href="#start" data-bc="project" data-tier="2">Choose Complete</a></article>
+  <article class="cd-card" data-tier="0"><span class="cd-tag">Starter</span><p class="for">You already have a logo and a brand. I set up your Brand Centre.</p><div class="price" data-in="&#8377;49,000" data-us="$1,200"><span class="amt"></span><small>one-time</small></div><ul><li>Brand Centre built from your existing brand</li><li>Guidelines: logo, colour, type, usage</li><li>10 ready-to-use templates, light and dark</li></ul><a class="cd-btn cd-btn-outline" href="index.html?plan=Brand%20Centre%20-%20Starter#contact">Ask for Starter</a></article>
+  <article class="cd-card" data-tier="1"><span class="cd-tag">Essential</span><p class="for">You have a logo but no brand system. I build the brand and the Brand Centre.</p><div class="price" data-in="&#8377;99,000" data-us="$2,400"><span class="amt"></span><small>one-time</small></div><ul><li>Everything in Starter</li><li>A brand system built for you: colour, type, rules</li><li>15 templates for social, cards and decks</li></ul><a class="cd-btn cd-btn-outline" href="index.html?plan=Brand%20Centre%20-%20Essential#contact">Ask for Essential</a></article>
+  <article class="cd-card" data-tier="2"><span class="cd-tag cd-tag-red">Complete</span><p class="for">Logo and brand designed from scratch, with print and motion.</p><div class="price" data-in="&#8377;1,79,000" data-us="$4,200"><span class="amt"></span><small>one-time</small></div><ul><li>Everything in Essential</li><li>Logo and brand designed from scratch</li><li>Print kit, motion and video exports, 25 templates</li></ul><a class="cd-btn cd-btn-primary" href="index.html?plan=Brand%20Centre%20-%20Complete#contact">Ask for Complete</a></article>
  </div>
  <div class="after rv"><div><b>Yours to keep</b><p>It's made for your company and keeps working whether or not you pay for updates.</p></div><div><b>Updates after launch</b><p><span class="upd" data-in="&#8377;15,000 a year" data-us="$300 a year"></span> for updates and fixes, or buy small update packs when you need them.</p></div><div><b>Paying</b><p>I invoice directly: Wise for international clients and UPI for India. No card details, no third-party checkout.</p></div></div>
  <p class="bc-note rv">Several brands or a larger team? <a href="index.html?plan=Brand%20Centre%20-%20Custom#contact">Ask for a custom quote</a>.</p>
@@ -370,32 +349,9 @@ footer{padding:clamp(48px,6vw,80px) var(--pad) 40px}
  </div>
 </section>
 
-<section class="red panel final" id="start">
- <div class="rv"><div class="cd-label">Ready?</div><h2 class="cd-h">Let's make your brand <em>easy to use</em>.</h2><p class="lede" style="margin-top:22px">Start your Brand Centre, book a live demo, or ask for a free trial. I reply personally.</p>
- <div class="bcm-wrap"><div class="bcm" id="bcm"><div class="bcm-box">
-<div class="bcm-tabs" role="tablist"><button role="tab" type="button" data-t="project">Start my Brand Centre</button><button role="tab" type="button" data-t="demo">Book a demo</button><button role="tab" type="button" data-t="trial">Free trial</button></div>
-<div class="bcm-body" id="bcm-body">
-<h2 id="bcm-title"></h2><p class="sub" id="bcm-sub"></p>
-<form id="bcm-form" novalidate>
- <input class="hp" type="text" name="company_site" tabindex="-1" autocomplete="off" aria-hidden="true">
- <div class="pane" data-p="project"><div class="tiers" role="radiogroup" aria-label="Option">
-  <label class="tier"><input type="radio" name="tier" value="Starter"><b>Starter</b><span class="pv" data-in="&#8377;49,000" data-us="$1,200"></span><small>You have a logo and brand. We set up your Brand Centre.</small></label>
-  <label class="tier"><input type="radio" name="tier" value="Essential" checked><b>Essential</b><span class="pv" data-in="&#8377;99,000" data-us="$2,400"></span><small>You have a logo. We build the brand and the Brand Centre.</small></label>
-  <label class="tier"><input type="radio" name="tier" value="Complete"><b>Complete</b><span class="pv" data-in="&#8377;1,79,000" data-us="$4,200"></span><small>Logo and brand from scratch, with print and motion.</small></label></div></div>
- <div class="pane" data-p="demo"><div class="cal" id="cal"><div class="cal-h"><button type="button" id="cal-p" aria-label="Previous month">&larr;</button><b id="cal-m"></b><button type="button" id="cal-n" aria-label="Next month">&rarr;</button></div><div class="cal-g" id="cal-g"></div></div>
-  <div class="slots" id="slots" aria-live="polite"><p>Pick a date to see times.</p></div><div class="tz" id="tz"></div><div class="pick-sum" id="pick"></div></div>
- <div class="row2"><label class="f">Your name<input type="text" name="name" autocomplete="name" required></label><label class="f">Email<input type="email" name="email" autocomplete="email" required></label></div>
- <div class="row2"><label class="f">Company<input type="text" name="company" autocomplete="organization" required></label><label class="f"><span data-p="trial demo project">Website <i style="font-style:normal;opacity:.6">(optional)</i></span><input type="url" name="website" placeholder="https://" autocomplete="url"></label></div>
- <div class="pane" data-p="project"><label class="f">Phone or WhatsApp <i style="font-style:normal;opacity:.6">(optional)</i><input type="tel" name="phone" autocomplete="tel"></label></div>
- <label class="f" id="msg-l">Tell us about your company<textarea name="message"></textarea></label>
- <p class="err" id="bcm-err" role="alert"></p>
- <button class="cd-btn cd-btn-primary go" type="submit" id="bcm-go">Send</button>
- <p class="note" id="bcm-note"></p>
-</form></div>
-<div class="gcal" id="gcal" style="display:none"><iframe id="gcal-f" title="Book a demo" loading="lazy" style="width:100%;height:min(640px,78vh);border:0;background:#fff"></iframe><p class="note" style="padding:14px clamp(20px,4vw,36px) 22px">Calendar not showing? <a id="gcal-a" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">Open the booking page in a new tab</a>. You will get a calendar invite by email once you book.</p></div>
-<div class="done" id="bcm-done"><h2>Request sent</h2><p id="bcm-done-t"></p><button class="cd-btn cd-btn-outline" type="button" id="bcm-close2">Send another</button></div>
-</div></div>
-</div>
+<section class="red panel final">
+ <div class="rv"><div class="cd-label">Ready?</div><h2 class="cd-h">Let's make your brand <em>easy to use</em>.</h2><p class="lede" style="margin-top:22px">Tell me where you're starting from and I'll reply personally with the right option and a timeline.</p>
+ <div class="hero-ctas"><a class="cd-btn cd-btn-blk" href="#inside">Book a demo</a><a class="cd-btn" href="index.html?plan=Brand%20Centre#contact">Start my Brand Centre</a><a class="cd-btn" href="#pricing">Compare options</a></div>
  <div class="contact"><a href="mailto:carvingdezine@gmail.com">carvingdezine@gmail.com</a><a href="tel:+919820142005">+91 98201 42005</a></div></div>
 </section>
 </main>
@@ -618,65 +574,6 @@ cur(CK);
 if(!manual&&window.fetch){var done=false,ask=function(url,pick){var c=window.AbortController?new AbortController():null,t=setTimeout(function(){c&&c.abort()},3500);return fetch(url,{signal:c&&c.signal}).then(function(r){return r.text()}).then(function(x){clearTimeout(t);var cc=pick(x);if(cc&&!done){done=true;cur(cc==='IN'?'in':'us')}}).catch(function(){})};
 ask('https://www.cloudflare.com/cdn-cgi/trace',function(x){var m=/loc=([A-Z]{2})/.exec(x);return m&&m[1]}).then(function(){if(!done)ask('https://ipapi.co/country/',function(x){x=(x||'').trim();return /^[A-Z]{2}$/.test(x)?x:''})})}
 $$('.pick').forEach(function(b){b.addEventListener('click',function(){var on=b.getAttribute('aria-pressed')!=='true';$$('.pick').forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed',on);$$('.cd-card').forEach(function(c){c.classList.toggle('rec',on&&c.dataset.tier===b.dataset.plan)})})});
-})();
-</script>
-<script>
-(function(){
-var ENDPOINT='https://formspree.io/f/mpqyqjzp';/* same Formspree form as the main site. Set to '' to send through the visitor's email app instead. */
-var TO='carvingdezine@gmail.com';
-var BOOKING_URL='https://calendar.google.com/calendar/appointments/schedules/AcZssZ3rNcEqYds9OuWrVgWsKg3gOJpztbKzVl7jJs6kTtylmWSgwrGbt7voDdvWNfj8aKl7wLx08uDD?gv=true';var BOOKING_PAGE='https://calendar.app.google/JK3S8dCvho6Ygmzg9';/* paste your booking page link here (Cal.com, Calendly or Google Calendar). For Cal.com use the link of your 30-minute event, e.g. https://cal.com/yourname/demo?theme=dark. Leave empty to use the built-in request calendar. */
-var $=function(q,r){return(r||document).querySelector(q)},$$=function(q,r){return[].slice.call((r||document).querySelectorAll(q))};
-var M=$('#bcm'),F=$('#bcm-form'),mode='project',pick=null,view=new Date();
-var COPY={project:['Start my Brand Centre','Choose where you are starting from. The prices are the ones shown on this page.','Tell us about your company and what you need','Send my request','We reply within one working day with next steps. Nothing is charged at this stage.'],
-demo:['Book a demo','A 30-minute live walk-through of the Brand Centre, set up with your own brand. Pick a time that suits you.','Anything you want us to cover? (optional)','Request this time','We confirm your time by email, usually within a few hours. Your slot is held once we confirm.'],
-trial:['Free trial','Tell us about your company and we will set up a sample Brand Centre for you to try.','Your brand, in a line or two','Request a free trial','We set up your sample and email you access, usually within two working days.']};
-function tzName(){try{return Intl.DateTimeFormat().resolvedOptions().timeZone||'your time'}catch(e){return'your time'}}
-function setMode(m){mode=m;$$('.bcm-tabs button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===m)});
- $$('.pane').forEach(function(p){p.classList.toggle('on',p.dataset.p===m)});
- var c=COPY[m];$('#bcm-title').textContent=c[0];$('#bcm-sub').textContent=c[1];$('#msg-l').firstChild.textContent=c[2];$('#bcm-go').textContent=c[3];$('#bcm-note').textContent=c[4];$('#bcm-err').textContent='';
- $('#bcm-body').style.display='';$('#bcm-done').classList.remove('on');$('.bcm-tabs').style.display='';
- var g=m==='demo'&&BOOKING_URL;$('#bcm-body').style.display=g?'none':'';$('#gcal').style.display=g?'block':'none';if(g){var fr=$('#gcal-f');if(!fr.src)fr.src=BOOKING_URL;$('#gcal-a').href=BOOKING_PAGE||BOOKING_URL}
- if(m==='demo'&&!g)drawCal()}
-function open(m,tier,noscroll){setMode(m);if(tier!=null&&tier!==''){var r=$$('input[name=tier]')[+tier];if(r)r.checked=true}
- if(!noscroll){var sec=$('#start');if(sec)sec.scrollIntoView({behavior:window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}}
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-bc]');if(a){e.preventDefault();var mm=document.getElementById('cd-menu');open(a.dataset.bc,a.dataset.tier)}});
-var again=$('#bcm-close2');if(again)again.onclick=function(){setMode(mode)};
-$$('.bcm-tabs button').forEach(function(b){b.onclick=function(){setMode(b.dataset.t)}});
-var H={'#book':'demo','#trial':'trial'};function hashOpen(){if(H[location.hash])open(H[location.hash])}window.addEventListener('hashchange',hashOpen);setMode('project');if(H[location.hash])setTimeout(hashOpen,200);
-/* calendar: slots are in India time (IST), shown in the visitor's own time zone */
-var HOURS=[[11,0],[12,0],[15,0],[16,0],[17,0]];
-function slotUTC(y,m,d,h,mi){return new Date(Date.UTC(y,m,d,h-5,mi-30))}
-function daySlots(y,m,d){var dow=new Date(Date.UTC(y,m,d)).getUTCDay();if(dow===0)return[];var min=Date.now()+24*36e5,max=Date.now()+45*864e5;return HOURS.map(function(t){return slotUTC(y,m,d,t[0],t[1])}).filter(function(x){return x>min&&x<max})}
-function fmtT(x){return x.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}
-function fmtD(x){return x.toLocaleDateString([],{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
-function drawCal(){var y=view.getFullYear(),m=view.getMonth(),g=$('#cal-g');g.innerHTML='';
- $('#cal-m').textContent=new Date(y,m,1).toLocaleDateString([],{month:'long',year:'numeric'});
- ['Mo','Tu','We','Th','Fr','Sa','Su'].forEach(function(d){var s=document.createElement('span');s.textContent=d;g.appendChild(s)});
- var first=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate();for(var i=0;i<first;i++)g.appendChild(document.createElement('span'));
- for(var d=1;d<=days;d++){(function(d){var b=document.createElement('button');b.type='button';b.textContent=d;var n=daySlots(y,m,d).length;b.disabled=!n;
-  b.setAttribute('aria-pressed',!!(pick&&pick.y===y&&pick.m===m&&pick.d===d));b.onclick=function(){pick={y:y,m:m,d:d,t:null};drawCal();drawSlots()};g.appendChild(b)})(d)}
- var now=new Date();$('#cal-p').disabled=(y<=now.getFullYear()&&m<=now.getMonth());$('#cal-n').disabled=((y-now.getFullYear())*12+m-now.getMonth())>=1;
- $('#tz').textContent='Times shown in '+tzName().replace(/_/g,' ')+'. Sessions run 11:00 to 17:30 India time, Monday to Saturday.';drawSlots()}
-function drawSlots(){var box=$('#slots');box.innerHTML='';if(!pick){box.innerHTML='<p>Pick a date to see times.</p>';sum();return}
- daySlots(pick.y,pick.m,pick.d).forEach(function(x){var b=document.createElement('button');b.type='button';b.textContent=fmtT(x);b.setAttribute('aria-pressed',!!(pick.t&&pick.t.getTime()===x.getTime()));b.onclick=function(){pick.t=x;drawSlots()};box.appendChild(b)});sum()}
-function sum(){var s=$('#pick');if(pick&&pick.t){s.textContent=fmtD(pick.t)+' at '+fmtT(pick.t)+' ('+tzName().replace(/_/g,' ')+')';s.classList.add('on')}else s.classList.remove('on')}
-$('#cal-p').onclick=function(){view=new Date(view.getFullYear(),view.getMonth()-1,1);drawCal()};$('#cal-n').onclick=function(){view=new Date(view.getFullYear(),view.getMonth()+1,1);drawCal()};
-/* submit */
-F.addEventListener('submit',function(e){e.preventDefault();var err=$('#bcm-err');err.textContent='';var f=F.elements;
- if(f.company_site.value)return;
- if(!f.name.value.trim()||!f.company.value.trim()){err.textContent='Please add your name and company.';return}
- if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.value.trim())){err.textContent='Please enter a valid email address.';return}
- if(mode==='demo'&&!(pick&&pick.t)){err.textContent='Please pick a date and a time.';return}
- var d={type:{project:'Start a project',demo:'Book a demo',trial:'Free trial'}[mode],name:f.name.value.trim(),email:f.email.value.trim(),company:f.company.value.trim(),website:f.website.value.trim(),message:f.message.value.trim(),page:location.href.split('#')[0]};
- if(mode==='project'){var t=$('input[name=tier]:checked');d.option=t?t.value:'';d.region=window.__cur==='in'?'India':'Outside India';d.price=t?$('.pv',t.parentNode).textContent:'';d.phone=f.phone.value.trim()}
- if(mode==='demo'){d.requested_time_ist=pick.t.toLocaleString('en-IN',{timeZone:'Asia/Kolkata',dateStyle:'full',timeStyle:'short'})+' IST';d.requested_time_visitor=fmtD(pick.t)+' at '+fmtT(pick.t)+' ('+tzName()+')';d.utc=pick.t.toISOString()}
- var done=function(sent){$('.bcm-tabs').style.display='none';var m={project:'Thanks, '+d.name.split(' ')[0]+'. We have your request for the '+(d.option||'')+' option and will reply within one working day.',demo:'Thanks, '+d.name.split(' ')[0]+'. You asked for '+d.requested_time_visitor+'. We will confirm by email shortly.',trial:'Thanks, '+d.name.split(' ')[0]+'. We will set up your sample Brand Centre and email you access.'};
-  $('#bcm-body').style.display='none';$('.bcm-tabs').style.display='none';$('#bcm-done').classList.add('on');$('#bcm-done-t').textContent=sent?m[mode]:'Your email app should have opened with the details filled in. Press send there to complete your request.';F.reset();pick=null};
- var btn=$('#bcm-go');
- d._subject='Brand Centre: '+d.type+' - '+d.company;d.plan='Brand Centre: '+d.type+(d.option?' ('+d.option+')':'');if(!d.message)d.message='(no message)';
- if(ENDPOINT){btn.disabled=true;btn.textContent='Sending';fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)}).then(function(r){if(!r.ok)throw 0;done(true)}).catch(function(){err.textContent='That did not send. Please try again, or email '+TO+'.'}).then(function(){btn.disabled=false;btn.textContent=COPY[mode][3]})}
- else{var body=Object.keys(d).filter(function(k){return d[k]&&k!=='type'&&k!=='utc'}).map(function(k){return k.replace(/_/g,' ')+': '+d[k]}).join('\n');location.href='mailto:'+TO+'?subject='+encodeURIComponent('Brand Centre: '+d.type+' ('+d.company+')')+'&body='+encodeURIComponent(body);done(false)}
-});
 })();
 </script>
 </body></html>
