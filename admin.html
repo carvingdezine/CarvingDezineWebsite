@@ -213,13 +213,13 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 
 /* iframe modules */
 .frame-card{padding:0;overflow:hidden}
-.ebar{height:6px;border-radius:3px;background:var(--accent);min-width:2px;margin-top:6px}
+.ebar{height:6px;border-radius:3px;background:var(--accent);min-width:2px;margin:6px 0 0 auto}
 td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .etools{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center;margin-bottom:var(--sp-3)}
 .enote{font-size:var(--fs-sm);color:var(--text-muted);line-height:1.7;margin:0;padding-left:18px}
 .pf-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-2)}
-.pf-card{margin:0 calc(-1*var(--sp-2))}
-#pfFrame{height:calc(100vh - var(--topbar-h) - 96px);min-height:560px;background:transparent}
+.pf-card{margin:0 -4px}
+#pfFrame{display:block;width:100%;border:0;height:calc(100vh - var(--topbar-h) - 200px);min-height:560px;background:transparent}
 .frame{display:block;width:100%;border:0;background:var(--bg);height:calc(100vh - var(--topbar-h) - 220px);min-height:560px}
 
 /* modal, drawer, toast, palette */
@@ -376,7 +376,8 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 
       <!-- PORTFOLIO MANAGER (runs inside the workspace; each menu item opens one panel) -->
       <section class="page" id="page-pf">
-        <div class="pf-bar"><span class="eyebrow" id="pfEyebrow">Portfolio</span><a class="btn btn--ghost btn--sm" href="index.html#work" target="_blank" rel="noopener" id="viewPf"></a></div>
+        <div class="page-head"><span class="eyebrow">Portfolio</span><div class="row-end"><h1 id="pfTitle">Add project</h1><div class="row"><a class="btn btn--ghost" href="index.html#work" target="_blank" rel="noopener" id="viewPf"></a></div></div></div>
+        <div class="banner banner--warn block" id="pfErr" hidden><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg><div><div id="pfErrMsg"></div><div class="row" style="margin-top:10px"><button class="btn btn--sm" id="pfRetry" type="button">Try again</button><a class="btn btn--ghost btn--sm" href="/login?next=%2Fadmin.html">Sign in again</a></div></div></div>
         <div class="pf-card"><iframe class="frame" id="pfFrame" title="Portfolio manager"></iframe></div>
       </section>
 
@@ -412,6 +413,146 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 </div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
+<script id="cdearn-rules">
+/* CARVING DEZINE: Earnings import helper.
+   Turns the rows of Projects.xlsx into clean records. Contains NO data of yours, only rules.
+   Rules (agreed with the owner):
+   - Nothing is converted between currencies. Each amount keeps the currency it was recorded in.
+   - 2024 and later: exact INR receipts come from the yearly sheets (2024, 2025, 2026 ...).
+   - Before 2024: amounts come from the main "Projects" sheet, per currency, as recorded.
+   - Client emails, transaction IDs, websites and app links are never imported. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.CDEarn = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+  var CUT = 2024; // first year whose money comes from the yearly INR sheets
+
+  function txt(v) { return v == null ? '' : String(v).trim(); }
+  /* private data stays out: an email typed into a name cell is reduced to the part before the @ */
+  function safe(v) { return txt(v).replace(/([A-Za-z0-9._%+-]+)@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, '$1'); }
+  function isDate(v) { return Object.prototype.toString.call(v) === '[object Date]' && !isNaN(v); }
+  function num(s) { return Number(String(s).replace(/,/g, '')); }
+
+  /* money cell -> {n, cur, raw, complex} ; n is null when there is no usable number */
+  function money(v) {
+    var raw = txt(v);
+    if (typeof v === 'number') return { n: v, cur: null, raw: raw };
+    if (!raw || /^(nil|cancelled|free|n\/a|-)$/i.test(raw)) return { n: null, cur: null, raw: raw };
+    var cur = null;
+    if (/₹|\brs\.?\s*\d|\binr\b/i.test(raw)) cur = 'INR';
+    else if (/\$|\busd\b/i.test(raw)) cur = 'USD';
+    else if (/\baud\b/i.test(raw)) cur = 'AUD';
+    else if (/€|\beur\b/i.test(raw)) cur = 'EUR';
+    else if (/£|\bgbp\b/i.test(raw)) cur = 'GBP';
+    var cleaned = raw.replace(/₹|\$|€|£|\bUSD\b|\bINR\b|\bAUD\b|\bEUR\b|\bGBP\b|\bRs\.?/gi, '').trim();
+    if (/^[\d,]+(\.\d+)?(\s*\+\s*[\d,]+(\.\d+)?)*$/.test(cleaned)) {
+      var sum = 0; cleaned.split('+').forEach(function (p) { sum += num(p.trim()); });
+      return { n: sum, cur: cur, raw: raw };
+    }
+    return { n: null, cur: cur, raw: raw, complex: true };
+  }
+
+  function yearOf(v) {
+    var y = null;
+    if (isDate(v)) y = v.getFullYear();
+    else { var m = /(19|20)\d\d/.exec(txt(v)); y = m ? Number(m[0]) : null; }
+    return (y != null && y >= 2000 && y <= new Date().getFullYear() + 1) ? y : null; /* typos like 2208 are treated as undated */
+  }
+  /* text dates are day-first in your sheet and shown as written; real date cells are ambiguous
+     (day and month may have been swapped by Excel) so only the year is trusted for them */
+  function label(v) {
+    if (v == null || v === '') return '';
+    if (isDate(v)) return String(v.getFullYear()) + ' (day/month unclear)';
+    return txt(v);
+  }
+  function normName(s) { return txt(s).toLowerCase().replace(/[^a-z0-9]/g, ''); }
+
+  function idx(header, name) {
+    for (var i = 0; i < header.length; i++) if (txt(header[i]).replace(/:$/, '') === name) return i;
+    return -1;
+  }
+
+  /* rows: array of arrays (first row = header) from the "Projects" sheet */
+  function projects(rows) {
+    var h = rows[0] || [], C = {};
+    ['#', 'Status', 'Project Name', 'Scope of Work', 'Client Name', 'Client Country', 'Payment Received', 'Project Cost',
+      'TDS Deduction', 'Payment Pending', 'Start Date', 'End Date', 'Mode of Payment', 'Payment Status', 'Project Source']
+      .forEach(function (k) { C[k] = idx(h, k); });
+    var out = [];
+    for (var r = 1; r < rows.length; r++) {
+      var row = rows[r]; if (!row) continue;
+      var g = function (k) { return C[k] < 0 ? null : row[C[k]]; };
+      var id = g('#'); if (id == null || id === '' || isNaN(Number(id))) continue;
+      var country = txt(g('Client Country'));
+      var recv = money(g('Payment Received')), cost = money(g('Project Cost')), tds = money(g('TDS Deduction')), pend = money(g('Payment Pending'));
+      /* amount received: the Payment Received column when filled, else the older-sheet figure in the TDS Deduction column */
+      var rec = recv.n != null ? recv : tds;
+      var cur = rec.cur || cost.cur || null;
+      /* no currency written: online platforms (PayPal, Escrow...) pay in dollars; Indian clients paying by cheque/NEFT/cash/UPI pay in rupees */
+      var mode0 = txt(g('Mode of Payment'));
+      if (!cur && rec.n != null) cur = (/paypal|escrow|moneybookers|payoneer|skrill|western/i.test(mode0) || !/^(india|mumbai)$/i.test(country)) ? 'USD' : 'INR';
+      var status = txt(g('Status')), pay = txt(g('Payment Status')), year = yearOf(g('Start Date'));
+      var paid = /^(paid|pad)$/i.test(pay);
+      var legacy = recv.n == null && tds.n != null;
+      var flag = '';
+      if (legacy && pend.n != null && pend.n !== tds.n) flag = 'older sheet: TDS Deduction and Payment Pending columns differ';
+      else if (recv.complex || cost.complex) flag = 'amount written as text; see raw columns';
+      var counted = status !== 'Cancelled' && paid && rec.n != null && rec.n > 0 && (year == null || year < CUT);
+      out.push({
+        num: Number(id), status: status, name: safe(g('Project Name')), scope: safe(g('Scope of Work')), client: safe(g('Client Name')), country: safe(country),
+        source: safe(g('Project Source')), start_label: label(g('Start Date')), start_year: year, end_label: label(g('End Date')),
+        mode: safe(g('Mode of Payment')), pay_status: pay, currency: cur, received: rec.n, cost: cost.n,
+        recv_raw: recv.raw, cost_raw: cost.raw, tds_raw: tds.raw, pend_raw: pend.raw, counted: counted, flag: flag
+      });
+    }
+    return out;
+  }
+
+  /* yearly sheets: { '2024': rows, '2025': rows ... } each with header Project Name | Money Received (INR) | Payment Dates */
+  function payments(sheets, projs) {
+    var byName = {};
+    projs.slice().sort(function (a, b) { return a.num - b.num; }).forEach(function (p) { byName[normName(p.name)] = p; });
+    var keys = Object.keys(byName);
+    function match(name) {
+      var n = normName(name); if (!n) return null;
+      if (byName[n]) return byName[n];
+      for (var i = keys.length - 1; i >= 0; i--) {
+        var k = keys[i];
+        if (k.length >= 5 && n.length >= 5 && (k.indexOf(n) === 0 || n.indexOf(k) === 0)) return byName[k];
+      }
+      return null;
+    }
+    var out = [], declared = {}, skipped = [];
+    Object.keys(sheets).sort().forEach(function (yr) {
+      var rows = sheets[yr], last = '';
+      for (var r = 1; r < rows.length; r++) {
+        var row = rows[r] || [], nm = txt(row[0]);
+        if (/^total$/i.test(nm)) { var d = money(row[1]); if (d.n != null) declared[yr] = d.n; continue; }
+        if (nm) last = nm; else if (row[1] == null || row[1] === '') continue;
+        var amt = money(row[1]);
+        if (amt.n == null) { if (txt(row[1]) || nm) skipped.push({ year: Number(yr), project: safe(nm || last), raw: txt(row[1]) }); continue; }
+        var m = match(nm || last);
+        out.push({ year: Number(yr), project: safe(nm || last), client: m ? m.client : '', amount_inr: amt.n, date_label: label(row[2]), matched: !!m });
+      }
+    });
+    return { payments: out, declared: declared, skipped: skipped };
+  }
+
+  /* wb = { sheets: { name: rows[][] } } */
+  function normalize(wb) {
+    var s = wb.sheets, names = Object.keys(s);
+    var pName = names.filter(function (n) { return /^projects$/i.test(n.trim()); })[0];
+    if (!pName) throw new Error('No sheet named "Projects" found.');
+    var ys = {}; names.forEach(function (n) { if (/^(19|20)\d\d$/.test(n.trim())) ys[n.trim()] = s[n]; });
+    var projs = projects(s[pName]);
+    var pay = payments(ys, projs);
+    var sums = {}; pay.payments.forEach(function (p) { sums[p.year] = Math.round(((sums[p.year] || 0) + p.amount_inr) * 100) / 100; });
+    return { projects: projs, payments: pay.payments, meta: { declared: pay.declared, sums: sums, skipped: pay.skipped, cut: CUT } };
+  }
+  return { normalize: normalize, money: money, CUT: CUT };
+});
+</script>
 <script>'use strict';
 (function(){
 /* ============ helpers ============ */
@@ -789,10 +930,31 @@ function paintPrev(){$('#docPrev').innerHTML=docHtml(D)}
 /* ============ PORTFOLIO + BRAND ============ */
 function pfSend(){var f=$('#pfFrame');if(!f||!f.contentWindow||!f.getAttribute('data-ready'))return;try{f.contentWindow.postMessage({cdw:1,panel:cur.p==='pf'?cur.arg:null,theme:document.documentElement.getAttribute('data-theme')},'*')}catch(e){}}
 window.addEventListener('message',function(e){var f=$('#pfFrame');if(f&&e.source===f.contentWindow&&e.data&&e.data.cdw===1&&e.data.ready){f.setAttribute('data-ready','1');pfSend()}});
+function pfShowErr(msg){$('#pfErrMsg').textContent=msg;$('#pfErr').hidden=false}
+function pfSrc(){return '/admin-portfolio?embed=1&p='+cur.arg+'&t='+encodeURIComponent(document.documentElement.getAttribute('data-theme'))+'#admin'}
+/* if the manager did not load, say exactly why instead of showing a blank grey box */
+function pfDiag(){
+  var f=$('#pfFrame'),src='/admin-portfolio?embed=1&diag=1';
+  fetch(src,{credentials:'same-origin',cache:'no-store',redirect:'manual'}).then(function(r){
+    if(r.type==='opaqueredirect'||r.status===302)pfShowErr('Your sign-in has expired. Sign in again.');
+    else if(r.status===401||r.status===403)pfShowErr('The server refused the request ('+r.status+'). Sign in again.');
+    else if(r.status===404)pfShowErr('The manager page was not found on the server (404). Check that admin-portfolio.html was published.');
+    else if(r.status>=500)pfShowErr('The server had an error ('+r.status+') while loading the manager.');
+    else pfShowErr('The page was delivered ('+r.status+') but your browser could not show it. Press Ctrl+Shift+R, or try another browser.')
+  }).catch(function(){pfShowErr('The connection to the server was closed while loading the manager. Press Try again. If it keeps happening, tell me and send this message.')});
+}
+function pfLoaded(){
+  var f=$('#pfFrame'),ok=false,why='';
+  try{var d=f.contentDocument;ok=!!(d&&d.getElementById('adm-ov'));if(d&&d.location&&/^\/login/.test(d.location.pathname))why='login'}catch(e){ok=false}
+  if(ok){$('#pfErr').hidden=true;return}
+  if(why==='login'){pfShowErr('Your sign-in has expired. Sign in again.');return}
+  if(f.getAttribute('src'))pfDiag();
+}
 function rPf(){
-  $('#viewPf').innerHTML=ic('ext')+'View live portfolio';$('#pfEyebrow').textContent='Portfolio / '+PF[cur.arg];
+  $('#viewPf').innerHTML=ic('ext')+'View live portfolio';$('#pfTitle').textContent=PF[cur.arg];
   var f=$('#pfFrame');
-  if(!f.getAttribute('src'))f.setAttribute('src','admin-portfolio.html?embed=1&p='+cur.arg+'&t='+encodeURIComponent(document.documentElement.getAttribute('data-theme'))+'#admin');
+  if(!f.getAttribute('data-bound')){f.setAttribute('data-bound','1');f.addEventListener('load',pfLoaded);$('#pfRetry').addEventListener('click',function(){$('#pfErr').hidden=true;f.removeAttribute('data-ready');f.setAttribute('src',pfSrc())})}
+  if(!f.getAttribute('src'))f.setAttribute('src',pfSrc());
   else pfSend();
 }
 function rBrand(){$('#openBc').innerHTML=ic('ext')+'Open in a tab';var f=$('#bcFrame');if(!f.getAttribute('src'))f.setAttribute('src','brand-centre.html')}
@@ -814,7 +976,7 @@ function loadScript(src,test){return new Promise(function(res,rej){if(test())ret
 function eImportFile(file){
   toast('Reading '+file.name+' ...');
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',function(){return window.XLSX})
-  .then(function(){return loadScript('assets/earnings.js?v=1',function(){return window.CDEarn})})
+  .catch(function(){throw new Error('the spreadsheet reader could not be downloaded. Check your internet connection and try again')})
   .then(function(){return file.arrayBuffer()})
   .then(function(buf){
     var wb=XLSX.read(buf,{type:'array',cellDates:true}),sheets={};
