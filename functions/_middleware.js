@@ -22,14 +22,32 @@ const BASE = {
   'Content-Security-Policy': "object-src 'none'; base-uri 'self'; frame-ancestors 'self'",
 };
 
-function harden(res, isPrivate) {
-  const out = new Response(res.body, res);
-  for (const k in BASE) out.headers.set(k, BASE[k]);
+const NO_BODY = [101, 204, 205, 304];
+
+function setHeaders(h, isPrivate) {
+  for (const k in BASE) h.set(k, BASE[k]);
   if (isPrivate) {
-    out.headers.set('Cache-Control', 'no-store');
-    out.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    h.set('Cache-Control', 'no-store');
+    h.set('X-Robots-Tag', 'noindex, nofollow');
   }
-  return out;
+}
+
+// Adds the security headers. Uses the response as it is whenever possible (the pattern Cloudflare documents),
+// and only builds a copy if the headers are read-only. This can never break a page: if anything goes wrong
+// the original response is returned untouched.
+function harden(res, isPrivate) {
+  try {
+    setHeaders(res.headers, isPrivate);
+    return res;
+  } catch (e1) {
+    try {
+      const out = new Response(NO_BODY.indexOf(res.status) > -1 ? null : res.body, { status: res.status, statusText: res.statusText, headers: res.headers });
+      setHeaders(out.headers, isPrivate);
+      return out;
+    } catch (e2) {
+      return res;
+    }
+  }
 }
 
 export async function onRequest(context) {
