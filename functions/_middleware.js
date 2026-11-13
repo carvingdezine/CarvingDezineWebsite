@@ -5,7 +5,8 @@
 //   3. Adds browser security headers to every response.
 import { validSession } from './_session.js';
 
-const PRIVATE_PAGE = /^\/(admin|admin-portfolio)(\.html)?\/?$/i;
+// any file or folder whose name starts with "admin", wherever it sits (/admin, /admin.html, /admin-portfolio, /old/admin.html ...)
+const PRIVATE_PAGE = /(^|\/)admin[^/]*(\/|$)/i;
 
 // anything matching these answers "404 Not found", as if the file did not exist
 const HIDDEN = new RegExp(

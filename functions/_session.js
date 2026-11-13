@@ -7,7 +7,7 @@
 const enc = new TextEncoder();
 export const COOKIE = 'cd_session';
 export const SHORT = 8 * 60 * 60;        // 8 hours
-export const LONG = 30 * 24 * 60 * 60;   // 30 days ("keep me signed in")
+export const LONG = 7 * 24 * 60 * 60;    // 7 days ("keep me signed in")
 
 export function safeEqual(a, b) {
   a = String(a || ''); b = String(b || '');
@@ -48,8 +48,9 @@ export async function validSession(request, env) {
   return safeEqual(sig, await sign(env.ADMIN_KEY, exp));
 }
 
-export function cookieHeader(value, seconds) {
-  return `${COOKIE}=${value}; Path=/; Max-Age=${seconds}; HttpOnly; Secure; SameSite=Strict`;
+// persistent=false -> a "session cookie": the browser deletes it when it is closed (the server also expires it after SHORT)
+export function cookieHeader(value, seconds, persistent) {
+  return `${COOKIE}=${value}; Path=/;${persistent ? ` Max-Age=${seconds};` : ''} HttpOnly; Secure; SameSite=Strict`;
 }
 export function clearCookieHeader() {
   return `${COOKIE}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Strict`;

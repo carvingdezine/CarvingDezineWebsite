@@ -31,7 +31,7 @@ button:hover{background:#B20016}button:disabled{opacity:.6;cursor:wait}
 <div class="mk"></div><h1>Private area</h1><p>Enter your password to open the Carving Dezine workspace.</p>
 <form id="f" autocomplete="on"><label for="p">Password</label>
 <input id="p" name="password" type="password" autocomplete="current-password" required autofocus/>
-<label class="rm"><input id="r" type="checkbox"/> Keep me signed in on this device for 30 days</label>
+<label class="rm"><input id="r" type="checkbox"/> Keep me signed in on this device for 7 days</label>
 <button id="b" type="submit">Sign in</button><div class="err" id="e" role="alert"></div></form></main>
 <script>
 (function(){
@@ -69,5 +69,5 @@ export async function onRequest(context) {
   }
   const seconds = body.remember ? LONG : SHORT;
   const value = await makeSession(env, seconds);
-  return json({ ok: true, next: safeNext(body.next) }, 200, { 'Set-Cookie': cookieHeader(value, seconds) });
+  return json({ ok: true, next: safeNext(body.next) }, 200, { 'Set-Cookie': cookieHeader(value, seconds, !!body.remember) });
 }
