@@ -244,7 +244,8 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .enote{font-size:var(--fs-sm);color:var(--text-muted);line-height:1.7;margin:0;padding-left:18px}
 .pf-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-2)}
 .pf-card{margin:0 -4px}
-#pfFrame{display:block;width:100%;border:0;height:calc(100vh - var(--topbar-h) - 200px);min-height:560px;background:transparent}
+#pfFrame[data-ready]{opacity:1}
+#pfFrame{display:block;width:100%;border:0;opacity:0;transition:opacity .18s;height:calc(100vh - var(--topbar-h) - 200px);min-height:560px;background:transparent}
 .frame{display:block;width:100%;border:0;background:var(--bg);height:calc(100vh - var(--topbar-h) - 220px);min-height:560px}
 
 /* modal, drawer, toast, palette */
