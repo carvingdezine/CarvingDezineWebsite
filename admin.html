@@ -296,11 +296,26 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .doc-prev .note{margin-top:20px;font-size:12px;color:#444;white-space:pre-wrap}
 .doc-prev .stamp{display:inline-block;border:2px solid #E8001D;color:#E8001D;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:2px 12px;font-size:12px;margin-top:6px}
 .sticky-prev{position:sticky;top:calc(var(--topbar-h) + 16px)}
+#printRoot{display:none}
 @media print{
-  body *{visibility:hidden}
-  #docPrev,#docPrev *{visibility:visible}
-  #docPrev{position:absolute;left:0;top:0;width:100%;box-shadow:none;border-radius:0;padding:24px}
+  @page{size:A4;margin:12mm}
+  html,body{background:#fff!important;height:auto!important;min-height:0!important;overflow:visible!important}
+  body>*:not(#printRoot){display:none!important}
+  #printRoot{display:block!important}
+  #printRoot .doc-prev{box-shadow:none;border-radius:0;padding:0;min-height:0;width:100%;max-width:none;margin:0;background:#fff;color:#111;font-size:12.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #printRoot .doc-prev table{width:100%;border-collapse:collapse}
+  #printRoot .doc-prev tr,#printRoot .doc-prev .tot,#printRoot .doc-prev .note,#printRoot .doc-prev .two,#printRoot .doc-prev .dh{break-inside:avoid;page-break-inside:avoid}
 }
+.doc-item{display:grid;gap:10px;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.di-top{display:grid;grid-template-columns:minmax(0,1fr) 32px;gap:8px;align-items:center}
+.di-nums{display:grid;grid-template-columns:88px minmax(0,1fr) minmax(0,1fr);gap:10px}
+.di-nums label{display:grid;gap:4px;font-size:var(--fs-xs);font-weight:600;color:var(--text-faint)}
+.tpick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--sp-3)}
+.tpick .lb{width:100%;font-size:var(--fs-xs);font-weight:600;color:var(--text-faint);letter-spacing:.04em}
+.tchk{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:var(--fs-sm);cursor:pointer;color:var(--text);transition:border-color .16s,background .16s}
+.tchk:hover{border-color:var(--border-strong)}
+.tchk:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--text-strong)}
+.tchk input{accent-color:var(--accent);width:15px;height:15px;margin:0;cursor:pointer}
 </style>
 </head>
 <body>
@@ -895,7 +910,7 @@ function rClients(){
 /* ============ DOCUMENTS (quotes + invoices) ============ */
 var docTab='quote';
 function calc(d){var sub=(d.items||[]).reduce(function(a,i){return a+(Number(i.q)||0)*(Number(i.r)||0)},0);var disc=sub*(Number(d.discount)||0)/100;var taxable=sub-disc;var tax=taxable*(Number(d.tax)||0)/100;return{sub:sub,disc:disc,tax:tax,total:taxable+tax}}
-function nextNumber(type){var s=cfg(),pre=type==='quote'?s.qPrefix:s.iPrefix,y=new Date().getFullYear();var n=S.docs.filter(function(d){return d.type===type&&(d.number||'').indexOf(pre+'-'+y)===0}).length+1;return pre+'-'+y+'-'+String(n).padStart(3,'0')}
+function nextNumber(type){var s=cfg(),pre=type==='quote'?s.qPrefix:s.iPrefix,y=new Date().getFullYear();var n=S.docs.filter(function(d){return d.type===type&&(d.number||'').indexOf(pre+'-'+y)===0}).length+1;function nm(k){return pre+'-'+y+'-'+String(k).padStart(3,'0')}while(S.docs.some(function(d){return d.number===nm(n)}))n++;return nm(n)}
 function statusBadge(d){
   var s=d.status,cls='';
   if(d.type==='invoice'&&s==='Unpaid'&&d.due&&d.due<today()){return '<span class="badge badge--danger">Overdue</span>'}
@@ -926,6 +941,31 @@ function docHtml(d){
    +'<div class="tot"><div><span>Subtotal</span><span>'+money(t.sub,d.currency)+'</span></div>'+(t.disc?'<div><span>Discount ('+d.discount+'%)</span><span>-'+money(t.disc,d.currency)+'</span></div>':'')+(t.tax?'<div><span>Tax ('+d.tax+'%)</span><span>'+money(t.tax,d.currency)+'</span></div>':'')+'<div class="g"><span>Total</span><span>'+money(t.total,d.currency)+'</span></div></div>'
    +(d.notes?'<div class="note"><div class="lab">Notes</div>'+esc(d.notes)+'</div>':'')+(d.terms?'<div class="note"><div class="lab">Terms</div>'+esc(d.terms)+'</div>':'')+'<div class="note"><div class="lab">Payment</div>'+esc(s.payment)+'</div>';
 }
+var TERM_SCHED=[['100% in advance','Full payment in advance.'],['50% / 50%','50% in advance, 50% on delivery.'],['40 / 30 / 30','40% at kickoff, 30% at the midpoint, 30% on delivery.'],['100% on delivery','Full payment on delivery.']];
+var TERM_EXTRA=[['Two review rounds','Two review rounds are included.'],['Files on full payment','Final files transfer to the client on full payment.'],['Due in 14 days','Payment is due within 14 days of the invoice date.'],['Pause on late payment','Work may pause until overdue payments are cleared.']];
+function termsPickHtml(){function g(lb,list){return '<div class="tpick"><span class="lb">'+lb+'</span>'+list.map(function(t){return '<label class="tchk"><input type="checkbox" data-t="'+esc(t[1])+'" data-g="'+(list===TERM_SCHED?'s':'e')+'"/>'+esc(t[0])+'</label>'}).join('')+'</div>'}
+  return g('Payment schedule (pick one)',TERM_SCHED)+g('Also include',TERM_EXTRA)}
+function termsRemove(v,t){return v.split(t).join('').replace(/[ \t]{2,}/g,' ').replace(/^[ \t]+|[ \t]+$/gm,'').replace(/\n{3,}/g,'\n\n').trim()}
+function bindTerms(sync){
+  var box=$('#dTermsPick'),ta=$('#dTerms');box.innerHTML=termsPickHtml();
+  function paint(){$$('#dTermsPick input').forEach(function(c){c.checked=ta.value.indexOf(c.getAttribute('data-t'))>-1})}
+  $$('#dTermsPick input').forEach(function(c){c.addEventListener('change',function(){
+    var t=c.getAttribute('data-t'),v=ta.value;
+    if(c.checked){
+      if(c.getAttribute('data-g')==='s'){TERM_SCHED.forEach(function(x){v=termsRemove(v,x[1])});v=(t+(v?' '+v:''))}
+      else v=(v?v.replace(/\s+$/,'')+' ':'')+t;
+    }else v=termsRemove(v,t);
+    ta.value=v;paint();sync()})});
+  ta.addEventListener('input',paint);paint();
+}
+function printPrep(){
+  var root=document.getElementById('printRoot');if(!root){root=document.createElement('div');root.id='printRoot';document.body.appendChild(root)}
+  root.innerHTML='<div class="doc-prev">'+docHtml(D)+'</div>';
+  var c=cl(D.clientId),old=document.title;document.title=(D.number+(c?' - '+c.name:'')).replace(/[\\\/:*?"<>|]/g,'-');
+  function done(){document.title=old;root.innerHTML='';window.removeEventListener('afterprint',done)}
+  window.addEventListener('afterprint',done);
+}
+function printDoc(){printPrep();setTimeout(function(){window.print()},80)}
 var D=null;
 function rDoc(){
   var arg=cur.arg;
@@ -944,7 +984,7 @@ function rDoc(){
     +'<div class="field"><label>Discount %</label><input class="input" id="dDisc" type="number" min="0" step="any" value="'+esc(D.discount)+'"/></div>'
     +'<div class="field"><label>Tax or GST %</label><input class="input" id="dTax" type="number" min="0" step="any" value="'+esc(D.tax)+'"/></div></div></div>'
     +'<div class="card"><div class="card-hd" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-4)"><h5 style="margin:0">Line items</h5><div class="row"><select class="select" id="dPick" style="width:230px"><option value="">Add from price list</option>'+cfg().price.map(function(p,i){return '<option value="'+i+'">'+esc(p.n)+'</option>'}).join('')+'</select><button class="btn" id="dAddLine" type="button">'+ic('plus')+'Custom line</button></div></div><div class="doc-lines" id="dLines"></div></div>'
-    +'<div class="card"><div class="form-grid"><div class="field full"><label>Notes</label><textarea class="textarea" id="dNotes" placeholder="Scope, timeline, what is included">'+esc(D.notes)+'</textarea></div><div class="field full"><label>Terms</label><textarea class="textarea" id="dTerms">'+esc(D.terms)+'</textarea></div></div></div>';
+    +'<div class="card"><div class="form-grid"><div class="field full"><label>Notes</label><textarea class="textarea" id="dNotes" placeholder="Scope, timeline, what is included">'+esc(D.notes)+'</textarea></div><div class="field full"><label>Terms</label><div id="dTermsPick"></div><textarea class="textarea" id="dTerms">'+esc(D.terms)+'</textarea></div></div></div>';
   var acts='<a class="btn btn--ghost" href="#/docs">Back</a>';
   if(!D._new)acts+='<button class="btn btn--ghost btn--icon" id="dDel" aria-label="Delete">'+ic('trash')+'</button>';
   if(isQ&&!D._new)acts+='<button class="btn" id="dConv">To invoice</button>';
@@ -958,16 +998,25 @@ function rDoc(){
   $('#dNewClient').addEventListener('click',function(){formModal({title:'New client',fields:[{k:'name',l:'Contact name',req:true},{k:'company',l:'Company'},{k:'email',l:'Email',t:'email'},{k:'region',l:'Region',t:'select',opts:['India','International'],d:'India'}],onSave:function(v){var o=Object.assign({id:uid(),status:'Active',created:Date.now()},v);return put('clients',o).then(function(){log('Added client '+o.name);$('#dClient').innerHTML=clOptions(o.id,'Select a client');$('#dCur').value=o.region==='International'?'USD':'INR';repriceLines();sync()})}})});
   $('#dPick').addEventListener('change',function(){if(this.value==='')return;var p=cfg().price[+this.value];D.items.push({d:p.n,q:1,r:D.currency==='INR'?p.inr:p.usd,pid:+this.value});this.value='';paintLines();paintPrev()});
   $('#dAddLine').addEventListener('click',function(){D.items.push({d:'',q:1,r:0});paintLines();paintPrev()});
-  $('#dPrint').addEventListener('click',function(){window.print()});
+  $('#dPrint').addEventListener('click',printDoc);
+  bindTerms(sync);
   $('#dSave').addEventListener('click',function(){sync();var o=Object.assign({},D);delete o._new;put('docs',o).then(function(){D=o;window._cdDraft=null;log('Saved '+(isQ?'quote ':'invoice ')+o.number);toast('Saved '+o.number);go('doc/'+o.id)})});
   var dd=$('#dDel');if(dd)dd.addEventListener('click',function(){confirmBox('Delete '+D.number+'?').then(function(y){if(y)del('docs',D.id).then(function(){log('Deleted '+D.number);go('docs')})})});
   var cv=$('#dConv');if(cv)cv.addEventListener('click',function(){sync();var o=JSON.parse(JSON.stringify(D));o.id=uid();o.type='invoice';o.number=nextNumber('invoice');o.status='Draft';o.date=today();o.due=addDays(today(),14);o.created=Date.now();delete o._new;put('docs',o).then(function(){log('Invoice '+o.number+' created from '+D.number);toast('Created '+o.number);go('doc/'+o.id)})});
 }
 function repriceLines(){var cur_=$('#dCur').value;D.currency=cur_;D.items.forEach(function(i){if(i.pid!=null){var p=cfg().price[i.pid];if(p)i.r=cur_==='INR'?p.inr:p.usd}});paintLines();paintPrev()}
+function lineAmt(i){var a=(Number(i.q)||0)*(Number(i.r)||0);return Math.round(a*100)/100}
 function paintLines(){
   var el=$('#dLines');
-  el.innerHTML=D.items.length?D.items.map(function(i,n){return '<div class="doc-line"><input class="input input--sm" data-n="'+n+'" data-f="d" value="'+esc(i.d)+'" placeholder="Description"/><input class="input input--sm" data-n="'+n+'" data-f="q" type="number" min="0" step="any" value="'+esc(i.q)+'"/><input class="input input--sm" data-n="'+n+'" data-f="r" type="number" min="0" step="any" value="'+esc(i.r)+'"/><button class="btn btn--ghost btn--icon btn--sm" data-rm="'+n+'" aria-label="Remove">'+ic('x')+'</button></div>'}).join(''):'<p class="faint" style="font-size:var(--fs-sm)">No items yet. Pick from the price list or add a custom line.</p>';
-  $$('#dLines input').forEach(function(x){x.addEventListener('input',function(){var it=D.items[+x.getAttribute('data-n')],f=x.getAttribute('data-f');it[f]=f==='d'?x.value:x.value;if(f==='r')delete it.pid;paintPrev()})});
+  el.innerHTML=D.items.length?D.items.map(function(i,n){return '<div class="doc-item"><div class="di-top"><input class="input" data-n="'+n+'" data-f="d" value="'+esc(i.d)+'" placeholder="Description"/><button class="btn btn--ghost btn--icon btn--sm" data-rm="'+n+'" aria-label="Remove item">'+ic('x')+'</button></div><div class="di-nums"><label><span>Qty</span><input class="input" data-n="'+n+'" data-f="q" type="number" min="0" step="any" value="'+esc(i.q)+'"/></label><label><span>Rate</span><input class="input" data-n="'+n+'" data-f="r" type="number" min="0" step="any" value="'+esc(i.r)+'"/></label><label><span>Amount</span><input class="input" data-n="'+n+'" data-f="a" type="number" min="0" step="any" value="'+lineAmt(i)+'"/></label></div></div>'}).join(''):'<p class="faint" style="font-size:var(--fs-sm)">No items yet. Pick from the price list or add a custom line.</p>';
+  $$('#dLines input').forEach(function(x){x.addEventListener('input',function(){
+    var n=+x.getAttribute('data-n'),it=D.items[n],f=x.getAttribute('data-f');
+    function box(k){return document.querySelector('#dLines input[data-n="'+n+'"][data-f="'+k+'"]')}
+    if(f==='d')it.d=x.value;
+    else if(f==='q'){it.q=x.value;box('a').value=lineAmt(it)}
+    else if(f==='r'){it.r=x.value;delete it.pid;box('a').value=lineAmt(it)}
+    else if(f==='a'){var q=Number(it.q)||0,a=Number(x.value)||0;if(!q){it.q=1;box('q').value=1;q=1}it.r=Math.round(a/q*10000)/10000;delete it.pid;box('r').value=it.r}
+    paintPrev()})});
   $$('#dLines [data-rm]').forEach(function(b){b.addEventListener('click',function(){D.items.splice(+b.getAttribute('data-rm'),1);paintLines();paintPrev()})});
 }
 function paintPrev(){$('#docPrev').innerHTML=docHtml(D)}
