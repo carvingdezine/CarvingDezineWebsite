@@ -238,6 +238,15 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .delta.up{background:var(--accent-soft);color:var(--accent-text)}
 .ep{color:var(--text-faint);font-size:var(--fs-sm);padding:var(--sp-8) 0;text-align:center}
 .chips{display:flex;gap:var(--sp-2);flex-wrap:wrap}
+.panel.hl{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:linear-gradient(var(--accent-soft),var(--accent-soft)),var(--surface)}
+.panel.hl .ph{border-bottom-color:rgba(232,0,29,.28)}
+.panel.hl .ph h5{color:var(--text-strong)}
+.tk{display:flex;gap:var(--sp-3);align-items:center;padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--border);margin-bottom:8px}
+.tk.over{border-color:var(--accent);border-left-width:4px}
+.tk .t{font-weight:600;color:var(--text-strong)}
+.tk .m{font-size:var(--fs-sm);color:var(--text-muted);margin-top:2px}
+.tk .m.od{color:var(--accent-text);font-weight:600}
+.dash .list-item:last-child{border-bottom:0}
 .ebar{height:6px;border-radius:3px;background:var(--accent);min-width:2px;margin:6px 0 0 auto}
 td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .etools{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center;margin-bottom:var(--sp-3)}
@@ -768,20 +777,24 @@ function rHome(){
     kp('Unpaid invoices',unpTxt,esc(unpN+(unpN===1?' invoice':' invoices')+' waiting')),
     kp('Tasks due',due.length,esc(over.length?over.length+' overdue':'Nothing overdue'))
   ].join('');
-  var D=[];
+  var D=[],P={};
   var ys=A?A.years.filter(function(y){return y.y!=='Undated'&&y.inr>0}).sort(function(a,b){return a.y-b.y}).slice(-8):[];
-  D.push(pnl('Earnings by year','Rupees received',ys.length?chBars(ys.map(function(y){return{label:String(y.y),v:y.inr}}),{fmt:function(v){return nfmt(v,'INR')},full:function(v){return em(v,'INR')},label:'Rupees received by year'}):'<div class="ep">Import your Projects sheet to see earnings here.<br/><a class="btn btn--sm" style="margin-top:12px" href="#/earn">Open Earnings</a></div>',8));
+  P.earn=(pnl('Earnings by year','Rupees received',ys.length?chBars(ys.map(function(y){return{label:String(y.y),v:y.inr}}),{fmt:function(v){return nfmt(v,'INR')},full:function(v){return em(v,'INR')},label:'Rupees received by year'}):'<div class="ep">Import your Projects sheet to see earnings here.<br/><a class="btn btn--sm" style="margin-top:12px" href="#/earn">Open Earnings</a></div>',8));
   var stages=['New','Contacted','Proposal sent','Won','Lost'];
-  D.push(pnl('Lead pipeline','',S.leads.length?chHBars(stages.map(function(s){return{n:s,v:S.leads.filter(function(l){return l.status===s}).length}})):'<div class="ep">No leads yet.<br/><button class="btn btn--sm" style="margin-top:12px" id="hpAdd" type="button">Log an enquiry</button></div>',4));
+  P.pipe=(pnl('Lead pipeline','',S.leads.length?chHBars(stages.map(function(s){return{n:s,v:S.leads.filter(function(l){return l.status===s}).length}})):'<div class="ep">No leads yet.<br/><button class="btn btn--sm" style="margin-top:12px" id="hpAdd" type="button">Log an enquiry</button></div>',4));
   var st={};inv.forEach(function(d){st[d.status||'Draft']=(st[d.status||'Draft']||0)+1});
   var order=['Paid','Unpaid','Draft','Cancelled'],cols={Paid:DC[1],Unpaid:DC[0],Draft:DC[2],Cancelled:DC[3]};
-  D.push(pnl('Invoices','By status',chDonut(order.filter(function(k){return st[k]}).map(function(k){return{n:k,v:st[k],c:cols[k]}})),4));
-  var tasksHtml=due.length?'<div class="list">'+due.slice(0,5).map(function(t){return '<div class="list-item"><label class="check"><input type="checkbox" data-done="'+t.id+'"/></label><div class="grow"><div class="t">'+esc(t.title)+'</div><div class="m">'+(t.due<today()?'Overdue \u00b7 ':'Today \u00b7 ')+fmtDate(t.due)+'</div></div></div>'}).join('')+'</div>':'<div class="ep">Nothing due today.</div>';
-  D.push(pnl('Today and overdue','',tasksHtml,4));
+  P.inv=(pnl('Invoices','By status',chDonut(order.filter(function(k){return st[k]}).map(function(k){return{n:k,v:st[k],c:cols[k]}})),6));
+  var dueS=due.slice().sort(function(a,b){return (a.due<b.due?-1:1)});
+  function daysOver(t){return Math.round((new Date(today()+'T00:00:00')-new Date(t.due+'T00:00:00'))/864e5)}
+  var tasksHtml=dueS.length?dueS.slice(0,6).map(function(t){var o=t.due<today(),n=o?daysOver(t):0;return '<div class="tk'+(o?' over':'')+'"><label class="check"><input type="checkbox" data-done="'+t.id+'"/></label><div class="grow"><div class="t">'+esc(t.title)+'</div><div class="m'+(o?' od':'')+'">'+(o?(n===1?'1 day overdue':n+' days overdue'):'Due today')+' \u00b7 '+fmtDate(t.due)+'</div></div></div>'}).join('')+(dueS.length>6?'<a class="btn btn--ghost btn--sm" href="#/tasks">See all '+dueS.length+' on Tasks</a>':''):'<div class="ep"><b class="strong">You are all caught up.</b><br/>Nothing due today and nothing overdue.</div>';
+  var todayN=due.length-over.length;
+  P.today=pnlHL('Today and overdue',(over.length?'<span class="badge badge--danger">'+over.length+' overdue</span>':'')+(todayN?' <span class="badge badge--warn">'+todayN+' today</span>':'')+(!due.length?'<span class="badge badge--ok">Clear</span>':''),tasksHtml,8);
   var cats={};(S.projects||[]).forEach(function(p){var c=p.category||p.cat||p.type||'Other';cats[c]=(cats[c]||0)+1});
-  D.push(pnl('Portfolio','By category',S.projects?chHBars(Object.keys(cats).map(function(k){return{n:k,v:cats[k]}}).sort(function(a,b){return b.v-a.v}).slice(0,6)):'<div class="ep">Open the workspace on your live site to see your portfolio.</div>',4));
-  var act=S.activity.slice().sort(function(a,b){return b.t-a.t}).slice(0,6);
-  D.push(pnl('Recent activity','',act.length?'<div class="list">'+act.map(function(a){return '<div class="list-item"><div class="grow"><div class="t">'+esc(a.text)+'</div><div class="m">'+ago(a.t)+'</div></div></div>'}).join('')+'</div>':'<div class="ep">Activity appears here as you work.</div>',4));
+  P.port=(pnl('Portfolio','By category',S.projects?chHBars(Object.keys(cats).map(function(k){return{n:k,v:cats[k]}}).sort(function(a,b){return b.v-a.v}).slice(0,6)):'<div class="ep">Open the workspace on your live site to see your portfolio.</div>',6));
+  var act=S.activity.slice().sort(function(a,b){return b.t-a.t}).slice(0,8);
+  P.act=(pnl('Recent activity','',act.length?'<div class="list">'+act.map(function(a){return '<div class="list-item"><div class="grow"><div class="t">'+esc(a.text)+'</div><div class="m">'+ago(a.t)+'</div></div></div>'}).join('')+'</div>':'<div class="ep">Activity appears here as you work.</div>',4));
+  D=[P.today,P.act,P.earn,P.pipe,P.inv,P.port];
   $('#homeDash').innerHTML=D.join('');
   $$('#homeDash [data-done]').forEach(function(c){c.addEventListener('change',function(){toggleTask(c.getAttribute('data-done'))})});
   var hp=$('#hpAdd');if(hp)hp.addEventListener('click',function(){leadForm()});
@@ -998,6 +1011,7 @@ function nfmt(n,c){n=Number(n)||0;function t(x,d){return x.toFixed(d).replace(/\
   var s=CUR[c]||'';if(n>=1e6)return s+t(n/1e6,2)+'M';if(n>=1e3)return s+t(n/1e3,1)+'k';return s+Math.round(n)}
 function dchip(cur,prev,label){if(!prev)return '';var p=(cur-prev)/prev*100;return '<span class="delta'+(p>=0?' up':'')+'">'+(p>=0?'\u25B2 ':'\u25BC ')+Math.abs(Math.round(p))+'% '+esc(label)+'</span>'}
 function pnl(title,sub,body,span){return '<div class="panel c'+span+'"><div class="ph"><h5>'+esc(title)+'</h5>'+(sub?'<span class="faint" style="font-size:var(--fs-xs)">'+esc(sub)+'</span>':'')+'</div><div class="pb">'+body+'</div></div>'}
+function pnlHL(title,right,body,span){return '<div class="panel hl c'+span+'"><div class="ph"><h5>'+esc(title)+'</h5><span class="row" style="gap:6px">'+right+'</span></div><div class="pb">'+body+'</div></div>'}
 function chBars(items,o){o=o||{};var n=items.length;if(!n)return '<div class="ep">No data yet</div>';
   var W=640,H=o.h||230,pt=26,pb=28,pl=6,pr=6,max=Math.max.apply(null,items.map(function(i){return i.v}))||1,bw=(W-pl-pr)/n,gap=Math.min(bw*.3,16),w=Math.max(4,bw-gap),h=H-pt-pb,last=n-1;
   var s='<svg class="ch" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(o.label||'Bar chart')+'"><line x1="0" x2="'+W+'" y1="'+(H-pb)+'" y2="'+(H-pb)+'" stroke="var(--border-strong)"/>';
