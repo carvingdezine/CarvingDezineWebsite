@@ -16,7 +16,7 @@ var t,idle=60*60*1000;function reset(){clearTimeout(t);t=setTimeout(function(){l
 <meta name="theme-color" content="#000000"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NjYuOTMgNTY2LjkzIj48cGF0aCBmaWxsPSIjZmYyYTJhIiBkPSJNMjgzLjQ2LDU2Ni45M0MxMjYuOTEsNTY2LjkzLDAsNDQwLjAyLDAsMjgzLjQ3LDAsMTI2LjkxLDEyNi45MSwwLDI4My40NiwwczI4My40NiwxMjYuOTEsMjgzLjQ2LDI4My40NmMwLDE1Ni41NS0xMjYuOTEsMjgzLjQ3LTI4My40NiwyODMuNDciLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjI1LjQ3LDMyMWMwLTMyLjU1LDI1Ljc5LTU5LjI2LDU3LjQyLTU5LjU0aDY1Ljkydi02MC41MWMtNDEuNDIsMC02Ni4yMywwLTY2LjI4LDAtNjQuMzcuNTItMTE2Ljc0LDU0LjM3LTExNi43NCwxMjAuMDQsMCwzMi4yOSwxMi41OCw2MS42MSwzMi45OCw4My4yMWwtMjQuNTEsNDkuMzQsNjQuNjUtMjEuNDZjMTMuNzUsNS43NiwyOC44LDguOTYsNDQuNTYsOC45NiwxNC4zMiwwLDI4LjA0LTIuNjMsNDAuNzUtNy40M3YtNzAuMzFjLTEwLjQ4LDEwLjY0LTI0Ljg4LDE3LjIzLTQwLjc1LDE3LjIzLTMxLjk4LDAtNTgtMjYuNzEtNTgtNTkuNTQiLz48cmVjdCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNikiIHg9IjMyNC4yMiIgeT0iMjAwLjk1IiB3aWR0aD0iMTcuMjQiIGhlaWdodD0iNjAuNDgiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDAwLjQ3LDExMy4zOWMtMzIuNTksMC01OS4wMSwyNi40Mi01OS4wMSw1OXYxNDguNjFjMCwxLjA5LS4xLDIuMTYtLjE2LDMuMjRoLjE2djEwMS4xNWMzNS42MS0yMC42Niw1OS42OS01OS43LDU5LjY5LTEwNC4zOVYxMTMuNDFjLS4yMywwLS40Ni0uMDItLjY4LS4wMiIvPjwvc3ZnPg=="/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500&display=swap" rel="stylesheet"/>
 <style>/* CARVING DEZINE WORKSPACE — same design language as the Brand Centre (semantic tokens, 4pt spacing, Outfit, light + dark) */
 :root{
   --font:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
@@ -278,33 +278,74 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 /* document editor + printable preview */
 .doc-lines{display:grid;gap:var(--sp-2)}
 .doc-line{display:grid;grid-template-columns:minmax(0,1fr) 70px 110px 32px;gap:var(--sp-2);align-items:center}
-.doc-prev{background:#fff;color:#111;border-radius:var(--r-md);padding:40px;box-shadow:var(--shadow-3);font-size:13px;line-height:1.55;min-height:640px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.doc-prev h1{color:#000;font-size:28px;letter-spacing:-.02em;text-transform:uppercase}
-.doc-prev .dh{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;border-bottom:3px solid #E8001D;padding-bottom:20px;margin-bottom:24px}
-.doc-prev .dl{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-.doc-prev .dl img{width:34px;height:34px;filter:invert(1)}
-.doc-prev .meta{text-align:right;font-size:12px;color:#555}
-.doc-prev .meta b{color:#000;font-size:14px}
-.doc-prev .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
-.doc-prev .lab{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#888;font-weight:700;margin-bottom:4px}
-.doc-prev table{font-size:12.5px}
-.doc-prev th{color:#555;border-bottom:1px solid #000;padding:8px 6px}
-.doc-prev td{border-bottom:1px solid #e5e5e5;padding:8px 6px;color:#111}
-.doc-prev .tot{margin:16px 0 0 auto;width:260px;font-size:12.5px}
-.doc-prev .tot div{display:flex;justify-content:space-between;padding:4px 0}
-.doc-prev .tot .g{border-top:2px solid #000;margin-top:6px;padding-top:8px;font-size:16px;font-weight:800}
-.doc-prev .note{margin-top:20px;font-size:12px;color:#444;white-space:pre-wrap}
-.doc-prev .stamp{display:inline-block;border:2px solid #E8001D;color:#E8001D;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:2px 12px;font-size:12px;margin-top:6px}
+.doc-prev{background:#fff;color:#555;border-radius:var(--r-md);box-shadow:var(--shadow-3);overflow:hidden;padding:0;margin:0}
+.dpage{width:794px;box-sizing:border-box;padding:0 66px 30px;font-family:'Outfit','Poppins',system-ui,sans-serif;font-size:13.4px;line-height:1.62;color:#555;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.dpage *{box-sizing:border-box}
+.dpage a{color:#1155cc;text-decoration:underline}
+.dpage b{font-weight:600;color:#4a4a4a}
+.dpage .lh{text-align:center;padding-top:16px}
+.dpage .lh img{width:221px;height:auto;display:block;margin:0 auto}
+.dpage .lh-addr{font-family:'Poppins',sans-serif;font-size:11.4px;color:#666;margin-top:6px}
+.dpage .lh-rule{border-top:1.3px solid #8c8c8c;margin-top:12px}
+.dpage .lf{border-top:1.3px solid #8c8c8c;margin-top:40px;padding-top:9px;font-family:'Poppins',sans-serif;font-size:11px;line-height:1.55;color:#444}
+.dpage .dt{text-align:right;color:#E8001D;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.01em;margin:30px 0 14px}
+.dpage .dt.inv{font-weight:900;font-size:50px;text-transform:uppercase;letter-spacing:0;margin-top:26px}
+.dpage .dm{text-align:right;margin:7px 0}
+.dpage .dd{margin:30px 0 0 24px}.dpage .dd div{margin:7px 0;font-size:14.4px}
+.dpage .dh2{color:#E8001D;font-weight:700;font-size:15.5px;margin:24px 0 8px}
+.dpage .adr{line-height:1.72}
+.dpage .stamp{display:inline-block;border:2px solid #E8001D;color:#E8001D;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:2px 12px;border-radius:6px;transform:rotate(-6deg);font-size:12px;margin:4px 0 0}
+.dpage .stampw{text-align:right;margin:-6px 0 0}
+.dpage .to{margin:20px 0 18px}
+.dpage .srule{border-top:1.3px solid #9a9a9a;margin:20px 0}
+.dpage .sh{color:#E8001D;font-weight:700;font-size:17px;margin:0 0 10px}
+.dpage .sub{font-weight:600;color:#4a4a4a;margin:14px 0 6px}
+.dpage p{margin:0 0 11px}
+.dpage ul,.dpage ol{margin:6px 0 12px;padding-left:46px}
+.dpage li{margin:5px 0;padding-left:6px}
+.dpage ul ul{margin:4px 0 6px;list-style:circle;padding-left:36px}
+.dpage .bigamt{color:#E8001D;font-weight:700;font-size:21px;margin:6px 0 8px}
+.dpage .dtab{width:100%;border-collapse:collapse;border:1px solid #d6d6d6;margin:6px 0 14px;font-size:13.4px}
+.dpage .dtab th{color:#1155cc;text-align:left;font-weight:600;font-size:13.4px;letter-spacing:0;text-transform:none;padding:14px 11px;border:1px solid #d6d6d6;background:#fff}
+.dpage .dtab td{padding:13px 11px;border:1px solid #d6d6d6;vertical-align:top;color:#555;background:#fff}
+.dpage .dtab .r{text-align:right;white-space:nowrap}
+.dpage .dtab .am{font-weight:700;color:#4a4a4a;white-space:nowrap;width:19%}
+.dpage .dtab td.b{font-weight:600;color:#4a4a4a}
+.dpage .dtab .tl td.am,.dpage .dtab .tl.red td{color:#E8001D;font-weight:700}
+.dpage .thanks{font-weight:600;color:#4a4a4a;margin:26px 0 0}
+.dpage .thanks.q{font-weight:400;color:#333}
+.dpage .sig{text-align:right;margin-top:22px;line-height:1.55}
+.dpage .sig img{width:96px;height:auto;display:block;margin:0 0 4px auto}
+.dpage .sig .gap{height:44px}
+.dpage .sig .n{color:#E8001D;font-weight:700}
+.dpage .pm ul{padding-left:30px;margin:4px 0}.dpage .pm ul ul{padding-left:42px}
+.dpage .keep{break-inside:avoid;page-break-inside:avoid}
+.dpage .sh,.dpage .sub,.dpage .dh2{break-after:avoid;page-break-after:avoid}
+.dpage p,.dpage li{orphans:2;widows:2}
+.dpage .pgb{break-before:page;page-break-before:always}
+.sec-ed{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;background:var(--surface)}
+.se-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;margin-bottom:10px}
+.sec-ed .textarea{min-height:110px}.sec-ed .field-hint{font-size:var(--fs-xs);color:var(--text-faint);margin:6px 0 0}
+.sc-item{border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--surface);display:grid;gap:8px}
+.sc-top{display:grid;grid-template-columns:76px minmax(0,1fr) auto 32px;gap:8px;align-items:center}
+.sc-amt{font-weight:600;color:var(--text-strong);font-size:var(--fs-sm);min-width:76px;text-align:right}
+.warnt{color:var(--accent-text);font-size:var(--fs-sm)}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .sticky-prev{position:sticky;top:calc(var(--topbar-h) + 16px)}
 #printRoot{display:none}
 @media print{
-  @page{size:A4;margin:12mm}
-  html,body{background:#fff!important;height:auto!important;min-height:0!important;overflow:visible!important}
+  html,body{background:#fff!important;margin:0!important;height:100%!important;overflow:visible!important}
   body>*:not(#printRoot){display:none!important}
-  #printRoot{display:block!important}
-  #printRoot .doc-prev{box-shadow:none;border-radius:0;padding:0;min-height:0;width:100%;max-width:none;margin:0;background:#fff;color:#111;font-size:12.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  #printRoot .doc-prev table{width:100%;border-collapse:collapse}
-  #printRoot .doc-prev tr,#printRoot .doc-prev .tot,#printRoot .doc-prev .note,#printRoot .doc-prev .two,#printRoot .doc-prev .dh{break-inside:avoid;page-break-inside:avoid}
+  #printRoot{display:block!important;height:100%}
+  #printRoot .dpage{width:auto;padding:0;zoom:1!important;margin:0;height:100%}
+  #printRoot .ptab{width:100%;height:100%;border-collapse:collapse;table-layout:fixed}
+  #printRoot .ptab>thead{display:table-header-group}
+  #printRoot .ptab>tfoot{display:table-footer-group}
+  #printRoot .ptab>tbody>tr>td{vertical-align:top;padding:6px 0 12px}
+  #printRoot .ptab>thead>tr>td,#printRoot .ptab>tfoot>tr>td{padding:0}
+  #printRoot .dpage .lh{padding-top:0}
+  #printRoot .dpage .lf{margin-top:0}
+  #printRoot .dpage tr{break-inside:avoid;page-break-inside:avoid}
 }
 .doc-item{display:grid;gap:10px;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
 .di-top{display:grid;grid-template-columns:minmax(0,1fr) 32px;gap:8px;align-items:center}
@@ -673,8 +714,10 @@ var PRICE=[
   {n:'Brand Centre: yearly updates',inr:15000,usd:300},{n:'Monthly design retainer (per month)',inr:125000,usd:2200}
 ];
 var DEF={name:'Carving Dezine',owner:'Tanvi Shah',email:'carvingdezine@gmail.com',phone:'+91 98201 42005',location:'Mumbai & Surat, India',web:'carvingdezine.com',
-  payment:'Payments via Wise (international) or UPI (India). Bank and UPI details are shared on request.',
-  terms:'40% at kickoff, 30% at the midpoint, 30% on delivery. Two review rounds are included. Final files transfer to the client on full payment.',
+  payment:'',
+  terms:'',
+  address:'',upi:'',bankName:'',bankAcc:'',bankIfsc:'',bankBank:'',bankBranch:'',signName:'',signTitle:'',signature:'',footerLinks:'',paper:'A4',
+  thankInvoice:'Thank you for your business!',thankQuote:'I look forward to the opportunity to work with you on this exciting project! Thank You!',
   qPrefix:'CD-Q',iPrefix:'CD-I',validity:14,tax:0,price:PRICE};
 var S={clients:[],leads:[],docs:[],tasks:[],activity:[],files:[],settings:{},projects:null};
 var COLS=['clients','leads','docs','tasks','activity'];
@@ -838,7 +881,7 @@ function interestOpts(v){var l=cfg().price.map(function(p){return p.n}).concat([
 function leadForm(l){
   l=l||{};
   var m=formModal({title:l.id?'Edit lead':'Log an enquiry',saveLabel:l.id?'Save':'Add lead',values:l,wide:true,
-    fields:[{k:'name',l:'Name',req:true},{k:'company',l:'Company'},{k:'email',l:'Email',t:'email'},{k:'phone',l:'Phone',t:'tel'},
+    fields:[{k:'name',l:'Name',req:true},{k:'company',l:'Company'},{k:'place',l:'City, country (shown on documents)'},{k:'email',l:'Email',t:'email'},{k:'phone',l:'Phone',t:'tel'},
       {k:'source',l:'Source',t:'select',opts:SOURCES},{k:'interest',l:'Interested in',t:'select',opts:interestOpts},
       {k:'value',l:'Estimated value',t:'number'},{k:'currency',l:'Currency',t:'select',opts:[['INR','INR (\u20b9)'],['USD','USD ($)']],d:'INR'},
       {k:'status',l:'Stage',t:'select',opts:STAGES,d:'New'},{k:'follow',l:'Follow up on',t:'date'},{k:'notes',l:'Notes',t:'textarea',full:true}],
@@ -880,7 +923,7 @@ var clientFilter='all';
 function clientForm(c){
   c=c||{};
   return formModal({title:c.id?'Edit client':'Add a client',values:c,wide:true,saveLabel:c.id?'Save':'Add client',
-    fields:[{k:'name',l:'Contact name',req:true},{k:'company',l:'Company'},{k:'email',l:'Email',t:'email'},{k:'phone',l:'Phone',t:'tel'},
+    fields:[{k:'name',l:'Contact name',req:true},{k:'company',l:'Company'},{k:'place',l:'City, country (shown on documents)'},{k:'email',l:'Email',t:'email'},{k:'phone',l:'Phone',t:'tel'},
       {k:'region',l:'Region',t:'select',opts:['India','International'],d:'India',hint:'Sets INR or USD on quotes and invoices'},{k:'status',l:'Status',t:'select',opts:['Active','Prospect','Past'],d:'Active'},
       {k:'web',l:'Website',t:'url',ph:'https://'},{k:'drive',l:'Shared folder link',t:'url',ph:'Drive, Dropbox or Figma'},{k:'notes',l:'Notes',t:'textarea',full:true}],
     onSave:function(v){var o=Object.assign({},c,v,{id:c.id||uid(),created:c.created||Date.now()});return put('clients',o).then(function(){log((c.id?'Updated client ':'Added client ')+o.name);refresh();return o})}});
@@ -917,10 +960,38 @@ function statusBadge(d){
   if(s==='Accepted'||s==='Paid')cls=' badge--ok';else if(s==='Declined'||s==='Cancelled')cls=' badge--danger';else if(s==='Sent'||s==='Unpaid')cls=' badge--accent';
   return '<span class="badge'+cls+'">'+esc(s)+'</span>';
 }
+var OLD_TERMS='40% at kickoff, 30% at the midpoint, 30% on delivery. Two review rounds are included. Final files transfer to the client on full payment.',OLD_PAY='Payments via Wise (international) or UPI (India). Bank and UPI details are shared on request.';
+var SEC_TPL=[
+ {n:'Project Overview',k:'text',b:'{client} is commissioning {project}. Describe the goal and the context in two or three short paragraphs.\n\nUse **bold** for key phrases, a blank line for a new paragraph, and a dash at the start of a line for a bullet.'},
+ {n:'Scope of Work',k:'text',b:'## What is included\n- First deliverable\n- Second deliverable\n- Third deliverable'},
+ {n:'Deliverables',k:'text',b:'## Group one\n- Deliverable\n- Deliverable\n\n## Group two\n- Deliverable\n- Deliverable'},
+ {n:'Timeline',k:'text',b:'The estimated project timeline is **X weeks** from formal project commencement and receipt of the required content, assets and approvals.\n\n## Phase 1 - Name - Week 1\n- Item\n- Item\n\nThe above timeline assumes timely receipt of content, required assets, feedback and approvals from {client}. Any delay in content, feedback or approvals may impact the overall delivery timeline.'},
+ {n:'Commercials',k:'comm',s:'',b:'The project fee covers the complete engagement for the agreed scope.',a:'The project is quoted as a **fixed project fee** because the level of effort varies across the different deliverables.'},
+ {n:'Payment Schedule',k:'sched'},
+ {n:'Scope & Change Management',k:'text',b:'The above scope is based on the brief shared by {client} for {project}.\n\nThe following will be considered additional scope and may require a separate estimate:\n- Addition of new pages or deliverables beyond the agreed scope\n- Major changes to the approved structure or direction\n- Significant restructuring of approved content\n- New functionality introduced after design approval\n- Backend, CMS, database or API development\n- Third-party platform integrations\n- Additional development resulting from changes after implementation\n\nReasonable design refinements and corrections within the agreed scope will be handled as part of the project. Feedback will be consolidated at each review milestone. Major changes to an already approved direction, structure or system may require timeline and commercial reassessment.'},
+ {n:'Client Dependencies',k:'text',b:'To maintain the proposed timeline, {client} will provide:\n- Final/approved content\n- Brand assets and logos\n- Supporting information and assets\n- Images, videos and other required media\n- Required credentials or access where applicable\n- Timely feedback and approvals\n\nProject timelines will be reviewed if required content, assets or approvals are delayed.'},
+ {n:'Final Project Outcome',k:'text',b:'At completion, {client} will receive a cohesive result covering the agreed scope.\n\nThe objective is to create a scalable system rather than a collection of individual pieces, so the brand can stay consistent as it evolves.'},
+ {n:'Approval',k:'text',b:'Upon approval of this scope, timeline and commercial proposal, the project will proceed according to the agreed scope and payment schedule.'},
+ {n:'Custom section',k:'text',b:''}];
+function tplCopy(n){var t=SEC_TPL.filter(function(x){return x.n===n})[0];if(!t)return null;var o={k:t.k,t:t.n==='Custom section'?'New section':t.n};if(t.k==='text')o.b=t.b||'';if(t.k==='comm'){o.s=t.s||'';o.b=t.b||'';o.a=t.a||''}if(t.k==='sched')o.b='';return o}
+var QUOTE_DEFAULT=['Project Overview','Scope of Work','Timeline','Commercials','Payment Schedule','Scope & Change Management','Client Dependencies','Approval'];
+var SCHED_PRE={'50 / 50':[[50,'Project Initiation','Payable upon approval of the scope and commencement of the project.'],[50,'Final Handover','Payable upon completion of the agreed work and final handover.']],
+ '50 / 25 / 25':[[50,'Project Initiation','Payable upon approval of the scope and commencement of the project.'],[25,'Direction Approval','Payable upon approval of the core design direction.'],[25,'Final Handover','Payable upon completion of the agreed work and final handover.']],
+ '40 / 30 / 30':[[40,'Project Kickoff','Payable upon approval of the scope and commencement of the project.'],[30,'Midpoint Review','Payable upon approval at the midpoint review.'],[30,'Delivery','Payable upon delivery of the final files.']],
+ '100% advance':[[100,'Full Payment in Advance','Payable upon approval of this quotation.']]};
+function schedCopy(k){return SCHED_PRE[k].map(function(r){return{p:r[0],l:r[1],d:r[2]}})}
+function ensureStruct(d){
+  var q=d.type==='quote';
+  if(!d.sections){d.sections=q?[{k:'comm',t:'Commercials',s:'',b:'',a:''}]:[{k:'text',t:'Scope covered',b:''}]}
+  if(!d.sched)d.sched=[];
+  if(d.project==null)d.project='';if(d.place==null)d.place='';if(d.invT==null)d.invT=q?'':'Advance Payment';
+  if(d.breakScope==null)d.breakScope=true;
+  return d}
+function newSections(type){return type==='quote'?QUOTE_DEFAULT.map(tplCopy):[{k:'text',t:'Scope covered',b:'## Professional services for {project}, including:\n- First item\n- Second item'}]}
 function newDoc(type,clientId,lead){
   var s=cfg(),c=clientId?cl(clientId):null;
-  var d={id:uid(),type:type,number:nextNumber(type),clientId:clientId||'',currency:c&&c.region==='International'?'USD':(lead&&lead.currency)||'INR',date:today(),due:addDays(today(),type==='quote'?s.validity:14),status:'Draft',items:[],discount:0,tax:s.tax,notes:'',terms:s.terms,created:Date.now(),_new:true};
-  if(lead){d.notes='For '+lead.name+(lead.company?' ('+lead.company+')':'');var p=s.price.find(function(x){return x.n===lead.interest});if(p)d.items.push({d:p.n,q:1,r:d.currency==='INR'?p.inr:p.usd})}
+  var d={id:uid(),type:type,number:nextNumber(type),clientId:clientId||'',currency:c&&c.region==='International'?'USD':(lead&&lead.currency)||'INR',date:today(),due:addDays(today(),type==='quote'?s.validity:14),status:'Draft',items:[],discount:0,tax:s.tax,notes:'',terms:(s.terms===OLD_TERMS?'':s.terms),project:'',place:c&&c.place?c.place:'',invT:type==='invoice'?'Advance Payment':'',breakScope:true,sections:newSections(type),sched:type==='quote'?schedCopy('50 / 50'):[],created:Date.now(),_new:true};
+  if(lead){d.project=lead.interest||'';var p=s.price.find(function(x){return x.n===lead.interest});if(p)d.items.push({d:p.n,q:1,r:d.currency==='INR'?p.inr:p.usd})}
   window._cdDraft=d;go('doc/new');
 }
 function rDocs(){
@@ -931,16 +1002,77 @@ function rDocs(){
   $$('#docList tr.click').forEach(function(r){r.addEventListener('click',function(e){if(e.target.closest('[data-dup]'))return;go('doc/'+r.getAttribute('data-id'))})});
   $$('#docList [data-dup]').forEach(function(b){b.addEventListener('click',function(){var o=JSON.parse(JSON.stringify(S.docs.find(function(d){return d.id===b.getAttribute('data-dup')})));o.id=uid();o.number=nextNumber(o.type);o.status='Draft';o.date=today();o.created=Date.now();put('docs',o).then(function(){toast('Duplicated as '+o.number);refresh()})})});
 }
+function dmy(v){var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(v||'');return m?m[3]+'.'+m[2]+'.'+m[1]:(v||'')}
+function mt(n,c){return money(Math.round((Number(n)||0)*100)/100,c)}
+function subst(t,d){var c=cl(d.clientId),who=(c&&(c.company||c.name))||'the client';return String(t||'').split('{client}').join(who).split('{project}').join(d.project||'the project')}
+function fmtBody(t){
+  var lines=String(t||'').replace(/\r/g,'').split('\n'),out=[],list=null,para=[];
+  function inl(x){return esc(x).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}
+  function fp(){if(para.length){out.push('<p>'+para.map(inl).join('<br/>')+'</p>');para=[]}}
+  function fl(){if(list){out.push('<'+list.t+'>'+list.i.map(function(x){return '<li>'+inl(x)+'</li>'}).join('')+'</'+list.t+'>');list=null}}
+  lines.forEach(function(L){var m;
+    if(!L.trim()){fp();fl();return}
+    if((m=/^\s*[-*\u2022]\s+(.*)$/.exec(L))){fp();if(!list||list.t!=='ul'){fl();list={t:'ul',i:[]}}list.i.push(m[1]);return}
+    if((m=/^\s*\d+[.)]\s+(.*)$/.exec(L))){fp();if(!list||list.t!=='ol'){fl();list={t:'ol',i:[]}}list.i.push(m[1]);return}
+    if((m=/^##\s+(.*)$/.exec(L))){fp();fl();out.push('<div class="sub">'+inl(m[1])+'</div>');return}
+    fl();para.push(L)});
+  fp();fl();return out.join('')}
+function addrLines(s){return String(s.address||'').split('\n').map(function(x){return x.trim()}).filter(Boolean)}
+function lhHtml(s){var a=addrLines(s).join(' '),ph=s.phone?'M: '+String(s.phone).replace(/^\+/,''):'';
+  return '<div class="lh"><img src="assets/letterhead-logo.png" alt="'+esc(s.name)+'"/>'+((a||ph)?'<div class="lh-addr">'+esc([a,ph].filter(Boolean).join(' | '))+'</div>':'')+'<div class="lh-rule"></div></div>'}
+function lfHtml(s){return '<div class="lf"><div>'+esc([s.email,s.web].filter(Boolean).join(' | '))+'</div>'+(s.footerLinks?'<div>'+esc(s.footerLinks)+'</div>':'')+'</div>'}
+function itemsTable(d,first,lastLabel,boldRows){
+  var t=calc(d),items=d.items||[],simple=items.every(function(i){return Number(i.q)===1});
+  var th=simple?'<th>'+first+'</th><th class="r">Amount</th>':'<th>'+first+'</th><th class="r">Qty</th><th class="r">Rate</th><th class="r">Amount</th>';
+  var rows=items.map(function(i){var am=(Number(i.q)||0)*(Number(i.r)||0);return simple?'<tr><td'+(boldRows?' class="b"':'')+'>'+esc(i.d)+'</td><td class="am">'+mt(am,d.currency)+'</td></tr>':'<tr><td'+(boldRows?' class="b"':'')+'>'+esc(i.d)+'</td><td class="r">'+esc(i.q)+'</td><td class="r">'+mt(i.r,d.currency)+'</td><td class="am">'+mt(am,d.currency)+'</td></tr>'}).join('')||'<tr><td colspan="'+(simple?2:4)+'" style="color:#999">Add line items on the left</td></tr>';
+  var span=simple?1:3;function ex(l,v){return '<tr><td'+(simple?'':' colspan="3"')+' class="'+(simple?'':'r ')+'">'+l+'</td><td class="am'+(simple?'':' r')+'">'+v+'</td></tr>'}
+  var extra='';if(t.disc||t.tax){extra+=ex('Subtotal',mt(t.sub,d.currency));if(t.disc)extra+=ex('Discount ('+esc(d.discount)+'%)','-'+mt(t.disc,d.currency));if(t.tax)extra+=ex('Tax ('+esc(d.tax)+'%)',mt(t.tax,d.currency))}
+  var red=boldRows?' red':'';
+  var tot='<tr class="tl'+red+'"><td'+(simple?'':' colspan="3"')+(boldRows?' class="b"':'')+'>'+lastLabel+'</td><td class="am'+(simple?'':' r')+'">'+mt(t.total,d.currency)+'</td></tr>';
+  return '<table class="dtab"><thead><tr>'+th+'</tr></thead><tbody>'+rows+extra+tot+'</tbody></table>'}
+function sigHtml(s,withCo){return '<div class="sig">'+(s.signature?'<img src="'+esc(s.signature)+'" alt=""/>':'<div class="gap"></div>')+(s.signName?'<div class="n">'+esc(s.signName)+'</div>':'')+(s.signTitle?'<div>'+esc(s.signTitle)+'</div>':'')+(withCo?'<div>'+esc(s.name)+'</div>':'')+'</div>'}
+function secsHtml(d,numbered,s){
+  var n=0,t=calc(d),secs=(d.sections||[]).filter(function(x){return x.k!=='text'||String(x.b||'').trim()||x.t}),out=[];
+  secs.forEach(function(sc,idx){
+    var hd=function(){if(numbered){n++;return '<div class="sh">'+n+'. '+esc(sc.t)+'</div>'}return '<div class="sh">'+esc(sc.t)+(/[:?]$/.test(sc.t)?'':':')+'</div>'};
+    var body='';
+    if(sc.k==='comm'){body=hd()+(sc.s?'<div class="sub">'+esc(sc.s)+'</div>':'')+'<div class="bigamt">'+mt(t.total,d.currency)+'</div>'+fmtBody(subst(sc.b,d))+itemsTable(d,'Breakup','Total Project Fee',true)+fmtBody(subst(sc.a,d))}
+    else if(sc.k==='sched'){body=hd()+fmtBody(subst(sc.b,d))+(d.sched||[]).map(function(r){return '<div class="sub">'+esc(r.p)+'% - '+esc(r.l)+' - '+mt(t.total*(Number(r.p)||0)/100,d.currency)+'</div>'+(r.d?'<p>'+esc(r.d)+'</p>':'')}).join('')}
+    else{if(!String(sc.b||'').trim())return;body=hd()+fmtBody(subst(sc.b,d))}
+    out.push('<div class="sec">'+body+'</div>');
+    if(numbered&&idx<secs.length-1)out.push('<div class="srule"></div>')});
+  return out.join('')}
+function payModeHtml(s,d){
+  var li=[];if(s.upi)li.push('<li><b>GPay/UPI:</b><ul><li>'+esc(s.upi)+'</li></ul></li>');
+  var b=[];if(s.bankName)b.push('Account name - '+s.bankName);if(s.bankAcc)b.push('Account number \u2013 '+s.bankAcc);if(s.bankIfsc)b.push('IFSC Code: '+s.bankIfsc);if(s.bankBank)b.push('Bank \u2013 '+s.bankBank);if(s.bankBranch)b.push('Branch \u2013 '+s.bankBranch);
+  if(b.length)li.push('<li><b>Bank Transfer / Wire / Cash Deposit / Cheque Deposit:</b><ul>'+b.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></li>');
+  var note=(s.payment&&s.payment!==OLD_PAY)?'<p>'+esc(s.payment)+'</p>':'';
+  if(!li.length&&!note)return '';
+  return '<div class="pm keep"><div class="dh2">Payment Mode:</div>'+(li.length?'<ul>'+li.join('')+'</ul>':'')+note+'</div>'}
 function docHtml(d){
-  var s=cfg(),c=cl(d.clientId),t=calc(d),isQ=d.type==='quote';
-  var rows=(d.items||[]).map(function(i){return '<tr><td>'+esc(i.d)+'</td><td style="text-align:right">'+esc(i.q)+'</td><td style="text-align:right">'+money(i.r,d.currency)+'</td><td style="text-align:right">'+money((Number(i.q)||0)*(Number(i.r)||0),d.currency)+'</td></tr>'}).join('')||'<tr><td colspan="4" style="color:#888">Add line items on the left</td></tr>';
-  var stamp=(d.status==='Paid'||d.status==='Accepted')?'<div class="stamp">'+esc(d.status)+'</div>':'';
-  return '<div class="dh"><div><div class="dl"><img src="'+LOGO+'" alt=""/>'+esc(s.name)+'</div><div style="margin-top:10px;color:#555;font-size:12px">'+esc(s.owner)+'<br/>'+esc(s.location)+'<br/>'+esc(s.email)+' · '+esc(s.phone)+'<br/>'+esc(s.web)+'</div></div><div class="meta"><h1>'+(isQ?'Quote':'Invoice')+'</h1><b>'+esc(d.number)+'</b><br/>Date: '+fmtDate(d.date)+'<br/>'+(isQ?'Valid until: ':'Due: ')+fmtDate(d.due)+stamp+'</div></div>'
-   +'<div class="two"><div><div class="lab">'+(isQ?'Prepared for':'Billed to')+'</div><b>'+esc(c?c.name:'Select a client')+'</b>'+(c&&c.company?'<br/>'+esc(c.company):'')+(c&&c.email?'<br/>'+esc(c.email):'')+'</div><div><div class="lab">Currency</div><b>'+(d.currency==='INR'?'Indian rupees (INR)':'US dollars (USD)')+'</b></div></div>'
-   +'<table><thead><tr><th style="text-align:left">Description</th><th style="text-align:right">Qty</th><th style="text-align:right">Rate</th><th style="text-align:right">Amount</th></tr></thead><tbody>'+rows+'</tbody></table>'
-   +'<div class="tot"><div><span>Subtotal</span><span>'+money(t.sub,d.currency)+'</span></div>'+(t.disc?'<div><span>Discount ('+d.discount+'%)</span><span>-'+money(t.disc,d.currency)+'</span></div>':'')+(t.tax?'<div><span>Tax ('+d.tax+'%)</span><span>'+money(t.tax,d.currency)+'</span></div>':'')+'<div class="g"><span>Total</span><span>'+money(t.total,d.currency)+'</span></div></div>'
-   +(d.notes?'<div class="note"><div class="lab">Notes</div>'+esc(d.notes)+'</div>':'')+(d.terms?'<div class="note"><div class="lab">Terms</div>'+esc(d.terms)+'</div>':'')+'<div class="note"><div class="lab">Payment</div>'+esc(s.payment)+'</div>';
-}
+  d=ensureStruct(d);var s=cfg(),c=cl(d.clientId),isQ=d.type==='quote',co=c?(c.company||''):'',nm=c?c.name:'Select a client';
+  var place=d.place||'',out=[];
+  var stamp=(d.status==='Paid'||d.status==='Accepted')?'<div class="stampw"><span class="stamp">'+esc(d.status)+'</span></div>':'';
+  if(isQ){
+    out.push('<div class="dt">Quotation</div><div class="dm"><b>Date:</b> '+dmy(d.date)+'</div>'+(d.project?'<div class="dm"><b>For:</b> '+esc(d.project)+'</div>':'')+(d.due?'<div class="dm"><b>Valid until:</b> '+dmy(d.due)+'</div>':'')+stamp);
+    out.push('<div class="to"><b>To,</b><br/>'+(c?esc(nm)+',':'<span style="color:#999">Select a client</span>')+(co||place?'<br/>'+esc([co,place].filter(Boolean).join(', ')):'')+'</div><div class="srule"></div>');
+    out.push(secsHtml(d,true,s));
+    if(d.notes)out.push('<div class="srule"></div><div class="sec"><div class="sh">Notes</div>'+fmtBody(d.notes)+'</div>');
+    if(d.terms)out.push('<div class="srule"></div><div class="sec"><div class="sh">Terms</div>'+fmtBody(d.terms)+'</div>');
+    out.push('<div class="keep"><div class="thanks q">'+esc(s.thankQuote)+'</div>'+sigHtml(s,false)+'</div>');
+  }else{
+    out.push('<div class="dt inv">Invoice</div>'+stamp);
+    out.push('<div class="dd">'+(d.invT?'<div><b>Invoice Type:</b> '+esc(d.invT)+'</div>':'')+'<div><b>Invoice Date:</b> '+dmy(d.date)+'</div>'+(d.due?'<div><b>Due Date:</b> '+dmy(d.due)+'</div>':'')+'<div><b>Invoice No.:</b> '+esc(d.number)+'</div>'+(d.project?'<div><b>Project:</b> '+esc(d.project)+'</div>':'')+'</div>');
+    var al=addrLines(s);
+    out.push('<div class="dh2">From,</div><div class="adr"><b>'+esc(s.name)+'</b>'+al.map(function(x){return '<br/>'+esc(x)}).join('')+(s.phone?'<br/>M: '+esc(s.phone):'')+'<br/><a>'+esc(s.email)+'</a> | <a>'+esc(s.web)+'</a></div>');
+    out.push('<div class="dh2">Bill To,</div><div class="adr">'+(c?esc(co||nm)+',':'<span style="color:#999">Select a client</span>')+(place?'<br/>'+esc(place):'')+'</div>');
+    out.push('<div class="dh2">Payment Summary:</div>'+itemsTable(d,'Description','Total',false));
+    var det=secsHtml(d,false,s),pm=payModeHtml(s,d);
+    if(d.notes)det+='<div class="sec"><div class="sh">Notes</div>'+fmtBody(d.notes)+'</div>';
+    if(d.terms)det+='<div class="sec"><div class="sh">Terms</div>'+fmtBody(d.terms)+'</div>';
+    out.push('<div class="'+((d.breakScope!==false&&(det||pm))?'pgb':'')+'">'+det+pm+'<div class="keep"><div class="thanks">'+esc(s.thankInvoice)+'</div>'+sigHtml(s,true)+'</div></div>');
+  }
+  return out.join('')}
 var TERM_SCHED=[['100% in advance','Full payment in advance.'],['50% / 50%','50% in advance, 50% on delivery.'],['40 / 30 / 30','40% at kickoff, 30% at the midpoint, 30% on delivery.'],['100% on delivery','Full payment on delivery.']];
 var TERM_EXTRA=[['Two review rounds','Two review rounds are included.'],['Files on full payment','Final files transfer to the client on full payment.'],['Due in 14 days','Payment is due within 14 days of the invoice date.'],['Pause on late payment','Work may pause until overdue payments are cleared.']];
 function termsPickHtml(){function g(lb,list){return '<div class="tpick"><span class="lb">'+lb+'</span>'+list.map(function(t){return '<label class="tchk"><input type="checkbox" data-t="'+esc(t[1])+'" data-g="'+(list===TERM_SCHED?'s':'e')+'"/>'+esc(t[0])+'</label>'}).join('')+'</div>'}
@@ -958,19 +1090,27 @@ function bindTerms(sync){
     ta.value=v;paint();sync()})});
   ta.addEventListener('input',paint);paint();
 }
+function pageHtml(d,forPrint){var s=cfg();if(forPrint)return '<div class="dpage"><table class="ptab"><thead><tr><td>'+lhHtml(s)+'</td></tr></thead><tbody><tr><td>'+docHtml(d)+'</td></tr></tbody><tfoot><tr><td>'+lfHtml(s)+'</td></tr></tfoot></table></div>';return '<div class="dpage" id="dpage">'+lhHtml(s)+docHtml(d)+lfHtml(s)+'</div>'}
+function zoomPrev(){var box=document.getElementById('docPrev'),pg=document.getElementById('dpage');if(!box||!pg)return;var w=box.clientWidth;if(w>0)pg.style.zoom=(w/794).toFixed(4)}
+function schedAmts(){var t=calc(D);$$('#dSched [data-sa]').forEach(function(e){var r=D.sched[+e.getAttribute('data-sa')];e.textContent=r?mt(t.total*(Number(r.p)||0)/100,D.currency):''});var sum=(D.sched||[]).reduce(function(a,r){return a+(Number(r.p)||0)},0),el=document.getElementById('dSchedSum');if(el){el.textContent=D.sched.length?(sum===100?'Adds up to 100%':'Adds up to '+sum+'%, not 100%'):'No milestones yet';el.className=sum===100||!D.sched.length?'faint':'warnt'}}
+function paintPrev(){var box=$('#docPrev');if(!box)return;box.innerHTML=pageHtml(D);zoomPrev();schedAmts()}
+window.addEventListener('resize',zoomPrev);
 function printPrep(){
   var root=document.getElementById('printRoot');if(!root){root=document.createElement('div');root.id='printRoot';document.body.appendChild(root)}
-  root.innerHTML='<div class="doc-prev">'+docHtml(D)+'</div>';
-  var c=cl(D.clientId),old=document.title;document.title=(D.number+(c?' - '+c.name:'')).replace(/[\\\/:*?"<>|]/g,'-');
+  var ps=document.getElementById('pgStyle');if(!ps){ps=document.createElement('style');ps.id='pgStyle';document.head.appendChild(ps)}
+  ps.textContent='@page{size:'+(cfg().paper==='Letter'?'Letter':'A4')+';margin:10mm 22mm 10mm 22mm}';
+  root.innerHTML=pageHtml(D,true);
+  var c=cl(D.clientId),old=document.title;document.title=(D.number+(c?' - '+(c.company||c.name):'')).replace(/[\\\/:*?"<>|]/g,'-');
   function done(){document.title=old;root.innerHTML='';window.removeEventListener('afterprint',done)}
   window.addEventListener('afterprint',done);
-}
-function printDoc(){printPrep();setTimeout(function(){window.print()},80)}
+  return Promise.all([].slice.call(root.querySelectorAll('img')).map(function(im){return im.complete?1:new Promise(function(r){im.onload=im.onerror=r})}))}
+function printDoc(){printPrep().then(function(){setTimeout(function(){window.print()},60)})}
 var D=null;
 function rDoc(){
   var arg=cur.arg;
   if(arg==='new'){D=window._cdDraft||null;if(!D){go('docs');return}}
   else{var f=S.docs.find(function(x){return x.id===arg});if(!f){go('docs');return}D=JSON.parse(JSON.stringify(f))}
+  ensureStruct(D);
   var isQ=D.type==='quote';
   $('#docEyebrow').textContent=isQ?'Quote':'Invoice';$('#docTitle').textContent=(D._new?'New ':'')+(isQ?'quote':'invoice')+(D._new?'':' '+D.number);
   var stat=isQ?['Draft','Sent','Accepted','Declined']:['Draft','Unpaid','Paid','Cancelled'];
@@ -978,31 +1118,66 @@ function rDoc(){
     +'<div class="field"><label>Number</label><input class="input" id="dNum" value="'+esc(D.number)+'"/></div>'
     +'<div class="field"><label>Status</label><select class="select" id="dStat">'+stat.map(function(x){return '<option'+(x===D.status?' selected':'')+'>'+x+'</option>'}).join('')+'</select></div>'
     +'<div class="field full"><label>Client</label><div class="row" style="flex-wrap:nowrap"><select class="select" id="dClient" style="flex:1">'+clOptions(D.clientId,'Select a client')+'</select><button class="btn" id="dNewClient" type="button">'+ic('plus')+'New</button></div></div>'
+    +'<div class="field full"><label>'+(isQ?'For (project name)':'Project')+'</label><input class="input" id="dProj" value="'+esc(D.project)+'" placeholder="e.g. Website UX and UI Design"/></div>'
+    +'<div class="field full"><label>Client city and country</label><input class="input" id="dPlace" value="'+esc(D.place)+'" placeholder="e.g. Mumbai, India"/></div>'
+    +(isQ?'':'<div class="field full"><label>Invoice type</label><input class="input" id="dInvT" list="invTypes" value="'+esc(D.invT)+'" placeholder="e.g. Advance Payment"/><datalist id="invTypes"><option>Advance Payment</option><option>Milestone Payment</option><option>Balance Payment</option><option>Final Payment</option><option>Full Payment</option></datalist></div>')
     +'<div class="field"><label>Currency</label><select class="select" id="dCur"><option value="INR"'+(D.currency==='INR'?' selected':'')+'>INR (\u20b9) India</option><option value="USD"'+(D.currency==='USD'?' selected':'')+'>USD ($) International</option></select></div>'
     +'<div class="field"><label>Date</label><input class="input" id="dDate" type="date" value="'+esc(D.date)+'"/></div>'
     +'<div class="field"><label>'+(isQ?'Valid until':'Due date')+'</label><input class="input" id="dDue" type="date" value="'+esc(D.due)+'"/></div>'
     +'<div class="field"><label>Discount %</label><input class="input" id="dDisc" type="number" min="0" step="any" value="'+esc(D.discount)+'"/></div>'
     +'<div class="field"><label>Tax or GST %</label><input class="input" id="dTax" type="number" min="0" step="any" value="'+esc(D.tax)+'"/></div></div></div>'
     +'<div class="card"><div class="card-hd" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-4)"><h5 style="margin:0">Line items</h5><div class="row"><select class="select" id="dPick" style="width:230px"><option value="">Add from price list</option>'+cfg().price.map(function(p,i){return '<option value="'+i+'">'+esc(p.n)+'</option>'}).join('')+'</select><button class="btn" id="dAddLine" type="button">'+ic('plus')+'Custom line</button></div></div><div class="doc-lines" id="dLines"></div></div>'
-    +'<div class="card"><div class="form-grid"><div class="field full"><label>Notes</label><textarea class="textarea" id="dNotes" placeholder="Scope, timeline, what is included">'+esc(D.notes)+'</textarea></div><div class="field full"><label>Terms</label><div id="dTermsPick"></div><textarea class="textarea" id="dTerms">'+esc(D.terms)+'</textarea></div></div></div>';
+    +'<div class="card"><div class="card-hd" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-3);gap:12px;flex-wrap:wrap"><h5 style="margin:0">'+(isQ?'Quotation sections':'Scope and details')+'</h5><select class="select" id="dSecAdd" style="width:230px"><option value="">Add a section</option>'+SEC_TPL.map(function(t){return '<option>'+esc(t.n)+'</option>'}).join('')+'</select></div><p class="faint" style="font-size:var(--fs-sm);margin:0 0 var(--sp-3)">'+(isQ?'Sections are numbered automatically, in this order.':'These print after the payment summary.')+' Write a blank line for a new paragraph, <b>-</b> at the start of a line for a bullet, <b>## </b> for a sub-heading, <b>**text**</b> for bold. <b>{client}</b> and <b>{project}</b> fill in automatically.</p><div id="dSecs"></div>'+(isQ?'':'<label class="tchk" style="margin-top:4px"><input type="checkbox" id="dBreak"'+(D.breakScope!==false?' checked':'')+'/>Start these details on a new page</label>')+'</div>'
+    +(isQ?'<div class="card"><div class="card-hd" style="margin-bottom:var(--sp-3)"><h5 style="margin:0">Payment schedule</h5></div><div class="presets" id="dSchedPre">'+Object.keys(SCHED_PRE).map(function(k){return '<button class="btn btn--sm" type="button" data-pre="'+esc(k)+'">'+esc(k)+'</button>'}).join('')+'</div><div id="dSched"></div><div class="row" style="justify-content:space-between;margin-top:6px"><button class="btn btn--sm" type="button" id="dSchedAdd">'+ic('plus')+'Add milestone</button><span id="dSchedSum" class="faint" style="font-size:var(--fs-sm)"></span></div></div>':'')
+    +'<div class="card"><h5 style="margin:0 0 var(--sp-3)">Notes and terms (optional)</h5><div class="form-grid"><div class="field full"><label>Notes</label><textarea class="textarea" id="dNotes" placeholder="Scope, timeline, what is included">'+esc(D.notes)+'</textarea></div><div class="field full"><label>Terms</label><div id="dTermsPick"></div><textarea class="textarea" id="dTerms">'+esc(D.terms)+'</textarea></div></div></div>';
   var acts='<a class="btn btn--ghost" href="#/docs">Back</a>';
   if(!D._new)acts+='<button class="btn btn--ghost btn--icon" id="dDel" aria-label="Delete">'+ic('trash')+'</button>';
   if(isQ&&!D._new)acts+='<button class="btn" id="dConv">To invoice</button>';
   acts+='<button class="btn" id="dPrint">'+ic('print')+'Print or PDF</button><button class="btn btn--primary" id="dSave">Save</button>';
   $('#docActions').innerHTML=acts;
-  paintLines();paintPrev();
-  function sync(){D.number=$('#dNum').value;D.status=$('#dStat').value;D.clientId=$('#dClient').value;D.currency=$('#dCur').value;D.date=$('#dDate').value;D.due=$('#dDue').value;D.discount=$('#dDisc').value;D.tax=$('#dTax').value;D.notes=$('#dNotes').value;D.terms=$('#dTerms').value;paintPrev()}
-  $$('#docForm input,#docForm textarea,#docForm select').forEach(function(el){if(el.id!=='dPick'&&el.id!=='dClient'&&el.id!=='dCur')el.addEventListener('input',sync)});
-  $('#dClient').addEventListener('change',function(){var c=cl(this.value);if(c){$('#dCur').value=c.region==='International'?'USD':'INR';repriceLines()}sync()});
+  secsPaint();schedPaint();paintLines();paintPrev();
+  function sync(){D.number=$('#dNum').value;D.status=$('#dStat').value;D.clientId=$('#dClient').value;D.currency=$('#dCur').value;D.date=$('#dDate').value;D.due=$('#dDue').value;D.discount=$('#dDisc').value;D.tax=$('#dTax').value;D.notes=$('#dNotes').value;D.terms=$('#dTerms').value;D.project=$('#dProj').value;D.place=$('#dPlace').value;var it_=$('#dInvT');if(it_)D.invT=it_.value;var bk_=$('#dBreak');if(bk_)D.breakScope=bk_.checked;paintPrev()}
+  $$('#docForm input,#docForm textarea,#docForm select').forEach(function(el){if(el.id!=='dPick'&&el.id!=='dClient'&&el.id!=='dCur'&&el.id!=='dSecAdd')el.addEventListener('input',sync)});
+  $('#dClient').addEventListener('change',function(){var c=cl(this.value);if(c){$('#dCur').value=c.region==='International'?'USD':'INR';if(c.place)$('#dPlace').value=c.place;repriceLines()}sync()});
   $('#dCur').addEventListener('change',function(){repriceLines();sync()});
-  $('#dNewClient').addEventListener('click',function(){formModal({title:'New client',fields:[{k:'name',l:'Contact name',req:true},{k:'company',l:'Company'},{k:'email',l:'Email',t:'email'},{k:'region',l:'Region',t:'select',opts:['India','International'],d:'India'}],onSave:function(v){var o=Object.assign({id:uid(),status:'Active',created:Date.now()},v);return put('clients',o).then(function(){log('Added client '+o.name);$('#dClient').innerHTML=clOptions(o.id,'Select a client');$('#dCur').value=o.region==='International'?'USD':'INR';repriceLines();sync()})}})});
+  $('#dNewClient').addEventListener('click',function(){formModal({title:'New client',fields:[{k:'name',l:'Contact name',req:true},{k:'company',l:'Company'},{k:'place',l:'City, country (shown on documents)'},{k:'email',l:'Email',t:'email'},{k:'region',l:'Region',t:'select',opts:['India','International'],d:'India'}],onSave:function(v){var o=Object.assign({id:uid(),status:'Active',created:Date.now()},v);return put('clients',o).then(function(){log('Added client '+o.name);$('#dClient').innerHTML=clOptions(o.id,'Select a client');$('#dCur').value=o.region==='International'?'USD':'INR';if(o.place)$('#dPlace').value=o.place;repriceLines();sync()})}})});
   $('#dPick').addEventListener('change',function(){if(this.value==='')return;var p=cfg().price[+this.value];D.items.push({d:p.n,q:1,r:D.currency==='INR'?p.inr:p.usd,pid:+this.value});this.value='';paintLines();paintPrev()});
   $('#dAddLine').addEventListener('click',function(){D.items.push({d:'',q:1,r:0});paintLines();paintPrev()});
   $('#dPrint').addEventListener('click',printDoc);
-  bindTerms(sync);
+  bindTerms(sync);bindSecs();
   $('#dSave').addEventListener('click',function(){sync();var o=Object.assign({},D);delete o._new;put('docs',o).then(function(){D=o;window._cdDraft=null;log('Saved '+(isQ?'quote ':'invoice ')+o.number);toast('Saved '+o.number);go('doc/'+o.id)})});
   var dd=$('#dDel');if(dd)dd.addEventListener('click',function(){confirmBox('Delete '+D.number+'?').then(function(y){if(y)del('docs',D.id).then(function(){log('Deleted '+D.number);go('docs')})})});
-  var cv=$('#dConv');if(cv)cv.addEventListener('click',function(){sync();var o=JSON.parse(JSON.stringify(D));o.id=uid();o.type='invoice';o.number=nextNumber('invoice');o.status='Draft';o.date=today();o.due=addDays(today(),14);o.created=Date.now();delete o._new;put('docs',o).then(function(){log('Invoice '+o.number+' created from '+D.number);toast('Created '+o.number);go('doc/'+o.id)})});
+  var cv=$('#dConv');if(cv)cv.addEventListener('click',function(){sync();var o=JSON.parse(JSON.stringify(D));var sw=(D.sections||[]).filter(function(x){return x.t==='Scope of Work'})[0];o.sections=[{k:'text',t:'Scope covered',b:sw?sw.b:'## Professional services for {project}, including:\n- First item\n- Second item'}];o.sched=[];o.invT='Advance Payment';o.breakScope=true;o.id=uid();o.type='invoice';o.number=nextNumber('invoice');o.status='Draft';o.date=today();o.due=addDays(today(),14);o.created=Date.now();delete o._new;put('docs',o).then(function(){log('Invoice '+o.number+' created from '+D.number);toast('Created '+o.number);go('doc/'+o.id)})});
+}
+function secsPaint(){
+  var el=$('#dSecs');if(!el)return;
+  el.innerHTML=D.sections.length?D.sections.map(function(sc,i){
+    var top='<div class="se-top"><input class="input" data-si="'+i+'" data-sf="t" value="'+esc(sc.t)+'" placeholder="Section title"/><div class="row" style="gap:4px;flex:none"><button class="btn btn--ghost btn--icon btn--sm" type="button" data-sm="'+i+'" data-d="-1" aria-label="Move up">\u2191</button><button class="btn btn--ghost btn--icon btn--sm" type="button" data-sm="'+i+'" data-d="1" aria-label="Move down">\u2193</button><button class="btn btn--ghost btn--icon btn--sm" type="button" data-sr="'+i+'" aria-label="Remove section">'+ic('x')+'</button></div></div>';
+    var body='';
+    if(sc.k==='comm')body='<div class="field"><label>Engagement name (shown above the amount)</label><input class="input" data-si="'+i+'" data-sf="s" value="'+esc(sc.s||'')+'" placeholder="e.g. Complete Website Engagement"/></div><div class="field" style="margin-top:10px"><label>Text under the amount</label><textarea class="textarea" data-si="'+i+'" data-sf="b">'+esc(sc.b||'')+'</textarea></div><div class="field" style="margin-top:10px"><label>Text after the breakup table</label><textarea class="textarea" data-si="'+i+'" data-sf="a">'+esc(sc.a||'')+'</textarea></div><p class="field-hint">The total and the breakup table come from Line items above.</p>';
+    else if(sc.k==='sched')body='<p class="field-hint" style="margin:0">Uses the Payment schedule card below.</p>';
+    else body='<textarea class="textarea" data-si="'+i+'" data-sf="b" rows="7">'+esc(sc.b||'')+'</textarea>';
+    return '<div class="sec-ed">'+top+body+'</div>'}).join(''):'<p class="faint" style="font-size:var(--fs-sm)">No sections yet. Use Add a section above.</p>';
+}
+function schedPaint(){
+  var el=$('#dSched');if(!el)return;
+  el.innerHTML=D.sched.map(function(r,i){return '<div class="sc-item"><div class="sc-top"><input class="input" type="number" min="0" max="100" step="any" data-ri="'+i+'" data-rf="p" value="'+esc(r.p)+'" aria-label="Percent"/><input class="input" data-ri="'+i+'" data-rf="l" value="'+esc(r.l)+'" placeholder="Milestone name"/><span class="sc-amt" data-sa="'+i+'"></span><button class="btn btn--ghost btn--icon btn--sm" type="button" data-rr="'+i+'" aria-label="Remove milestone">'+ic('x')+'</button></div><textarea class="textarea" rows="2" data-ri="'+i+'" data-rf="d" placeholder="When it is payable">'+esc(r.d||'')+'</textarea></div>'}).join('')||'<p class="faint" style="font-size:var(--fs-sm)">No milestones yet. Pick a preset above or add one.</p>';
+  schedAmts();
+}
+function bindSecs(){
+  var sc=$('#dSecs');
+  if(sc){
+    sc.addEventListener('input',function(e){var x=e.target,i=x.getAttribute('data-si');if(i==null)return;D.sections[+i][x.getAttribute('data-sf')]=x.value;paintPrev()});
+    sc.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var m=b.getAttribute('data-sm'),r=b.getAttribute('data-sr');
+      if(m!=null){var i=+m,j=i+(+b.getAttribute('data-d'));if(j<0||j>=D.sections.length)return;var t=D.sections[i];D.sections[i]=D.sections[j];D.sections[j]=t;secsPaint();paintPrev()}
+      else if(r!=null){D.sections.splice(+r,1);secsPaint();paintPrev()}})}
+  var add=$('#dSecAdd');if(add)add.addEventListener('change',function(){if(!this.value)return;var o=tplCopy(this.value);this.value='';if(o){D.sections.push(o);secsPaint();paintPrev()}});
+  var sd=$('#dSched');
+  if(sd){
+    sd.addEventListener('input',function(e){var x=e.target,i=x.getAttribute('data-ri');if(i==null)return;var f=x.getAttribute('data-rf');D.sched[+i][f]=f==='p'?(x.value===''?'':Number(x.value)):x.value;paintPrev()});
+    sd.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var r=b.getAttribute('data-rr');if(r!=null){D.sched.splice(+r,1);schedPaint();paintPrev()}})}
+  var pre=$('#dSchedPre');if(pre)pre.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;D.sched=schedCopy(b.getAttribute('data-pre'));schedPaint();paintPrev()});
+  var sa=$('#dSchedAdd');if(sa)sa.addEventListener('click',function(){D.sched.push({p:'',l:'',d:''});schedPaint();paintPrev()});
 }
 function repriceLines(){var cur_=$('#dCur').value;D.currency=cur_;D.items.forEach(function(i){if(i.pid!=null){var p=cfg().price[i.pid];if(p)i.r=cur_==='INR'?p.inr:p.usd}});paintLines();paintPrev()}
 function lineAmt(i){var a=(Number(i.q)||0)*(Number(i.r)||0);return Math.round(a*100)/100}
@@ -1019,7 +1194,6 @@ function paintLines(){
     paintPrev()})});
   $$('#dLines [data-rm]').forEach(function(b){b.addEventListener('click',function(){D.items.splice(+b.getAttribute('data-rm'),1);paintLines();paintPrev()})});
 }
-function paintPrev(){$('#docPrev').innerHTML=docHtml(D)}
 
 /* ============ PORTFOLIO + BRAND ============ */
 function pfSend(){var f=$('#pfFrame');if(!f||!f.contentWindow||!f.getAttribute('data-ready'))return;try{f.contentWindow.postMessage({cdw:1,panel:cur.p==='pf'?cur.arg:null,theme:document.documentElement.getAttribute('data-theme')},'*')}catch(e){}}
@@ -1245,6 +1419,16 @@ function rSettings(){
   $('#profForm').innerHTML=F.map(function(f){return '<div class="field"><label>'+f[1]+'</label><input class="input" data-k="'+f[0]+'" value="'+esc(s[f[0]])+'"/></div>'}).join('')
     +'<div class="field full"><label>Payment details on documents</label><textarea class="textarea" data-k="payment">'+esc(s.payment)+'</textarea></div><div class="field full"><label>Default terms</label><textarea class="textarea" data-k="terms">'+esc(s.terms)+'</textarea></div>'
     +'<div class="field"><label>Quote prefix</label><input class="input" data-k="qPrefix" value="'+esc(s.qPrefix)+'"/></div><div class="field"><label>Invoice prefix</label><input class="input" data-k="iPrefix" value="'+esc(s.iPrefix)+'"/></div><div class="field"><label>Quote valid for (days)</label><input class="input" type="number" data-k="validity" value="'+esc(s.validity)+'"/></div><div class="field"><label>Default tax or GST %</label><input class="input" type="number" step="any" data-k="tax" value="'+esc(s.tax)+'"/></div>';
+  $('#profForm').insertAdjacentHTML('beforeend','<div class="field full" style="margin-top:var(--sp-4)"><h5 style="margin:0">Letterhead, payment and signature (quotes and invoices)</h5><p class="faint" style="font-size:var(--fs-sm);margin:6px 0 0">Used on every quote and invoice. Kept in your private workspace only, never in the public website files. <label class="btn btn--sm" style="margin-left:6px;cursor:pointer">Fill from a details file<input type="file" id="detFile" accept=".json" hidden/></label></p></div>'
+    +'<div class="field full"><label>Address (one line per row, shown in the letterhead and under From)</label><textarea class="textarea" rows="3" data-k="address">'+esc(s.address)+'</textarea></div>'
+    +'<div class="field"><label>UPI ID</label><input class="input" data-k="upi" value="'+esc(s.upi)+'"/></div><div class="field"><label>Bank account name</label><input class="input" data-k="bankName" value="'+esc(s.bankName)+'"/></div>'
+    +'<div class="field"><label>Account number</label><input class="input" data-k="bankAcc" value="'+esc(s.bankAcc)+'" autocomplete="off"/></div><div class="field"><label>IFSC code</label><input class="input" data-k="bankIfsc" value="'+esc(s.bankIfsc)+'"/></div>'
+    +'<div class="field"><label>Bank</label><input class="input" data-k="bankBank" value="'+esc(s.bankBank)+'"/></div><div class="field"><label>Branch</label><input class="input" data-k="bankBranch" value="'+esc(s.bankBranch)+'"/></div>'
+    +'<div class="field"><label>Signature name</label><input class="input" data-k="signName" value="'+esc(s.signName)+'" placeholder="e.g. Ms Tanvi Shah"/></div><div class="field"><label>Signature title</label><input class="input" data-k="signTitle" value="'+esc(s.signTitle)+'" placeholder="e.g. Creative Head Designer"/></div>'
+    +'<div class="field full"><label>Signature image</label><input type="hidden" data-k="signature" value="'+esc(s.signature)+'"/><div class="row"><img id="sigPrev" alt="" style="height:54px;border:1px solid var(--border);border-radius:8px;background:#fff;padding:4px;'+(s.signature?'':'display:none')+'" src="'+esc(s.signature)+'"/><label class="btn btn--sm" style="cursor:pointer">Upload signature<input type="file" id="sigFile" accept="image/*" hidden/></label><button class="btn btn--ghost btn--sm" type="button" id="sigClear">Remove</button></div></div>'
+    +'<div class="field full"><label>Footer links line</label><input class="input" data-k="footerLinks" value="'+esc(s.footerLinks)+'" placeholder="Behance | Dribbble | Instagram | Twitter | YouTube | Reddit"/></div>'
+    +'<div class="field"><label>Closing line, invoices</label><input class="input" data-k="thankInvoice" value="'+esc(s.thankInvoice)+'"/></div><div class="field"><label>Paper size</label><select class="select" data-k="paper"><option'+(s.paper==='A4'?' selected':'')+'>A4</option><option'+(s.paper==='Letter'?' selected':'')+'>Letter</option></select></div>'
+    +'<div class="field full"><label>Closing line, quotations</label><input class="input" data-k="thankQuote" value="'+esc(s.thankQuote)+'"/></div>');
   paintPrice(s.price);
   $('#priceAdd').innerHTML=ic('plus')+'Add item';$('#exportBtn').innerHTML=ic('download')+'Export backup';
   var db=DB!==Local;
@@ -1257,6 +1441,10 @@ function paintPrice(list){
 }
 function readPrice(){var l=[];$$('#priceRows [data-pi]').forEach(function(el){var i=+el.getAttribute('data-pi'),f=el.getAttribute('data-pf');l[i]=l[i]||{n:'',inr:0,usd:0};l[i][f]=f==='n'?el.value:Number(el.value)||0});return l.filter(Boolean)}
 function bindSettings(){
+  $('#profForm').addEventListener('change',function(e){var t=e.target;
+    if(t.id==='sigFile'&&t.files[0]){var fr=new FileReader();fr.onload=function(){var im=new Image();im.onload=function(){var w=Math.min(420,im.width),h=Math.round(im.height*w/im.width),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);var u=c.toDataURL('image/png');$('#profForm [data-k="signature"]').value=u;var p=$('#sigPrev');p.src=u;p.style.display=''};im.src=fr.result};fr.readAsDataURL(t.files[0]);t.value=''}
+    if(t.id==='detFile'&&t.files[0]){var r=new FileReader();r.onload=function(){try{var o=JSON.parse(r.result);o=o.details||o;var n=0;$$('#profForm [data-k]').forEach(function(el){var k=el.getAttribute('data-k');if(o[k]!=null){el.value=o[k];n++}});var u=$('#profForm [data-k="signature"]').value,p=$('#sigPrev');if(u){p.src=u;p.style.display=''}toast('Loaded '+n+' details. Press Save profile to keep them.')}catch(x){toast('That file is not a details file')}};r.readAsText(t.files[0]);t.value=''}});
+  $('#profForm').addEventListener('click',function(e){if(e.target.id==='sigClear'){$('#profForm [data-k="signature"]').value='';var p=$('#sigPrev');p.removeAttribute('src');p.style.display='none'}});
   $('#profSave').addEventListener('click',function(){var s=Object.assign({},S.settings);$$('#profForm [data-k]').forEach(function(el){var k=el.getAttribute('data-k');s[k]=el.type==='number'?Number(el.value):el.value});DB.setSettings(s).then(function(){S.settings=s;toast('Profile saved')}).catch(function(){toast('Save failed')})});
   $('#priceAdd').addEventListener('click',function(){var l=readPrice();l.push({n:'New item',inr:0,usd:0});paintPrice(l)});
   $('#priceSave').addEventListener('click',function(){var s=Object.assign({},S.settings,{price:readPrice().filter(function(p){return p.n})});DB.setSettings(s).then(function(){S.settings=s;toast('Price list saved')}).catch(function(){toast('Save failed')})});

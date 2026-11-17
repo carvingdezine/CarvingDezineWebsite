@@ -158,6 +158,31 @@ DATABASE_URL address, invoices, or client files.
 
 
 ----------------------------------------------------------------
+JOB 7 - Load your invoice and quotation details      (about 3 minutes)
+----------------------------------------------------------------
+
+Your invoices and quotations now follow the layout of your Mobcast
+documents: letterhead and footer on every page, numbered sections, your
+payment details and your signature.
+
+I made a file with your address, UPI, bank details and signature, taken
+from your own invoice: my-letterhead-details.json
+
+IMPORTANT: this file contains your bank account. Keep it on your
+Desktop. Do NOT put it in the website folder or on GitHub.
+
+1. Sign in to the workspace.
+2. Click "Settings" on the left.
+3. Scroll to "Letterhead, payment and signature".
+4. Click "Fill from a details file" and choose my-letterhead-details.json
+5. Check the details, then click "Save profile".
+6. You can now delete the file.
+
+Check: open Quotes and invoices, create an invoice, and the preview on
+the right shows your letterhead, From, Bill To and the payment mode.
+
+
+----------------------------------------------------------------
 LATER - not today
 ----------------------------------------------------------------
 
